@@ -1,0 +1,51 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+$body-font-family: 'Vazir', serif;
+$btn-letter-spacing: 0;
+$tabs-item-letter-spacing: 0;
+$material-dark-elevation-colors: (
+  '0': #160031,
+  '1': #230b41,
+  '2': #250d44,
+  '3': #270f46,
+  '4': #281047,
+  '6': #2b124b,
+  '8': #2d134c,
+  '12': #301650,
+  '16': #321853,
+  '24': #321854
+);
+$material-dark: (
+  'background': #160031,
+  'surface': #160031,
+  'bg-color': #160031,
+  'navigation-drawer': map-get($material-dark-elevation-colors, '16'),
+  'toolbar': map-get($material-dark-elevation-colors, '4'),
+  'app-bar': map-get($material-dark-elevation-colors, '4'),
+  'bottom-navigation': map-get($material-dark-elevation-colors, '8'),
+  'cards': map-get($material-dark-elevation-colors, '4'),
+  'calendar': (
+    'background-color': map-get($material-dark-elevation-colors, '12'),
+    'outside-background-color': map-get($material-dark-elevation-colors, '1'),
+    'line-color': map-get($material-dark-elevation-colors, '16'),
+    'interval-color': map-get($material-dark-elevation-colors, '24'),
+    'interval-line-color': map-get($material-dark-elevation-colors, '12'),
+  ),
+  'picker': (
+    'body': map-get($material-dark-elevation-colors, '16'),
+    'clock': map-get($material-dark-elevation-colors, '16'),
+    'indeterminateTime': map-get($material-dark-elevation-colors, '12'),
+    'title': map-get($material-dark-elevation-colors, '16')
+  ),
+  'table': (
+    'active': map-get($material-dark-elevation-colors, '12'),
+    'hover': map-get($material-dark-elevation-colors, '16'),
+    'group': map-get($material-dark-elevation-colors, '16')
+  ),
+  'chips': map-get($material-dark-elevation-colors, '24')
+);
+$data-table-expanded-content-box-shadow: inset 0px 4px 8px -5px rgba(255, 255, 255, 0.1), inset 0px -4px 8px -5px rgba(255, 255, 255, 0.1) !default;
+$btn-outline-border-width: 2px;
+$border-radius-root: 10px;
+//@import '~vuetify/src/styles/styles.sass';
