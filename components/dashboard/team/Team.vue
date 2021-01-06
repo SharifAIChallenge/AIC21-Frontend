@@ -3,7 +3,7 @@
     <div class="text-center my-3">
       <div style="position: relative">
         <span v-if="editable" class="p-absolute" style="z-index: 1; bottom: 0">
-          <v-btn small fab color="#281047" @click="dialog=true">
+          <v-btn small fab color="#281047" @click="dialog = true">
             <v-icon>mdi-image-edit</v-icon>
           </v-btn>
         </span>
@@ -11,8 +11,12 @@
       </div>
       <div class="mt-6 title">
         <span>
-          <v-icon small class="mb-1" :color="team.is_valid ? 'light-blue' : 'error'">
-            {{ team.is_valid ? 'mdi-check-decagram' : 'mdi-lock' }}
+          <v-icon
+            small
+            class="mb-1"
+            :color="team.is_valid ? 'light-blue' : 'error'"
+          >
+            {{ team.is_valid ? "mdi-check-decagram" : "mdi-lock" }}
           </v-icon>
         </span>
         {{ team.name }}
@@ -20,15 +24,21 @@
     </div>
     <v-list>
       <v-list-item v-for="item in team.participants" :key="item.user.email">
-        <v-list-item-avatar :color="color(item)" class="text-uppercase justify-center"
->
+        <v-list-item-avatar
+          :color="color(item)"
+          class="text-uppercase justify-center"
+        >
           <!--          {{ item.user.profile.firstname_en[0] + item.user.profile.lastname_en[0] }}-->
           <v-icon>mdi-account-circle</v-icon>
         </v-list-item-avatar>
 
         <v-list-item-content>
           <v-list-item-title
-            v-text="item.user.profile.firstname_fa + ' ' + item.user.profile.lastname_fa"
+            v-text="
+              item.user.profile.firstname_fa +
+              ' ' +
+              item.user.profile.lastname_fa
+            "
           />
           <v-list-item-subtitle v-text="item.user.email" />
         </v-list-item-content>
@@ -37,7 +47,7 @@
     <v-dialog v-model="dialog" max-width="320">
       <v-card>
         <v-card-title style="word-break: unset">
-          {{ $t('dashboard.editAvatar') }}
+          {{ $t("dashboard.editAvatar") }}
           <v-spacer />
           <v-btn icon @click="dialog = false">
             <v-icon>mdi-close</v-icon>
@@ -45,7 +55,7 @@
         </v-card-title>
         <v-divider />
         <v-card-text class="pa-3">
-          <edit-avatar :deletable="!!team.image" @close="dialog=false"/>
+          <edit-avatar :deletable="!!team.image" @close="dialog = false" />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -53,9 +63,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import TeamAvatar from './TeamAvatar'
-import EditAvatar from './EditAvatar'
+import { mapState } from "vuex";
+import TeamAvatar from "./TeamAvatar";
+import EditAvatar from "./EditAvatar";
 
 export default {
   components: { EditAvatar, TeamAvatar },
@@ -71,21 +81,24 @@ export default {
   data() {
     return {
       dialog: false,
-    }
+    };
   },
   computed: {
     ...mapState({
-      colors: state => state.dashboard.colors,
+      colors: (state) => state.dashboard.colors,
     }),
   },
   methods: {
     color(item) {
       return this.colors[
-        (Object.values(item.user.profile).join().length + 1 + item.user.email.length) %
+        (Object.values(item.user.profile).join().length +
+          1 +
+          item.user.email.length) %
           this.colors.length
-      ]
+      ];
     },
-  }
+  },
+};
 </script>
 
 <style scoped></style>

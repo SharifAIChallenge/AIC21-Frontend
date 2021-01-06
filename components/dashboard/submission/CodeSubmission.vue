@@ -1,5 +1,10 @@
 <template>
-  <v-form ref="createTeam" v-model="valid" onSubmit="return false;" @submit="uploadCode">
+  <v-form
+    ref="createTeam"
+    v-model="valid"
+    onSubmit="return false;"
+    @submit="uploadCode"
+  >
     <v-alert
       text
       icon="mdi-information"
@@ -7,18 +12,18 @@
       transition="scale-transition"
       :value="!!codeSubmitDelay"
     >
-      <p>{{ $tc('dashboard.codeSubmissionMessage', codeSubmitDelay) }}</p>
+      <p>{{ $tc("dashboard.codeSubmissionMessage", codeSubmitDelay) }}</p>
       <v-chip>
         <v-icon left :color="statusIcon(canSubmit).c">
-{{ statusIcon(canSubmit).i }}
-</v-icon>
-        {{ $t('dashboard.submissions') }}
+          {{ statusIcon(canSubmit).i }}
+        </v-icon>
+        {{ $t("dashboard.submissions") }}
       </v-chip>
       <v-chip>
         <v-icon left :color="statusIcon(canChangeSubmission).c">
-{{ statusIcon(canChangeSubmission).i }}
-</v-icon>
-        {{ $t('dashboard.changeFinalSubmission') }}
+          {{ statusIcon(canChangeSubmission).i }}
+        </v-icon>
+        {{ $t("dashboard.changeFinalSubmission") }}
       </v-chip>
     </v-alert>
     <v-row>
@@ -49,9 +54,7 @@
     </v-row>
     <div class="mb-6">
       با ارسال کد
-      <nuxt-link to="/dashboard/terms">
-این قوانین
-</nuxt-link>
+      <nuxt-link to="/dashboard/terms"> این قوانین </nuxt-link>
       را می‌پذیرید.
     </div>
     <v-btn
@@ -60,20 +63,18 @@
       type="submit"
       v-bind="primaryButtonProps"
     >
-      <v-icon left>
-mdi-upload
-</v-icon>
-      {{ $t('form.upload') }}
+      <v-icon left> mdi-upload </v-icon>
+      {{ $t("form.upload") }}
     </v-btn>
   </v-form>
 </template>
 
 <script>
-import { requiredRules } from '../../../mixins/formValidations'
-import { primaryButtonProps } from '../../../mixins/buttonProps'
-import { fieldProps } from '../../../mixins/fieldProps'
-import { SUBMIT_CODE, SUBMIT_LARGE_CODE } from '../../../api'
-import { mapState } from 'vuex'
+import { requiredRules } from "../../../mixins/formValidations";
+import { primaryButtonProps } from "../../../mixins/buttonProps";
+import { fieldProps } from "../../../mixins/fieldProps";
+import { SUBMIT_CODE, SUBMIT_LARGE_CODE } from "../../../api";
+import { mapState } from "vuex";
 
 export default {
   mixins: [requiredRules, primaryButtonProps, fieldProps],
@@ -81,64 +82,71 @@ export default {
     return {
       valid: false,
       file: null,
-      language: 'java',
+      language: "java",
       languageOptions: [
-        { text: 'Java', value: 'java' },
-        { text: 'Python 3', value: 'py3' },
-        { text: 'Cpp', value: 'cpp' },
-        { text: 'Go', value: 'go' },
+        { text: "Java", value: "java" },
+        { text: "Python 3", value: "py3" },
+        { text: "Cpp", value: "cpp" },
+        { text: "Go", value: "go" },
       ],
-      fileHint: 'zip',
-      fileRules: [v => !!v || ''],
+      fileHint: "zip",
+      fileRules: [(v) => !!v || ""],
       loading: false,
-    }
+    };
   },
   computed: {
     ...mapState({
-      codeSubmitDelay: state => state.games.challenge.code_submit_delay,
-      canSubmit: state => state.games.challenge.can_submit,
-      canChangeSubmission: state => state.games.challenge.can_change_submission,
+      codeSubmitDelay: (state) => state.games.challenge.code_submit_delay,
+      canSubmit: (state) => state.games.challenge.can_submit,
+      canChangeSubmission: (state) =>
+        state.games.challenge.can_change_submission,
     }),
   },
   methods: {
     async uploadCode() {
-      let api = SUBMIT_LARGE_CODE
+      let api = SUBMIT_LARGE_CODE;
       const inst = this.$axios.create({
         headers: {
           Authorization: false,
         },
-      })
-      const formData = new FormData()
-      formData.append('user_token', this.$auth.$storage.getCookie('_token.local').split(' ')[1])
-      formData.append('file', this.file)
-      formData.append('language', this.language)
+      });
+      const formData = new FormData();
+      formData.append(
+        "user_token",
+        this.$auth.$storage.getCookie("_token.local").split(" ")[1]
+      );
+      formData.append("file", this.file);
+      formData.append("language", this.language);
       const config = {
         url: api.url,
         method: api.method,
         [api.payload]: formData,
-      }
-      this.loading = true
-      let { data } = await inst(config)
-      this.loading = false
-      this.$store.dispatch('team/getSubmissions')
+      };
+      this.loading = true;
+      let { data } = await inst(config);
+      this.loading = false;
+      this.$store.dispatch("team/getSubmissions");
       if (data.status_code) {
         if (data.status_code === 200) {
-          this.$toast.success('فایل با موفقیت آپلود شد.')
+          this.$toast.success("فایل با موفقیت آپلود شد.");
         } else if (data.detail.non_field_errors) {
-          if (data.detail.non_field_errors[0].includes('wait'))
-            this.$toast.error(this.$tc('dashboard.codeSubmissionMessage', this.codeSubmitDelay))
+          if (data.detail.non_field_errors[0].includes("wait"))
+            this.$toast.error(
+              this.$tc("dashboard.codeSubmissionMessage", this.codeSubmitDelay)
+            );
         } else {
-          this.$toast.error('خطایی در آپلود فایل رخ داد.')
+          this.$toast.error("خطایی در آپلود فایل رخ داد.");
         }
       }
     },
     statusIcon(val) {
       return val
-        ? { c: 'success', i: 'mdi-checkbox-marked-circle-outline' }
+        ? { c: "success", i: "mdi-checkbox-marked-circle-outline" }
         : {
-            c: 'error',
-            i: 'mdi-close-circle-outline',
-          }
+            c: "error",
+            i: "mdi-close-circle-outline",
+          };
     },
-  }
+  },
+};
 </script>
