@@ -12,10 +12,13 @@
       collapse
       :min-width="mobile ? 220 : 256"
       :hide-on-scroll="mobile"
-      style="left: unset;"
+      style="left: unset"
       height="80"
     >
-      <v-app-bar-nav-icon class="ms-1 hidden-md-and-up" @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon
+        class="ms-1 hidden-md-and-up"
+        @click.stop="drawer = !drawer"
+      />
       <v-row class="justify-center">
         <nuxt-link to="/" class="white--text">
           <logo />
@@ -56,38 +59,38 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-content>
+    <v-main>
       <v-container class="dashboard px-md-6 pb-12" fluid>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import Logo from '../components/Logo'
-import AccountMenu from '../components/AccountMenu'
-import { mapGetters } from 'vuex'
+import Logo from "../components/Logo";
+import AccountMenu from "../components/AccountMenu";
+import { mapGetters } from "vuex";
 
 export default {
   components: { AccountMenu, Logo },
   data() {
     return {
       drawer: null,
-    }
+    };
   },
   computed: {
     ...mapGetters({
-      sidebar: 'dashboard/sidebar',
+      sidebar: "dashboard/sidebar",
     }),
     mobile() {
-      return this.$vuetify.breakpoint.smAndDown
+      return this.$vuetify.breakpoint.smAndDown;
     },
   },
   created() {
-    return this.$store.dispatch('games/getChallenge')
+    return this.$store.dispatch("games/getChallenge");
   },
-}
+};
 </script>
 
 <style scoped>
