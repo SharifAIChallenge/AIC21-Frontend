@@ -1,5 +1,5 @@
 <template>
-  <div>post page {{ slug }}</div>
+  <div>post page: {{ slug }}</div>
 </template>
 
 <script>
