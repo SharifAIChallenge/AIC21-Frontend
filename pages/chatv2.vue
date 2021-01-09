@@ -51,6 +51,7 @@
 
 <script>
 export default {
+
   auth: false,
   data() {
     return {
@@ -105,14 +106,14 @@ export default {
       this.status = 'login';
     },
     sendUser(user) {
-      if (this.text === '') {
+      if (this.text) {
         return;
       }
       user.msg.push({ sender: user.name, text: this.textSendUser });
       this.textSendUser = '';
     },
     sendAdmin(user) {
-      if (this.text === '') {
+      if (this.text) {
         return;
       }
       user.msg.push({ sender: 'ادمین', text: this.textSendAdmin });
