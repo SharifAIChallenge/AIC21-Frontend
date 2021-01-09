@@ -1,8 +1,8 @@
 <template>
   <div class="chat-main">
-      <div>{{title}}</div>
-    <div  v-if="chatmode">
-      <ChatList :userContacts="user" @changer="modeChanger" />
+    <div>{{ title }}</div>
+    <div v-if="chatmode">
+      <ChatList :userContacts="user"  @changer="modeChanger" />
     </div>
     <div v-else>
       <MessageList :userData="user" @changer="modeChanger" />
@@ -22,24 +22,43 @@ export default {
     return {
       chatmode: true,
       title: 'گفتگو آنلاین',
-      user: [
-        {
-          name: 'حسام',
-          email: 'hessamasna@yahoo.com',
-          msg: [
-            { sender: 'حسام', text: 'سلام میخواستم بدونم که ..................' },
-            { sender: 'ادمین', text: 'اره داداش رواله 😂' },
-          ],
-        },
-        {
-          name: 'داداشم محمد',
-          email: 'mamad@yahoo.com',
-          msg: [
-            { sender: 'داداشم محمد', text: 'سلام میخواستم بدونم که ..................' },
-            { sender: 'ادمین', text: 'اره داداش رواله 😂' },
-          ],
-        },
-      ],
+      userInChat: '',
+      user: [],
+      namee: '',
+      //[
+      //     {
+      //       name: 'حسام',
+      //       email: 'hessamasna@yahoo.com',
+      //       contacts: [
+      //         {
+      //           name: 'ادمین',
+      //           msg: [
+      //             {
+      //               sender: 'ادمین',
+      //               text: 'admin test',
+      //             },
+      //             {
+      //               sender: 'حسام',
+      //               text: 'player text',
+      //             },
+      //           ],
+      //         },
+      //         {
+      //           name: 'تیم',
+      //           msg: [
+      //             {
+      //               sender: 'تیم',
+      //               text: 'team test',
+      //             },
+      //             {
+      //               sender: 'حسام',
+      //               text: 'player text',
+      //             },
+      //           ],
+      //         },
+      //       ],
+      //     },
+      //   ],
     };
   },
   methods: {
@@ -54,6 +73,11 @@ export default {
       this.email = '';
       this.name = '';
       modeChanger();
+    },
+    setUserInchat() {},
+    definder(name) {
+        console.log(name)
+      this.namee = name;
     },
   },
 };

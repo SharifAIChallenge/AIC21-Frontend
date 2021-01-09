@@ -15,9 +15,18 @@
         </v-container>
       </v-form>
       <v-btn elevation="15" class="submit-start" @click="addContact()">آغاز گفتگو</v-btn>
-      <div v-for="(userContact,index) in this.userContacts" :key="index">
-        
+      <div>لیست چت ها</div>
+      <div v-if="this.userContacts[0]">
+        <div>{{this.userContacts[0].name}} عزیز لطفا مخاطب خود را انتخاب کنید</div>
+      <div v-for="(contact,index) in this.userContacts[0].contacts" :key="index">
+        <div @click="chatdefinder(contact)">{{contact.name}}</div>
       </div>
+      </div>
+        
+      <!-- </div> -->
+      <!-- <div v-for="(userContact,index) in this.userContacts" :key="index">
+        {{userContact.name}}
+      </div> -->
       <!-- <div class="login">
         <v-text-field v-model="emailLogin" label="ایمیل" outlined class="email-start"></v-text-field>
         <v-btn elevation="15" class="submit-start1" @click="findEmail()">بازگشت به گفتگو قبل</v-btn>
@@ -43,17 +52,21 @@ export default {
       if (this.email === '' || this.name === '') {
         return;
       }
-      this.userContacts.push({ name: this.name, email: this.email, msg: [{ sender: 'ادمین', text: 'خوش آمدید' }] });
+      this.userContacts.push({ name: this.name, email: this.email, contacts: [ { chat: false , name: 'ادمین', msg: [{sender: 'ادمین',text: 'admin test'}],},{ chat: false ,name: 'تیم', msg: [{sender: 'تیم',text: 'admin test'}],}] }) 
       this.email = '';
       this.name = '';
-      this.$emit('changer');
+      // this.$emit('changer');
     },
     // findEmail() {
     //   this.emailLogin = '';
     // },
-    // changeMode() {
-    //   this.$emit('changer');
-    // },
+    changeMode() {
+      this.$emit('changer');
+    },
+    chatdefinder(contact){
+      contact.chat = true;
+      this.$emit('changer');
+    }
   },
 };
 </script>
