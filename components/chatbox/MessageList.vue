@@ -1,11 +1,12 @@
 <template>
   <div>
     <div v-for="(user, index) in this.userData" :key="index">
-      <div class="name">نام نمایشی: {{ user.name }} | ایمیل: {{ user.email }}</div>
-      <div>{{ user.name }} عزیز شما در حال چت با ادمین سایت هستید !</div>
+      <!-- <div class="name">نام نمایشی: {{ user.name }} | ایمیل: {{ user.email }}</div> -->
       <div></div>
       <div v-for="(contact, index) in user.contacts" :key="index">
         <div v-if="contact.chat === true">
+                <div>{{ user.name }} عزیز شما در حال چت با {{contact.name}} سایت هستید !</div>
+
           <div v-for="(msg, index) in contact.msg" :key="index">
             {{ msg.sender }}
             <div v-if="msg.sender === user.name" class="sender">
@@ -24,10 +25,10 @@
           <v-text-field label="پیام" v-model="textSendUser" solo @keypress.enter="sendUser(contact.msg, user.name)"></v-text-field>
           <div>(enter)فرستادن پیام از ادمین</div>
           <v-text-field label="پیام" v-model="textSendAdmin" solo @keypress.enter="sendAdmin(contact.msg, contact)"></v-text-field>
+          <v-btn elevation="15" class="submit-start1" @click="contact.chat = false ,changeMode()">بازگشت</v-btn>
         </div>
       </div>
     </div>
-    <v-btn elevation="15" class="submit-start1" @click="changeMode()">بازگشت</v-btn>
   </div>
 </template>
 

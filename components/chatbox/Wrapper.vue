@@ -1,6 +1,6 @@
 <template>
   <div class="chat-main">
-    <div>{{ title }}</div>
+    <!-- <div>{{ title }}</div> -->
     <div v-if="chatmode">
       <ChatList :userContacts="user"  @changer="modeChanger" />
     </div>
@@ -90,13 +90,19 @@ export default {
   margin: 30px auto;
 }
 .submit-start {
+   
   text-align: center;
   width: 80%;
   margin-top: 10px;
+  bottom: 0px;
 }
 .submit-start1 {
+margin-bottom: 5px;
+position: absolute;
   text-align: center;
-  width: 80%;
+  bottom: 0px;
+  width: 90%;
+  right: 20px;
 }
 .email-start {
 }
@@ -130,4 +136,14 @@ export default {
 .icon {
   padding: 10px 10px 0px 10px;
 }
+.contact-list {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px 0px 5px 0px;
+  margin: 10px 0 0 0;
+  border-style: solid;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
 </style>
