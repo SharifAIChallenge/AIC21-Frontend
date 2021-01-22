@@ -18,7 +18,7 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/toast": "^3.3.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.14.12",
     "vue-i18n": "^8.15.3"
   },
   "devDependencies": {
