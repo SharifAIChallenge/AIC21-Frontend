@@ -6,6 +6,31 @@ export const SIGN_UP = {
   url: '/accounts/signup',
 };
 
+export const signup = (axios, data) => {
+  const config = {
+    url: '/accounts/signup',
+    method: 'post',
+    headers: {
+      Authorization: false,
+    },
+    ['data']: {
+      email: data.email,
+      password_1: data.password,
+      password_2: data.password,
+      profile: {
+        firstname_fa: data.nameInPersian,
+        firstname_en: data.nameInEnglish,
+        lastname_fa: data.lastNameInPersian,
+        lastname_en: data.lastNameInEnglish,
+        birth_date: data.birthday,
+        university: data.university,
+      },
+    },
+  };
+
+  return axios(config);
+};
+
 export const RESET_PASSWORD = {
   name: 'RESET_PASSWORD',
   method: 'post',
