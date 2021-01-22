@@ -1,12 +1,6 @@
 <template>
   <div>
-    <v-alert
-      text
-      icon="mdi-information"
-      class="mb-6"
-      transition="scale-transition"
-      :value="!!friendlyGameDelay"
-    >
+    <v-alert text icon="mdi-information" class="mb-6" transition="scale-transition" :value="!!friendlyGameDelay">
       {{ $tc('dashboard.friendlyMatchMessage', friendlyGameDelay) }}
     </v-alert>
     <v-switch
@@ -18,12 +12,7 @@
       :label="$t('dashboard.acceptFriendlyMatches')"
       @click.native="toggleFriendly"
     />
-    <v-form
-      ref="friendlyMatch"
-      v-model="valid"
-      on-submit="return false;"
-      @submit="requestFriendlyMatch"
-    >
+    <v-form ref="friendlyMatch" v-model="valid" @submit.prevent="requestFriendlyMatch">
       <v-expand-transition>
         <v-row v-if="allowMultiFriendly">
           <v-col cols="12" sm="6">
@@ -46,12 +35,7 @@
           </v-col>
         </v-row>
       </v-expand-transition>
-      <v-btn
-        type="submit"
-        :disabled="!valid"
-        :loading="loading.request"
-        v-bind="primaryButtonProps"
-      >
+      <v-btn type="submit" :disabled="!valid" :loading="loading.request" v-bind="primaryButtonProps">
         <v-icon left>
           mdi-gamepad-variant
         </v-icon>
@@ -62,11 +46,11 @@
 </template>
 
 <script>
-import { REQUEST_FRIENDLY_MATCH, TOGGLE_MULTI_FRIENDLY, VIEW_LOBBY } from '../../../api'
-import MatchLobby from './MatchLobbyItem'
-import { primaryButtonProps } from '../../../mixins/buttonProps'
-import { mapState } from 'vuex'
-import { fieldProps } from '../../../mixins/fieldProps'
+import { REQUEST_FRIENDLY_MATCH, TOGGLE_MULTI_FRIENDLY, VIEW_LOBBY } from '../../../api';
+import MatchLobby from './MatchLobbyItem';
+import { primaryButtonProps } from '../../../mixins/buttonProps';
+import { mapState } from 'vuex';
+import { fieldProps } from '../../../mixins/fieldProps';
 
 export default {
   components: { MatchLobby },
@@ -82,7 +66,7 @@ export default {
         lobby: false,
         toggle: false,
       },
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -96,7 +80,7 @@ export default {
             { text: 'دوست', value: 'friend' },
             { text: 'رقیب', value: 'enemy' },
           ]
-        : [{ text: 'رقیب', value: 'enemy' }]
+        : [{ text: 'رقیب', value: 'enemy' }];
     },
   },
   methods: {
@@ -109,30 +93,29 @@ export default {
           }
         : {
             type: 'single',
-          }
+          };
       const config = {
         url: REQUEST_FRIENDLY_MATCH.url,
         method: REQUEST_FRIENDLY_MATCH.method,
         [REQUEST_FRIENDLY_MATCH.payload]: payload,
-      }
-      this.loading.request = true
-      let { data } = await this.$axios(config)
-      this.loading.request = false
-      if (data.status_code === 200) this.$toast.success('درخواست شما ثبت شد.')
-      else if (data.errors && data.errors.length)
-        this.$toast.error(this.$t(`dashboard.${data.errors[0]}`))
-      else if (data.status_code === 404) this.$toast.error(this.$t(`dashboard.teamNotFound`))
-      this.$store.dispatch('games/getFriendlyLobbies')
-      this.$store.dispatch('games/getGames', {})
+      };
+      this.loading.request = true;
+      let { data } = await this.$axios(config);
+      this.loading.request = false;
+      if (data.status_code === 200) this.$toast.success('درخواست شما ثبت شد.');
+      else if (data.errors && data.errors.length) this.$toast.error(this.$t(`dashboard.${data.errors[0]}`));
+      else if (data.status_code === 404) this.$toast.error(this.$t(`dashboard.teamNotFound`));
+      this.$store.dispatch('games/getFriendlyLobbies');
+      this.$store.dispatch('games/getGames', {});
     },
     async toggleFriendly() {
-      this.loading.toggle = true
-      await this.$axios.$post(TOGGLE_MULTI_FRIENDLY.url)
-      this.$store.dispatch('team/getTeam')
-      this.loading.toggle = false
+      this.loading.toggle = true;
+      await this.$axios.$post(TOGGLE_MULTI_FRIENDLY.url);
+      this.$store.dispatch('team/getTeam');
+      this.loading.toggle = false;
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

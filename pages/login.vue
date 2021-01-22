@@ -12,9 +12,7 @@
       <v-col cols="12" sm="7" md="5" lg="3">
         <v-row justify="center" align="baseline" class="text-uppercase">
           <glow>
-            <span
-              class="text-stroke-primary text-stroke-width-2 display-4 transparent--text font-weight-black"
-            >
+            <span class="text-stroke-primary text-stroke-width-2 display-4 transparent--text font-weight-black">
               {{ $t('form.signIn') }}
             </span>
           </glow>
@@ -26,17 +24,14 @@
         </v-row>
         <v-row justify="center" class="mb-5 mt-1">
           <glow>
-            <span
-              class="text-stroke-width-1 transparent--text text-stroke-white display-1 font-family-chopsic"
-            >
+            <span class="text-stroke-width-1 transparent--text text-stroke-white display-1 font-family-chopsic">
               AI Challenge
             </span>
           </glow>
         </v-row>
-        <v-form ref="form" v-model="valid" on-submit="return false;" @submit="login">
+        <v-form ref="form" v-model="valid" @submit.prevent="login">
           <v-alert icon="mdi-shield-alert" text outlined class="mb-6">
-            اگر تا کنون رمز عبور خود را تغییر نداده‌اید لازم است قبل از ورود از طریق فرم فراموشی رمز
-            این کار را انجام دهید.
+            اگر تا کنون رمز عبور خود را تغییر نداده‌اید لازم است قبل از ورود از طریق فرم فراموشی رمز این کار را انجام دهید.
           </v-alert>
           <v-text-field
             v-model="email"
@@ -71,11 +66,11 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../mixins/formValidations'
-import { primaryButtonProps } from '../mixins/buttonProps'
-import { fieldProps } from '../mixins/fieldProps'
-import Glow from '../components/Glow'
-import PasswordInput from '../components/PasswordInput'
+import { emailRules, requiredRules } from '../mixins/formValidations';
+import { primaryButtonProps } from '../mixins/buttonProps';
+import { fieldProps } from '../mixins/fieldProps';
+import Glow from '../components/Glow';
+import PasswordInput from '../components/PasswordInput';
 
 export default {
   layout: 'form',
@@ -87,11 +82,11 @@ export default {
       email: '',
       password: '',
       loading: false,
-    }
+    };
   },
   methods: {
     login() {
-      this.loading = true
+      this.loading = true;
       this.$auth
         .loginWith('local', {
           data: {
@@ -101,14 +96,14 @@ export default {
         })
         .then(() => (this.loading = false))
         .catch(() => {
-          this.loading = false
+          this.loading = false;
           if (!this.$auth.loggedIn) {
-            this.$toast.error('ایمیل وجود ندارد یا رمز عبور اشتباه است.')
+            this.$toast.error('ایمیل وجود ندارد یا رمز عبور اشتباه است.');
           } else {
-            this.$toast.success('با موفقیت وارد شدید!')
+            this.$toast.success('با موفقیت وارد شدید!');
           }
-        })
+        });
     },
   },
-}
+};
 </script>

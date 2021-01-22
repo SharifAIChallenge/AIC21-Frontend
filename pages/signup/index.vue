@@ -17,23 +17,19 @@
             </span>
           </glow>
           <glow>
-            <span
-              class="text-stroke-primary text-stroke-width-2 transparent--text display-1 font-weight-black"
-            >
+            <span class="text-stroke-primary text-stroke-width-2 transparent--text display-1 font-weight-black">
               {{ $t('form.for') }}
             </span>
           </glow>
         </v-row>
         <v-row justify="center" class="mb-5 mt-1">
           <glow>
-            <span
-              class="text-stroke-width-1 transparent--text text-stroke-white display-1 font-family-chopsic"
-            >
+            <span class="text-stroke-width-1 transparent--text text-stroke-white display-1 font-family-chopsic">
               AI Challenge
             </span>
           </glow>
         </v-row>
-        <v-form ref="form" v-model="valid" on-submit="return false;" @submit="signUp">
+        <v-form ref="form" v-model="valid" @submit.prevent="signUp">
           <v-row>
             <v-col class="py-0" cols="12" sm="6">
               <v-text-field
@@ -147,12 +143,7 @@
                 {{ result.message }}
               </v-alert>
 
-              <v-btn
-                :disabled="!valid"
-                :loading="loading"
-                type="submit"
-                v-bind="primaryButtonProps"
-              >
+              <v-btn :disabled="!valid" :loading="loading" type="submit" v-bind="primaryButtonProps">
                 <v-icon left>
                   mdi-shield-plus-outline
                 </v-icon>
@@ -167,12 +158,12 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../../mixins/formValidations'
-import { primaryButtonProps } from '../../mixins/buttonProps'
-import { fieldProps } from '../../mixins/fieldProps'
-import Glow from '../../components/Glow'
-import PasswordInput from '../../components/PasswordInput'
-import { SIGN_UP } from '../../api'
+import { emailRules, requiredRules } from '../../mixins/formValidations';
+import { primaryButtonProps } from '../../mixins/buttonProps';
+import { fieldProps } from '../../mixins/fieldProps';
+import Glow from '../../components/Glow';
+import PasswordInput from '../../components/PasswordInput';
+import { SIGN_UP } from '../../api';
 
 export default {
   layout: 'form',
@@ -198,17 +189,17 @@ export default {
         errors: {},
       },
       loading: false,
-    }
+    };
   },
   watch: {
     menu(val) {
-      val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
+      val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'));
     },
   },
   methods: {
     save(date) {
-      this.$refs.dialog.save(date)
-      this.menu = false
+      this.$refs.dialog.save(date);
+      this.menu = false;
     },
     async signUp() {
       const config = {
@@ -230,38 +221,38 @@ export default {
             university: this.university,
           },
         },
-      }
-      this.loading = true
-      let { data } = await this.$axios(config)
-      this.loading = false
+      };
+      this.loading = true;
+      let { data } = await this.$axios(config);
+      this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {
-          this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.'
-          this.result.type = 'success'
-          this.result.value = true
-          this.$refs.form.reset()
+          this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
+          this.result.type = 'success';
+          this.result.value = true;
+          this.$refs.form.reset();
         } else {
-          this.errors = {}
+          this.errors = {};
           this.errors = Object.keys(data.detail).forEach(x => {
             if (x === 'profile') {
-              Object.keys(data.detail.profile).forEach(y => this.$set(this.result.errors, y, true))
+              Object.keys(data.detail.profile).forEach(y => this.$set(this.result.errors, y, true));
             } else {
-              this.$set(this.result.errors, x, true)
+              this.$set(this.result.errors, x, true);
             }
-          })
-          this.result.message = 'ثبت‌نام با خطا مواجه شد.'
-          this.result.type = 'error'
-          this.result.value = true
+          });
+          this.result.message = 'ثبت‌نام با خطا مواجه شد.';
+          this.result.type = 'error';
+          this.result.value = true;
         }
       }
     },
     clearError(field) {
       if (this.result.errors[field]) {
-        this.result.errors[field] = false
+        this.result.errors[field] = false;
       }
     },
   },
-}
+};
 </script>
 
 <style scoped></style>
