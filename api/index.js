@@ -1,11 +1,3 @@
-//accounts
-export const SIGN_UP = {
-  name: 'SIGN_UP',
-  method: 'post',
-  payload: 'data',
-  url: '/accounts/signup',
-};
-
 export const signup = (axios, data) => {
   const config = {
     url: '/accounts/signup',
@@ -13,19 +5,7 @@ export const signup = (axios, data) => {
     headers: {
       Authorization: false,
     },
-    ['data']: {
-      email: data.email,
-      password_1: data.password,
-      password_2: data.password,
-      profile: {
-        firstname_fa: data.nameInPersian,
-        firstname_en: data.nameInEnglish,
-        lastname_fa: data.lastNameInPersian,
-        lastname_en: data.lastNameInEnglish,
-        birth_date: data.birthday,
-        university: data.university,
-      },
-    },
+    ['data']: { ...data, password_1: data.password, password_2: data.password }, // speak to backend for convert password_1 to password
   };
 
   return axios(config);
