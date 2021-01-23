@@ -11,27 +11,25 @@
 </template>
 
 <script>
-import Updates from '../../components/dashboard/Updates'
-import DashboardPage from '../../components/dashboard/DashboardPage'
-import dashboardPageValidate from '../../mixins/dashboardPageValidate'
-import { NOTIFICATIONS } from '../../api'
-import { mapState } from 'vuex'
+import Updates from '../../components/dashboard/Updates';
+import DashboardPage from '../../components/dashboard/DashboardPage';
+import dashboardPageValidate from '../../mixins/dashboardPageValidate';
+import { mapState } from 'vuex';
 
 export default {
   layout: 'dashboard',
   components: { DashboardPage, Updates },
   mixins: [dashboardPageValidate('updates')],
   transition: 'fade-transition',
-  async fetch({ store, $axios }) {
-    let data = await $axios.$get(NOTIFICATIONS.url)
-    store.commit('notification/set', data)
+  async fetch({ store }) {
+    store.dispatch('notification/get');
   },
   computed: {
     ...mapState({
       notifications: state => state.notification.notifications,
     }),
   },
-}
+};
 </script>
 
 <style scoped></style>
