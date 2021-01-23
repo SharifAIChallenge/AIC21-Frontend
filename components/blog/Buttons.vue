@@ -2,7 +2,7 @@
   <div>
     <v-row align="center" justify="center">
       <v-btn icon :color="shareColor" @mouseover="shareColor = 'blue'" @mouseout="shareColor = 'gray'">
-        <v-icon>mdi-share</v-icon>
+        <v-icon>mdi-share-variant</v-icon>
       </v-btn>
       <v-btn icon :color="likeColor" @click="likeColor == 'pink' ? (likeColor = 'graDisabledy') : (likeColor = 'pink')">
         <v-icon>mdi-heart</v-icon>
