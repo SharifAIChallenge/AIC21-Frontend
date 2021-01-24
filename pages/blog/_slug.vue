@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div><img src="" alt="pic" /></div>
+
+    <div><img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" alt="تصویر" height="300px" width="100%"/></div>
     <h1>{{ post.title }}</h1>
     <p>{{ post.author }}</p>
     <p>{{ post.description }}</p>
@@ -25,10 +26,10 @@ export default {
       comment: '',
       comments: [
         {
-          author: 'ali',
-          text: 'awsome!',
-          time: '2days ago',
-          reply: [{ text: 'good' }],
+          author: 'سالار',
+          text: 'بسیار زیبا!',
+          time: '۲ساعت پیش',
+          reply: [{ text: 'متشکر' },{text:'حق با شماست :)'}],
         },
       ],
     };

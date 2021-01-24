@@ -1,17 +1,28 @@
 <template>
-  <div>
-    <h2>{{ post.title }}</h2>
-    <h4>
-      <v-avatar color="teal" size="45">
-        <img :src="src" v-if="src" />
-        <span class="white--text headline">{{ avAlt }}</span>
-      </v-avatar>
-      {{ post.author }}
-    </h4>
-    <p>{{ post.description.slice(0, 32) }}...</p>
-    <p>
-      <i>{{ post.date }}</i>
-    </p>
+  <div class="container">
+    <v-card class="mx-auto" max-width="800" elevation="10">
+      <v-img class="white--text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+        <v-card-title>{{ post.title }}</v-card-title>
+      </v-img>
+      <v-card-title>
+        <h4>
+          <v-avatar color="teal" size="40">
+            <img :src="src" v-if="src" />
+            <span class="white--text headline">{{ avAlt }}</span>
+          </v-avatar>
+          {{ post.author }}
+        </h4>
+      </v-card-title>
+      <v-card-subtitle class="pb-2 pt-0 pr-5">
+        {{ post.date }}
+      </v-card-subtitle>
+      <v-card-text class="text--primary">
+        <div>{{ post.description.slice(0, 35) }}...</div>
+      </v-card-text>
+      <v-row class="mr-2 ml-3 mb-1 pb-2" align="center" justify="end">
+        <v-btn color="orange" text @click="$router.push(`blog/${post.slug}`)">رفتن به پست</v-btn>
+      </v-row>
+    </v-card>
   </div>
 </template>
 
@@ -27,3 +38,5 @@ export default {
   },
 };
 </script>
+<style scoped>
+</style>
