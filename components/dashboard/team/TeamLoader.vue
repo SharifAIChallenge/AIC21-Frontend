@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import Team from './Team'
-import { TEAM_DETAIL } from '../../../api'
-import TeamAvatar from './TeamAvatar'
+import Team from './Team';
+import { getTeamDetailWithParams } from '../../../api';
+import TeamAvatar from './TeamAvatar';
 
 export default {
   components: { TeamAvatar, Team },
@@ -39,20 +39,20 @@ export default {
     return {
       team: null,
       loading: false,
-    }
+    };
   },
   mounted() {
-    this.loadTeam()
+    this.loadTeam();
   },
   methods: {
     async loadTeam() {
-      this.loading = true
-      let { team } = await this.$axios.$get(TEAM_DETAIL.url, { params: { name: this.name } })
-      this.team = team
-      this.loading = false
+      this.loading = true;
+      let { team } = await getTeamDetailWithParams(this.$axios, { params: { name: this.name } });
+      this.team = team;
+      this.loading = false;
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

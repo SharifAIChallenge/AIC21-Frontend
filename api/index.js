@@ -73,10 +73,12 @@ export const EDIT_TEAM = {
   url: '/participation/team',
 };
 
-export const TEAM_DETAIL = {
-  name: 'TEAM_DETAIL',
-  method: 'get',
-  url: '/participation/team',
+export const getTeamDetail = axios => {
+  return axios.$get('/participation/team');
+};
+
+export const getTeamDetailWithParams = (axios, params) => {
+  return axios.$get('/participation/team', params);
 };
 
 export const INVITE = {
