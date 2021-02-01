@@ -46,7 +46,7 @@ import { emailRules, requiredRules } from '../mixins/formValidations';
 import { primaryButtonProps } from '../mixins/buttonProps';
 import { fieldProps } from '../mixins/fieldProps';
 import Glow from '../components/Glow';
-import { RESET_PASSWORD, SIGN_UP } from '../api';
+import { resetPassword } from '../api';
 
 export default {
   auth: 'guest',
@@ -62,18 +62,8 @@ export default {
   },
   methods: {
     async resetPassword() {
-      const config = {
-        url: RESET_PASSWORD.url,
-        method: RESET_PASSWORD.method,
-        headers: {
-          Authorization: false,
-        },
-        [RESET_PASSWORD.payload]: {
-          email: this.email,
-        },
-      };
       this.loading = true;
-      let { data } = await this.$axios(config);
+      let { data } = await resetPassword(this.$axios, this.email);
       this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {

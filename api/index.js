@@ -18,6 +18,19 @@ export const RESET_PASSWORD = {
   url: '/accounts/password/reset',
 };
 
+export const resetPassword = (axios, email) => {
+  const config = {
+    url: '/accounts/password/reset',
+    method: 'post',
+    headers: {
+      Authorization: false,
+    },
+    ['data']: { email },
+  };
+
+  return axios(config);
+};
+
 export const RESET_PASSWORD_CONFIRM = {
   name: 'RESET_PASSWORD_CONFIRM',
   method: 'post',
