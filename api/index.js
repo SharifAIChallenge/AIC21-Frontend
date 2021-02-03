@@ -18,6 +18,19 @@ export const RESET_PASSWORD = {
   url: '/accounts/password/reset',
 };
 
+export const resetPassword = (axios, email) => {
+  const config = {
+    url: '/accounts/password/reset',
+    method: 'post',
+    headers: {
+      Authorization: false,
+    },
+    ['data']: { email },
+  };
+
+  return axios(config);
+};
+
 export const RESET_PASSWORD_CONFIRM = {
   name: 'RESET_PASSWORD_CONFIRM',
   method: 'post',
@@ -60,10 +73,12 @@ export const EDIT_TEAM = {
   url: '/participation/team',
 };
 
-export const TEAM_DETAIL = {
-  name: 'TEAM_DETAIL',
-  method: 'get',
-  url: '/participation/team',
+export const getTeamDetail = axios => {
+  return axios.$get('/participation/team');
+};
+
+export const getTeamDetailWithParams = (axios, params) => {
+  return axios.$get('/participation/team', params);
 };
 
 export const INVITE = {
