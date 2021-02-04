@@ -28,7 +28,7 @@ import { requiredRules } from '../../../mixins/formValidations';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
 import PasswordInput from '../../PasswordInput';
-import { CHANGE_PASSWORD } from '../../../api';
+import { CHANGE_PASSWORD , changePassword } from '../../../api';
 
 export default {
   components: { PasswordInput },
@@ -45,17 +45,18 @@ export default {
   },
   methods: {
     async resetPasswordConfirm() {
-      const config = {
-        url: CHANGE_PASSWORD.url,
-        method: CHANGE_PASSWORD.method,
-        [CHANGE_PASSWORD.payload]: {
-          new_password1: this.new_password1,
-          new_password2: this.new_password2,
-          old_password: this.password,
-        },
-      };
+      // const config = {
+      //   url: CHANGE_PASSWORD.url,
+      //   method: CHANGE_PASSWORD.method,
+      //   [CHANGE_PASSWORD.payload]: {
+      //     new_password1: this.new_password1,
+      //     new_password2: this.new_password2,
+      //     old_password: this.password,
+      //   },
+      // };
+
       this.loading = true;
-      let { data } = await this.$axios(config);
+      let { data } = await changePassword(this.$axios,data)
       this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {

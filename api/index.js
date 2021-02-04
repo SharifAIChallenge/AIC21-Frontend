@@ -45,6 +45,20 @@ export const CHANGE_PASSWORD = {
   url: '/accounts/password/change',
 };
 
+//change hesam
+export const changePassword = (axios, data) => {
+  const config = {
+    url: '/accounts/password/change',
+    method: 'post',
+    headers: {
+      Authorization: false,
+    },
+    ['data']: { ...data },
+  };
+
+  return axios(config);
+};
+
 export const EDIT_PROFILE = {
   name: 'EDIT_PROFILE',
   method: 'put',
