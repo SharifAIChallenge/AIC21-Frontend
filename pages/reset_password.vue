@@ -22,10 +22,10 @@
           </glow>
         </v-row>
         <v-form ref="form" v-model="valid" @submit.prevent="resetPasswordConfirm">
-          <password-input v-model="new_password1" label="form.newPassword" @vis-change="val => (show = val)" />
+          <password-input v-model="passes.new_password1" label="form.newPassword" @vis-change="val => (show = val)" />
 
           <v-text-field
-            v-model="new_password2"
+            v-model="passes.new_password2"
             :label="$t('form.confirmNewPassword')"
             :type="show ? 'text' : 'password'"
             :rules="requiredRules"
@@ -34,10 +34,13 @@
             dir="ltr"
           />
 
-          <v-btn :disabled="!valid || new_password1 !== new_password2" :loading="loading" type="submit" v-bind="primaryButtonProps">
-            <v-icon left>
-              mdi-shield-refresh-outline
-            </v-icon>
+          <v-btn
+            :disabled="!valid || passes.new_password1 !== passes.new_password2"
+            :loading="loading"
+            type="submit"
+            v-bind="primaryButtonProps"
+          >
+            <v-icon left>mdi-shield-refresh-outline</v-icon>
             {{ $t('form.changePassword') }}
           </v-btn>
         </v-form>
@@ -52,7 +55,7 @@ import { primaryButtonProps } from '../mixins/buttonProps';
 import { fieldProps } from '../mixins/fieldProps';
 import Glow from '../components/Glow';
 import PasswordInput from '../components/PasswordInput';
-import { RESET_PASSWORD, RESET_PASSWORD_CONFIRM } from '../api';
+import { RESET_PASSWORD, RESET_PASSWORD_CONFIRM ,resetPasswordConfirm } from '../api';
 
 export default {
   auth: 'guest',
@@ -65,29 +68,34 @@ export default {
   data() {
     return {
       valid: false,
-      new_password1: '',
-      new_password2: '',
+      passes: {
+        new_password1: '',
+        new_password2: '',
+        uid: this.$route.query.uid,
+        token: this.$route.query.token,
+      },
       show: false,
       loading: false,
     };
   },
   methods: {
     async resetPasswordConfirm() {
-      const config = {
-        url: RESET_PASSWORD_CONFIRM.url,
-        method: RESET_PASSWORD_CONFIRM.method,
-        headers: {
-          Authorization: false,
-        },
-        [RESET_PASSWORD_CONFIRM.payload]: {
-          new_password1: this.new_password1,
-          new_password2: this.new_password2,
-          uid: this.$route.query.uid,
-          token: this.$route.query.token,
-        },
-      };
+      // const config = {
+      //   url: RESET_PASSWORD_CONFIRM.url,
+      //   method: RESET_PASSWORD_CONFIRM.method,
+      //   headers: {
+      //     Authorization: false,
+      //   },
+      //   [RESET_PASSWORD_CONFIRM.payload]: {
+      //     new_password1: this.new_password1,
+      //     new_password2: this.new_password2,
+      //     uid: this.$route.query.uid,
+      //     token: this.$route.query.token,
+      //   },
+      // };
+
       this.loading = true;
-      let { data } = await this.$axios(config);
+      let { data } = await resetPasswordConfirm(this.$axios, this.passes);
       this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {

@@ -41,16 +41,6 @@ export default {
   },
   methods: {
     async resetPasswordConfirm() {
-      // const config = {
-      //   url: CHANGE_PASSWORD.url,
-      //   method: CHANGE_PASSWORD.method,
-      //   [CHANGE_PASSWORD.payload]: {
-      //     new_password1: this.new_password1,
-      //     new_password2: this.new_password2,
-      //     old_password: this.password,
-      //   },
-      // };
-
       this.loading = true;
       let { data } = await changePassword(this.$axios, this.passes);
       this.loading = false;

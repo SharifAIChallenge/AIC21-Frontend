@@ -11,12 +11,12 @@ export const signup = (axios, data) => {
   return axios(config);
 };
 
-export const RESET_PASSWORD = {
-  name: 'RESET_PASSWORD',
-  method: 'post',
-  payload: 'data',
-  url: '/accounts/password/reset',
-};
+// export const RESET_PASSWORD = {
+//   name: 'RESET_PASSWORD',
+//   method: 'post',
+//   payload: 'data',
+//   url: '/accounts/password/reset',
+// };
 
 export const resetPassword = (axios, email) => {
   const config = {
@@ -31,54 +31,54 @@ export const resetPassword = (axios, email) => {
   return axios(config);
 };
 
-export const RESET_PASSWORD_CONFIRM = {
-  name: 'RESET_PASSWORD_CONFIRM',
-  method: 'post',
-  payload: 'data',
-  url: '/accounts/password/reset/confirm',
-};
-
-// //change hesam
-// export const resetPassword1 = (axios, data) => {
-//   const config = {
-//     url: '/accounts/password/reset/confirm',
-//     method: 'post',
-//     headers: {
-//       Authorization: false,
-//     },
-//     ['data']: data ,
-//   };
-
-//   return axios(config);
+// export const RESET_PASSWORD_CONFIRM = {
+//   name: 'RESET_PASSWORD_CONFIRM',
+//   method: 'post',
+//   payload: 'data',
+//   url: '/accounts/password/reset/confirm',
 // };
 
-export const CHANGE_PASSWORD = {
-  name: 'CHANGE_PASSWORD',
-  method: 'post',
-  payload: 'data',
-  url: '/accounts/password/change',
+//todo check this!
+//change hesam
+export const resetPasswordConfirm = (axios, data) => {
+  const config = {
+    url: '/accounts/password/reset/confirm',
+    method: 'post',
+    ['data']: data,
+  };
+
+  return axios(config);
 };
+
 
 //change hesam
 export const changePassword = (axios, data) => {
   const config = {
     url: '/accounts/password/change',
     method: 'post',
-    // headers: {
-    //   Authorization: true,
-    // },
-
-    ['data']:  data ,
+    ['data']: data,
   };
 
   return axios(config);
 };
 
-export const EDIT_PROFILE = {
-  name: 'EDIT_PROFILE',
-  method: 'put',
-  payload: 'data',
-  url: '/accounts/profile',
+// export const EDIT_PROFILE = {
+//   name: 'EDIT_PROFILE',
+//   method: 'put',
+//   payload: 'data',
+//   url: '/accounts/profile',
+// };
+
+//change hesam
+export const editProfile = (axios, data) => {
+  console.log(data)
+  const config = {
+    url: '/accounts/profile',
+    method: 'put',
+    ['data']: data,
+  };
+
+  return axios(config);
 };
 
 //team
