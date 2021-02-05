@@ -64,9 +64,9 @@ export const changePassword = (axios, data) => {
   const config = {
     url: '/accounts/password/change',
     method: 'post',
-    headers: {
-      Authorization: true,
-    },
+    // headers: {
+    //   Authorization: true,
+    // },
 
     ['data']:  data ,
   };
