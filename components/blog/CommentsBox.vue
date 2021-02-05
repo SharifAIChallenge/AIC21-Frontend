@@ -1,11 +1,10 @@
 <template>
   <div>
     <div v-for="(comment, i) in comments" :key="i">
-      <h3>{{ comment.author }}</h3>
+      <v-card>
+      <v-card-title><v-avatar size=20></v-avatar>{{ comment.author }}</v-card-title>
       <p>{{ comment.text }}</p>
-      <p>
-        <i>{{ comment.time }}</i>
-      </p>
+        <v-card-subtitle>{{ comment.time }}</v-card-subtitle>
       <v-row class="comment-btn-box" align="center" justify="end">
         <v-btn class="comment-btn" icon color="red">
           <v-icon>mdi-thumb-down</v-icon>
@@ -24,6 +23,7 @@
         @keydown.prevent.enter="addReply(i)"
         @keydown.esc="replyInput = false"
       ></v-text-field>
+      </v-card>
       <div class="reply-box" v-for="(reply, i) in comment.reply" :key="i">
         {{ reply.text }}
       </div>

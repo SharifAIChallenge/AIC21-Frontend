@@ -1,16 +1,14 @@
 <template>
-  <div>
+  <v-app>
     <div class="container">
       <h1 style="text-align: center">پست ها</h1>
     </div>
-
-    <br />
-    <div v-for="(post, index) in posts" :key="index">
-      <!-- <nuxt-link class="post_link" :to="`blog/${post.slug}`"> -->
-        <app-post :post="post"></app-post>
-      <!-- </nuxt-link> -->
-    </div>
-  </div>
+    <v-row class="my-2 mx-1">
+      <v-col sm='12' lg="6" xl='4' v-for="(post, index) in posts" :key="index">
+      <app-post :post="post"></app-post>
+      </v-col>
+    </v-row>
+  </v-app>
 </template>
 
 <script>
@@ -31,7 +29,4 @@ export default {
 </script>
 
 <style scoped>
-.post_link {
-  text-decoration: none;
-}
 </style>>
