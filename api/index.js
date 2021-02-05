@@ -38,6 +38,20 @@ export const RESET_PASSWORD_CONFIRM = {
   url: '/accounts/password/reset/confirm',
 };
 
+// //change hesam
+// export const resetPassword1 = (axios, data) => {
+//   const config = {
+//     url: '/accounts/password/reset/confirm',
+//     method: 'post',
+//     headers: {
+//       Authorization: false,
+//     },
+//     ['data']: data ,
+//   };
+
+//   return axios(config);
+// };
+
 export const CHANGE_PASSWORD = {
   name: 'CHANGE_PASSWORD',
   method: 'post',
@@ -51,9 +65,10 @@ export const changePassword = (axios, data) => {
     url: '/accounts/password/change',
     method: 'post',
     headers: {
-      Authorization: false,
+      Authorization: true,
     },
-    ['data']: { ...data },
+
+    ['data']:  data ,
   };
 
   return axios(config);

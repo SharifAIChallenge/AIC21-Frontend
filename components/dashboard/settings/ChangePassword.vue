@@ -1,11 +1,11 @@
 <template>
   <v-form ref="changePassword" v-model="valid" @submit.prevent="resetPasswordConfirm">
-    <password-input v-model="password" label="form.currentPassword" />
+    <password-input v-model="passes.oldPassword" label="form.currentPassword" />
 
-    <password-input v-model="new_password1" label="form.newPassword" @vis-change="val => (show = val)" />
+    <password-input v-model="passes.newPassword1" label="form.newPassword" @vis-change="val => (show = val)" />
 
     <v-text-field
-      v-model="new_password2"
+      v-model="passes.newPassword2"
       :label="$t('form.confirmNewPassword')"
       :type="show ? 'text' : 'password'"
       :rules="requiredRules"
@@ -14,10 +14,8 @@
       dir="ltr"
     />
 
-    <v-btn :disabled="!valid || new_password1 !== new_password2" :loading="loading" type="submit" v-bind="primaryButtonProps">
-      <v-icon left>
-        mdi-shield-edit-outline
-      </v-icon>
+    <v-btn :disabled="!valid || passes.newPassword1 !== passes.newPassword2" :loading="loading" type="submit" v-bind="primaryButtonProps">
+      <v-icon left>mdi-shield-edit-outline</v-icon>
       {{ $t('form.changePassword') }}
     </v-btn>
   </v-form>
@@ -28,7 +26,7 @@ import { requiredRules } from '../../../mixins/formValidations';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
 import PasswordInput from '../../PasswordInput';
-import { CHANGE_PASSWORD , changePassword } from '../../../api';
+import { CHANGE_PASSWORD, changePassword } from '../../../api';
 
 export default {
   components: { PasswordInput },
@@ -36,9 +34,7 @@ export default {
   data() {
     return {
       valid: false,
-      password: '',
-      new_password1: '',
-      new_password2: '',
+      passes: { oldPassword: '', newPassword1: '', newPassword2: '' },
       show: false,
       loading: false,
     };
@@ -56,7 +52,7 @@ export default {
       // };
 
       this.loading = true;
-      let { data } = await changePassword(this.$axios,data)
+      let { data } = await changePassword(this.$axios, this.passes);
       this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {
