@@ -1,10 +1,5 @@
 <template>
-  <v-form
-    ref="editProfile"
-    v-model="valid"
-    onSubmit="return false;"
-    @submit="signUp"
-  >
+  <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
     <v-row>
       <v-col class="py-0" cols="12" sm="6">
         <v-text-field
@@ -51,12 +46,7 @@
       </v-col>
     </v-row>
 
-    <v-dialog
-      ref="dialog"
-      v-model="menu"
-      :return-value.sync="birthday"
-      width="290px"
-    >
+    <v-dialog ref="dialog" v-model="menu" :return-value.sync="birthday" width="290px">
       <template v-slot:activator="{ on }">
         <v-text-field
           v-model="birthday"
@@ -81,43 +71,32 @@
       />
     </v-dialog>
 
-    <v-text-field
-      v-model="university"
-      :label="$t('form.educationPlace')"
-      required
-      :rules="requiredRules"
-      v-bind="filedProps"
-    />
+    <v-text-field v-model="university" :label="$t('form.educationPlace')" required :rules="requiredRules" v-bind="filedProps" />
 
-    <v-btn
-      :disabled="!valid || !edited"
-      :loading="loading"
-      type="submit"
-      v-bind="primaryButtonProps"
-    >
-      <v-icon left> mdi-account-edit-outline </v-icon>
-      {{ $t("dashboard.editProfile") }}
+    <v-btn :disabled="!valid || !edited" :loading="loading" type="submit" v-bind="primaryButtonProps">
+      <v-icon left>mdi-account-edit-outline</v-icon>
+      {{ $t('dashboard.editProfile') }}
     </v-btn>
   </v-form>
 </template>
 
 <script>
-import { emailRules, requiredRules } from "../../../mixins/formValidations";
-import { primaryButtonProps } from "../../../mixins/buttonProps";
-import { fieldProps } from "../../../mixins/fieldProps";
-import { EDIT_PROFILE } from "../../../api";
+import { emailRules, requiredRules } from '../../../mixins/formValidations';
+import { primaryButtonProps } from '../../../mixins/buttonProps';
+import { fieldProps } from '../../../mixins/fieldProps';
+import { EDIT_PROFILE } from '../../../api';
 
 export default {
   mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps],
   data() {
     return {
       valid: false,
-      nameInPersian: "",
-      lastNameInPersian: "",
-      nameInEnglish: "",
-      lastNameInEnglish: "",
-      birthday: "",
-      university: "",
+      nameInPersian: '',
+      lastNameInPersian: '',
+      nameInEnglish: '',
+      lastNameInEnglish: '',
+      birthday: '',
+      university: '',
       menu: false,
       loading: false,
     };
@@ -135,10 +114,10 @@ export default {
         this.university !== profile.university
       );
     },
-    watch: {
-      menu(val) {
-        val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
-      },
+  },
+  watch: {
+    menu(val) {
+      val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'));
     },
   },
   methods: {
@@ -165,10 +144,10 @@ export default {
       if (data.profile) {
         this.$auth.fetchUser().then(() => {
           this.resetForm();
-          this.$toast.success("پروفایل با موفقیت ویرایش شد.");
+          this.$toast.success('پروفایل با موفقیت ویرایش شد.');
         });
       } else {
-        this.$toast.error("ویرایش با خطا مواجه شد.");
+        this.$toast.error('ویرایش با خطا مواجه شد.');
       }
     },
     resetForm() {
