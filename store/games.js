@@ -1,4 +1,5 @@
 import { VIEW_MATCHES, VIEW_LOBBY, GET_CHALLENGE } from '~/api'
+import {getChallenge} from '~/api'
 import Vue from 'vue'
 
 export const state = () => ({
@@ -31,7 +32,8 @@ export const actions = {
       await dispatch('team/getTeam', null, { root: true })
     }
     let challenge = rootState.team.team.challenge
-    let data = await this.$axios.$get(GET_CHALLENGE.url + '/' + challenge)
+    // let data = await this.$axios.$get(GET_CHALLENGE.url + '/' + challenge)
+    let data= await getChallenge(this.$axios,challenge)
     commit('setChallenge', data)
   },
 }

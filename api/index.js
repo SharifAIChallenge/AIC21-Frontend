@@ -240,13 +240,22 @@ export const getScoreBoard=(axios,tab)=>{
   };
   return axios.$get(config[tab].url)
 }
-
-export const GET_CHALLENGE = {
+//change saman
+// export const GET_CHALLENGE = {
+//   name: 'PRIMARY_CHALLENGE',
+//   method: 'get',
+//   url: '/challenge/challenges',
+//   slug: 'id',
+// };
+export const getChallenge=(axios,challenge)=>{
+const config={
   name: 'PRIMARY_CHALLENGE',
   method: 'get',
   url: '/challenge/challenges',
   slug: 'id',
-};
+}
+return axios.$get(`${config.url}/${challenge}`)
+}
 
 export const GAME_STATS = {
   name: 'GAME_STATS',
