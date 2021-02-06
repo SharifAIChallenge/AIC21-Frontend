@@ -63,7 +63,7 @@ export const editProfile = (axios, data) => {
 // };
 
 //todo Check in code ! 
-//Change Hesamg
+//Change Hesam
 export const createTeam = (axios) => {
   return axios.$post('/participation/team' , data);
 };
@@ -76,7 +76,7 @@ export const createTeam = (axios) => {
 // };
 
 //todo Check in code ! 
-//Change Hesamg
+//Change Hesam
 export const leaveTeam = (axios) => {
   return axios.$delete('/participation/team');
 };
@@ -90,7 +90,7 @@ export const leaveTeam = (axios) => {
 // };
 
 //todo Check in code ! 
-//Change Hesamg
+//Change Hesam
 export const editTeam = (axios, data) => {
   return axios.$put('/participation/team', data);
 };
@@ -103,11 +103,17 @@ export const getTeamDetailWithParams = (axios, params) => {
   return axios.$get('/participation/team', params);
 };
 
-export const INVITE = {
-  name: 'INVITE',
-  method: 'post',
-  payload: 'data',
-  url: '/participation/invitation/invite',
+// export const INVITE = {
+//   name: 'INVITE',
+//   method: 'post',
+//   payload: 'data',
+//   url: '/participation/invitation/invite',
+// };
+
+//todo Check in code ! 
+//Change Hesam
+export const invite = (axios, data) => {
+  return axios.$post('/participation/invitation/invite', data);
 };
 
 export const RECEIVED_INVITATIONS = {

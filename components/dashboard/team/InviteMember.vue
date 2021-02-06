@@ -1,6 +1,6 @@
 <template>
   <v-form ref="inviteMember" v-model="valid" @submit.prevent="inviteMember">
-    <v-text-field v-model="email" type="email" :label="$t('form.email')" :rules="emailRules" required v-bind="filedProps" dir="ltr" />
+    <v-text-field v-model="userEmail" type="email" :label="$t('form.email')" :rules="emailRules" required v-bind="filedProps" dir="ltr" />
 
     <v-btn :disabled="!valid" :loading="loading" type="submit" v-bind="primaryButtonProps">
       <v-icon left>
@@ -15,28 +15,28 @@
 import { emailRules } from '../../../mixins/formValidations';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
-import { INVITE } from '../../../api';
+import { INVITE , invite } from '../../../api';
 
 export default {
   mixins: [emailRules, primaryButtonProps, fieldProps],
   data() {
     return {
       valid: false,
-      email: '',
+      userEmail: '',
       loading: false,
     };
   },
   methods: {
     async inviteMember() {
-      const config = {
-        url: INVITE.url,
-        method: INVITE.method,
-        [INVITE.payload]: {
-          user_email: this.email,
-        },
-      };
+      // const config = {
+      //   url: INVITE.url,
+      //   method: INVITE.method,
+      //   [INVITE.payload]: {
+      //     user_email: this.email,
+      //   },
+      // };
       this.loading = true;
-      let { data } = await this.$axios(config);
+      let { data } = await invite(this.$axios,{userEmail});
       this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {
