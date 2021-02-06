@@ -53,11 +53,19 @@ export const editProfile = (axios, data) => {
 };
 
 //team
-export const CREATE_TEAM = {
-  name: 'CREATE_TEAM',
-  method: 'post',
-  payload: 'data',
-  url: '/participation/team',
+
+
+// export const CREATE_TEAM = {
+//   name: 'CREATE_TEAM',
+//   method: 'post',
+//   payload: 'data',
+//   url: '/participation/team',
+// };
+
+//todo Check in code ! 
+//Change Hesamg
+export const createTeam = (axios) => {
+  return axios.$post('/participation/team' , data);
 };
 
 
