@@ -116,16 +116,28 @@ export const invite = (axios, data) => {
   return axios.$post('/participation/invitation/invite', data);
 };
 
-export const RECEIVED_INVITATIONS = {
-  name: 'RECEIVED_INVITATIONS',
-  method: 'get',
-  url: '/participation/invitation/invitations-to-me',
+// export const RECEIVED_INVITATIONS = {
+//   name: 'RECEIVED_INVITATIONS',
+//   method: 'get',
+//   url: '/participation/invitation/invitations-to-me',
+// };
+
+//todo Check in code ! 
+//Change Hesam
+export const receivedInvitations = (axios) => {
+  return axios.$get('/participation/invitation/invitations-to-me');
 };
 
-export const SENT_INVITATIONS = {
-  name: 'SENT_INVITATIONS',
-  method: 'get',
-  url: '/participation/invitation/invitations-to-others',
+// export const SENT_INVITATIONS = {
+//   name: 'SENT_INVITATIONS',
+//   method: 'get',
+//   url: '/participation/invitation/invitations-to-others',
+// };
+
+//todo Check in code ! 
+//Change Hesam
+export const sentInvitations = (axios) => {
+  return axios.$get('/participation/invitation/invitations-to-others');
 };
 
 export const ANSWER_INVITATION = {

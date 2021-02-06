@@ -1,4 +1,4 @@
-import { RECEIVED_INVITATIONS, SENT_INVITATIONS, getTeamDetail, VIEW_SUBMISSIONS } from '~/api';
+import { RECEIVED_INVITATIONS, SENT_INVITATIONS, getTeamDetail, VIEW_SUBMISSIONS , receivedInvitations , sentInvitations} from '~/api';
 import Vue from 'vue';
 
 export const state = () => ({
@@ -24,11 +24,11 @@ export const actions = {
     }
   },
   async getReceivedInvitations({ commit }) {
-    let data = await this.$axios.$get(RECEIVED_INVITATIONS.url);
+    let data = await receivedInvitations(this.$axios);
     commit('setInvitations', { ...data, type: 'received' });
   },
   async getSentInvitations({ commit }) {
-    let data = await this.$axios.$get(SENT_INVITATIONS.url);
+    let data = await receivedInvitations(this.$axios);
     commit('setInvitations', { ...data, type: 'sent' });
   },
   async getSubmissions({ commit }) {
