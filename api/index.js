@@ -89,6 +89,16 @@ export const CREATE_TEAM = {
   url: '/participation/team',
 };
 
+export const createTeam=(axios,data)=>{
+  console.log(data);
+  const config={
+    url:'/accounts/profile',
+    method:'post',
+    ['data']:data,
+  };
+  return axios(config);
+}
+
 export const LEAVE_TEAM = {
   name: 'LEAVE_TEAM',
   method: 'delete',
@@ -185,7 +195,6 @@ export const VIEW_MATCHES = {
   url: '/challenge/games',
   params: ['offset', 'count'],
 };
-
 export const VIEW_LOBBY = {
   name: 'VIEW_LOBBY',
   method: 'get',
@@ -193,23 +202,44 @@ export const VIEW_LOBBY = {
 };
 
 // scoreboard
-export const GET_SCOREBOARD = {
-  friendly: {
-    name: 'GET_FRIENDLY_SCOREBOARD',
-    method: 'get',
-    url: '/scoreboard/friendly',
-  },
-  seeding: {
-    name: 'GET_CHALLENGE_SCOREBOARD',
-    method: 'get',
-    url: '/scoreboard/challenge',
-  },
-  groups: {
-    name: 'GET_GROUPS_SCOREBOARD',
-    method: 'get',
-    url: '/scoreboard/league',
-  },
-};
+//change saman
+// export const GET_SCOREBOARD = {
+//   friendly: {
+//     name: 'GET_FRIENDLY_SCOREBOARD',
+//     method: 'get',
+//     url: '/scoreboard/friendly',
+//   },
+//   seeding: {
+//     name: 'GET_CHALLENGE_SCOREBOARD',
+//     method: 'get',
+//     url: '/scoreboard/challenge',
+//   },
+//   groups: {
+//     name: 'GET_GROUPS_SCOREBOARD',
+//     method: 'get',
+//     url: '/scoreboard/league',
+//   },
+// };
+export const getScoreBoard=(axios,tab)=>{
+  const config ={
+    friendly: {
+      url: '/scoreboard/friendly',
+      name: 'GET_FRIENDLY_SCOREBOARD',
+      method: 'get',
+    },
+    seeding: {
+      url: '/scoreboard/challenge',
+      name: 'GET_CHALLENGE_SCOREBOARD',
+      method: 'get',
+    },
+    groups: {
+      url: '/scoreboard/league',
+      name: 'GET_GROUPS_SCOREBOARD',
+      method: 'get',
+    },
+  };
+  return axios.$get(config[tab].url)
+}
 
 export const GET_CHALLENGE = {
   name: 'PRIMARY_CHALLENGE',
