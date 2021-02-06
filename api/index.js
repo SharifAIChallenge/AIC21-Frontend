@@ -61,11 +61,18 @@ export const CREATE_TEAM = {
 };
 
 
-export const LEAVE_TEAM = {
-  name: 'LEAVE_TEAM',
-  method: 'delete',
-  url: '/participation/team',
+// export const LEAVE_TEAM = {
+//   name: 'LEAVE_TEAM',
+//   method: 'delete',
+//   url: '/participation/team',
+// };
+
+//todo Check in code ! 
+//Change Hesamg
+export const leaveTeam = (axios) => {
+  return axios.$delete('/participation/team');
 };
+
 
 // export const EDIT_TEAM = {
 //   name: 'EDIT_TEAM',
@@ -73,6 +80,7 @@ export const LEAVE_TEAM = {
 //   payload: 'data',
 //   url: '/participation/team',
 // };
+
 //todo Check in code ! 
 //Change Hesamg
 export const editTeam = (axios, data) => {
