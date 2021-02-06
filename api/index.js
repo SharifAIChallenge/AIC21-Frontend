@@ -49,14 +49,7 @@ export const changePassword = (axios, data) => {
 
 //change hesam
 export const editProfile = (axios, data) => {
-  console.log(data);
-  const config = {
-    url: '/accounts/profile',
-    method: 'put',
-    ['data']: data,
-  };
-
-  return axios(config);
+  return axios.$put('/accounts/profile', data);
 };
 
 //team
@@ -67,15 +60,6 @@ export const CREATE_TEAM = {
   url: '/participation/team',
 };
 
-export const createTeam = (axios, data) => {
-  console.log(data);
-  const config = {
-    url: '/accounts/profile',
-    method: 'post',
-    ['data']: data,
-  };
-  return axios(config);
-};
 
 export const LEAVE_TEAM = {
   name: 'LEAVE_TEAM',
@@ -83,11 +67,16 @@ export const LEAVE_TEAM = {
   url: '/participation/team',
 };
 
-export const EDIT_TEAM = {
-  name: 'EDIT_TEAM',
-  method: 'put',
-  payload: 'data',
-  url: '/participation/team',
+// export const EDIT_TEAM = {
+//   name: 'EDIT_TEAM',
+//   method: 'put',
+//   payload: 'data',
+//   url: '/participation/team',
+// };
+//todo Check in code ! 
+//Change Hesamg
+export const editTeam = (axios, data) => {
+  return axios.$put('/participation/team', data);
 };
 
 export const getTeamDetail = axios => {
