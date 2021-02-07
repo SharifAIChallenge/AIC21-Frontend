@@ -57,6 +57,7 @@ export default {
       };
       this.loading = true;
       let { data } = await this.$axios(config);
+      // let {data} = await createTeam(this.$axios,formData)
       this.loading = false;
       this.$store.dispatch('team/getTeam');
       if (data.status_code) {

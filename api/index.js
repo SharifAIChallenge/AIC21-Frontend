@@ -50,7 +50,6 @@ export const resetPasswordConfirm = (axios, data) => {
   return axios(config);
 };
 
-
 //change hesam
 export const changePassword = (axios, data) => {
   const config = {
@@ -71,7 +70,7 @@ export const changePassword = (axios, data) => {
 
 //change hesam
 export const editProfile = (axios, data) => {
-  console.log(data)
+  console.log(data);
   const config = {
     url: '/accounts/profile',
     method: 'put',
@@ -89,15 +88,15 @@ export const CREATE_TEAM = {
   url: '/participation/team',
 };
 
-export const createTeam=(axios,data)=>{
-  console.log(data);
-  const config={
-    url:'/accounts/profile',
-    method:'post',
-    ['data']:data,
-  };
-  return axios(config);
-}
+// export const createTeam = (axios, data) => {
+//   console.log(data);
+//   const config = {
+//     url: '/accounts/profile',
+//     method: 'post',
+//     ['data']: data,
+//   };
+//   return axios(config);
+// };
 
 export const LEAVE_TEAM = {
   name: 'LEAVE_TEAM',
@@ -161,12 +160,23 @@ export const SUBMIT_CODE = {
   url: '/challenge/submission/submit',
 };
 
-export const SUBMIT_LARGE_CODE = {
-  name: 'SUBMIT_LARGE_CODE',
-  method: 'post',
-  payload: 'data',
-  url: 'https://analysaur.ir/api/storage/file/',
+//change saman
+// export const SUBMIT_LARGE_CODE = {
+//   name: 'SUBMIT_LARGE_CODE',
+//   method: 'post',
+//   payload: 'data',
+//   url: 'https://analysaur.ir/api/storage/file/',
+// };
+
+export const submitLargeCode = (axios, data) => {
+  return axios.$post('https://analysaur.ir/api/storage/file/', data, {
+    headers: {
+      Authorization: false,
+    },
+  });
 };
+
+//end
 
 export const VIEW_SUBMISSIONS = {
   name: 'VIEW_SUBMISSIONS',
@@ -220,8 +230,8 @@ export const VIEW_LOBBY = {
 //     url: '/scoreboard/league',
 //   },
 // };
-export const getScoreBoard=(axios,tab)=>{
-  const config ={
+export const getScoreBoard = (axios, tab) => {
+  const config = {
     friendly: {
       url: '/scoreboard/friendly',
       name: 'GET_FRIENDLY_SCOREBOARD',
@@ -238,8 +248,8 @@ export const getScoreBoard=(axios,tab)=>{
       method: 'get',
     },
   };
-  return axios.$get(config[tab].url)
-}
+  return axios.$get(config[tab].url);
+};
 //change saman
 // export const GET_CHALLENGE = {
 //   name: 'PRIMARY_CHALLENGE',
@@ -247,15 +257,15 @@ export const getScoreBoard=(axios,tab)=>{
 //   url: '/challenge/challenges',
 //   slug: 'id',
 // };
-export const getChallenge=(axios,challenge)=>{
-const config={
-  name: 'PRIMARY_CHALLENGE',
-  method: 'get',
-  url: '/challenge/challenges',
-  slug: 'id',
-}
-return axios.$get(`${config.url}/${challenge}`)
-}
+export const getChallenge = (axios, challenge) => {
+  const config = {
+    name: 'PRIMARY_CHALLENGE',
+    method: 'get',
+    url: '/challenge/challenges',
+    slug: 'id',
+  };
+  return axios.$get(`${config.url}/${challenge}`);
+};
 
 export const GAME_STATS = {
   name: 'GAME_STATS',
