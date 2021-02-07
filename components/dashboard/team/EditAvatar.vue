@@ -36,7 +36,7 @@
 <script>
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
-import { EDIT_TEAM } from '../../../api';
+import { EDIT_TEAM , editTeam } from '../../../api';
 
 export default {
   mixins: [primaryButtonProps, fieldProps],
@@ -64,13 +64,14 @@ export default {
     async editAvatar(mode) {
       const formData = new FormData();
       if (mode === 'edit') formData.append('image', this.image);
-      const config = {
-        url: EDIT_TEAM.url,
-        method: EDIT_TEAM.method,
-        [EDIT_TEAM.payload]: formData,
-      };
+      // const config = {
+      //   url: EDIT_TEAM.url,
+      //   method: EDIT_TEAM.method,
+      //   [EDIT_TEAM.payload]: formData,
+      // };
+
       this.loading[mode] = true;
-      let { data } = await this.$axios(config);
+      let { data } = await editTeam(this.$axios,this.formData);
       this.loading[mode] = false;
       this.$emit('close');
       this.$store.dispatch('team/getTeam');

@@ -31,7 +31,7 @@
 import { requiredRules } from '../../../mixins/formValidations';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
-import { CREATE_TEAM } from '../../../api';
+import { CREATE_TEAM , createTeam} from '../../../api';
 
 export default {
   mixins: [requiredRules, primaryButtonProps, fieldProps],
@@ -50,14 +50,13 @@ export default {
       const formData = new FormData();
       if (this.image) formData.append('image', this.image);
       formData.append('name', this.name);
-      const config = {
-        url: CREATE_TEAM.url,
-        method: CREATE_TEAM.method,
-        [CREATE_TEAM.payload]: formData,
-      };
+      // const config = {
+      //   url: CREATE_TEAM.url,
+      //   method: CREATE_TEAM.method,
+      //   [CREATE_TEAM.payload]: formData,
+      // };
       this.loading = true;
-      let { data } = await this.$axios(config);
-      // let {data} = await createTeam(this.$axios,formData)
+      let { data } = await createTeam(this.$axios,this.formData);
       this.loading = false;
       this.$store.dispatch('team/getTeam');
       if (data.status_code) {

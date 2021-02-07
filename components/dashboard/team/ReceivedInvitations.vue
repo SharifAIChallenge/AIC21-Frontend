@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { ANSWER_INVITATION } from '../../../api'
+import { ANSWER_INVITATION , answerInvitation } from '../../../api'
 import { mapState } from 'vuex'
 import TeamLoader from './TeamLoader'
 import StatusIcon from '../StatusIcon'
@@ -103,15 +103,15 @@ export default {
   },
   methods: {
     async answer(invitation, answer) {
-      const config = {
-        url: `${ANSWER_INVITATION.url}/${invitation.id}`,
-        method: ANSWER_INVITATION.method,
-        [ANSWER_INVITATION.payload]: {
-          answer: answer,
-        },
-      }
+      // const config = {
+      //   url: `${ANSWER_INVITATION.url}/${invitation.id}`,
+      //   method: ANSWER_INVITATION.method,
+      //   [ANSWER_INVITATION.payload]: {
+      //     answer: answer,
+      //   },
+      // }
       this.$set(this.loading[answer], invitation.id, true)
-      let { data } = await this.$axios(config)
+      let { data } = await answerInvitation(this.$axios, this.answer)
       this.$set(this.loading[answer], invitation.id, false)
       this.$store.dispatch('team/getReceivedInvitations')
       if (data.status_code) {

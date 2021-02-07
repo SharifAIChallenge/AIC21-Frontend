@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { LEAVE_TEAM } from '../../../api'
+import { LEAVE_TEAM , leaveTeam } from '../../../api'
 
 export default {
   data() {
@@ -43,7 +43,7 @@ export default {
   methods: {
     async leaveTeam() {
       this.loading = true
-      let data = await this.$axios.$delete(LEAVE_TEAM.url)
+      let data = await leaveTeam(this.$axios);
       this.loading = false
       this.dialog = false
       this.$store.dispatch('team/getTeam')
