@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { REQUEST_FRIENDLY_MATCH, TOGGLE_MULTI_FRIENDLY, VIEW_LOBBY } from '../../../api';
+import { REQUEST_FRIENDLY_MATCH, TOGGLE_MULTI_FRIENDLY, VIEW_LOBBY, toggleMultiFriendly } from '../../../api';
 import MatchLobby from './MatchLobbyItem';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { mapState } from 'vuex';
@@ -100,7 +100,7 @@ export default {
         [REQUEST_FRIENDLY_MATCH.payload]: payload,
       };
       this.loading.request = true;
-      let { data } = await this.$axios(config);
+      let { data } = await toggleMultiFriendly(this.$axios, this.payload);
       this.loading.request = false;
       if (data.status_code === 200) this.$toast.success('درخواست شما ثبت شد.');
       else if (data.errors && data.errors.length) this.$toast.error(this.$t(`dashboard.${data.errors[0]}`));

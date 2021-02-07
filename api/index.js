@@ -54,7 +54,6 @@ export const editProfile = (axios, data) => {
 
 //team
 
-
 // export const CREATE_TEAM = {
 //   name: 'CREATE_TEAM',
 //   method: 'post',
@@ -62,12 +61,11 @@ export const editProfile = (axios, data) => {
 //   url: '/participation/team',
 // };
 
-//todo Check in code ! 
+//todo Check in code !
 //Change Hesam
-export const createTeam = (axios) => {
-  return axios.$post('/participation/team' , data);
+export const createTeam = axios => {
+  return axios.$post('/participation/team', data);
 };
-
 
 // export const LEAVE_TEAM = {
 //   name: 'LEAVE_TEAM',
@@ -75,12 +73,11 @@ export const createTeam = (axios) => {
 //   url: '/participation/team',
 // };
 
-//todo Check in code ! 
+//todo Check in code !
 //Change Hesam
-export const leaveTeam = (axios) => {
+export const leaveTeam = axios => {
   return axios.$delete('/participation/team');
 };
-
 
 // export const EDIT_TEAM = {
 //   name: 'EDIT_TEAM',
@@ -89,7 +86,7 @@ export const leaveTeam = (axios) => {
 //   url: '/participation/team',
 // };
 
-//todo Check in code ! 
+//todo Check in code !
 //Change Hesam
 export const editTeam = (axios, data) => {
   return axios.$put('/participation/team', data);
@@ -110,7 +107,7 @@ export const getTeamDetailWithParams = (axios, params) => {
 //   url: '/participation/invitation/invite',
 // };
 
-//todo Check in code ! 
+//todo Check in code !
 //Change Hesam
 export const invite = (axios, data) => {
   return axios.$post('/participation/invitation/invite', data);
@@ -122,9 +119,9 @@ export const invite = (axios, data) => {
 //   url: '/participation/invitation/invitations-to-me',
 // };
 
-//todo Check in code ! 
+//todo Check in code !
 //Change Hesam
-export const receivedInvitations = (axios) => {
+export const receivedInvitations = axios => {
   return axios.$get('/participation/invitation/invitations-to-me');
 };
 
@@ -134,24 +131,36 @@ export const receivedInvitations = (axios) => {
 //   url: '/participation/invitation/invitations-to-others',
 // };
 
-//todo Check in code ! 
+//todo Check in code !
 //Change Hesam
-export const sentInvitations = (axios) => {
+export const sentInvitations = axios => {
   return axios.$get('/participation/invitation/invitations-to-others');
 };
 
-export const ANSWER_INVITATION = {
-  name: 'ANSWER_INVITATION',
-  method: 'post',
-  url: '/participation/invitation',
-  payload: 'data',
-  slug: 'id',
+// export const ANSWER_INVITATION = {
+//   name: 'ANSWER_INVITATION',
+//   method: 'post',
+//   url: '/participation/invitation',
+//   payload: 'data',
+//   slug: 'id',
+// };
+
+//todo Check in code !
+//Change Hesam
+export const answerInvitation = (axios, data) => {
+  return axios.$post('/participation/invitation', data);
 };
 
-export const TOGGLE_MULTI_FRIENDLY = {
-  name: 'TOGGLE_MULTI_FRIENDLY',
-  method: 'post',
-  url: '/participation/team/multi-friendly',
+// export const TOGGLE_MULTI_FRIENDLY = {
+//   name: 'TOGGLE_MULTI_FRIENDLY',
+//   method: 'post',
+//   url: '/participation/team/multi-friendly',
+// };
+
+//todo Check in code !
+//Change Hesam
+export const toggleMultiFriendly = (axios, data) => {
+  return axios.$post('/participation/team/multi-friendly', data);
 };
 
 //challenge
@@ -169,10 +178,16 @@ export const SUBMIT_LARGE_CODE = {
   url: 'https://analysaur.ir/api/storage/file/',
 };
 
-export const VIEW_SUBMISSIONS = {
-  name: 'VIEW_SUBMISSIONS',
-  method: 'get',
-  url: '/challenge/submission/submissions',
+// export const VIEW_SUBMISSIONS = {
+//   name: 'VIEW_SUBMISSIONS',
+//   method: 'get',
+//   url: '/challenge/submission/submissions',
+// };
+
+//todo Check in code !
+//Change Hesam
+export const viewSubmissions = (axios) => {
+  return axios.$get('/challenge/submission/submissions');
 };
 
 export const CHANGE_FINAL_SUBMISSION = {
@@ -196,6 +211,7 @@ export const VIEW_MATCHES = {
   url: '/challenge/games',
   params: ['offset', 'count'],
 };
+
 export const VIEW_LOBBY = {
   name: 'VIEW_LOBBY',
   method: 'get',
@@ -221,6 +237,7 @@ export const VIEW_LOBBY = {
 //     url: '/scoreboard/league',
 //   },
 // };
+
 export const getScoreBoard = (axios, tab) => {
   const config = {
     friendly: {
