@@ -283,9 +283,18 @@ export const getChallenge = (axios, challenge) => {
   };
   return axios.$get(`${config.url}/${challenge}`);
 };
+//change saman
+// export const GAME_STATS = {
+//   name: 'GAME_STATS',
+//   method: 'get',
+//   url: '/challenge/game/stats',
+// };
 
-export const GAME_STATS = {
-  name: 'GAME_STATS',
-  method: 'get',
-  url: '/challenge/game/stats',
-};
+export const gameStats=(axios=>{
+  const config={
+    name: 'GAME_STATS',
+    method: 'get',
+    url: '/challenge/game/stats', 
+  }
+  return axios.$get(config.url)
+  })

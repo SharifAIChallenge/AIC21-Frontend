@@ -42,6 +42,7 @@ import GamesStat from '../../components/dashboard/home/GamesStat';
 import Performance from '../../components/dashboard/home/Performance';
 import { mapState } from 'vuex';
 import { GAME_STATS } from '../../api';
+import {gameStats} from '~/api'
 
 export default {
   components: { Performance, GamesStat, Updates },
@@ -51,7 +52,8 @@ export default {
     store.dispatch('notification/get');
   },
   async asyncData({ store, $axios }) {
-    let data = await $axios.$get(GAME_STATS.url);
+    // let data = await $axios.$get(GAME_STATS.url);
+    let data = await gameStats(this.$axios)
     if (data.status_code === 200)
       return {
         gameStat: {
