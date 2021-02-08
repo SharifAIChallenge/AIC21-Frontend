@@ -1,10 +1,10 @@
 <template>
   <div class="main">
     <div class="close-btn" @click="toggleShow()">X</div>
-    <div class="main-login-form container">
+    <div class="main-forgot-form container">
       <v-row justify="center" align="center">
         <v-col cols="12">
-          <div class="login-title">
+          <div class="forgot-title">
             <v-icon right size="45px" color="wihte">
               mdi-shield-sync-outline
             </v-icon>
@@ -22,7 +22,7 @@
         </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="#42b3aa" class="sigin-up-btn" height="50px" @click="changeStatus('login')">
+    <v-btn width="100%" color="#42b3aa" class="login-btn" height="50px" @click="changeStatus('login')">
       <v-icon style="margin:5px" size="25px">mdi-shield-star</v-icon>
       ورود
     </v-btn>
@@ -53,7 +53,7 @@ export default {
   width: 100%;
   height: 100%;
 }
-.main-login-form {
+.main-forgot-form {
   margin: 100px auto;
   max-width: 500px;
 }
@@ -64,14 +64,14 @@ export default {
   top: 15px;
   cursor: pointer;
 }
-.login-title {
+.forgot-title {
   text-align: center;
   margin-bottom: 20px;
   color: var(--v-primary-base);
   font-size: 40px;
   font-weight: bold;
 }
-.sigin-up-btn {
+.login-btn {
   position: fixed;
   font-size: 20px;
   font-weight: normal;

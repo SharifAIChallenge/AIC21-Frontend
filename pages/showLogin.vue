@@ -37,9 +37,7 @@ export default {
     toggleShow() {
       this.$store.commit('formStatus/toggleShow');
     },
-    changeStatus(form) {
-      this.$store.commit('formStatus/changeStatus', form);
-    },
+
   },
   computed: {
     ...mapState({

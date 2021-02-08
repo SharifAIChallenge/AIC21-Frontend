@@ -7,6 +7,7 @@ export const state = () => ({
 export const mutations = {
     toggleShow(state){
         state.show = !state.show;
+        state.form = 'login'
     },
     changeStatus(state,form){
         state.form = form;

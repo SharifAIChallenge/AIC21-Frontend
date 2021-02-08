@@ -22,7 +22,7 @@
           ></v-text-field>
           <v-row>
             <v-col>
-              <a href="#" @click="changeStatus('forgot')">فراموشی رمزعبور</a>
+              <a  @click="changeStatus('forgot')">فراموشی رمزعبور</a>
             </v-col>
           </v-row>
 
