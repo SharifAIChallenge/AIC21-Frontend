@@ -17,10 +17,10 @@
       </v-col>
       <v-col sm="6" xs="12">
         <v-card flat tile>
-          <v-card-subtitle>
+          <v-card-subtitle class="white--text">
             {{ post.date }}
           </v-card-subtitle>
-          <v-card-title>
+          <v-card-title class="primary--text font-weight-black">
             {{ post.title }}
           </v-card-title>
           <v-card-text class="mb-5">
@@ -47,7 +47,7 @@
       <v-col cols="12" class="headline font-weight-black">
         سایر اخبار
       </v-col>
-      <v-col lg="3" md="4" sm="4" v-for="(post, index) in posts" :key="index">
+      <v-col lg="3" md="4" sm="4" v-for="(Opost,index) in posts" :key="index">
         <app-post :post="post" class="pb-4"></app-post>
       </v-col>
     </v-row>
