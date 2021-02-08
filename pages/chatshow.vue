@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Wrapper from '../components/chatbox/wrapper';
+import Wrapper from '../components/chatbox/Wrapper';
 
 export default {
   auth: false,
