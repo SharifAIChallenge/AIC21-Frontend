@@ -37,22 +37,21 @@
 </template>
 
 <script>
-import Updates from '../../components/dashboard/Updates'
-import GamesStat from '../../components/dashboard/home/GamesStat'
-import Performance from '../../components/dashboard/home/Performance'
-import { mapState } from 'vuex'
-import { GAME_STATS, NOTIFICATIONS } from '../../api'
+import Updates from '../../components/dashboard/Updates';
+import GamesStat from '../../components/dashboard/home/GamesStat';
+import Performance from '../../components/dashboard/home/Performance';
+import { mapState } from 'vuex';
+import { GAME_STATS } from '../../api';
 
 export default {
   components: { Performance, GamesStat, Updates },
   layout: 'dashboard',
   transition: 'fade-transition',
-  async fetch({ store, $axios }) {
-    let data = await $axios.$get(NOTIFICATIONS.url)
-    store.commit('notification/set', data)
+  async fetch({ store }) {
+    store.dispatch('notification/get');
   },
   async asyncData({ store, $axios }) {
-    let data = await $axios.$get(GAME_STATS.url)
+    let data = await $axios.$get(GAME_STATS.url);
     if (data.status_code === 200)
       return {
         gameStat: {
@@ -60,7 +59,7 @@ export default {
           loss: data.loss,
           draws: data.draws,
         },
-      }
+      };
   },
   data() {
     return {
@@ -69,14 +68,14 @@ export default {
         loss: 0,
         draws: 0,
       },
-    }
+    };
   },
   computed: {
     ...mapState({
       notifications: state => state.notification.notifications,
     }),
   },
-}
+};
 </script>
 
 <style scoped></style>

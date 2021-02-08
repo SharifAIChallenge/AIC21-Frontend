@@ -20,7 +20,7 @@
           </glow>
         </v-row>
 
-        <v-form ref="form" v-model="valid" on-submit="return false;" @submit="resetPassword">
+        <v-form ref="form" v-model="valid" @submit.prevent="resetPassword">
           <v-text-field
             v-model="email"
             :label="$t('form.email')"
@@ -42,11 +42,11 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../mixins/formValidations'
-import { primaryButtonProps } from '../mixins/buttonProps'
-import { fieldProps } from '../mixins/fieldProps'
-import Glow from '../components/Glow'
-import { RESET_PASSWORD, SIGN_UP } from '../api'
+import { emailRules, requiredRules } from '../mixins/formValidations';
+import { primaryButtonProps } from '../mixins/buttonProps';
+import { fieldProps } from '../mixins/fieldProps';
+import Glow from '../components/Glow';
+import { resetPassword } from '../api';
 
 export default {
   auth: 'guest',
@@ -58,32 +58,22 @@ export default {
       valid: false,
       email: '',
       loading: false,
-    }
+    };
   },
   methods: {
     async resetPassword() {
-      const config = {
-        url: RESET_PASSWORD.url,
-        method: RESET_PASSWORD.method,
-        headers: {
-          Authorization: false,
-        },
-        [RESET_PASSWORD.payload]: {
-          email: this.email,
-        },
-      }
-      this.loading = true
-      let { data } = await this.$axios(config)
-      this.loading = false
+      this.loading = true;
+      let { data } = await resetPassword(this.$axios, this.email);
+      this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {
-          this.$toast.success('لینک تغییر رمز عبور به ایمیل شما ارسال شد.')
-          this.$refs.form.reset()
+          this.$toast.success('لینک تغییر رمز عبور به ایمیل شما ارسال شد.');
+          this.$refs.form.reset();
         } else {
-          this.$toast.error('ایمیل پیدا نشد.')
+          this.$toast.error('ایمیل پیدا نشد.');
         }
       }
     },
   },
-}
+};
 </script>

@@ -17,28 +17,24 @@
             </span>
           </glow>
           <glow>
-            <span
-              class="text-stroke-primary text-stroke-width-2 transparent--text display-1 font-weight-black"
-            >
+            <span class="text-stroke-primary text-stroke-width-2 transparent--text display-1 font-weight-black">
               {{ $t('form.for') }}
             </span>
           </glow>
         </v-row>
         <v-row justify="center" class="mb-5 mt-1">
           <glow>
-            <span
-              class="text-stroke-width-1 transparent--text text-stroke-white display-1 font-family-chopsic"
-            >
+            <span class="text-stroke-width-1 transparent--text text-stroke-white display-1 font-family-chopsic">
               AI Challenge
             </span>
           </glow>
         </v-row>
-        <v-form ref="form" v-model="valid" on-submit="return false;" @submit="signUp">
+        <v-form ref="form" v-model="valid" @submit.prevent="signUp">
           <v-row>
             <v-col class="py-0" cols="12" sm="6">
               <v-text-field
                 v-if="$i18n.locale === 'fa'"
-                v-model="nameInPersian"
+                v-model="form.nameInPersian"
                 :label="$t('form.nameInPersian')"
                 required
                 :rules="requiredRules"
@@ -51,7 +47,7 @@
             <v-col class="py-0" cols="12" sm="6">
               <v-text-field
                 v-if="$i18n.locale === 'fa'"
-                v-model="lastNameInPersian"
+                v-model="form.lastNameInPersian"
                 :label="$t('form.lastNameInPersian')"
                 required
                 :rules="requiredRules"
@@ -65,7 +61,7 @@
           <v-row>
             <v-col class="py-0" cols="12" sm="6">
               <v-text-field
-                v-model="nameInEnglish"
+                v-model="form.nameInEnglish"
                 :label="$t('form.nameInEnglish')"
                 required
                 :rules="requiredRules"
@@ -77,7 +73,7 @@
             </v-col>
             <v-col class="py-0" cols="12" sm="6">
               <v-text-field
-                v-model="lastNameInEnglish"
+                v-model="form.lastNameInEnglish"
                 :label="$t('form.lastNameInEnglish')"
                 required
                 :rules="requiredRules"
@@ -91,10 +87,10 @@
 
           <v-row no-gutters justify="center">
             <v-col>
-              <v-dialog ref="dialog" v-model="menu" :return-value.sync="birthday" width="290px">
+              <v-dialog ref="dialog" v-model="menu" :return-value.sync="form.birthday" width="290px">
                 <template v-slot:activator="{ on }">
                   <v-text-field
-                    v-model="birthday"
+                    v-model="form.birthday"
                     v-bind="filedProps"
                     required
                     :rules="requiredRules"
@@ -103,13 +99,13 @@
                     dir="ltr"
                     :error="result.errors.birth_date"
                     v-on="on"
-                    @focus="menu = true"
+                    @click="menu = true"
                     @change="clearError('birth_date')"
                   />
                 </template>
                 <v-date-picker
                   ref="picker"
-                  v-model="birthday"
+                  v-model="form.birthday"
                   :max="new Date().toISOString().substr(0, 10)"
                   min="1950-01-01"
                   locale="en-US"
@@ -119,7 +115,7 @@
               </v-dialog>
 
               <v-text-field
-                v-model="university"
+                v-model="form.university"
                 :label="$t('form.educationPlace')"
                 required
                 :rules="requiredRules"
@@ -129,7 +125,7 @@
               />
 
               <v-text-field
-                v-model="email"
+                v-model="form.email"
                 :label="$t('form.email')"
                 type="email"
                 :rules="emailRules"
@@ -141,18 +137,13 @@
                 @focus="clearError('email')"
               />
 
-              <password-input v-model="password" />
+              <password-input v-model="form.password" />
 
               <v-alert :type="result.type" :value="result.value" text outlined>
                 {{ result.message }}
               </v-alert>
 
-              <v-btn
-                :disabled="!valid"
-                :loading="loading"
-                type="submit"
-                v-bind="primaryButtonProps"
-              >
+              <v-btn :loading="loading" type="submit" v-bind="primaryButtonProps">
                 <v-icon left>
                   mdi-shield-plus-outline
                 </v-icon>
@@ -167,12 +158,12 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../../mixins/formValidations'
-import { primaryButtonProps } from '../../mixins/buttonProps'
-import { fieldProps } from '../../mixins/fieldProps'
-import Glow from '../../components/Glow'
-import PasswordInput from '../../components/PasswordInput'
-import { SIGN_UP } from '../../api'
+import { emailRules, requiredRules } from '../../mixins/formValidations';
+import { primaryButtonProps } from '../../mixins/buttonProps';
+import { fieldProps } from '../../mixins/fieldProps';
+import Glow from '../../components/Glow';
+import PasswordInput from '../../components/PasswordInput';
+import { signup } from '../../api';
 
 export default {
   layout: 'form',
@@ -182,14 +173,16 @@ export default {
   data() {
     return {
       valid: false,
-      nameInPersian: '',
-      lastNameInPersian: '',
-      nameInEnglish: '',
-      lastNameInEnglish: '',
-      birthday: '',
-      university: '',
-      email: '',
-      password: '',
+      form: {
+        nameInPersian: '',
+        lastNameInPersian: '',
+        nameInEnglish: '',
+        lastNameInEnglish: '',
+        birthday: '',
+        university: '',
+        email: '',
+        password: '',
+      },
       menu: false,
       result: {
         value: false,
@@ -198,70 +191,51 @@ export default {
         errors: {},
       },
       loading: false,
-    }
+    };
   },
   watch: {
     menu(val) {
-      val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
+      val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'));
     },
   },
   methods: {
     save(date) {
-      this.$refs.dialog.save(date)
-      this.menu = false
+      this.$refs.dialog.save(date);
+      this.menu = false;
     },
     async signUp() {
-      const config = {
-        url: SIGN_UP.url,
-        method: SIGN_UP.method,
-        headers: {
-          Authorization: false,
-        },
-        [SIGN_UP.payload]: {
-          email: this.email,
-          password_1: this.password,
-          password_2: this.password,
-          profile: {
-            firstname_fa: this.nameInPersian,
-            firstname_en: this.nameInEnglish,
-            lastname_fa: this.lastNameInPersian,
-            lastname_en: this.lastNameInEnglish,
-            birth_date: this.birthday,
-            university: this.university,
-          },
-        },
-      }
-      this.loading = true
-      let { data } = await this.$axios(config)
-      this.loading = false
-      if (data.status_code) {
-        if (data.status_code === 200) {
-          this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.'
-          this.result.type = 'success'
-          this.result.value = true
-          this.$refs.form.reset()
-        } else {
-          this.errors = {}
-          this.errors = Object.keys(data.detail).forEach(x => {
-            if (x === 'profile') {
-              Object.keys(data.detail.profile).forEach(y => this.$set(this.result.errors, y, true))
-            } else {
-              this.$set(this.result.errors, x, true)
-            }
-          })
-          this.result.message = 'ثبت‌نام با خطا مواجه شد.'
-          this.result.type = 'error'
-          this.result.value = true
+      this.loading = true;
+      await signup(this.$axios, this.form).then(data => {
+        this.loading = false;
+        if (data.status_code) {
+          if (data.status_code === 200) {
+            this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
+            this.result.type = 'success';
+            this.result.value = true;
+            this.$refs.form.reset();
+          } else {
+            this.errors = {};
+            this.errors = Object.keys(data.detail).forEach(x => {
+              if (x === 'profile') {
+                Object.keys(data.detail.profile).forEach(y => this.$set(this.result.errors, y, true));
+              } else {
+                this.$set(this.result.errors, x, true);
+              }
+            });
+            this.result.message = 'ثبت‌نام با خطا مواجه شد.';
+            this.result.type = 'error';
+            this.result.value = true;
+          }
         }
-      }
+      });
     },
     clearError(field) {
       if (this.result.errors[field]) {
-        this.result.errors[field] = false
+        this.result.errors[field] = false;
       }
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

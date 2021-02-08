@@ -21,12 +21,8 @@
             </span>
           </glow>
         </v-row>
-        <v-form ref="form" v-model="valid" on-submit="return false;" @submit="resetPasswordConfirm">
-          <password-input
-            v-model="new_password1"
-            label="form.newPassword"
-            @vis-change="val => (show = val)"
-          />
+        <v-form ref="form" v-model="valid" @submit.prevent="resetPasswordConfirm">
+          <password-input v-model="new_password1" label="form.newPassword" @vis-change="val => (show = val)" />
 
           <v-text-field
             v-model="new_password2"
@@ -38,12 +34,7 @@
             dir="ltr"
           />
 
-          <v-btn
-            :disabled="!valid || new_password1 !== new_password2"
-            :loading="loading"
-            type="submit"
-            v-bind="primaryButtonProps"
-          >
+          <v-btn :disabled="!valid || new_password1 !== new_password2" :loading="loading" type="submit" v-bind="primaryButtonProps">
             <v-icon left>
               mdi-shield-refresh-outline
             </v-icon>
@@ -56,12 +47,12 @@
 </template>
 
 <script>
-import { requiredRules } from '../mixins/formValidations'
-import { primaryButtonProps } from '../mixins/buttonProps'
-import { fieldProps } from '../mixins/fieldProps'
-import Glow from '../components/Glow'
-import PasswordInput from '../components/PasswordInput'
-import { RESET_PASSWORD, RESET_PASSWORD_CONFIRM } from '../api'
+import { requiredRules } from '../mixins/formValidations';
+import { primaryButtonProps } from '../mixins/buttonProps';
+import { fieldProps } from '../mixins/fieldProps';
+import Glow from '../components/Glow';
+import PasswordInput from '../components/PasswordInput';
+import { RESET_PASSWORD, RESET_PASSWORD_CONFIRM } from '../api';
 
 export default {
   auth: 'guest',
@@ -69,7 +60,7 @@ export default {
   components: { PasswordInput, Glow },
   mixins: [requiredRules, primaryButtonProps, fieldProps],
   validate({ query }) {
-    return query.uid && query.token
+    return query.uid && query.token;
   },
   data() {
     return {
@@ -78,7 +69,7 @@ export default {
       new_password2: '',
       show: false,
       loading: false,
-    }
+    };
   },
   methods: {
     async resetPasswordConfirm() {
@@ -94,21 +85,21 @@ export default {
           uid: this.$route.query.uid,
           token: this.$route.query.token,
         },
-      }
-      this.loading = true
-      let { data } = await this.$axios(config)
-      this.loading = false
+      };
+      this.loading = true;
+      let { data } = await this.$axios(config);
+      this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {
-          this.$toast.success('رمز عبور با موفقیت تغییر یافت.')
-          this.$router.push('/login')
+          this.$toast.success('رمز عبور با موفقیت تغییر یافت.');
+          this.$router.push('/login');
         } else {
-          this.$toast.error('خطا در تثییر رمز عبور.')
+          this.$toast.error('خطا در تثییر رمز عبور.');
         }
       }
     },
   },
-}
+};
 </script>
 
 <style scoped></style>
