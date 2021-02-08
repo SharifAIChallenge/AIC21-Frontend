@@ -1,15 +1,23 @@
 <template>
   <v-app>
-    <div v-if="show"> <login />
+    <div class="main">
+      <div v-if="show">
+        <div v-if="form === 'login'">
+          <login />
+        </div>
+        <div v-if="form === 'forgot'">
+          <forgotPassword />
+        </div>
+        <div v-if="form === 'signUp'">
+          <signUp />
+        </div>
+      </div>
+      <div v-else>
+        <v-btn @click="toggleShow">
+          click
+        </v-btn>
+      </div>
     </div>
-    <div v-else>
-    <v-btn @click="toggleShow">
-      click
-    </v-btn>
-    </div>
-
-
-
   </v-app>
 </template>
 
@@ -17,25 +25,35 @@
 import { mapState } from 'vuex';
 import { state } from '~/store/dashboard';
 import login from '../components/userForms/login';
+import forgotPassword from '../components/userForms/forgotPassword';
+import signUp from '../components/userForms/signUp';
 
 export default {
   auth: false,
   layout: 'empty',
-  components: { login },
+  components: { login, forgotPassword, signUp },
+
   methods: {
-    toggleShow(){
-      this.$store.commit('formStatus/toggleShow')
+    toggleShow() {
+      this.$store.commit('formStatus/toggleShow');
     },
-    changeStatus(form){
-      this.$store.commit('formStatus.js',form)
-    }
+    changeStatus(form) {
+      this.$store.commit('formStatus/changeStatus', form);
+    },
   },
   computed: {
     ...mapState({
-      show : state => state.formStatus.show
+      show: state => state.formStatus.show,
+      form: state => state.formStatus.form,
     }),
-   }
+  },
 };
 </script>
 
-<style></style>
+<style>
+.main {
+  background-color: #090c18;
+  width: 100%;
+  height: 100%;
+}
+</style>

@@ -1,12 +1,8 @@
 export const state = () => ({
     show: false,
-    form: "login",
+    form: 'login',
 })
 
-// export const getters = {
-//     show: (state) => state.show,
-//     form: (state) => state.form,
-// }
 
 export const mutations = {
     toggleShow(state){

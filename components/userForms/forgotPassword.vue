@@ -3,49 +3,28 @@
     <div class="close-btn" @click="toggleShow()">X</div>
     <div class="main-login-form container">
       <v-row justify="center" align="center">
-        <v-col>
+        <v-col cols="12">
           <div class="login-title">
-            <v-icon right size="55px" color="wihte">
-              mdi-shield-star
+            <v-icon right size="45px" color="wihte">
+              mdi-shield-sync-outline
             </v-icon>
-            ورود
+            فراموشی رمزعبور
           </div>
           <v-text-field label="ایمیل" outlined dir="ltr" height="36px"></v-text-field>
-          <v-text-field
-            label="رمزعبور"
-            outlined
-            dir="ltr"
-            height="36px"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            @click:append="showPassword = !showPassword"
-          ></v-text-field>
-          <v-row>
-            <v-col>
-              <a href="#" @click="changeStatus('forgot')">فراموشی رمزعبور</a>
-            </v-col>
-          </v-row>
 
           <v-row>
             <v-col>
               <v-btn block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
-                ورود
-              </v-btn>
-              <div style="text-align: center; margin:10px;">
-                ————— یا —————
-              </div>
-              <v-btn block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
-                <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
-                ورود با گوگل
+                ارسال لینک فراموشی رمزعبور
               </v-btn>
             </v-col>
           </v-row>
         </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="#42b3aa" class="sigin-up-btn" height="50px" @click="changeStatus('signUp')">
-      <v-icon style="margin:5px" size="25px">mdi-shield-plus-outline</v-icon>
-      ثبت نام
+    <v-btn width="100%" color="#42b3aa" class="sigin-up-btn" height="50px" @click="changeStatus('login')">
+      <v-icon style="margin:5px" size="25px">mdi-shield-star</v-icon>
+      ورود
     </v-btn>
   </div>
 </template>
@@ -55,9 +34,7 @@ export default {
   auth: false,
   layout: 'empty',
   data() {
-    return {
-      showPassword: false,
-    };
+    return {};
   },
   methods: {
     toggleShow() {
@@ -77,7 +54,7 @@ export default {
   height: 100%;
 }
 .main-login-form {
-  margin: auto;
+  margin: 100px auto;
   max-width: 500px;
 }
 .close-btn {
@@ -91,7 +68,7 @@ export default {
   text-align: center;
   margin-bottom: 20px;
   color: var(--v-primary-base);
-  font-size: 55px;
+  font-size: 40px;
   font-weight: bold;
 }
 .sigin-up-btn {
