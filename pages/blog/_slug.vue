@@ -10,7 +10,7 @@
     <v-text-field @keydown.prevent.enter="addComment" v-model="comment" solo placeholder="comment" autocomplete="off"></v-text-field>
     <app-post-comments :comments="this.comments"></app-post-comments>
   </div> -->
-  <div class="container">
+  <v-container>
     <v-row class="my-8 px-4">
       <v-col sm="6" xs="12">
         <v-img class="white--text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"></v-img>
@@ -28,7 +28,7 @@
           </v-card-text>
           <v-row class="mr-2 ml-3 mb-1 pb-2" align="center" justify="start">
             <v-col cols="12" class="pa-1">
-              <v-btn icon class="red darken-3 ml-1 rounded-0"> 
+              <v-btn icon class="red darken-3 ml-1 rounded-0">
                 <v-icon class="white--text">mdi-heart</v-icon>
               </v-btn>
               <v-btn class="white--text text--lighten-2" tile outlined>کپی لینک</v-btn>
@@ -47,12 +47,11 @@
       <v-col cols="12" class="headline font-weight-black">
         سایر اخبار
       </v-col>
-      <v-col lg="3" md="4" sm="4" v-for="(post,index) in posts" :key="index">
+      <v-col lg="3" md="4" sm="4" v-for="(post, index) in posts" :key="index">
         <app-post :post="post" class="pb-4"></app-post>
       </v-col>
-      
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -94,7 +93,7 @@ export default {
   components: {
     'app-post-button': Buttons,
     'app-post-comments': Comments,
-    'app-post': Post
+    'app-post': Post,
   },
 };
 </script>

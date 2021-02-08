@@ -1,13 +1,13 @@
 <template>
   <v-app>
-    <v-row class="my-5 mx-1">
-      <v-col cols="12">    
-      <div class="text--start font-weight-black display-2">اخبار</div>
-      </v-col>
-      <v-col xs='12' sm="6" md="6" lg="4" xl='3' v-for="(post, index) in posts" :key="index">
-      <app-post :post="post" class="pb-15"></app-post>
-      </v-col>
-    </v-row>
+    <v-container>
+      <div class="text--start font-weight-black display-2 primary--text">اخبار</div>
+      <v-row class="my-5 mx-1">
+        <v-col sm="12" md="6" lg="4" xl="3" v-for="(post, index) in posts" :key="index">
+          <app-post :post="post" class="pb-15"></app-post>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
 
@@ -28,5 +28,5 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>>
+<style scoped></style>
+>
