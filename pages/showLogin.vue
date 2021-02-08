@@ -13,7 +13,7 @@
         </div>
       </div>
       <div v-else>
-        <v-btn @click="toggleShow">
+        <v-btn block @click="toggleShow" color="primary">
           click
         </v-btn>
       </div>
