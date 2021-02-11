@@ -1,4 +1,5 @@
 import { GET_SCOREBOARD } from '~/api'
+import {getScoreBoard} from '~/api';
 import Vue from 'vue'
 
 function setRanks(scoreboard) {
@@ -19,7 +20,8 @@ export const state = () => ({
 
 export const actions = {
   async get({ commit }, { tab }) {
-    let data = await this.$axios.$get(GET_SCOREBOARD[tab].url)
+    // let data = await this.$axios.$get(GET_SCOREBOARD[tab].url)
+    let data = await getScoreBoard(this.$axios,tab)
     if (tab === 'groups' || tab === 'seeding') commit('setScoreboards', { ...data, tab })
     else commit('set', { ...data, tab })
   },
