@@ -18,13 +18,13 @@
       <v-col sm="6" xs="12">
         <v-card flat tile>
           <v-card-subtitle class="white--text">
-            {{ post.date }}
+            {{post.date}}
           </v-card-subtitle>
           <v-card-title class="primary--text font-weight-black">
-            {{ post.title }}
+            {{post.title_fa}}
           </v-card-title>
           <v-card-text class="mb-5">
-            {{ post.description }}
+            {{ post.text_fa}}
           </v-card-text>
           <v-row class="mr-2 ml-3 mb-1 pb-2" align="center" justify="start">
             <v-col cols="12" class="pa-1">
@@ -59,25 +59,42 @@ import { posts } from './posts';
 import Buttons from '~/components/blog/Buttons';
 import Comments from '~/components/blog/CommentsBox';
 import Post from '~/components/blog/Post';
+import {getPost} from '~/api/blog'
 export default {
   auth: false,
-  async asyncData({ params }) {
-    const slug = params.slug;
-    const id = slug[12] - 1;
-    return {
+  data(){
+    return{
       posts,
-      post: posts[id],
+      post:{}
+    }
+  },
+
+  // async asyncData({ params }) {
+  //   // const slug = params.slug;
+  //   return {
+  //     posts,
+  //     post: posts[1],
+      // slug:params.slug
       // comment: '',
       // comments: [
-      //   {
-      //     author: 'سالار',
+        //   {
+          //     author: 'سالار',
       //     text: 'بسیار زیبا!',
       //     time: '۲ساعت پیش',
       //     reply: [{ text: 'متشکر' }, { text: 'حق با شماست :)' }],
       //   },
       // ],
-    };
-  },
+  //   };
+  // },
+    async created(){
+      const id=this.$route.params.slug
+      console.log(id)
+      let data=await getPost(this.$axios,id)
+      // data.date = new Intl.DateTimeFormat(this.$i18n.locale).format(new Date(data.date))
+      // console.log(new Intl.DateTimeFormat(this.$i18n.locale).format(new Date(data.date)))
+      console.log(data.date)
+      this.post=data;
+    },
   methods: {
     addComment() {
       this.comments.push({

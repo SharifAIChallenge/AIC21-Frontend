@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { getPosts } from '~/api/blog';
 import { posts } from './posts';
 import Post from '~/components/blog/Post';
 
@@ -19,8 +20,13 @@ export default {
   auth: false,
   data() {
     return {
-      posts,
+      posts:[],
     };
+  },
+  async created(){
+    let data =await getPosts(this.$axios)
+    console.log(data)
+    this.posts=data;
   },
   components: {
     'app-post': Post,
@@ -29,4 +35,4 @@ export default {
 </script>
 
 <style scoped></style>
->
+

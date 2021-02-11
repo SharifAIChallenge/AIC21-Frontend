@@ -20,7 +20,7 @@ export const posts=[
       },
       {
         id: '#3',
-        title: 'بلاگ نبرد هوش مصنوعی شریف',
+        title: 'بلاگ نبرد هوش مصنوعی'+' '+'شریف',
         description: text,
         date: '۲۰بهمن ۱۳۹۹',
         slug: 'post-number-3',
