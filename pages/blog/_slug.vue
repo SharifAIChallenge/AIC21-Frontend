@@ -13,12 +13,14 @@
   <v-container>
     <v-row class="my-8 px-4">
       <v-col sm="6" xs="12">
-        <v-img class="white--text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"></v-img>
+        <v-img class="white--text align-end" height="100%" :src="`https://aichallenge.sharif.edu/${post.image}`"></v-img>
       </v-col>
       <v-col sm="6" xs="12">
         <v-card flat tile>
           <v-card-subtitle class="white--text">
-            {{post.date}}
+            {{
+              post.date
+            }}
           </v-card-subtitle>
           <v-card-title class="primary--text font-weight-black">
             {{post.title_fa}}
@@ -47,7 +49,7 @@
       <v-col cols="12" class="headline font-weight-black">
         سایر اخبار
       </v-col>
-      <v-col lg="3" md="4" sm="4" v-for="(Opost,index) in posts" :key="index">
+      <v-col lg="3" md="4" sm="4" v-for="(post,index) in posts" :key="index">
         <app-post :post="post" class="pb-4"></app-post>
       </v-col>
     </v-row>
@@ -55,16 +57,16 @@
 </template>
 
 <script>
-import { posts } from './posts';
+
 import Buttons from '~/components/blog/Buttons';
 import Comments from '~/components/blog/CommentsBox';
 import Post from '~/components/blog/Post';
-import {getPost} from '~/api/blog'
+import {getPost,getPosts} from '~/api/blog'
 export default {
   auth: false,
   data(){
     return{
-      posts,
+      posts:[],
       post:{}
     }
   },
@@ -87,13 +89,16 @@ export default {
   //   };
   // },
     async created(){
-      const id=this.$route.params.slug
+      const id=await this.$route.params.slug
       console.log(id)
-      let data=await getPost(this.$axios,id)
-      // data.date = new Intl.DateTimeFormat(this.$i18n.locale).format(new Date(data.date))
-      // console.log(new Intl.DateTimeFormat(this.$i18n.locale).format(new Date(data.date)))
-      console.log(data.date)
-      this.post=data;
+      let postData=await getPost(this.$axios,id)
+      let postsData=await getPosts(this.$axios)
+      console.log(postData);
+      console.log(postsData)
+      postData.date=new Intl.DateTimeFormat(this.$i18n.locale).format(
+                new Date(postData.date))
+      this.posts=postsData
+      this.post=postData;
     },
   methods: {
     addComment() {
