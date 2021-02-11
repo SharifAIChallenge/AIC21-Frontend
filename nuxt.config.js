@@ -107,10 +107,10 @@ export default {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {},
+    extend(config, ctx) {
+      // You can extend webpack config here
+      config.resolve.alias['vue$'] = 'vue/dist/vue.esm.js';
+    },
   },
   router: {
     middleware: ['auth'],
