@@ -89,6 +89,9 @@ export default {
     const id = await params.slug;
     let post = await getPost($axios, id);
     let posts = await getPosts($axios);
+    posts= posts.filter((value,index)=>{
+      return index == (id-1)
+    })
     return { post, posts };
   },
   methods: {
