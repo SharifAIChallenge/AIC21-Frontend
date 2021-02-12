@@ -11,11 +11,11 @@
     <app-post-comments :comments="this.comments"></app-post-comments>
   </div> -->
   <v-container>
-    <v-row class="my-8 px-4">
-      <v-col sm="6" xs="12">
+    <v-row class="my-8">
+      <v-col sm="6" cols="12">
         <v-img class="white--text align-end" height="100%" :src="`https://aichallenge.sharif.edu/${post.image}`"></v-img>
       </v-col>
-      <v-col sm="6" xs="12">
+      <v-col sm="6" cols="12">
         <v-card flat tile>
           <v-card-subtitle class="white--text">
             {{ new Intl.DateTimeFormat($i18n.locale).format(new Date(post.date)) }}
@@ -47,8 +47,8 @@
       <v-col cols="12" class="headline font-weight-black">
         سایر اخبار
       </v-col>
-      <v-col lg="3" md="4" sm="4" v-for="(post, index) in posts" :key="index">
-        <app-post :post="post" class="pb-4"></app-post>
+      <v-col lg="3" md="4" sm="4" class="pb-4" v-for="(post, index) in posts" :key="index">
+        <app-post :post="post"></app-post>
       </v-col>
     </v-row>
   </v-container>
