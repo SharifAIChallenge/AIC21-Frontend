@@ -53,7 +53,7 @@ export default {
   },
   async asyncData({ store, $axios }) {
     // let data = await $axios.$get(GAME_STATS.url);
-    let data = await gameStats(this.$axios)
+    let data = await gameStats($axios)
     if (data.status_code === 200)
       return {
         gameStat: {

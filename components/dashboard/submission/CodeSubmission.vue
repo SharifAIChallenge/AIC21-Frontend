@@ -58,7 +58,6 @@ import { requiredRules } from '../../../mixins/formValidations';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
 import { submitLargeCode, SUBMIT_CODE, SUBMIT_LARGE_CODE } from '../../../api';
-import { submitLargeCode } from '~/api';
 import { mapState } from 'vuex';
 
 export default {

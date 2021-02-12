@@ -86,11 +86,6 @@ export const state = () => ({
   },
 })
 
-export const getters = {
-  sidebar(state) {
-    return Object.values(state.routes)
-  },
-}
 
 export const mutations = {
   updateRoute(state, { route, val }) {
