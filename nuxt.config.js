@@ -58,7 +58,16 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     '@nuxtjs/toast',
+    '@nuxtjs/markdownit',
   ],
+
+  markdownit: {
+    preset: 'default',
+    linkify: true,
+    breaks: true,
+    runtime: true,
+    use: ['markdown-it-div', 'markdown-it-attrs'],
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
