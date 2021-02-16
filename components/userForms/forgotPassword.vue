@@ -8,33 +8,60 @@
             <v-icon right size="45px" color="wihte">
               mdi-shield-sync-outline
             </v-icon>
-            فراموشی رمزعبور
+            {{ $t('form.forgotPassword') }}
           </div>
-          <v-text-field label="ایمیل" outlined dir="ltr" height="36px"></v-text-field>
+          <form ref="form" @submit.prevent="resetPassword">
+            <v-text-field
+              :label="$t('form.email')"
+              v-model="email"
+              type="email"
+              :rules="emailRules"
+              required
+              outlined
+              dir="ltr"
+              height="36px"
+              autofocus
+            ></v-text-field>
 
-          <v-row>
-            <v-col>
-              <v-btn block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
-                ارسال لینک فراموشی رمزعبور
-              </v-btn>
-            </v-col>
-          </v-row>
+            <v-row>
+              <v-col>
+                <v-btn
+                  block
+                  :loading="loading"
+                  type="submit"
+                  color="primary"
+                  height="50px"
+                  style="border-radius: 0; font-weight: normal;"
+                >
+                  {{ $t('form.sendResetInstructions') }}
+                </v-btn>
+              </v-col>
+            </v-row>
+          </form>
         </v-col>
       </v-row>
     </div>
     <v-btn width="100%" color="#42b3aa" class="login-btn" height="50px" @click="changeStatus('login')">
       <v-icon style="margin:5px" size="25px">mdi-shield-star</v-icon>
-      ورود
+      {{ $t('form.signIn') }}
     </v-btn>
   </div>
 </template>
 
 <script>
+import { emailRules, requiredRules } from '../../mixins/formValidations';
+import { resetPassword } from '../../api';
+
 export default {
-  auth: false,
-  layout: 'empty',
+  auth: 'guest',
+  layout: 'form',
+  mixins: [requiredRules, emailRules],
   data() {
-    return {};
+    return {
+      valid: false,
+      email: '',
+      loading: false,
+    };
   },
   methods: {
     toggleShow() {
@@ -42,6 +69,19 @@ export default {
     },
     changeStatus(form) {
       this.$store.commit('formStatus/changeStatus', form);
+    },
+    async resetPassword() {
+      this.loading = true;
+      let { data } = await resetPassword(this.$axios, this.email);
+      this.loading = false;
+      if (data.status_code) {
+        if (data.status_code === 200) {
+          this.$toast.success('لینک تغییر رمز عبور به ایمیل شما ارسال شد.');
+          this.$refs.form.reset();
+        } else {
+          this.$toast.error('ایمیل پیدا نشد.');
+        }
+      }
     },
   },
 };

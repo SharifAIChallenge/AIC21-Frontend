@@ -14,8 +14,8 @@
             {{ result.message }}
           </v-alert>
         </v-col>
-        <form ref="form" v-model="valid" @submit.prevent="signUp">
           <v-col cols="12">
+        <form ref="form" @submit.prevent="signUp">
             <v-row>
               <v-text-field
                 v-if="$i18n.locale === 'fa'"
@@ -117,8 +117,8 @@
                 </v-btn>
               </v-col>
             </v-row>
-          </v-col>
         </form>
+          </v-col>
       </v-row>
     </div>
     <v-btn width="100%" color="#42b3aa" class="login-btn" height="50px" @click="changeStatus('login')">
