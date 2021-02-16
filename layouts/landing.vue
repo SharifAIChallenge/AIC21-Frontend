@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <Header />
     <v-main>
       <nuxt />
     </v-main>
@@ -8,10 +7,7 @@
 </template>
 
 <script>
-import Header from '~/components/landing/Header.vue';
-export default {
-  components: { Header },
-};
+export default {};
 </script>
 
 <style></style>

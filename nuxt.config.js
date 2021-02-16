@@ -90,7 +90,7 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: '#f33b47',
+          primary: '#eb3654',
           accent: colors.pink.base,
           secondary: '#42b3aa',
           info: colors.blue.base,

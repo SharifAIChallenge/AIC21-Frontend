@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer absolute right v-model="showMenu" height="100%" width="100%">
+    <v-navigation-drawer :color="color" absolute right v-model="showMenu" height="100%" width="100%">
       <v-btn icon @click="showMenu = !showMenu" class="transparent ma-3">
         <v-icon>
           mdi-close
@@ -15,7 +15,7 @@
         </v-list>
       </v-row>
     </v-navigation-drawer>
-    <v-app-bar flat color="transparent">
+    <v-app-bar flat :color="color">
       <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
         <v-icon>
           mdi-menu
@@ -47,6 +47,7 @@
 <script>
 import LogoMark from '~/components/LogoMark';
 export default {
+  props: ['color'],
   data() {
     return {
       showMenu: false,
