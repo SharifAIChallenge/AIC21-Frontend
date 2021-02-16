@@ -93,7 +93,7 @@
             :type="showPassword ? 'text' : 'password'"
             @click:append="showPassword = !showPassword"
           ></v-text-field> -->
-            <password-input v-model="form.password" />
+            <password-input v-model="form.password" style="height:36px" />
             <v-checkbox required outlined v-model="termsAndConditions" :label="$t('form.termsAndConditions')"></v-checkbox>
             <v-row>
               <v-col>
@@ -225,7 +225,6 @@ export default {
 }
 .sign-up-title {
   text-align: center;
-  margin-bottom: 20px;
   color: var(--v-primary-base);
   font-size: 55px;
   font-weight: bold;
