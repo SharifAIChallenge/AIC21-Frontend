@@ -6,9 +6,9 @@
           mdi-close
         </v-icon>
       </v-btn>
-      <v-row class="justify-center">
-        <v-list>
-          <v-list-item>ورود</v-list-item>
+      <v-row class="navLinks align-center">
+        <v-list class="pr-5 mr-5">
+        <v-list-item>ورود</v-list-item>
           <v-list-item>اخبار</v-list-item>
           <v-list-item>تاریخچه</v-list-item>
           <v-list-item>سوالات متداول</v-list-item>
@@ -58,3 +58,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.navLinks{
+  height: calc(100% - 200px);;
+}
+</style>

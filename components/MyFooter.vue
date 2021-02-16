@@ -1,7 +1,15 @@
 <template>
   <v-footer dark padless>
     <v-card-text class="justify-center d-flex">
-      <v-btn v-for="social in socials" :key="social.icon" :href="social.url" class="mx-4 transparent primary--text" target="_blank" icon large>
+      <v-btn
+        v-for="social in socials"
+        :key="social.icon"
+        :href="social.url"
+        class="mx-4 transparent primary--text"
+        target="_blank"
+        icon
+        large
+      >
         <v-icon size="24px">
           {{ social.icon }}
         </v-icon>
