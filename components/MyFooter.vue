@@ -1,11 +1,12 @@
 <template>
   <v-footer dark padless>
-    <v-card-text class="justify-center d-flex">
+    <v-card-text class="align-center justify-space-between d-flex mx-sm-3 flex-wrap">
+      <div class="order-md-1 order-xs-0 mx-auto mb-3">
       <v-btn
         v-for="social in socials"
         :key="social.icon"
         :href="social.url"
-        class="mx-4 transparent primary--text"
+        class="mx-4 transparent primary--text mx-sm-2"
         target="_blank"
         icon
         large
@@ -14,16 +15,17 @@
           {{ social.icon }}
         </v-icon>
       </v-btn>
-    </v-card-text>
+      </div>
+    <!-- </v-card-text> -->
 
-    <v-card-text class="white--text align-center justify-space-between d-flex mx-sm-3">
-      <div dir="ltr" class="primary--text">
+    <!-- <v-card-text class="align-center justify-space-between d-flex mx-sm-3"> -->
+      <div dir="ltr" class="primary--text order-md-0 order-xs-1">
         <strong>
           <v-icon right small class="primary--text">mdi-copyright</v-icon>
           2021 Sharif AI Challenge
         </strong>
       </div>
-      <logo-mark />
+      <logo-mark class="order-2"/>
     </v-card-text>
   </v-footer>
 </template>
