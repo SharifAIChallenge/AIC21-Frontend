@@ -23,15 +23,6 @@
               validate-on-blur
               height="36px"
             ></v-text-field>
-            <!-- <v-text-field
-            label="رمزعبور"
-            outlined
-            dir="ltr"
-            height="36px"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            @click:append="showPassword = !showPassword"
-          ></v-text-field> -->
             <password-input height="36px" v-model="password" />
             <v-row>
               <v-col>
