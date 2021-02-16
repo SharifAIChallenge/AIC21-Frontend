@@ -6,6 +6,8 @@
     :type="show ? 'text' : 'password'"
     :rules="requiredRules"
     required
+    outlined
+    height="36px"
     :autofocus="autofocus"
     v-bind="filedProps"
     dir="ltr"
