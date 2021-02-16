@@ -1,55 +1,13 @@
 @font-face {
   font-family: Vazir;
-  src: url("./FD/Vazir-FD.eot");
-  src: url("./FD/Vazir-FD.eot?#iefix") format("embedded-opentype"), url("./FD/Vazir-FD.woff2") format("woff2"), url("./FD/Vazir-FD.woff") format("woff"), url("./FD/Vazir-FD.ttf") format("truetype");
+  src: url('./KanunStencilAR+LT-Medium.otf');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: Vazir;
-  src: url("./FD/Vazir-Bold-FD.eot");
-  src: url("./FD/Vazir-Bold-FD.eot?#iefix") format("embedded-opentype"), url("./FD/Vazir-Bold-FD.woff2") format("woff2"), url("./FD/Vazir-Bold-FD.woff") format("woff"), url("./FD/Vazir-Bold-FD.ttf") format("truetype");
+  src: url('./KanunStencilAR+LT-Bold.otf');
   font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Vazir;
-  src: url("./FD/Vazir-Black-FD.eot");
-  src: url("./FD/Vazir-Black-FD.eot?#iefix") format("embedded-opentype"), url("./FD/Vazir-Black-FD.woff2") format("woff2"), url("./FD/Vazir-Black-FD.woff") format("woff"), url("./FD/Vazir-Black-FD.ttf") format("truetype");
-  font-weight: 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Vazir;
-  src: url("./FD/Vazir-Medium-FD.eot");
-  src: url("./FD/Vazir-Medium-FD.eot?#iefix") format("embedded-opentype"), url("./FD/Vazir-Medium-FD.woff2") format("woff2"), url("./FD/Vazir-Medium-FD.woff") format("woff"), url("./FD/Vazir-Medium-FD.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Vazir;
-  src: url("./FD/Vazir-Light-FD.eot");
-  src: url("./FD/Vazir-Light-FD.eot?#iefix") format("embedded-opentype"), url("./FD/Vazir-Light-FD.woff2") format("woff2"), url("./FD/Vazir-Light-FD.woff") format("woff"), url("./FD/Vazir-Light-FD.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Vazir;
-  src: url("./FD/Vazir-Thin-FD.eot");
-  src: url("./FD/Vazir-Thin-FD.eot?#iefix") format("embedded-opentype"), url("./FD/Vazir-Thin-FD.woff2") format("woff2"), url("./FD/Vazir-Thin-FD.woff") format("woff"), url("./FD/Vazir-Thin-FD.ttf") format("truetype");
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: Chopsic;
-  src: url('./Chopsic.eot');
-  src: url('./Chopsic.eot?#iefix') format('embedded-opentype'), url('./Chopsic.woff2') format('woff2'), url('./Chopsic.woff') format('woff'), url('./Chopsic.ttf') format('truetype');
-  font-weight: normal;
   font-style: normal;
 }

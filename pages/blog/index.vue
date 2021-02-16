@@ -1,39 +1,32 @@
 <template>
-  <div>
-    <div v-for="(post, index) in posts" :key="index">
-      <nuxt-link :to="post.slug">
-        {{ post.title }}
-      </nuxt-link>
-    </div>
-  </div>
+  <v-app>
+    <v-container>
+      <div class="text--start font-weight-black display-2 primary--text">اخبار</div>
+      <v-row class="my-5 mx-1">
+        <v-col sm="12" md="6" lg="4" xl="3" v-for="(post, index) in posts" :key="index">
+          <app-post :post="post" class="pb-15"></app-post>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
+import { posts } from './posts';
+import Post from '~/components/blog/Post';
+
 export default {
   auth: false,
   data() {
     return {
-      posts: [
-        {
-          title: 'asdf asdfad asdfa',
-          slug: 'asdf-asdfad-asdfa',
-        },
-        {
-          title: 'asdf asdfad asdfa33',
-          slug: 'asdf-asdfad',
-        },
-        {
-          title: 'asdf asdfad asdfa2',
-          slug: 'asdf-asdfad-asdfa2',
-        },
-        {
-          title: 'asdf asdfad asdfa3',
-          slug: 'asdf-asdfad-asdfa3',
-        },
-      ],
+      posts,
     };
+  },
+  components: {
+    'app-post': Post,
   },
 };
 </script>
 
-<style></style>
+<style scoped></style>
+>

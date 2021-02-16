@@ -1,10 +1,5 @@
 @import './button.scss';
 
-
-body .v-application .font-family-chopsic {
-  font-family: "Chopsic", serif !important;
-}
-
 svg:not([fill]) {
   fill: currentColor;
 }
@@ -22,7 +17,7 @@ svg {
   filter: blur(4px);
 }
 
- body .v-application .text-stroke-width-2 {
+body .v-application .text-stroke-width-2 {
   -webkit-text-stroke-width: 2px;
   text-stroke-width: 2px;
   letter-spacing: 0 !important;
@@ -59,7 +54,7 @@ body .v-application .text-stroke-width-1 {
 }
 
 hr {
-    border-top-width: 1.5px !important;
+  border-top-width: 1.5px !important;
 }
 
 .autofill-bg input:-webkit-autofill,
@@ -71,11 +66,11 @@ hr {
 }
 
 .bg-dotted {
-  background: var(--v-bg-base) url("/image/bg-dotted.jpg") bottom center no-repeat !important;
+  background: var(--v-bg-base) url('/image/bg-dotted.jpg') bottom center no-repeat !important;
 }
 
 .bg-decorated {
-  background: var(--v-bg-base) url("/image/bg-decorated.jpg") bottom center no-repeat !important;
+  background: var(--v-bg-base) url('/image/bg-decorated.jpg') bottom center no-repeat !important;
 }
 
 ::-moz-selection {

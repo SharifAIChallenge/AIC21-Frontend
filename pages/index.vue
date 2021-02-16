@@ -1,11 +1,9 @@
-<script>
-import LandingPage from '../components/landing/LandingPage'
+<template>
+  <div>landing</div>
+</template>
 
-export default LandingPage
+<script>
+export default {};
 </script>
 
-<!--<script>-->
-<!--  import UnderConstruction from "../components/landing/UnderConstruction";-->
-
-<!--  export default UnderConstruction;-->
-<!--</script>-->
+<style></style>

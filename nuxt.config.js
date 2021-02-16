@@ -30,11 +30,19 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@/assets/fonts/fonts.scss', '@/assets/style.scss'],
+  css: [
+    '@/assets/fonts/fonts.scss',
+    '@/assets/style.scss',
+    'quill/dist/quill.core.css',
+    // for snow theme
+    'quill/dist/quill.snow.css',
+    // for bubble theme
+    'quill/dist/quill.bubble.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/i18n.js', '~/plugins/axios.js'],
+  plugins: ['~/plugins/i18n.js', '~/plugins/axios.js', { src: '~plugins/nuxt-quill-plugin', ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -82,14 +90,15 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: colors.deepOrange.base,
+          primary: '#f33b47',
           accent: colors.pink.base,
-          secondary: colors.amber.darken3,
+          secondary: '#42b3aa',
           info: colors.blue.base,
           warning: colors.amber.base,
           error: colors.red.accent3,
           success: colors.green.accent4,
           bg: '#160031',
+          shades: '#090c18',
         },
       },
     },
@@ -98,10 +107,10 @@ export default {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {},
+    extend(config, ctx) {
+      // You can extend webpack config here
+      config.resolve.alias['vue$'] = 'vue/dist/vue.esm.js';
+    },
   },
   router: {
     middleware: ['auth'],
