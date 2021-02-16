@@ -1,9 +1,10 @@
-<template>
-  <div>landing</div>
-</template>
+<template></template>
 
 <script>
-export default {};
+export default {
+  layout: 'landing',
+  auth: false,
+};
 </script>
 
 <style></style>

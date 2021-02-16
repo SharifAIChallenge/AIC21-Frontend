@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <v-navigation-drawer absolute right v-model="showMenu" height="100%" width="100%">
       <v-btn icon @click="showMenu = !showMenu" class="transparent ma-3">
         <v-icon>
@@ -42,7 +42,7 @@
       <v-spacer></v-spacer>
       <logo />
     </v-app-bar>
-  </v-app>
+  </div>
 </template>
 <script>
 import LogoMark from '~/components/LogoMark';
