@@ -28,6 +28,7 @@
         مسابقه
       </div>
     </div>
+    <div class="fag-title-for-show">-عمومی</div>
     <div class="faq-container">
       <div class="faq-card">
         <div class="faq-card-title">
@@ -51,7 +52,56 @@
           cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
         </span>
       </div>
+      <div class="faq-card">
+        <div class="faq-card-title">
+          <v-icon left color="primary" size="55">
+            mdi-calendar
+          </v-icon>
+          نبرد هوش مصنوعی چگونه کار می کند
+        </div>
+        <span class="faq-card-text">
+          cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
+        </span>
+      </div> 
     </div>
+    <!-- ************************************** -->
+        <div class="fag-title-for-show">-عمومی</div>
+    <div class="faq-container">
+      <div class="faq-card">
+        <div class="faq-card-title">
+          <v-icon left color="primary" size="55">
+            mdi-calendar
+          </v-icon>
+          نبرد هوش مصنوعی چگونه کار می کند
+        </div>
+        <span class="faq-card-text">
+          cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
+        </span>
+      </div>
+      <div class="faq-card">
+        <div class="faq-card-title">
+          <v-icon left color="primary" size="55">
+            mdi-calendar
+          </v-icon>
+          نبرد هوش مصنوعی چگونه کار می کند
+        </div>
+        <span class="faq-card-text">
+          cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
+        </span>
+      </div>
+      <div class="faq-card">
+        <div class="faq-card-title">
+          <v-icon left color="primary" size="55">
+            mdi-calendar
+          </v-icon>
+          نبرد هوش مصنوعی چگونه کار می کند
+        </div>
+        <span class="faq-card-text">
+          cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
+        </span>
+      </div> 
+    </div>
+
   </v-app>
 </template>
 
@@ -89,26 +139,32 @@ export default {
   position: sticky;
   margin: auto 50px;
 }
+.fag-title-for-show {
+  font-size: 4rem;
+  color: var(--v-primary-base);
+  margin-right: 50px;
+  margin-bottom: 50px;
+}
 .faq-container {
   display: flex;
   justify-content: space-evenly;
 }
 .faq-card {
   position: relative;
-  max-width: 450px !important;
+  max-width: 450px ;
   height: 500px;
-  border: 3px solid red;
+  border: 3px solid var(--v-primary-base);
   padding: 20px;
-  /* margin: 20px; */
+  margin: 20px;
 }
 .faq-card-title {
-  position: absolute;
+  /* position: absolute; */
   display: inline-block;
   margin-top: 50px;
   font-size: 2rem;
 }
 .faq-card-text {
-  position: absolute;
+  /* position: absolute; */
   margin-top: 200px;
   margin-left: 30px;
   margin-right: 20px;
