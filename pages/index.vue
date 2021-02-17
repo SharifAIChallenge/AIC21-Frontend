@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id='main'>
     <Header color="transparent" />
   </div>
 </template>
