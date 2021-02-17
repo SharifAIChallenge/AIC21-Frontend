@@ -121,7 +121,7 @@ export default {
     },
     strategies: {
       google: {
-        clientId: '939108343385-ki4hppc0879jktshp5po57lhihn617st.apps.googleusercontent.com',
+        client_id: '939108343385-ki4hppc0879jktshp5po57lhihn617st.apps.googleusercontent.com',
       },
       local: {
         endpoints: {

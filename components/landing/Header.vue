@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-if="show">
+      <formManager />
+    </div>
     <v-navigation-drawer :color="color" absolute right v-model="showMenu" height="100%" width="100%">
       <v-btn icon @click="showMenu = !showMenu" class="transparent ma-3">
         <v-icon>
@@ -48,6 +51,9 @@
 <script>
 import LogoMark from '~/components/LogoMark';
 import Logo from '~/components/Logo';
+import formManager from '~/components/userForms/formManager';
+import { mapState } from 'vuex';
+
 export default {
   props: ['color'],
   data() {
@@ -58,6 +64,12 @@ export default {
   components: {
     logoPrimary: LogoMark,
     logoWhite: Logo,
+    formManager,
+  },
+  computed: {
+    ...mapState({
+      show: state => state.formStatus.show,
+    }),
   },
   methods: {
     toggleShow() {
