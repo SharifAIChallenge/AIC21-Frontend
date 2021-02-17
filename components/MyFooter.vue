@@ -1,7 +1,7 @@
 <template>
   <v-footer dark padless>
-    <v-card-text class="align-center justify-space-between d-flex mx-sm-3 flex-wrap">
-      <div class="order-md-1 order-xs-0 mx-auto mb-3">
+    <v-card-text class="align-center justify-space-between d-flex mx-sm-3 flex-wrap flex-md-column">
+      <div class="order-md-1 order-0 mx-auto mb-3">
       <v-btn
         v-for="social in socials"
         :key="social.icon"
@@ -19,7 +19,7 @@
     <!-- </v-card-text> -->
 
     <!-- <v-card-text class="align-center justify-space-between d-flex mx-sm-3"> -->
-      <div dir="ltr" class="primary--text order-md-0 order-xs-1">
+      <div dir="ltr" class="primary--text order-md-0 order-1">
         <strong>
           <v-icon right small class="primary--text">mdi-copyright</v-icon>
           2021 Sharif AI Challenge
@@ -68,4 +68,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+/* @import 'assets ' */
+</style>

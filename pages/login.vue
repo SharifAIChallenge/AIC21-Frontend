@@ -53,7 +53,7 @@
             </nuxt-link>
           </div>
 
-          <v-btn :disabled="!valid" :loading="loading" type="submit" v-bind="primaryButtonProps">
+          <v-btn :disabled="!valid || loading" :loading="loading" type="submit" v-bind="primaryButtonProps">
             <v-icon left>
               mdi-shield-star-outline
             </v-icon>

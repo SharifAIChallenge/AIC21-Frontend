@@ -8,13 +8,14 @@
         </v-col>
       </v-row>
     </v-container>
+    <app-call></app-call>
   </v-app>
 </template>
 
 <script>
 import { posts } from './posts';
 import Post from '~/components/blog/Post';
-
+import CallToAction from '~/components/CallToAction'
 export default {
   auth: false,
   data() {
@@ -24,6 +25,7 @@ export default {
   },
   components: {
     'app-post': Post,
+    'app-call':CallToAction
   },
 };
 </script>

@@ -1,0 +1,102 @@
+@mixin sm {
+  & {
+    @media screen and (min-width: 576px) {
+      @content;
+    }
+  }
+}
+@mixin md {
+  & {
+    @media screen and (min-width: 768px) {
+      @content;
+    }
+  }
+}
+@mixin lg {
+  & {
+    @media screen and (min-width: 992px) {
+      @content;
+    }
+  }
+}
+@mixin xl {
+  & {
+    @media screen and (min-width: 1200px) {
+      @content;
+    }
+  }
+}
+@mixin xxl {
+  & {
+    @media screen and (min-width: 1600px) {
+      @content;
+    }
+  }
+}
+
+@mixin not-sm {
+  & {
+    @media screen and (max-width: 575px) {
+      @content;
+    }
+  }
+}
+@mixin not-md {
+  & {
+    @media screen and (max-width: 767px) {
+      @content;
+    }
+  }
+}
+@mixin not-lg {
+  & {
+    @media screen and (max-width: 991px) {
+      @content;
+    }
+  }
+}
+@mixin not-xl {
+  & {
+    @media screen and (max-width: 1199px) {
+      @content;
+    }
+  }
+}
+@mixin not-xxl {
+  & {
+    @media screen and (max-width: 1599px) {
+      @content;
+    }
+  }
+}
+
+@mixin responsive($property, $value: false, $sm: false, $md: false, $lg: false, $xl: false, $xxl: false) {
+  @if $value {
+    #{$property}: $value;
+  }
+  @if $sm {
+    @include sm {
+      #{$property}: $sm;
+    }
+  }
+  @if $md {
+    @include md {
+      #{$property}: $md;
+    }
+  }
+  @if $lg {
+    @include lg {
+      #{$property}: $lg;
+    }
+  }
+  @if $xl {
+    @include xl {
+      #{$property}: $xl;
+    }
+  }
+  @if $xxl {
+    @include xxl {
+      #{$property}: $xxl;
+    }
+  }
+}

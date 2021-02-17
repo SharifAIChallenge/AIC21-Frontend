@@ -8,7 +8,7 @@
       </v-btn>
       <v-row class="navLinks align-center">
         <v-list class="pr-5 mr-5">
-        <v-list-item>ورود</v-list-item>
+        <v-list-item @click="toggleShow()">ورود</v-list-item>
           <v-list-item>اخبار</v-list-item>
           <v-list-item>تاریخچه</v-list-item>
           <v-list-item>سوالات متداول</v-list-item>
@@ -22,7 +22,7 @@
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only">
-        <v-btn plain text tile class="transparent mx-4 ">
+        <v-btn plain text tile class="transparent mx-4 " @click="toggleShow">
           <v-icon left>
             mdi-shield-star
           </v-icon>
@@ -40,12 +40,14 @@
         <span>ورود</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <logo />
+      <logoWhite v-if="color === 'primary'" />
+      <logoPrimary v-else />
     </v-app-bar>
   </div>
 </template>
 <script>
 import LogoMark from '~/components/LogoMark';
+import Logo from '~/components/Logo';
 export default {
   props: ['color'],
   data() {
@@ -54,7 +56,16 @@ export default {
     };
   },
   components: {
-    logo: LogoMark,
+    logoPrimary: LogoMark,
+    logoWhite: Logo,
+  },
+  methods: {
+    toggleShow() {
+      this.$store.commit('formStatus/toggleShow');
+    },
+    changeStatus(form) {
+      this.$store.commit('formStatus/changeStatus', form);
+    },
   },
 };
 </script>
