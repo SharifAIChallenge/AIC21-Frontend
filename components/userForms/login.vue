@@ -23,7 +23,7 @@
               validate-on-blur
               height="36px"
             ></v-text-field>
-            <password-input height="36px" v-model="password" />
+            <password-input v-model="password" />
             <v-row>
               <v-col>
                 <a @click="changeStatus('forgot')">{{ $t('form.forgotPassword') }}</a>
@@ -56,7 +56,7 @@
         </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="#42b3aa" class="sigin-up-btn" height="50px" @click="changeStatus('signUp')">
+    <v-btn width="100%" color="secondary" class="sigin-up-btn" height="50px" @click="changeStatus('signUp')">
       <v-icon style="margin:5px" size="25px">mdi-shield-plus-outline</v-icon>
       {{ $t('form.signUp') }}
     </v-btn>
@@ -68,8 +68,6 @@ import PasswordInput from '../PasswordInput';
 import { emailRules, requiredRules } from '../../mixins/formValidations';
 
 export default {
-  auth: false,
-  layout: 'form',
   mixins: [requiredRules, emailRules],
   components: { PasswordInput },
   data() {

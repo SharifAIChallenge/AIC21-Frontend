@@ -14,8 +14,8 @@
             {{ result.message }}
           </v-alert>
         </v-col>
-          <v-col cols="12">
-        <form ref="form" @submit.prevent="signUp">
+        <v-col cols="12">
+          <form ref="form" @submit.prevent="signUp">
             <v-row>
               <v-text-field
                 v-if="$i18n.locale === 'fa'"
@@ -84,15 +84,6 @@
               @focus="clearError('email')"
             ></v-text-field>
 
-            <!-- <v-text-field
-            :label="رمزعبور"
-            outlined
-            dir="ltr"
-            height="36px"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            @click:append="showPassword = !showPassword"
-          ></v-text-field> -->
             <password-input v-model="form.password" style="height:36px" />
             <v-checkbox required outlined v-model="termsAndConditions" :label="$t('form.termsAndConditions')"></v-checkbox>
             <v-row>
@@ -111,17 +102,17 @@
                 <div style="text-align: center; margin:10px;">
                   ————— یا —————
                 </div>
-                <v-btn block :disabled="!termsAndConditions" color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
+                <v-btn block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
                   <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
                   {{ $t('form.signUpWithGoogle') }}
                 </v-btn>
               </v-col>
             </v-row>
-        </form>
-          </v-col>
+          </form>
+        </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="#42b3aa" class="login-btn" height="50px" @click="changeStatus('login')">
+    <v-btn width="100%" color="secondary" class="login-btn" height="50px" @click="changeStatus('login')">
       <v-icon style="margin:5px" size="25px">mdi-shield-star</v-icon>
       {{ $t('form.signIn') }}
     </v-btn>
@@ -134,8 +125,6 @@ import PasswordInput from '../../components/PasswordInput';
 import { signup } from '../../api';
 
 export default {
-  auth: 'guest',
-  layout: 'form',
   components: { PasswordInput },
   mixins: [requiredRules, emailRules],
 

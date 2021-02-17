@@ -7,7 +7,6 @@
     :rules="requiredRules"
     required
     outlined
-    height="36px"
     :autofocus="autofocus"
     v-bind="filedProps"
     dir="ltr"
@@ -17,8 +16,8 @@
 </template>
 
 <script>
-import { fieldProps } from '../mixins/fieldProps'
-import { requiredRules } from '../mixins/formValidations'
+import { fieldProps } from '../mixins/fieldProps';
+import { requiredRules } from '../mixins/formValidations';
 
 export default {
   mixins: [fieldProps, requiredRules],
@@ -38,15 +37,15 @@ export default {
     return {
       password: '',
       show: false,
-    }
+    };
   },
   methods: {
     toggle() {
-      this.show = !this.show
-      this.$emit('vis-change', this.show)
+      this.show = !this.show;
+      this.$emit('vis-change', this.show);
     },
   },
-}
+};
 </script>
 
 <style scoped></style>

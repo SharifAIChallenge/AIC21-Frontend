@@ -25,14 +25,7 @@
 
             <v-row>
               <v-col>
-                <v-btn
-                  block
-                  :loading="loading"
-                  type="submit"
-                  color="primary"
-                  height="50px"
-                  style="border-radius: 0; font-weight: normal;"
-                >
+                <v-btn block :loading="loading" type="submit" color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
                   {{ $t('form.sendResetInstructions') }}
                 </v-btn>
               </v-col>
@@ -41,7 +34,7 @@
         </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="#42b3aa" class="login-btn" height="50px" @click="changeStatus('login')">
+    <v-btn width="100%" color="primary" class="login-btn" height="50px" @click="changeStatus('login')">
       <v-icon style="margin:5px" size="25px">mdi-shield-star</v-icon>
       {{ $t('form.signIn') }}
     </v-btn>
@@ -53,8 +46,6 @@ import { emailRules, requiredRules } from '../../mixins/formValidations';
 import { resetPassword } from '../../api';
 
 export default {
-  auth: 'guest',
-  layout: 'form',
   mixins: [requiredRules, emailRules],
   data() {
     return {

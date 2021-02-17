@@ -12,25 +12,17 @@
           <signUp />
         </div>
       </div>
-      <!-- <div v-else>
-        <v-btn block @click="toggleShow" color="primary">
-          click
-        </v-btn>
-      </div> -->
     </div>
   </v-app>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { state } from '~/store/dashboard';
 import login from '../userForms/login';
 import forgotPassword from '../userForms/forgotPassword';
 import signUp from '../userForms/signUp';
 
 export default {
-  auth: false,
-  layout: 'empty',
   components: { login, forgotPassword, signUp },
 
   methods: {
