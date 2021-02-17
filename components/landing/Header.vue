@@ -40,12 +40,14 @@
         <span>ورود</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <logo />
+      <logoWhite v-if="color === 'primary'" />
+      <logoPrimary v-else />
     </v-app-bar>
   </div>
 </template>
 <script>
 import LogoMark from '~/components/LogoMark';
+import Logo from '~/components/Logo';
 export default {
   props: ['color'],
   data() {
@@ -54,7 +56,8 @@ export default {
     };
   },
   components: {
-    logo: LogoMark,
+    logoPrimary: LogoMark,
+    logoWhite: Logo,
   },
 };
 </script>

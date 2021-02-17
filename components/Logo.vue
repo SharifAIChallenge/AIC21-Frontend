@@ -114,6 +114,6 @@
 
 <style>
 .aic-logo {
-  width: 100px;
+  width: 40px;
 }
 </style>
