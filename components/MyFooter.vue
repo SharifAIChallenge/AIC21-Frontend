@@ -69,5 +69,5 @@ export default {
 </script>
 
 <style scoped>
-/* @import 'assets ' */
+@import 'assets/mixins.scss';
 </style>
