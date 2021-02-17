@@ -102,7 +102,7 @@
                 <div style="text-align: center; margin:10px;">
                   ————— یا —————
                 </div>
-                <v-btn block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
+                <v-btn @click="loginWithGoogle" block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
                   <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
                   {{ $t('form.signUpWithGoogle') }}
                 </v-btn>
@@ -184,6 +184,9 @@ export default {
           }
         }
       });
+    },
+    loginWithGoogle() {
+      this.$auth.loginWith('google');
     },
     clearError(field) {
       if (this.result.errors[field]) {

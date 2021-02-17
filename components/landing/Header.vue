@@ -8,7 +8,7 @@
       </v-btn>
       <v-row class="justify-center">
         <v-list>
-          <v-list-item>ورود</v-list-item>
+          <v-list-item @click="toggleShow()">ورود</v-list-item>
           <v-list-item>اخبار</v-list-item>
           <v-list-item>تاریخچه</v-list-item>
           <v-list-item>سوالات متداول</v-list-item>
@@ -22,7 +22,7 @@
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only">
-        <v-btn plain text tile class="transparent mx-4 ">
+        <v-btn plain text tile class="transparent mx-4 " @click="toggleShow">
           <v-icon left>
             mdi-shield-star
           </v-icon>
@@ -58,6 +58,14 @@ export default {
   components: {
     logoPrimary: LogoMark,
     logoWhite: Logo,
+  },
+  methods: {
+    toggleShow() {
+      this.$store.commit('formStatus/toggleShow');
+    },
+    changeStatus(form) {
+      this.$store.commit('formStatus/changeStatus', form);
+    },
   },
 };
 </script>
