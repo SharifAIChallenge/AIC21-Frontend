@@ -7,7 +7,7 @@
       </div>
 
       <v-expand-x-transition>
-        <v-card v-show="expand" height="100vh" width="70" class="secondary social">
+        <v-card v-show="expand" height="100vh" width="70" class="primary social">
           <div class="social-wrap d-flex flex-column justify-center align-center">
             <a href="instagram.com" class="my-2">
               <v-icon medium>mdi-instagram</v-icon>
@@ -43,7 +43,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 #main,
 #aic-logo-mark {
   transition: 0.4s;
@@ -58,7 +58,9 @@ export default {
   position: fixed !important;
   top: 0;
   right: -7px;
+  border-radius: 0px !important;
 }
+
 .vert-text-btn {
   transform: rotate(90deg);
   position: fixed !important;
@@ -69,8 +71,13 @@ export default {
 }
 .social-wrap {
   height: 100vh;
-}
-.social-wrap a {
-  text-decoration: none;
+  a {
+    text-decoration: none;
+    i {
+      &:hover {
+        color: black;
+      }
+    }
+  }
 }
 </style>

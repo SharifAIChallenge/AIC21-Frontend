@@ -1,8 +1,18 @@
 <template>
   <div class="">
     <div class="d-flex flex-column align-start text-center justify-center intersection">
-      <v-avatar width='100' class="d-flex justify-end"><span class="ml-5">درباره ما <span :class="isIntersectingAbout ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span></span></v-avatar>
-      <v-avatar width='100' class="d-flex justify-end"><span class="ml-5">تقویم زمانی <span :class="isIntersectingTimeline ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span></span></v-avatar>
+      <v-avatar width="100" class="d-flex justify-end">
+        <span class="ml-5">
+          درباره ما
+          <span :class="isIntersectingAbout ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
+        </span>
+      </v-avatar>
+      <v-avatar width="100" class="d-flex justify-end">
+        <span class="ml-5">
+          تقویم زمانی
+          <span :class="isIntersectingTimeline ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
+        </span>
+      </v-avatar>
     </div>
     <About :onIntersectAbout="onIntersectAbout" />
     <Timeline :onIntersectTimeline="onIntersectTimeline" />
@@ -37,16 +47,16 @@ export default {
   transform: translateY(-50%);
 }
 
-.intersectionSpan{
+.intersectionSpan {
   width: 20px;
   height: 2px;
   background-color: rgb(255, 0, 55);
   position: absolute;
   left: 0;
   top: 62%;
-  transition: .4s;
+  transition: 0.4s;
 }
-.active_interSection{
+.active_interSection {
   width: 80px;
 }
 </style>
