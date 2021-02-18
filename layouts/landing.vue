@@ -3,11 +3,15 @@
     <v-main>
       <nuxt />
     </v-main>
+    <my-footer />
   </v-app>
 </template>
 
 <script>
-export default {};
+import MyFooter from '../components/MyFooter';
+export default {
+  components: { MyFooter },
+};
 </script>
 
 <style></style>

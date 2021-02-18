@@ -1,130 +1,19 @@
 <template>
   <v-app>
-    <div v-if="show">
-      <formManager />
-    </div>
-    <div v-else>
-      <v-navigation-drawer v-model="drawer" app right disable-resize-watcher floating>
-        <v-list rounded nav>
-          <v-list-item to="/dashboard" nuxt class="d-sm-none">
-            <v-list-item-content>
-              <v-list-item-title v-text="$t('dashboard.dashboard')" />
-            </v-list-item-content>
-          </v-list-item>
-          <template v-if="$route.path === '/'">
-            <v-list-item v-for="(item, i) in items" :key="i" link>
-              <v-list-item-content>
-                <v-list-item-title @click="scrollAndClose(item.scroll)" v-text="$t(item.title)" />
-              </v-list-item-content>
-            </v-list-item>
-          </template>
-          <v-list-item v-else to="/" nuxt>
-            <v-list-item-content>
-              <v-list-item-title v-text="$t('home.home')" />
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-      <v-app-bar app fixed hide-on-scroll flat height="100" class="px-sm-3">
-        <h1 class="d-none">Sharif AI Challenge نبرد هوش مصنوعی شریف</h1>
-        <v-app-bar-nav-icon class="me-2 hidden-md-and-up" @click.stop="drawer = !drawer" />
-        <nuxt-link to="/" class="white--text">
-          <logo class="hidden-xs-only" />
-          <logo-mark class="hidden-sm-and-up" />
-        </nuxt-link>
-        <v-spacer />
-        <v-row v-if="$route.path === '/'" class="justify-end align-center mx-2 hidden-sm-and-down">
-          <v-btn v-for="(item, i) in items" :key="i" rounded large text class="mx-2" @click="$vuetify.goTo(item.scroll)">
-            {{ $t(item.title) }}
-          </v-btn>
-        </v-row>
-        <v-btn v-if="$auth.loggedIn" rounded outlined depressed light large color="white" to="/dashboard" class="hidden-xs-only">
-          <v-icon left color="primary">mdi-view-dashboard</v-icon>
-          {{ $t('dashboard.dashboard') }}
-        </v-btn>
-        <v-btn v-else rounded outlined depressed light large color="white" @click="toggleShow()">
-          <v-icon left color="primary">mdi-shield-star</v-icon>
-          {{ $t('form.signIn') }}
-        </v-btn>
-        <account-menu v-if="$auth.loggedIn" mobile class="ms-3 me-0" />
-      </v-app-bar>
-      <v-main>
-        <nuxt />
-      </v-main>
-      <my-footer />
-    </div>
+    <Header color="transparent" />
+    <v-main>
+      <nuxt />
+    </v-main>
+    <call-to-action />
+    <my-footer />
   </v-app>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import Logo from '../components/Logo';
-import LogoMark from '../components/LogoMark';
 import MyFooter from '../components/MyFooter';
-import AccountMenu from '../components/AccountMenu';
-import formManager from '../components/userForms/formManager';
-
+import Header from '~/components/landing/Header.vue';
+import CallToAction from '~/components/CallToAction.vue';
 export default {
-  components: { AccountMenu, MyFooter, Logo, LogoMark, formManager },
-  data() {
-    return {
-      drawer: false,
-      items: [
-        {
-          title: 'home.about',
-          scroll: '#about',
-        },
-        {
-          title: 'home.timeline',
-          scroll: '#timeline',
-        },
-        {
-          title: 'home.trophies',
-          scroll: '#trophies',
-        },
-        {
-          title: 'home.whyUs',
-          scroll: '#whyai',
-        },
-        {
-          title: 'home.ourTeam',
-          scroll: '#our_team',
-        },
-        {
-          title: 'home.organizer',
-          scroll: '#organizer',
-        },
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'AI Challenge',
-    };
-  },
-  methods: {
-    scrollAndClose(target) {
-      if (this.$route.path !== '/') {
-        this.$router.push('/');
-        return;
-      }
-      this.$vuetify.goTo(target);
-      if (this.drawer) this.drawer = false;
-    },
-    toggleShow() {
-      this.$store.commit('formStatus/toggleShow');
-    },
-  },
-  computed: {
-    ...mapState({
-      show: state => state.formStatus.show,
-    }),
-  },
+  components: { MyFooter, Header, CallToAction },
 };
 </script>
-<style>
-.main-form {
-  background-color: #090c18;
-  width: 100%;
-  height: 100%;
-}
-</style>

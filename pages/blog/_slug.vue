@@ -1,15 +1,4 @@
 <template>
-  <!-- <div class="container">
-
-    <div><img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" alt="تصویر" height="300px" width="100%"/></div>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.author }}</p>
-    <p>{{ post.description }}</p>
-    <app-post-button></app-post-button>
-    <br />
-    <v-text-field @keydown.prevent.enter="addComment" v-model="comment" solo placeholder="comment" autocomplete="off"></v-text-field>
-    <app-post-comments :comments="this.comments"></app-post-comments>
-  </div> -->
   <v-container>
     <v-row class="my-8 px-4">
       <v-col sm="6" xs="12">
@@ -47,7 +36,7 @@
       <v-col cols="12" class="headline font-weight-black">
         سایر اخبار
       </v-col>
-      <v-col lg="3" md="4" sm="4" v-for="(Opost,index) in posts" :key="index">
+      <v-col lg="3" md="4" sm="4" v-for="(Opost, index) in posts" :key="index">
         <app-post :post="post" class="pb-4"></app-post>
       </v-col>
     </v-row>
@@ -57,7 +46,6 @@
 <script>
 import { posts } from './posts';
 import Buttons from '~/components/blog/Buttons';
-import Comments from '~/components/blog/CommentsBox';
 import Post from '~/components/blog/Post';
 export default {
   auth: false,
@@ -67,32 +55,11 @@ export default {
     return {
       posts,
       post: posts[id],
-      // comment: '',
-      // comments: [
-      //   {
-      //     author: 'سالار',
-      //     text: 'بسیار زیبا!',
-      //     time: '۲ساعت پیش',
-      //     reply: [{ text: 'متشکر' }, { text: 'حق با شماست :)' }],
-      //   },
-      // ],
     };
   },
-  methods: {
-    addComment() {
-      this.comments.push({
-        author: 'ali',
-        text: this.comment,
-        time: '2days ago',
-        reply: [],
-      });
-      console.log(this.comments);
-      this.comment = '';
-    },
-  },
+  methods: {},
   components: {
     'app-post-button': Buttons,
-    'app-post-comments': Comments,
     'app-post': Post,
   },
 };
