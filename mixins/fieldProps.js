@@ -4,9 +4,8 @@ export const fieldProps = {
       filedProps: {
         outlined: true,
         dense: true,
-        color: 'blue',
         class: 'autofill-bg',
       },
-    }
+    };
   },
-}
+};

@@ -171,12 +171,22 @@ export const SUBMIT_CODE = {
   url: '/challenge/submission/submit',
 };
 
-export const SUBMIT_LARGE_CODE = {
-  name: 'SUBMIT_LARGE_CODE',
-  method: 'post',
-  payload: 'data',
-  url: 'https://analysaur.ir/api/storage/file/',
+//change saman
+// export const SUBMIT_LARGE_CODE = {
+//   name: 'SUBMIT_LARGE_CODE',
+//   method: 'post',
+//   payload: 'data',
+//   url: 'https://analysaur.ir/api/storage/file/',
+// };
+
+export const submitLargeCode = (axios, data) => {
+  return axios.$post('https://analysaur.ir/api/storage/file/', data, {
+    headers: {
+      Authorization: false,
+    },
+  });
 };
+//end
 
 // export const VIEW_SUBMISSIONS = {
 //   name: 'VIEW_SUBMISSIONS',
@@ -237,7 +247,6 @@ export const VIEW_LOBBY = {
 //     url: '/scoreboard/league',
 //   },
 // };
-
 export const getScoreBoard = (axios, tab) => {
   const config = {
     friendly: {
@@ -274,9 +283,18 @@ export const getChallenge = (axios, challenge) => {
   };
   return axios.$get(`${config.url}/${challenge}`);
 };
+//change saman
+// export const GAME_STATS = {
+//   name: 'GAME_STATS',
+//   method: 'get',
+//   url: '/challenge/game/stats',
+// };
 
-export const GAME_STATS = {
-  name: 'GAME_STATS',
-  method: 'get',
-  url: '/challenge/game/stats',
-};
+export const gameStats=(axios=>{
+  const config={
+    name: 'GAME_STATS',
+    method: 'get',
+    url: '/challenge/game/stats', 
+  }
+  return axios.$get(config.url)
+  })

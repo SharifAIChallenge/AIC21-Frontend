@@ -117,7 +117,7 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: '#f33b47',
+          primary: '#eb3654',
           accent: colors.pink.base,
           secondary: '#42b3aa',
           info: colors.blue.base,
@@ -134,10 +134,10 @@ export default {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {},
+    extend(config, ctx) {
+      // You can extend webpack config here
+      config.resolve.alias['vue$'] = 'vue/dist/vue.esm.js';
+    },
   },
   router: {
     middleware: ['auth'],
@@ -147,6 +147,9 @@ export default {
       home: '/dashboard',
     },
     strategies: {
+      google: {
+        client_id: '939108343385-ki4hppc0879jktshp5po57lhihn617st.apps.googleusercontent.com',
+      },
       local: {
         endpoints: {
           login: {

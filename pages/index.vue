@@ -1,11 +1,16 @@
-<script>
-import LandingPage from '../components/landing/LandingPage'
+<template>
+  <div>
+    <Header color="transparent" />
+  </div>
+</template>
 
-export default LandingPage
+<script>
+import Header from '~/components/landing/Header.vue';
+export default {
+  components: { Header },
+  layout: 'landing',
+  auth: false,
+};
 </script>
 
-<!--<script>-->
-<!--  import UnderConstruction from "../components/landing/UnderConstruction";-->
-
-<!--  export default UnderConstruction;-->
-<!--</script>-->
+<style></style>
