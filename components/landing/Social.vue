@@ -7,7 +7,7 @@
       </div>
 
       <v-expand-x-transition>
-        <v-card v-show="expand" height="100vh" width="70" class="secondary">
+        <v-card v-show="expand" height="100vh" width="70" class="secondary social">
           <div class="social-wrap d-flex flex-column justify-center align-center">
             <a href="instagram.com" class="my-2">
               <v-icon medium>mdi-instagram</v-icon>
@@ -54,7 +54,7 @@ export default {
 .open2 {
   transform: translateX(70px);
 }
-.v-card {
+.social {
   position: fixed !important;
   top: 0;
   right: -7px;

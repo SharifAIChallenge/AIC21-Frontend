@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import Social from '../components/landing/Social.vue'
+import Social from '../components/landing/Social.vue';
 export default {
   components: {
-    Social : Social,
+    Social,
   },
 };
 </script>
