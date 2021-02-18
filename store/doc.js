@@ -7,13 +7,14 @@ export const actions = {
     const url = `https://raw.githubusercontent.com/jamshidi799/markdownContent/main/${path}`;
     fetch(url)
       .then(res => res.text())
-      .then(res => commit('setContent', res));
+      .then(res => commit('set', res));
   },
 };
 
 export const mutations = {
-  setContent(state, content) {
-    console.log(content);
+  set(state, content) {
+    // console.log(content);
+    console.log('bbbbbbbbbb');
     state.content = content;
   },
 };

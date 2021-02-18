@@ -1,34 +1,46 @@
 <template>
-  <v-treeview
-    :items="items"
-    open-on-click
-    activatable
-    @update:open="open($event)"
-    :open="openIds"
-    @update:active="active($event)"
-    :active="activeIds"
-  >
-    <template v-slot:prepend="{ item, open }">
-      <v-icon v-if="!item.file">
-        {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
-      </v-icon>
-      <v-icon v-else>
-        mdi-file
-      </v-icon>
-    </template>
-  </v-treeview>
+  <v-row>
+    <v-col cols="4">
+      <v-treeview
+        :items="items"
+        open-on-click
+        activatable
+        @update:open="open($event)"
+        :open="openIds"
+        @update:active="active($event)"
+        :active="activeIds"
+      >
+        <template v-slot:prepend="{ item, open }">
+          <v-icon v-if="!item.file">
+            {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+          </v-icon>
+          <v-icon v-else>
+            mdi-file
+          </v-icon>
+        </template>
+      </v-treeview>
+    </v-col>
+    <v-col cols="5">
+      <markdown-renderer :content="content" />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
+const fm = require('front-matter');
 import { parseGithubData, findActiveNode, findOpenIds, findActiveIds } from './parseGithubData';
+import MarkdownRenderer from './MarkdownRenderer.vue';
 export default {
   data() {
     return {
       items: [],
       openIds: [],
       activeIds: [],
+      metaData: {},
+      content: '',
     };
   },
+  components: { MarkdownRenderer },
   async fetch() {
     let slug = this.$route.params.slug;
     const url = 'https://api.github.com/repos/jamshidi799/markdownContent/git/trees/main?recursive=1';
@@ -37,9 +49,16 @@ export default {
       .then(res => {
         this.items = parseGithubData(res);
         let activeNode = findActiveNode(res, slug);
-        this.$store.dispatch('doc/set', activeNode.path);
         this.openIds = findOpenIds(activeNode);
         this.activeIds = findActiveIds(activeNode);
+
+        const url = `https://raw.githubusercontent.com/jamshidi799/markdownContent/main/${activeNode.path}`;
+        return fetch(url);
+      })
+      .then(res => res.text())
+      .then(res => {
+        this.metaData = fm(res);
+        this.content = '$toc \n' + this.metaData.body;
       });
   },
   methods: {
@@ -48,7 +67,13 @@ export default {
       const fileName = splittedPath[splittedPath.length - 1];
       const slug = fileName.substring(0, fileName.length - 3);
       this.$router.push(`${slug}`);
-      this.$store.dispatch('doc/set', name[0]);
+      const url = `https://raw.githubusercontent.com/jamshidi799/markdownContent/main/${name[0]}`;
+      fetch(url)
+        .then(res => res.text())
+        .then(res => {
+          this.metaData = fm(res);
+          this.content = '${toc} \n' + this.metaData.body;
+        });
     },
     open(items) {
       this.openIds = items;
@@ -56,5 +81,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

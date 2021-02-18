@@ -66,7 +66,25 @@ export default {
     linkify: true,
     breaks: true,
     runtime: true,
-    use: ['markdown-it-div', 'markdown-it-attrs'],
+    typographer: true,
+    use: [
+      'markdown-it-div',
+      'markdown-it-attrs',
+      [
+        'markdown-it-anchor',
+        {
+          level: 1,
+          // slugify: string => string,
+          permalink: true,
+          // renderPermalink: (slug, opts, state, permalink) => {},
+          permalinkClass: 'header-anchor',
+          permalinkSymbol: '¶',
+          permalinkBefore: true,
+        },
+      ],
+      'markdown-it-toc-done-right',
+      // 'markdown-it-front-matter',
+    ],
   },
   /*
    ** Axios module configuration
