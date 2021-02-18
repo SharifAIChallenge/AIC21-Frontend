@@ -78,3 +78,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.navLinks {
+  height: calc(100% - 200px);
+}
+</style>
