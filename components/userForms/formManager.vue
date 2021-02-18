@@ -39,13 +39,17 @@ export default {
 </script>
 
 <style lang="scss">
+@import 'assets/variables.scss';
 .form-wrapper {
   width: 100%;
 }
 .close-btn {
-  background-color: #060711;
+  background-color: map-get($map: $material-dark, $key: 'background');
   font-size: 50px;
   margin-right: 15px;
   cursor: pointer;
+}
+.v-dialog__content--active {
+  background-color: map-get($map: $material-dark, $key: 'background');
 }
 </style>

@@ -8,7 +8,6 @@
       </v-btn>
       <v-row class="justify-center">
         <v-list>
-          <v-list-item @click="toggleShow()">ورود</v-list-item>
           <v-list-item>اخبار</v-list-item>
           <v-list-item>تاریخچه</v-list-item>
           <v-list-item>سوالات متداول</v-list-item>
@@ -22,7 +21,7 @@
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only">
-        <v-btn plain text tile class="transparent mx-4 " @click="toggleShow">
+        <v-btn plain text tile class="transparent mx-4 " @click="toggleShow()">
           <v-icon left>
             mdi-shield-star
           </v-icon>
@@ -33,7 +32,7 @@
         <v-btn plain text tile class="transparent mx-4">سوالات متداول</v-btn>
       </div>
       <v-spacer></v-spacer>
-      <v-btn plain text tile class="transparent mx-4 hidden-sm-and-up">
+      <v-btn plain text tile class="transparent mx-4 hidden-sm-and-up" @click="toggleShow()">
         <v-icon left>
           mdi-shield-star
         </v-icon>

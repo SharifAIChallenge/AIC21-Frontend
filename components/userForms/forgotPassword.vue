@@ -82,13 +82,6 @@ export default {
   margin: 100px auto;
   max-width: 500px;
 }
-.close-btn {
-  position: relative;
-  font-size: 50px;
-  right: 15px;
-  top: 15px;
-  cursor: pointer;
-}
 .forgot-title {
   text-align: center;
   margin-bottom: 20px;
