@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-    <div class="close-btn" @click="toggleShow()">X</div>
     <div class="main-login-form container">
       <v-row justify="center" align="center">
         <v-col>
@@ -32,21 +31,13 @@
 
             <v-row>
               <v-col>
-                <v-btn
-                  block
-                  color="primary"
-                  height="50px"
-                  style="border-radius: 0; font-weight: normal;"
-                  :disabled="loading"
-                  :loading="loading"
-                  type="submit"
-                >
+                <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading" :loading="loading" type="submit">
                   {{ $t('form.signIn') }}
                 </v-btn>
                 <div style="text-align: center; margin:10px;">
                   ————— یا —————
                 </div>
-                <v-btn @click="loginWithGoogle" block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
+                <v-btn @click="loginWithGoogle" block color="primary" style="border-radius: 0; font-weight: normal;">
                   <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
                   {{ $t('form.signInWithGoogle') }}
                 </v-btn>
@@ -113,11 +104,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main {
-  background-color: #090c18;
-  width: 100%;
-  height: 100%;
-}
 .main-login-form {
   margin: auto;
   max-width: 500px;

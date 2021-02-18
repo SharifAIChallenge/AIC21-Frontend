@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-    <div class="close-btn" @click="toggleShow()">X</div>
     <div class="main-sign-up-form container">
       <v-row justify="center" align="center">
         <v-col cols="12">
@@ -198,22 +197,10 @@ export default {
 </script>
 
 <style lang="scss">
-.main {
-  background-color: #090c18;
-  width: 100%;
-  height: 100%;
-}
 .main-sign-up-form {
   margin: auto;
   margin-bottom: 150px;
   max-width: 700px;
-}
-.close-btn {
-  position: relative;
-  font-size: 50px;
-  right: 15px;
-  top: 15px;
-  cursor: pointer;
 }
 .sign-up-title {
   text-align: center;

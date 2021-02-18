@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div v-if="show">
-      <formManager />
-    </div>
     <v-navigation-drawer :color="color" absolute right v-model="showMenu" height="100%" width="100%">
       <v-btn icon @click="showMenu = !showMenu" class="transparent ma-3">
         <v-icon>
@@ -46,6 +43,7 @@
       <logoWhite v-if="color === 'primary'" />
       <logoPrimary v-else />
     </v-app-bar>
+    <formManager :isPage="false" />
   </div>
 </template>
 <script>

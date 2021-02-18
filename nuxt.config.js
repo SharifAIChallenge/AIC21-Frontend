@@ -83,7 +83,6 @@ export default {
         },
       ],
       'markdown-it-toc-done-right',
-      // 'markdown-it-front-matter',
     ],
   },
   /*

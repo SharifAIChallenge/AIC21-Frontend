@@ -1,18 +1,13 @@
 <template>
   <v-app>
-    <div class="main">
-      <div v-if="show">
-        <div v-if="form === 'login'">
-          <login />
-        </div>
-        <div v-if="form === 'forgot'">
-          <forgotPassword />
-        </div>
-        <div v-if="form === 'signUp'">
-          <signUp />
-        </div>
+    <v-dialog v-model="show" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <div class="close-btn" @click="toggleShow()">X</div>
+      <div class="form-wrapper">
+        <login v-if="form === 'login'" />
+        <forgotPassword v-if="form === 'forgot'" />
+        <signUp v-if="form === 'signUp'" />
       </div>
-    </div>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -24,9 +19,10 @@ import signUp from '../userForms/signUp';
 
 export default {
   components: { login, forgotPassword, signUp },
-
+  props: ['isPage'],
   methods: {
     toggleShow() {
+      if (this.isPage) this.$router.push('/');
       this.$store.commit('formStatus/toggleShow');
     },
     changeStatus(form) {
@@ -42,10 +38,14 @@ export default {
 };
 </script>
 
-<style>
-.main-form {
-  background-color: #090c18;
+<style lang="scss">
+.form-wrapper {
   width: 100%;
-  height: 100%;
+}
+.close-btn {
+  background-color: #060711;
+  font-size: 50px;
+  margin-right: 15px;
+  cursor: pointer;
 }
 </style>

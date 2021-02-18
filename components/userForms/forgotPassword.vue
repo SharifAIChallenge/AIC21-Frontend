@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-    <div class="close-btn" @click="toggleShow()">X</div>
     <div class="main-forgot-form container">
       <v-row justify="center" align="center">
         <v-col cols="12">
@@ -34,7 +33,7 @@
         </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="primary" class="login-btn" height="50px" @click="changeStatus('login')">
+    <v-btn width="100%" color="secondary" class="login-btn" height="50px" @click="changeStatus('login')">
       <v-icon style="margin:5px" size="25px">mdi-shield-star</v-icon>
       {{ $t('form.signIn') }}
     </v-btn>
@@ -79,11 +78,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main {
-  background-color: #090c18;
-  width: 100%;
-  height: 100%;
-}
 .main-forgot-form {
   margin: 100px auto;
   max-width: 500px;
