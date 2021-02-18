@@ -17,8 +17,10 @@ svg {
   filter: blur(4px);
 }
 
+html,
 body {
   scroll-behavior: smooth;
+  max-width: 100%;
 }
 
 body .v-application .text-stroke-width-2 {

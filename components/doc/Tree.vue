@@ -1,10 +1,12 @@
 <template>
   <v-row>
-    <v-col cols="4">
+    <v-col cols="4" lg="3">
       <v-treeview
         :items="items"
         open-on-click
         activatable
+        dense
+        :transition="true"
         @update:open="open($event)"
         :open="openIds"
         @update:active="active($event)"
@@ -20,7 +22,7 @@
         </template>
       </v-treeview>
     </v-col>
-    <v-col cols="5">
+    <v-col cols="12" sm="8" md="5" lg="6">
       <markdown-renderer :content="content" />
     </v-col>
   </v-row>
@@ -58,7 +60,7 @@ export default {
       .then(res => res.text())
       .then(res => {
         this.metaData = fm(res);
-        this.content = '$toc \n' + this.metaData.body;
+        this.content = '${toc} \n' + this.metaData.body;
       });
   },
   methods: {
