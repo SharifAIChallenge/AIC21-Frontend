@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <Header color="primary" />
     <div class="first-slider" style="position: relative;">
       <div class="slider-text">
         <div style="margin-top: 20vh; font-size: 6rem;">
@@ -17,102 +18,93 @@
       </div>
       <div class="vl"></div>
     </div>
-    <div class="titles">
-      <div class="title">
-        عمومی
-      </div>
-      <div class="title">
-        زمان بندی
-      </div>
-      <div class="title">
-        مسابقه
-      </div>
-    </div>
-    <div class="fag-title-for-show">-عمومی</div>
-    <div class="faq-container">
-      <div class="faq-card">
-        <div class="faq-card-title">
-          <v-icon left color="primary" size="55">
-            mdi-calendar
-          </v-icon>
-          نبرد هوش مصنوعی چگونه کار می کند
-        </div>
-        <span class="faq-card-text">
-          cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
-        </span>
-      </div>
-      <div class="faq-card">
-        <div class="faq-card-title">
-          <v-icon left color="primary" size="55">
-            mdi-calendar
-          </v-icon>
-          نبرد هوش مصنوعی چگونه کار می کند
-        </div>
-        <span class="faq-card-text">
-          cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
-        </span>
-      </div>
-      <div class="faq-card">
-        <div class="faq-card-title">
-          <v-icon left color="primary" size="55">
-            mdi-calendar
-          </v-icon>
-          نبرد هوش مصنوعی چگونه کار می کند
-        </div>
-        <span class="faq-card-text">
-          cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
-        </span>
-      </div> 
-    </div>
-    <!-- ************************************** -->
-        <div class="fag-title-for-show">-عمومی</div>
-    <div class="faq-container">
-      <div class="faq-card">
-        <div class="faq-card-title">
-          <v-icon left color="primary" size="55">
-            mdi-calendar
-          </v-icon>
-          نبرد هوش مصنوعی چگونه کار می کند
-        </div>
-        <span class="faq-card-text">
-          cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
-        </span>
-      </div>
-      <div class="faq-card">
-        <div class="faq-card-title">
-          <v-icon left color="primary" size="55">
-            mdi-calendar
-          </v-icon>
-          نبرد هوش مصنوعی چگونه کار می کند
-        </div>
-        <span class="faq-card-text">
-          cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
-        </span>
-      </div>
-      <div class="faq-card">
-        <div class="faq-card-title">
-          <v-icon left color="primary" size="55">
-            mdi-calendar
-          </v-icon>
-          نبرد هوش مصنوعی چگونه کار می کند
-        </div>
-        <span class="faq-card-text">
-          cwewedw ed eeeeeeeeeeeeeeeییییeeeeeeeee web kitd wedw edw ed wedd
-        </span>
-      </div> 
-    </div>
 
+    <div class="titles">
+      <div class="title" v-for="(subject, index) in faq" :key="index">
+        {{ subject.title }}
+      </div>
+    </div>
+    <v-container>
+      <div v-for="(subject, index) in faq" :key="index">
+        <div class="fag-title-for-show">{{ subject.title }}</div>
+        <v-row class="mb-10">
+          <v-col v-for="(question, index) in subject.questions" :key="index" cols="12" sm="6" lg="4" xl="3">
+            <div class="faq-card">
+              <div class="faq-card-title">
+                <v-icon right color="primary" size="55">
+                  mdi-calendar
+                </v-icon>
+                {{ question.title }}
+              </div>
+              <p class="faq-card-text">
+                {{ question.answer }}
+              </p>
+            </div>
+          </v-col>
+        </v-row>
+      </div>
+    </v-container>
   </v-app>
 </template>
 
 <script>
+import Header from '~/components/landing/Header.vue';
 export default {
-  layout: 'landing',
   auth: false,
+  layout: 'landing',
+  components: { Header },
+  data() {
+    return {
+      faq: [
+        {
+          title: 'عمومی',
+          questions: [
+            {
+              title: ' نبرد هوش مصنوعی چگونه کار می کند',
+              answer:
+                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان.',
+            },
+            {
+              title: ' نبرد هوش مصنوعی چگونه کار می کند',
+              answer:
+                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان.',
+            },
+            {
+              title: ' نبرد هوش مصنوعی چگونه کار می کند',
+              answer:
+                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان.',
+            },
+          ],
+        },
+        {
+          title: 'عمومی',
+          questions: [
+            {
+              question: ' نبرد هوش مصنوعی چگونه کار می کند',
+              answer:
+                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد.',
+            },
+            {
+              question: ' نبرد هوش مصنوعی چگونه کار می کند',
+              answer:
+                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد.',
+            },
+            {
+              question: ' نبرد هوش مصنوعی چگونه کار می کند',
+              answer:
+                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد.',
+            },
+          ],
+        },
+      ],
+    };
+  },
 };
 </script>
 
-<style>
+<style lang="scss">
+@import 'assets/variables.scss';
+
 .first-slider {
   background-color: var(--v-primary-base);
   height: 100vh;
@@ -130,43 +122,28 @@ export default {
 }
 .titles {
   position: sticky;
+  top: 0;
   display: flex;
   justify-content: center;
-  height: 100px;
-  margin-top: auto;
+  background-color: map-get($map: $material-dark, $key: 'background');
+  z-index: 2;
 }
 .title {
-  position: sticky;
   margin: auto 50px;
+  padding: 20px 0px;
 }
 .fag-title-for-show {
   font-size: 4rem;
   color: var(--v-primary-base);
-  margin-right: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
-.faq-container {
-  display: flex;
-  justify-content: space-evenly;
-}
+
 .faq-card {
-  position: relative;
-  max-width: 450px ;
-  height: 500px;
   border: 3px solid var(--v-primary-base);
   padding: 20px;
-  margin: 20px;
 }
 .faq-card-title {
-  /* position: absolute; */
   display: inline-block;
-  margin-top: 50px;
   font-size: 2rem;
-}
-.faq-card-text {
-  /* position: absolute; */
-  margin-top: 200px;
-  margin-left: 30px;
-  margin-right: 20px;
 }
 </style>

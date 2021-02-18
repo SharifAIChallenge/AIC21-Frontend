@@ -1,14 +1,12 @@
 <template>
-  <v-app>
-    <v-dialog v-model="show" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <div class="close-btn" @click="toggleShow()">X</div>
-      <div class="form-wrapper">
-        <login v-if="form === 'login'" />
-        <forgotPassword v-if="form === 'forgot'" />
-        <signUp v-if="form === 'signUp'" />
-      </div>
-    </v-dialog>
-  </v-app>
+  <v-dialog v-model="show" fullscreen hide-overlay transition="dialog-bottom-transition">
+    <div class="close-btn" @click="toggleShow()">X</div>
+    <div class="form-wrapper">
+      <login v-if="form === 'login'" />
+      <forgotPassword v-if="form === 'forgot'" />
+      <signUp v-if="form === 'signUp'" />
+    </div>
+  </v-dialog>
 </template>
 
 <script>
