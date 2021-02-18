@@ -3,14 +3,16 @@
     <v-main>
       <nuxt />
     </v-main>
+    <call-to-action />
     <my-footer />
   </v-app>
 </template>
 
 <script>
 import MyFooter from '../components/MyFooter';
+import CallToAction from '~/components/CallToAction.vue';
 export default {
-  components: { MyFooter },
+  components: { MyFooter, CallToAction },
 };
 </script>
 
