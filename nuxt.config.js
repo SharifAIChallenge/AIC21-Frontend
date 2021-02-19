@@ -178,9 +178,13 @@ export default {
     },
     strategies: {
       google: {
-        client_id: '939108343385-ki4hppc0879jktshp5po57lhihn617st.apps.googleusercontent.com',
-        user: false,
-        redirect_uri: 'http://localhost:3000/callback',
+        clientId: '939108343385-ki4hppc0879jktshp5po57lhihn617st.apps.googleusercontent.com',
+        codeChallengeMethod: '',
+        responseType: 'code',
+        endpoints: {
+          token: 'http://localhost:8000/social-login/google/',
+          userInfo: 'http://localhost:8000/auth/user/',
+        },
       },
       local: {
         endpoints: {
