@@ -6,14 +6,6 @@ variables:
   IMAGE_TAG: $CI_PIPELINE_ID-$CI_COMMIT_SHORT_SHA
   IMAGE_URL: $SSC_REGISTRY_URL/$CI_PROJECT_PATH:$CI_PIPELINE_ID-$CI_COMMIT_SHORT_SHA
 
-workflow: # ali is much go-er than you think
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-      when: always
-    - if: '$CI_COMMIT_BRANCH == "staging"'
-      when: always
-    - when: never
-
 var-check: # ali is so go
   stage: publish-image
   image:
@@ -31,6 +23,14 @@ build-push-image: # ali is so go
   image:
     name: $SSC_REGISTRY_URL/kaniko:debug
     entrypoint: [""]
+  
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: on_success
+    - if: '$CI_COMMIT_BRANCH == "staging"'
+      when: on_success
+    - when: never
+  
 
   before_script:
     - mkdir -p /kaniko/.docker/
@@ -46,7 +46,7 @@ deploy-production:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: on_success
     - if: '$CI_COMMIT_BRANCH == "staging"'
-      when: always
+      when: on_success
     - when: never
   before_script:
     - mkdir -p ~/.ssh
