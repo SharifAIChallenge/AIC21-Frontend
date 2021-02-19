@@ -1,4 +1,5 @@
 # go go everywhere
+# ali so go
 stages:
   - publish-image
   - deploy-production
