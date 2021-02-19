@@ -18,14 +18,14 @@
     </v-row>
     <v-row>
         <v-row justify="start" align="center" class="mx-0 mt-0">
-      <v-col cols="3" class="px-3">
+      <v-col cols="4" class="px-3 pl-4">
         <v-card-text class="justify-center py-10 primary text-center">
           <v-icon size="2rem" class="black--text" width="100%">mdi-plus</v-icon>
         </v-card-text>
       </v-col>
-      <v-col cols="9" class="pr-0">
+      <v-col cols="8" class="pr-0">
         <v-card-text>
-          <span class="white--text font-weight-black text-body-1">دو جایزه برای تیم های چهارم تا بیستم<br/> دوجایزه ویژه برای مینی گیم ها</span>
+          <span class="white--text font-weight-black text-body-1">دو جایزه برای تیم های <br/> چهارم تا بیستم<br/> دوجایزه ویژه برای مینی گیم ها</span>
         </v-card-text>
       </v-col>
     </v-row>
