@@ -14,6 +14,15 @@ workflow:
       when: always
     - when: never
 
+var-check:
+  stage: publish-image
+  image:
+    name: reg.aichallenge.ir/alpine:latest
+  script:
+          - echo "reg:$SSC_REGISTRY_URL"
+          - echo "service: $SERVICE_NAME"
+          - echo "ip: $SWARM_MANAGER_SERVER"
+
 build-push-image: # ali is so go
   stage: publish-image
   image:
