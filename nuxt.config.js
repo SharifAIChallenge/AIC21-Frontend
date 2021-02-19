@@ -60,7 +60,36 @@ export default {
     '@nuxtjs/toast',
     '@nuxtjs/markdownit',
     '@nuxtjs/svg',
+    '@nuxtjs/firebase',
   ],
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyDtXWh4UP3nDBeDUudcqGyVjIJ4GLGh64M',
+      authDomain: 'aichallenge-304910.firebaseapp.com',
+      projectId: 'aichallenge-304910',
+      storageBucket: 'aichallenge-304910.appspot.com',
+      messagingSenderId: '939108343385',
+      appId: '1:939108343385:web:91529ac9fec89612569b48',
+      measurementId: 'G-RXW9NMM24B',
+    },
+    services: {
+      auth: true, // Just as example. Can be any other service.
+      messaging: {
+        createServiceWorker: true,
+        actions: [
+          {
+            action: 'goToLupasGithub',
+            url: 'https://github.com/lupas',
+          },
+          {
+            action: 'goToModuleGithub',
+            url: 'https://github.com/nuxt-community/firebase-module',
+          },
+        ],
+        fcmPublicVapidKey: 'BMYHV8jvmOJUQQWxVl0WrvkE6NNdQ-zZz37egrtRww6cLayU-ybLj-tZfbrScQ1hSFLCM6VWamR-KI13fiaUr3Q',
+      },
+    },
+  },
 
   markdownit: {
     preset: 'default',
@@ -143,12 +172,15 @@ export default {
     middleware: ['auth'],
   },
   auth: {
+    plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
     redirect: {
       home: '/dashboard',
     },
     strategies: {
       google: {
         client_id: '939108343385-ki4hppc0879jktshp5po57lhihn617st.apps.googleusercontent.com',
+        user: false,
+        redirect_uri: 'http://localhost:3000/callback',
       },
       local: {
         endpoints: {
