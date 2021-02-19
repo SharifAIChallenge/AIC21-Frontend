@@ -1,5 +1,5 @@
 <template>
-  <v-card tile flat class="transparent">
+  <v-card tile flat class="transparent my-15">
     <v-row justify="end" align="center" class="mx-5">
       <v-col cols="3" v-for="(trophy, i) in trophies" :key="i" :style="`margin-top:${trophy.marg}rem`">
         <v-card-text class="d-flex flex-column px-10 text-center white--text">
