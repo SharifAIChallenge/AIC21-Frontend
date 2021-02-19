@@ -1,0 +1,95 @@
+<template>
+  <div>
+    <div>
+      <v-btn :disabled="listenersStarted" @click="startListeners">Start Listeners</v-btn>
+      <v-btn :disabled="permissionGranted || !listenersStarted" class="mb-1" @click="requestPermission">
+        Request Permission
+      </v-btn>
+      <v-btn :disabled="!listenersStarted || !permissionGranted || idToken !== ''" :loading="loading" class="mb-1" @click="getIdToken">
+        Get ID Token
+      </v-btn>
+      <v-btn :disabled="idToken === ''" class="mb-1" @click="sendTestMessage">
+        Send Test Push Message
+      </v-btn>
+    </div>
+  </div>
+</template>
+
+<script>
+import Vue from 'vue';
+export default {
+  auth: false,
+  data() {
+    return {
+      listenersStarted: false,
+      permissionGranted: false,
+      idToken: '',
+      loading: false,
+    };
+  },
+  methods: {
+    async requestPermission() {
+      try {
+        const permission = await Notification.requestPermission();
+        this.permissionGranted = permission === 'granted';
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async getIdToken() {
+      this.loading = true;
+      let currentToken;
+      try {
+        currentToken = await this.$fire.messaging.getToken();
+      } catch (e) {
+        console.error('An error occurred while retrieving token. ', e);
+        this.idToken = '';
+        this.loading = false;
+      }
+      if (currentToken) {
+        this.idToken = currentToken;
+      } else {
+        // Show permission request.
+        console.info('No Instance ID token available. Request permission to generate one.');
+        // Show permission UI.
+        // updateUIForPushPermissionRequired();
+        this.idToken = '';
+      }
+      alert(`The id token is: ${this.idToken}`);
+      this.loading = false;
+    },
+    startListeners() {
+      this.startOnMessageListener();
+      this.startTokenRefreshListener();
+      this.listenersStarted = true;
+    },
+    startOnMessageListener() {
+      this.$fire.messaging.onMessage(payload => {
+        console.info('Message received. ', payload);
+      });
+    },
+    startTokenRefreshListener() {
+      this.$fire.messaging.onTokenRefresh(async () => {
+        try {
+          const refreshedToken = await this.$fire.messaging.getToken();
+          this.idToken = refreshedToken;
+        } catch (e) {
+          console.error('Unable to retrieve refreshed token ', e);
+        }
+      });
+    },
+    sendTestMessage() {
+      try {
+        setTimeout(() => {
+          // wait 5 seconds so you have time to switch away from the page to test the service-worker
+          this.$fire.functions.httpsCallable('sendTestPushMessage')({
+            token: this.idToken,
+          });
+        }, 5000);
+      } catch (e) {
+        alert(e);
+      }
+    },
+  },
+};
+</script>
