@@ -33,6 +33,8 @@ deploy-production:
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: on_success
+    - if: '$CI_COMMIT_BRANCH == "staging"'
+      when: always
     - when: never
   before_script:
     - mkdir -p ~/.ssh
@@ -42,4 +44,3 @@ deploy-production:
     - ssh-add ~/.ssh/id_rsa
   script:
     - ssh -o "StrictHostKeyChecking=no" root@$SWARM_MANAGER_SERVER -p$SWARM_MANAGER_SERVER_SSH_PORT -t "docker service update --image $IMAGE_URL $SERVICE_NAME"
-
