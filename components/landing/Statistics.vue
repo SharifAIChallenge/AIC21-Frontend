@@ -1,9 +1,9 @@
 <template>
-  <v-card tile flat class="secondary mt-5">
+  <v-card tile flat class="secondary my-5">
     <v-row class="px-10">
-      <v-col lg="3" md="4" sm="6" v-for="(stat,i) in stats" :key="i">
-        <v-card-text class="d-flex flex-column px-10">
-          <v-icon x-large class="pb-5">{{stat.icon}}</v-icon>
+      <v-col lg="3" md="3" sm="6" v-for="(stat,i) in stats" :key="i">
+        <v-card-text class="d-flex flex-column px-10 py-0 text-right" style="max-width:150px">
+          <v-icon x-large right class="pb-5 black--text justify-start">{{stat.icon}}</v-icon>
           <span class="text-h5">{{stat.part}}</span>
           <v-divider/>
           <span>{{stat.info}}</span>
