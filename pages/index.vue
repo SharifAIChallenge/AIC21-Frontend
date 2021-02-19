@@ -3,6 +3,7 @@
     <Header color="transparent" />
     <Statistics />
     <Intersection />
+    <TrophyDesktop />
   </div>
 </template>
 
@@ -10,8 +11,9 @@
 import Header from '~/components/landing/Header.vue';
 import Statistics from '~/components/landing/Statistics';
 import Intersection from '~/components/landing/Intersection.vue'
+import TrophyDesktop from '~/components/landing/TrophyDesktop';
 export default {
-  components: { Header ,Statistics,Intersection },
+  components: { Header ,Statistics,Intersection,TrophyDesktop },
   layout: 'landing',
   auth: false,
 };
