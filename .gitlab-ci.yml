@@ -42,6 +42,3 @@ deploy-production:
     - ssh-add ~/.ssh/id_rsa
   script:
     - ssh -o "StrictHostKeyChecking=no" root@$SWARM_MANAGER_SERVER -p$SWARM_MANAGER_SERVER_SSH_PORT -t "docker service update --image $IMAGE_URL $SERVICE_NAME"
-
-
-
