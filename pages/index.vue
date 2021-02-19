@@ -1,11 +1,18 @@
-<script>
-import LandingPage from '../components/landing/LandingPage'
+<template>
+  <div id="main">
+    <Header color="transparent" />
+    <Intersection />
+  </div>
+</template>
 
-export default LandingPage
+<script>
+import Header from '~/components/landing/Header.vue';
+import Intersection from '~/components/landing/Intersection.vue'
+export default {
+  components: { Header ,Intersection },
+  layout: 'landing',
+  auth: false,
+};
 </script>
 
-<!--<script>-->
-<!--  import UnderConstruction from "../components/landing/UnderConstruction";-->
-
-<!--  export default UnderConstruction;-->
-<!--</script>-->
+<style></style>

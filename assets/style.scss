@@ -17,6 +17,12 @@ svg {
   filter: blur(4px);
 }
 
+html,
+body {
+  scroll-behavior: smooth;
+  max-width: 100%;
+}
+
 body .v-application .text-stroke-width-2 {
   -webkit-text-stroke-width: 2px;
   text-stroke-width: 2px;

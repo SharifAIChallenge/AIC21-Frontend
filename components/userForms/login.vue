@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-    <div class="close-btn" @click="toggleShow()">X</div>
     <div class="main-login-form container">
       <v-row justify="center" align="center">
         <v-col>
@@ -8,55 +7,67 @@
             <v-icon right size="55px" color="wihte">
               mdi-shield-star
             </v-icon>
-            ورود
+            {{ $t('form.signIn') }}
           </div>
-          <v-text-field label="ایمیل" outlined dir="ltr" height="36px"></v-text-field>
-          <v-text-field
-            label="رمزعبور"
-            outlined
-            dir="ltr"
-            height="36px"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            @click:append="showPassword = !showPassword"
-          ></v-text-field>
-          <v-row>
-            <v-col>
-              <a  @click="changeStatus('forgot')">فراموشی رمزعبور</a>
-            </v-col>
-          </v-row>
+          <v-form ref="form" v-model="valid" @submit.prevent="login">
+            <v-text-field
+              v-model="email"
+              :label="$t('form.email')"
+              outlined
+              dir="ltr"
+              type="email"
+              :rules="requiredRules"
+              required
+              autofocus
+              validate-on-blur
+              height="36px"
+            ></v-text-field>
+            <password-input v-model="password" />
+            <v-row>
+              <v-col>
+                <a @click="changeStatus('forgot')">{{ $t('form.forgotPassword') }}</a>
+              </v-col>
+            </v-row>
 
-          <v-row>
-            <v-col>
-              <v-btn block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
-                ورود
-              </v-btn>
-              <div style="text-align: center; margin:10px;">
-                ————— یا —————
-              </div>
-              <v-btn block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
-                <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
-                ورود با گوگل
-              </v-btn>
-            </v-col>
-          </v-row>
+            <v-row>
+              <v-col>
+                <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading" :loading="loading" type="submit">
+                  {{ $t('form.signIn') }}
+                </v-btn>
+                <div style="text-align: center; margin:10px;">
+                  ————— یا —————
+                </div>
+                <v-btn @click="loginWithGoogle" block color="primary" style="border-radius: 0; font-weight: normal;">
+                  <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
+                  {{ $t('form.signInWithGoogle') }}
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-form>
         </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="#42b3aa" class="sigin-up-btn" height="50px" @click="changeStatus('signUp')">
+    <v-btn width="100%" color="secondary" class="sigin-up-btn" height="50px" @click="changeStatus('signUp')">
       <v-icon style="margin:5px" size="25px">mdi-shield-plus-outline</v-icon>
-      ثبت نام
+      {{ $t('form.signUp') }}
     </v-btn>
   </div>
 </template>
 
 <script>
+import PasswordInput from '../PasswordInput';
+import { emailRules, requiredRules } from '../../mixins/formValidations';
+
 export default {
-  auth: false,
-  layout: 'empty',
+  mixins: [requiredRules, emailRules],
+  components: { PasswordInput },
   data() {
     return {
       showPassword: false,
+      valid: false,
+      email: '',
+      password: '',
+      loading: false,
     };
   },
   methods: {
@@ -66,16 +77,33 @@ export default {
     changeStatus(form) {
       this.$store.commit('formStatus/changeStatus', form);
     },
+    login() {
+      this.loading = true;
+      this.$auth
+        .loginWith('local', {
+          data: {
+            username: this.email,
+            password: this.password,
+          },
+        })
+        .then(() => (this.loading = false))
+        .catch(() => {
+          this.loading = false;
+          if (!this.$auth.loggedIn) {
+            this.$toast.error('ایمیل وجود ندارد یا رمز عبور اشتباه است.');
+          } else {
+            this.$toast.success('با موفقیت وارد شدید!');
+          }
+        });
+    },
+    loginWithGoogle() {
+      this.$auth.loginWith('google');
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.main {
-  background-color: #090c18;
-  width: 100%;
-  height: 100%;
-}
 .main-login-form {
   margin: auto;
   max-width: 500px;

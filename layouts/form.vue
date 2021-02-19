@@ -1,32 +1,15 @@
 <template>
-  <v-app class="bg-decorated">
-    <v-app-bar
-      absolute
-      hide-on-scroll
-      flat
-      collapse
-      height="100"
-      min-width="140"
-    >
-      <nuxt-link to="/" class="white--text">
-        <logo />
-        <!--        <logo-mark />-->
-      </nuxt-link>
-    </v-app-bar>
-    <v-main>
-      <v-container fluid>
-        <nuxt />
-      </v-container>
-    </v-main>
+  <v-app>
+    <formManager :isPage="true" />
+    <nuxt />
   </v-app>
 </template>
 
 <script>
-import Logo from "../components/Logo";
-import LogoMark from "../components/LogoMark";
+import formManager from '../components/userForms/formManager';
 
 export default {
-  components: { Logo, LogoMark },
+  components: { formManager },
 };
 </script>
 

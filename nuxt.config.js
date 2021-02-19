@@ -58,7 +58,33 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     '@nuxtjs/toast',
+    '@nuxtjs/markdownit',
   ],
+
+  markdownit: {
+    preset: 'default',
+    linkify: true,
+    breaks: true,
+    runtime: true,
+    typographer: true,
+    use: [
+      'markdown-it-div',
+      'markdown-it-attrs',
+      [
+        'markdown-it-anchor',
+        {
+          level: 1,
+          // slugify: string => string,
+          permalink: true,
+          // renderPermalink: (slug, opts, state, permalink) => {},
+          permalinkClass: 'header-anchor',
+          permalinkSymbol: '¶',
+          permalinkBefore: true,
+        },
+      ],
+      'markdown-it-toc-done-right',
+    ],
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -90,7 +116,7 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: '#f33b47',
+          primary: '#eb3654',
           accent: colors.pink.base,
           secondary: '#42b3aa',
           info: colors.blue.base,
@@ -107,10 +133,10 @@ export default {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {},
+    extend(config, ctx) {
+      // You can extend webpack config here
+      config.resolve.alias['vue$'] = 'vue/dist/vue.esm.js';
+    },
   },
   router: {
     middleware: ['auth'],
@@ -120,6 +146,9 @@ export default {
       home: '/dashboard',
     },
     strategies: {
+      google: {
+        client_id: '939108343385-ki4hppc0879jktshp5po57lhihn617st.apps.googleusercontent.com',
+      },
       local: {
         endpoints: {
           login: {

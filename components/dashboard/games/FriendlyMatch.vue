@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { REQUEST_FRIENDLY_MATCH, TOGGLE_MULTI_FRIENDLY, VIEW_LOBBY, toggleMultiFriendly } from '../../../api';
+import { REQUEST_FRIENDLY_MATCHs, VIEW_LOBBY, toggleMultiFriendly } from '../../../api';
 import MatchLobby from './MatchLobbyItem';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { mapState } from 'vuex';
@@ -110,9 +110,9 @@ export default {
     },
     async toggleFriendly() {
       this.loading.toggle = true;
-      await this.$axios.$post(TOGGLE_MULTI_FRIENDLY.url);
-      this.$store.dispatch('team/getTeam');
-      this.loading.toggle = false;
+      // await this.$axios.$post(TOGGLE_MULTI_FRIENDLY.url);
+      // this.$store.dispatch('team/getTeam');
+      // this.loading.toggle = false;
     },
   },
 };
