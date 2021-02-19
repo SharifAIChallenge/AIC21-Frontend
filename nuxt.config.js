@@ -59,6 +59,7 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/toast',
     '@nuxtjs/markdownit',
+    '@nuxtjs/svg',
   ],
 
   markdownit: {

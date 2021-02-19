@@ -1,5 +1,5 @@
 <template>
-  <div class="aic-logo-mark">
+  <div class="aic-logo-mark" id="aic-logo-mark">
     <div class="d-flex">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 194.84 243.76">
         <defs>
