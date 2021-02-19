@@ -19,9 +19,17 @@ var-check:
   image:
     name: reg.aichallenge.ir/alpine:latest
   script:
-          - echo "reg:$SSC_REGISTRY_URL"
-          - echo "service: $SERVICE_NAME"
-          - echo "ip: $SWARM_MANAGER_SERVER"
+var-check: # ali is so go
+  stage: publish-image
+  image:
+    name: reg.aichallenge.ir/alpine:latest
+    entrypoint: [""]
+
+  before_script:
+    - echo "service: $SERVICE_NAME"
+    - echo "reg:$SSC_REGISTRY_URL"
+  script:
+   - echo "ip: $SWARM_MANAGER_SERVER"
 
 build-push-image: # ali is so go
   stage: publish-image
