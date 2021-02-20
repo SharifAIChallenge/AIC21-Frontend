@@ -18,7 +18,7 @@
           </div>
           <v-row>
             <v-col>
-              <v-btn block class="btn" @click="toggleShow()">
+              <v-btn block class="btn" @click="changeStatus('signUp')">
                 {{ $t('home.signUpNow') }}
               </v-btn>
             </v-col>
@@ -43,7 +43,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    changeStatus(form) {
+      this.$store.commit('formStatus/changeStatus', form);
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -87,9 +93,9 @@ export default {};
   margin-bottom: 10px;
   margin-top: 10px;
 }
-.text-primary-color{
-  color:var(--v-primary-base);
-   font-size: 3rem;
-    font-weight: bold;
+.text-primary-color {
+  color: var(--v-primary-base);
+  font-size: 3rem;
+  font-weight: bold;
 }
 </style>
