@@ -52,7 +52,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .title {
   text-align: center;
   margin-bottom: 10px;
@@ -65,6 +65,7 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 10px;
+  position: relative;
 }
 .background-logo {
   height: 80%;
