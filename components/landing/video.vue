@@ -1,10 +1,10 @@
 <template>
-  <v-container class="main">
+  <v-container class="main-video">
     <img src="logo__white.svg" class="background-logo" />
 
     <v-row>
       <v-col cols="12" sm="12" md="6">
-        <div class="title">
+        <div class="title-video">
           <div>
             <span style="font-size: 1.8rem;">ثبت نام کنید، تیم تشکیل دهید</span>
             <span class="border-text-white">و</span>
@@ -46,15 +46,15 @@
 export default {};
 </script>
 
-<style>
+<style lang="scss">
 .title {
   text-align: center;
   margin-bottom: 10px;
 }
-.video {
+.video-video {
   text-align: center;
 }
-.main {
+.main-video {
   display: flex;
   justify-content: center;
   align-items: center;
