@@ -8,13 +8,13 @@
       </v-btn>
       <v-row class="justify-center">
         <v-list>
-          <v-list-item>اخبار</v-list-item>
+          <v-list-item to="/blog">اخبار</v-list-item>
           <v-list-item>تاریخچه</v-list-item>
-          <v-list-item>سوالات متداول</v-list-item>
+          <v-list-item to="/faq">سوالات متداول</v-list-item>
         </v-list>
       </v-row>
     </v-navigation-drawer>
-    <v-app-bar flat :color="color">
+    <v-app-bar flat app fixed :color="color">
       <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
         <v-icon>
           mdi-menu
@@ -27,9 +27,9 @@
           </v-icon>
           <span>ورود</span>
         </v-btn>
-        <v-btn plain text tile class="transparent mx-4">اخبار</v-btn>
+        <v-btn plain text tile class="transparent mx-4" to="/blog">اخبار</v-btn>
         <v-btn plain text tile class="transparent mx-4">تاریخچه</v-btn>
-        <v-btn plain text tile class="transparent mx-4">سوالات متداول</v-btn>
+        <v-btn plain text tile class="transparent mx-4" to="/faq">سوالات متداول</v-btn>
       </div>
       <v-spacer></v-spacer>
       <v-btn plain text tile class="transparent mx-4 hidden-sm-and-up" @click="toggleShow()">

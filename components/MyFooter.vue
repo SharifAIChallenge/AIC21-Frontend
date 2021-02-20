@@ -1,10 +1,10 @@
 <template>
   <v-footer dark padless>
     <v-card-text class="align-center justify-space-between d-flex mx-sm-3 flex-wrap flex-md-column">
-      <div class="social_box order-md-1 order-0 mx-auto mb-3 justify-center">
-        <v-row justify="center" align="center">
-          <v-col cols="4" sm="2"></v-col>
-        </v-row>
+      <div class="social_box order-sm-1 order-0 mx-auto mb-3 justify-center">
+        <!-- <v-row justify="center" align="center"> -->
+          <!-- <v-col cols="4" sm="2"></v-col> -->
+        <!-- </v-row> -->
       <v-btn
         v-for="social in socials"
         :key="social.icon"
@@ -22,7 +22,7 @@
     <!-- </v-card-text> -->
 
     <!-- <v-card-text class="align-center justify-space-between d-flex mx-sm-3"> -->
-      <div dir="ltr" class="primary--text order-md-0 order-1">
+      <div dir="ltr" class="primary--text order-sm-0 order-1">
         <strong>
           <v-icon right small class="primary--text">mdi-copyright</v-icon>
           2021 Sharif AI Challenge
