@@ -1,6 +1,6 @@
 <template>
-  <div class="">
-    <div class="d-flex flex-column align-start text-center justify-center intersection">
+  <div>
+    <div id="intersection" class="d-flex flex-column align-end text-center justify-center intersection">
       <v-avatar width="100" class="d-flex justify-end">
         <span class="ml-5">
           درباره ما
@@ -41,7 +41,8 @@ export default {
 
 <style>
 .intersection {
-  position: fixed;
+  position: sticky;
+  transition: 0.4s;
   top: 50%;
   left: 0;
   transform: translateY(-50%);

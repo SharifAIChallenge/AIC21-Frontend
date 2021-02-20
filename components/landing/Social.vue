@@ -38,6 +38,7 @@ export default {
     openSocial() {
       document.getElementById('main').classList.toggle('open');
       document.getElementById('aic-logo-mark').classList.toggle('open2');
+      document.getElementById('intersection').classList.toggle('open3');
     },
   },
 };
@@ -53,6 +54,9 @@ export default {
 }
 .open2 {
   transform: translateX(70px);
+}
+.open3 {
+  transform: translate(70px, -50%) !important;
 }
 .social {
   position: fixed !important;

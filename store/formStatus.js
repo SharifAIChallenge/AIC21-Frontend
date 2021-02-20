@@ -11,6 +11,7 @@ export const mutations = {
     },
     changeStatus(state,form){
         state.form = form;
+        state.show = !state.show;
     }
 
 }
