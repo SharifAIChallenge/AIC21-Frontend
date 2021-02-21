@@ -3,21 +3,21 @@
     <v-row justify="end" align="center" class="mx-5">
       <v-col cols="3" v-for="(trophy, i) in trophies" :key="i" :style="`margin-top:${trophy.marg}rem`">
         <v-card-text class="d-flex flex-column px-10 text-center white--text">
-          <span class="text-h3">{{ trophy.price }}</span>
-          <span style="border-top:1px solid white">میلیون تومان</span>
+          <span class="text-h2 font-weight-black">{{ trophy.price }}</span>
+          <span class="pt-1" style="border-top:1px solid white">میلیون تومان</span>
         </v-card-text>
-        <v-card-text class="secondary text-center darken-2">
+        <v-card-text class="secondary text-center darken-2 font-weight-black">
           <span class="font-weight-black text-body-1">{{ trophy.place }}</span>
         </v-card-text>
-        <v-card-text class="secondary text-center pb-0 pt-12">
-          <v-icon size="5rem" class="black--text">{{ trophy.icon }}</v-icon>
+        <v-card-text class="secondary text-center pb-0 pt-15">
+          <v-icon size="7rem" class="black--text">{{ trophy.icon }}</v-icon>
         </v-card-text>
       </v-col>
     </v-row>
     <v-row justify="start" align="center" class="mx-10 mt-0">
       <v-col cols="3" class="pl-0 pr-15">
         <v-card-text class="justify-center primary text-center">
-          <v-icon size="6rem" class="black--text" width="100%">mdi-plus</v-icon>
+          <v-icon size="7rem" class="black--text" width="100%">mdi-plus</v-icon>
         </v-card-text>
       </v-col>
       <v-col cols="9" class="pr-0">
