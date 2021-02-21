@@ -23,6 +23,7 @@
     "vue-quill-editor": "^3.0.6"
   },
   "devDependencies": {
+    "@mdi/font": "^5.9.55",
     "@nuxt/types": "^2.14.12",
     "@nuxt/typescript-build": "^2.0.3",
     "@nuxtjs/vuetify": "^1.11.3",
@@ -32,6 +33,7 @@
     "eslint-loader": "^3.0.3",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-vue": "^6.1.2",
+    "font-awesome": "^4.7.0",
     "prettier": "^1.19.1",
     "quill-image-extend-module": "^1.1.2"
   }

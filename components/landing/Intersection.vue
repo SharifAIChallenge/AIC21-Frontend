@@ -9,7 +9,7 @@
       </v-avatar>
       <v-avatar width="100" class="d-flex justify-end">
         <span class="ml-5">
-          تقویم زمانی
+          زمانبندی
           <span :class="isIntersectingTimeline ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
         </span>
       </v-avatar>
@@ -46,6 +46,7 @@ export default {
   top: 50%;
   left: 0;
   transform: translateY(-50%);
+  z-index: 100;
 }
 
 .intersectionSpan {
