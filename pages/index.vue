@@ -1,15 +1,15 @@
 <template>
   <div id="main">
-    <Header color="transparent" />
+    <HeadTop/>
     <Intersection />
   </div>
 </template>
 
 <script>
-import Header from '~/components/landing/Header.vue';
+import HeadTop from '~/components/landing/HeadTop.vue';
 import Intersection from '~/components/landing/Intersection.vue'
 export default {
-  components: { Header ,Intersection },
+  components: { HeadTop ,Intersection },
   layout: 'landing',
   auth: false,
 };
