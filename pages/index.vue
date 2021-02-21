@@ -8,6 +8,7 @@
     <!-- <Intersection /> -->
     <TrophyDesktop class="hidden-sm-and-down" />
     <TrophyMobile class="hidden-md-and-up" />
+    <Sponsor />
   </div>
 </template>
 
@@ -20,9 +21,10 @@ import TrophyDesktop from '~/components/landing/TrophyDesktop';
 import TrophyMobile from '~/components/landing/TrophyMobile';
 import Social from '~/components/landing/Social.vue';
 import About from '~/components/landing/About.vue';
+import Sponsor from '~/components/landing/Sponsor.vue';
 
 export default {
-  components: { Header, Video, Statistics, Intersection, TrophyDesktop, TrophyMobile, Social, About },
+  components: { Header, Video, Statistics, Intersection, TrophyDesktop, TrophyMobile, Social, About, Sponsor },
   layout: 'landing',
   auth: false,
 };
