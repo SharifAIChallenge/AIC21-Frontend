@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-main>
-      <Social />
       <nuxt />
+      <Social />
     </v-main>
     <call-to-action />
     <my-footer />

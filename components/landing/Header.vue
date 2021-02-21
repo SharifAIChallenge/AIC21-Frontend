@@ -14,7 +14,7 @@
         </v-list>
       </v-row>
     </v-navigation-drawer>
-    <v-app-bar flat app fixed :color="color">
+    <v-app-bar flat :color="color">
       <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
         <v-icon>
           mdi-menu
