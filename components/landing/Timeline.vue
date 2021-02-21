@@ -5,7 +5,7 @@
         v-intersect="{
           handler: onIntersectTimeline,
           options: {
-            threshold: 0.4,
+            threshold: 0.3,
           },
         }"
       >
@@ -171,17 +171,17 @@ export default {
   }
   .timeLineBtn {
     margin-right: 96px !important;
-    span{
+    span {
       right: -48px !important;
     }
   }
   .timelineDes {
     padding-right: 96px !important;
-    span{
-    right: 48px !important;
+    span {
+      right: 48px !important;
+    }
   }
-  }
-  .addToCal a{
+  .addToCal a {
     padding: 15px 30px !important;
   }
 }

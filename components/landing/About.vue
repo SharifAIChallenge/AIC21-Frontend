@@ -5,7 +5,7 @@
         v-intersect="{
           handler: onIntersectAbout,
           options: {
-            threshold: 0.4,
+            threshold: 0.3,
           },
         }"
         class="mx-auto"
