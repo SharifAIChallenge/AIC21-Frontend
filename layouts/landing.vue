@@ -1,11 +1,11 @@
 <template>
   <v-app>
-      <v-main>
-        <Social />
-        <nuxt />
-      </v-main>
-      <call-to-action />
-      <my-footer />
+    <v-main>
+      <nuxt />
+      <Social />
+    </v-main>
+    <call-to-action />
+    <my-footer />
   </v-app>
 </template>
 
