@@ -51,3 +51,6 @@ $border-radius-root: 10px;
 $treeview-label-font-size: 0.7rem;
 $treeview-node-height-dense: 30px;
 //@import '~vuetify/src/styles/styles.sass';
+$container-max-widths: (
+  'xl': 1200px,
+);

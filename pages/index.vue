@@ -1,6 +1,7 @@
 <template>
   <div id="main">
     <Header color="transparent" />
+    <About />
     <Video />
     <Social />
     <Statistics />
@@ -18,9 +19,10 @@ import Statistics from '~/components/landing/Statistics';
 import TrophyDesktop from '~/components/landing/TrophyDesktop';
 import TrophyMobile from '~/components/landing/TrophyMobile';
 import Social from '~/components/landing/Social.vue';
+import About from '~/components/landing/About.vue';
 
 export default {
-  components: { Header, Video, Statistics, Intersection, TrophyDesktop, TrophyMobile, Social },
+  components: { Header, Video, Statistics, Intersection, TrophyDesktop, TrophyMobile, Social, About },
   layout: 'landing',
   auth: false,
 };
