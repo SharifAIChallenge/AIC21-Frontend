@@ -1,5 +1,14 @@
 <template>
-  <v-container class="my-15">
+  <v-container
+    class="my-15"
+    id="staff"
+    v-intersect="{
+      handler: onIntersecStaff,
+      options: {
+        threshold: 0.3,
+      },
+    }"
+  >
     <div class="mb-12 text-center white--text text-h3 font-weight-bold" width="100%">تیم ما</div>
     <v-row class="hidden-sm-and-down">
       <v-col cols="12" lg="3" md="4" v-for="n in 4" class="d-flex justify-center px-2" :key="n">
@@ -26,6 +35,9 @@ import StaffCard from './StaffCard';
 export default {
   components: {
     StaffCard,
+  },
+  props: {
+    onIntersecStaff: Function,
   },
 };
 </script>

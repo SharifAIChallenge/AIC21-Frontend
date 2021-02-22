@@ -1,5 +1,14 @@
 <template>
-  <div class="mt-2">
+  <div
+    class="mt-2"
+    id="sponser"
+    v-intersect="{
+      handler: onIntersecSponser,
+      options: {
+        threshold: 0.3,
+      },
+    }"
+  >
     <v-row>
       <v-col md="6" class="white ssc">
         <div class="white sscLogo">
@@ -33,7 +42,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    onIntersecSponser: Function,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

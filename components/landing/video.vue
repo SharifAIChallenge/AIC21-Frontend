@@ -1,5 +1,14 @@
 <template>
-  <v-container class="main-video">
+  <v-container
+    class="main-video"
+    id="video"
+    v-intersect="{
+      handler: onIntersecVideo,
+      options: {
+        threshold: 0.3,
+      },
+    }"
+  >
     <img src="logo__white.svg" class="background-logo" />
 
     <v-row>
@@ -48,6 +57,9 @@ export default {
     changeStatus(form) {
       this.$store.commit('formStatus/changeStatus', form);
     },
+  },
+  props: {
+    onIntersecVideo: Function,
   },
 };
 </script>

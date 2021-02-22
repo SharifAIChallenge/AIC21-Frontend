@@ -1,21 +1,14 @@
 <template>
-  <div id="HeadTop">
-    <Header color="transparent" />
+  <div>
+    <div id="HeadTop"></div>
   </div>
 </template>
 
-<script>
-import Header from '../landing/Header.vue';
-export default {
-  components: { Header },
-  layout: 'landing',
-  auth: false,
-};
-</script>
+<script></script>
 
 <style scoped lang="scss">
 #HeadTop {
-  height: 100vh;
+  height: calc(100vh - 56px);
   transition: 0.4s;
 }
 </style>

@@ -1,5 +1,16 @@
 <template>
-  <v-card tile flat class="transparent my-15">
+  <v-card
+    tile
+    flat
+    class="transparent my-15"
+    id="trophy"
+    v-intersect="{
+      handler: onIntersecTrophy,
+      options: {
+        threshold: 0.3,
+      },
+    }"
+  >
     <v-row v-for="(trophy, i) in trophies" :key="i">
       <v-col :cols="trophy.col" :class="`pl-${trophy.col}`">
         <v-card-text class="d-flex justify-center px-0 pl-4 secondary text-center darken-2" style="height:140px">
@@ -17,18 +28,24 @@
       </v-col>
     </v-row>
     <v-row>
-        <v-row justify="start" align="center" class="mx-0 mt-0">
-      <v-col cols="4" class="px-3 pl-4">
-        <v-card-text class="justify-center py-10 primary text-center">
-          <v-icon size="2rem" class="black--text" width="100%">mdi-plus</v-icon>
-        </v-card-text>
-      </v-col>
-      <v-col cols="8" class="pr-0">
-        <v-card-text>
-          <span class="white--text font-weight-black text-body-1">دو جایزه برای تیم های <br/> چهارم تا بیستم<br/> دوجایزه ویژه برای مینی گیم ها</span>
-        </v-card-text>
-      </v-col>
-    </v-row>
+      <v-row justify="start" align="center" class="mx-0 mt-0">
+        <v-col cols="4" class="px-3 pl-4">
+          <v-card-text class="justify-center py-10 primary text-center">
+            <v-icon size="2rem" class="black--text" width="100%">mdi-plus</v-icon>
+          </v-card-text>
+        </v-col>
+        <v-col cols="8" class="pr-0">
+          <v-card-text>
+            <span class="white--text font-weight-black text-body-1">
+              دو جایزه برای تیم های
+              <br />
+              چهارم تا بیستم
+              <br />
+              دوجایزه ویژه برای مینی گیم ها
+            </span>
+          </v-card-text>
+        </v-col>
+      </v-row>
     </v-row>
   </v-card>
 </template>
@@ -58,6 +75,9 @@ export default {
         },
       ],
     };
+  },
+  props: {
+    onIntersecTrophy: Function,
   },
 };
 </script>

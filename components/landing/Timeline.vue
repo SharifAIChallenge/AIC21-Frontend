@@ -4,7 +4,7 @@
       <v-card
         id="timeline"
         v-intersect="{
-          handler: onIntersectTimeline,
+          handler: onIntersecTimeline,
           options: {
             threshold: 0.3,
           },
@@ -59,7 +59,7 @@ export default {
     };
   },
   props: {
-    onIntersectTimeline: Function,
+    onIntersecTimeline: Function,
   },
 };
 </script>
