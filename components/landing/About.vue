@@ -1,5 +1,13 @@
 <template>
-  <v-container>
+  <v-container
+    id="about"
+    v-intersect="{
+      handler: onIntersectAbout,
+      options: {
+        threshold: 0.3,
+      },
+    }"
+  >
     <h1>
       درباره ی
     </h1>
@@ -15,10 +23,31 @@
       تیم های حریف چیره شود و به مرحله حضوری مسابقات راه پیدا کند.
     </p>
   </v-container>
+  <!-- <v-responsive class="overflow-y-auto">
+    <v-responsive class="d-flex align-center text-center pa-2">
+      <v-card 
+      id="about"
+        v-intersect="{
+          handler: onIntersectAbout,
+          options: {
+            threshold: 0.3,
+          },
+        }"
+        class="mx-auto"
+        max-width="336"
+      >
+        
+      </v-card>
+    </v-responsive>
+  </v-responsive> -->
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    onIntersectAbout: Function,
+  },
+};
 </script>
 
 <style scoped>
