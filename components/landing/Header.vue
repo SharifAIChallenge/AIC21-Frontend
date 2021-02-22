@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="header">
     <v-navigation-drawer :color="color" absolute right v-model="showMenu" height="100%" width="100%">
       <v-btn icon @click="showMenu = !showMenu" class="transparent ma-3">
         <v-icon>
