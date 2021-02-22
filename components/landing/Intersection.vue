@@ -1,44 +1,66 @@
 <template>
   <div>
     <div id="intersection" class="d-flex flex-column align-end text-center justify-center intersection">
+      <!-- about -->
       <v-avatar width="100" class="d-flex justify-end">
         <span @click="interFunc('about')">
-          <span :class="isIntersectingAbout ? 'ml-5 intersectionItem activeSection' : 'ml-5 intersectionItem'">
+          <span :class="isIntersecAbout ? 'ml-5 intersectionItem activeSection' : 'ml-5 intersectionItem'">
             درباره ما
           </span>
-          <span :class="isIntersectingAbout ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
+          <span :class="isIntersecAbout ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
         </span>
       </v-avatar>
+      <!-- timeline -->
       <v-avatar width="100" class="d-flex justify-end">
         <span @click="interFunc('timeline')">
-          <span :class="isIntersectingTimeline ? 'ml-5 intersectionItem activeSection' : 'ml-5 intersectionItem'">
+          <span :class="isIntersecTimeline ? 'ml-5 intersectionItem activeSection' : 'ml-5 intersectionItem'">
             زمانبندی
           </span>
-          <span :class="isIntersectingTimeline ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
+          <span :class="isIntersecTimeline ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
+        </span>
+      </v-avatar>
+      <!-- video -->
+      <v-avatar width="100" class="d-flex justify-end">
+        <span @click="interFunc('video')">
+          <span :class="isIntersecVideo ? 'ml-5 intersectionItem activeSection' : 'ml-5 intersectionItem'">
+            ویدیو
+          </span>
+          <span :class="isIntersecVideo ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
+        </span>
+      </v-avatar>
+      <!-- trophy -->
+      <v-avatar width="100" class="d-flex justify-end">
+        <span @click="interFunc('trophy')">
+          <span :class="isIntersecTrophy ? 'ml-5 intersectionItem activeSection' : 'ml-5 intersectionItem'">
+            جوایز
+          </span>
+          <span :class="isIntersecTrophy ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
+        </span>
+      </v-avatar>
+      <!-- sponser -->
+      <v-avatar width="100" class="d-flex justify-end">
+        <span @click="interFunc('sponser')">
+          <span :class="isIntersecSponser ? 'ml-5 intersectionItem activeSection' : 'ml-5 intersectionItem'">
+            اسپانسر
+          </span>
+          <span :class="isIntersecSponser ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
+        </span>
+      </v-avatar>
+      <!-- staff -->
+      <v-avatar width="100" class="d-flex justify-end">
+        <span @click="interFunc('staff')">
+          <span :class="isIntersecStaff ? 'ml-5 intersectionItem activeSection' : 'ml-5 intersectionItem'">
+            تیم ما
+          </span>
+          <span :class="isIntersecStaff ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
         </span>
       </v-avatar>
     </div>
-    <About :onIntersectAbout="onIntersectAbout" />
-    <Timeline :onIntersectTimeline="onIntersectTimeline" />
   </div>
 </template>
 <script>
-import About from '~/components/landing/About.vue';
-import Timeline from '~/components/landing/Timeline.vue';
 export default {
-  components: { About, Timeline },
-  data: () => ({
-    isIntersectingAbout: false,
-    isIntersectingTimeline: false,
-  }),
-
   methods: {
-    onIntersectAbout(entries, observer) {
-      this.isIntersectingAbout = entries[0].isIntersecting;
-    },
-    onIntersectTimeline(entries, observer) {
-      this.isIntersectingTimeline = entries[0].isIntersecting;
-    },
     interFunc(item) {
       let scroll = document.getElementById(item).getBoundingClientRect().top;
       let scrolltop = document.querySelector('html').scrollTop;
@@ -47,6 +69,14 @@ export default {
         behavior: 'smooth',
       });
     },
+  },
+  props: {
+    isIntersecAbout: Boolean,
+    isIntersecTimeline: Boolean,
+    isIntersecSponser: Boolean,
+    isIntersecVideo: Boolean,
+    isIntersecStaff: Boolean,
+    isIntersecTrophy: Boolean,
   },
 };
 </script>

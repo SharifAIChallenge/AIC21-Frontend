@@ -2,7 +2,7 @@
   <v-container
     id="about"
     v-intersect="{
-      handler: onIntersectAbout,
+      handler: onIntersecAbout,
       options: {
         threshold: 0.3,
       },
@@ -45,7 +45,7 @@
 <script>
 export default {
   props: {
-    onIntersectAbout: Function,
+    onIntersecAbout: Function,
   },
 };
 </script>
