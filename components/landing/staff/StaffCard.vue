@@ -11,7 +11,7 @@
         برنامه نویس فرانت اند
       </div>
     </div>
-    <div class="primary py-3 text-center white--text font-weight-black">
+    <div class="primary py-1 text-center white--text font-weight-black">
       فنی
     </div>
   </div>

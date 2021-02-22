@@ -8,9 +8,16 @@
     </v-row>
     <v-row class="hidden-md-and-up px-8">
       <div class="scroller d-flex">
-        <StaffCard v-for="n in 4" :key="n" class="mx-1"/>
+        <StaffCard v-for="n in 4" :key="n" class="mx-1 my-3" />
       </div>
     </v-row>
+    <div class="d-flex justify-center my-15">
+      <v-btn tile class="primary px-15 py-6 text-center">
+        <span class="white--text font-weight-black" style="width:170px">
+          مشاهده همه تیم ها
+        </span>
+      </v-btn>
+    </div>
   </v-container>
 </template>
 
