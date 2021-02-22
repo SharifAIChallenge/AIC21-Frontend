@@ -1,5 +1,5 @@
 <template>
-  <v-container class="my-15">
+  <v-container class="staff">
     <div class="mb-12 text-center white--text text-h3 font-weight-bold" width="100%">تیم ما</div>
     <v-row class="hidden-md-and-down">
       <v-col cols="12" lg="3" md="4" v-for="n in 4" class="d-flex justify-center px-2" :key="n">
@@ -30,6 +30,9 @@ export default {
 };
 </script>
 <style scoped>
+.staff {
+  margin: 20vmin auto;
+}
 .scroller {
   overflow-x: auto;
 }

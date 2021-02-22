@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header">
     <v-navigation-drawer :color="color" absolute right v-model="showMenu" height="100%" width="100%">
       <v-btn icon @click="showMenu = !showMenu" class="transparent ma-3">
         <v-icon>
@@ -9,13 +9,13 @@
       <v-row class="justify-center">
         <v-list>
           <v-list-item>
-            <v-btn plain text tile class="head_btn transparent mx-4" to="/blog">اخبار</v-btn>
+            <v-btn plain text tile :class="getClass()" to="/blog">اخبار</v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn plain text tile class="head_btn transparent mx-4">تاریخچه</v-btn>
+            <v-btn plain text tile :class="getClass()">تاریخچه</v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn plain text tile class="head_btn transparent mx-4" to="/faq">سوالات متداول</v-btn>
+            <v-btn plain text tile :class="getClass()" to="/faq">سوالات متداول</v-btn>
           </v-list-item>
         </v-list>
       </v-row>
@@ -33,9 +33,15 @@
           </v-icon>
           <span>ورود</span>
         </v-btn>
-        <v-btn plain text tile class="head_btn transparent mx-4" to="/blog">اخبار</v-btn>
-        <v-btn plain text tile class="head_btn transparent mx-4">تاریخچه</v-btn>
-        <v-btn plain text tile class="head_btn transparent mx-4" to="/faq">سوالات متداول</v-btn>
+        <v-btn plain text tile :class="getClass()" to="/blog">
+          اخبار
+        </v-btn>
+        <v-btn plain text tile :class="getClass()">
+          تاریخچه
+        </v-btn>
+        <v-btn plain text tile :class="getClass()" to="/faq">
+          سوالات متداول
+        </v-btn>
       </div>
       <v-spacer></v-spacer>
       <v-btn plain text tile class="head_btn transparent mx-4 hidden-sm-and-up" @click="toggleShow()">
@@ -45,15 +51,15 @@
         <span>ورود</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <logoWhite v-if="color === 'primary'" />
-      <logoPrimary v-else />
+      <div>
+        <img src="logo__white.svg" class="logo" v-if="color === 'primary'" />
+        <img src="../../assets/images/logo/logo__primary.svg" class="logo" v-else />
+      </div>
     </v-app-bar>
     <formManager :isPage="false" />
   </div>
 </template>
 <script>
-import LogoMark from '~/components/LogoMark';
-import Logo from '~/components/Logo';
 import formManager from '~/components/userForms/formManager';
 import { mapState } from 'vuex';
 
@@ -65,8 +71,6 @@ export default {
     };
   },
   components: {
-    logoPrimary: LogoMark,
-    logoWhite: Logo,
     formManager,
   },
   computed: {
@@ -78,15 +82,27 @@ export default {
     toggleShow() {
       this.$store.commit('formStatus/toggleShow');
     },
+    getClass() {
+      return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent px-4';
+    },
   },
 };
 </script>
 <style scoped>
+.logo {
+  width: 40px;
+  margin-top: 10px;
+}
 .navLinks {
   height: calc(100% - 200px);
 }
-.head_btn:hover {
+.hover_white:hover {
   color: var(--v-anchor-base);
   border-bottom: 1px solid var(--v-anchor-base) !important;
+  transition: all 0.7s;
+}
+.hover_primary:hover {
+  border-bottom: 1px solid white !important;
+  transition: all 0.7s;
 }
 </style>

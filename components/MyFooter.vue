@@ -1,5 +1,5 @@
 <template>
-  <v-footer dark padless>
+  <v-footer dark padless class="footer">
     <v-card-text class="align-center justify-space-between d-flex mx-sm-3 flex-wrap">
       <div dir="ltr" class="primary--text">
         <strong>
@@ -22,7 +22,7 @@
           </v-icon>
         </v-btn>
       </div>
-      <logo-mark/>
+      <img src="../assets/images/logo/logo__primary.svg" class="logo" />
     </v-card-text>
   </v-footer>
 </template>
@@ -67,9 +67,15 @@ export default {
 
 <style scoped lang="scss">
 @import 'assets/mixins.scss';
-.social_box {
-  @include not-md {
-    width: 100vw;
+.footer {
+  padding: 40px 0px;
+  .social_box {
+    @include not-md {
+      width: 100vw;
+    }
+  }
+  .logo {
+    width: 60px;
   }
 }
 </style>

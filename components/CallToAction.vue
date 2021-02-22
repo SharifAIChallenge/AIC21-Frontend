@@ -1,5 +1,5 @@
 <template>
-  <v-card flat tile class="transparent mx-auto my-15" style="max-width:750px">
+  <v-card flat tile class="transparent mx-auto callToAction">
     <v-row class="mb-15">
       <v-col cols="5" class="align-center justify-center">
         <div class="d-flex flex-column align-end justify-center pl-5" style="height:100%">
@@ -43,8 +43,12 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-btn__content {
-  opacity: 1 !important;
+<style scoped lang="scss">
+.callToAction {
+  max-width: 750px;
+  margin: 16vmin auto 10vmin;
+  .v-btn__content {
+    opacity: 1 !important;
+  }
 }
 </style>
