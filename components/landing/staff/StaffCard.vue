@@ -1,5 +1,5 @@
 <template>
-  <div class="staff_card" style="max-width:350px">
+  <div class="staff_card d-inline-block" style="max-width:350px;min-width:290px">
       <div class="staff_img grey darken-3" style="margin-top:24px;height:185px">
           <img src="" alt="staff image" width="100%" height="100%">
       </div>
