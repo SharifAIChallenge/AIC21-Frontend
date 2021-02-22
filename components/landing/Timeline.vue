@@ -33,12 +33,12 @@
           </div>
           <div class="addToCal d-flex">
             <div class="timelineDate col-4"></div>
-            <div class="timeLineBtn d-flex flex-column justify-end">
+            <div class="timeLineBtn">
               <span></span>
-              <a href="">
+              <v-btn block class="btn">
                 <v-icon medium>mdi-calendar-plus</v-icon>
                 به تقویمم اضافه کن
-              </a>
+              </v-btn>
             </div>
           </div>
         </div>
@@ -133,12 +133,9 @@ export default {
   .timeLineBtn {
     margin-right: 48px;
     position: relative;
-    a {
-      margin-bottom: 30px;
-      text-decoration: none;
-      color: white;
-      background-color: #ef394e;
-      padding: 5px;
+    button {
+      margin-top: 30px;
+      border-radius: 0;
     }
     span {
       background-color: white;
@@ -156,7 +153,7 @@ export default {
         background-color: #42b3aa;
         border: 3px solid #0e1224;
         position: absolute;
-        top: 100px;
+        top: 50px;
         left: -10px;
       }
     }
@@ -181,9 +178,6 @@ export default {
     span {
       right: 48px !important;
     }
-  }
-  .addToCal a {
-    padding: 15px 30px !important;
   }
 }
 </style>
