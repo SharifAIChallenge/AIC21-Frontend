@@ -1,6 +1,6 @@
 <template>
-  <v-card flat tile class="callToAction transparent mx-auto my-10" style="max-width:750px">
-    <v-row>
+  <v-card flat tile class="transparent mx-auto callToAction">
+    <v-row class="mb-15">
       <v-col cols="5" class="align-center justify-center">
         <div class="d-flex flex-column align-end justify-center pl-5" style="height:100%">
           <div class="font-weight-bold text-sm-h4 text-h6 mb-1">همین حالا</div>
@@ -53,8 +53,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .callToAction {
+  max-width: 750px;
+  margin: 16vmin auto 10vmin;
   .v-btn__content {
     opacity: 1 !important;
   }

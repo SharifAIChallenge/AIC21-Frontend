@@ -1,8 +1,8 @@
 <template>
-  <v-card
+  <v-container
     tile
     flat
-    class="transparent my-15"
+    class="transparent"
     id="trophy"
     v-intersect="{
       handler: onIntersecTrophy,
@@ -31,7 +31,7 @@
       </v-col>
     </v-row>
     <v-row justify="start" align="center" class="mx-10 mt-0">
-      <v-col cols="3" class="pl-0 pr-15">
+      <v-col cols="3" class="pl-0">
         <v-card-text class="justify-center primary text-center">
           <v-icon size="7rem" class="black--text" width="100%">mdi-plus</v-icon>
         </v-card-text>
@@ -46,7 +46,7 @@
         </v-card-text>
       </v-col>
     </v-row>
-  </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -80,3 +80,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+#trophy {
+  margin: 14vmin auto;
+}
+</style>
