@@ -8,31 +8,37 @@
       </v-btn>
       <v-row class="justify-center">
         <v-list>
-          <v-list-item to="/blog">اخبار</v-list-item>
-          <v-list-item>تاریخچه</v-list-item>
-          <v-list-item to="/faq">سوالات متداول</v-list-item>
+          <v-list-item>
+            <v-btn plain text tile class="head_btn transparent mx-4" to="/blog">اخبار</v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn plain text tile class="head_btn transparent mx-4">تاریخچه</v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn plain text tile class="head_btn transparent mx-4" to="/faq">سوالات متداول</v-btn>
+          </v-list-item>
         </v-list>
       </v-row>
     </v-navigation-drawer>
-    <v-app-bar flat app fixed :color="color">
+    <v-app-bar flat :color="color">
       <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
         <v-icon>
           mdi-menu
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only">
-        <v-btn plain text tile class="transparent mx-4 " @click="toggleShow()">
+        <v-btn plain text tile class="head_btn transparent mx-4 " @click="toggleShow()">
           <v-icon left>
             mdi-shield-star
           </v-icon>
           <span>ورود</span>
         </v-btn>
-        <v-btn plain text tile class="transparent mx-4" to="/blog">اخبار</v-btn>
-        <v-btn plain text tile class="transparent mx-4">تاریخچه</v-btn>
-        <v-btn plain text tile class="transparent mx-4" to="/faq">سوالات متداول</v-btn>
+        <v-btn plain text tile class="head_btn transparent mx-4" to="/blog">اخبار</v-btn>
+        <v-btn plain text tile class="head_btn transparent mx-4">تاریخچه</v-btn>
+        <v-btn plain text tile class="head_btn transparent mx-4" to="/faq">سوالات متداول</v-btn>
       </div>
       <v-spacer></v-spacer>
-      <v-btn plain text tile class="transparent mx-4 hidden-sm-and-up" @click="toggleShow()">
+      <v-btn plain text tile class="head_btn transparent mx-4 hidden-sm-and-up" @click="toggleShow()">
         <v-icon left>
           mdi-shield-star
         </v-icon>
@@ -78,5 +84,9 @@ export default {
 <style scoped>
 .navLinks {
   height: calc(100% - 200px);
+}
+.head_btn:hover {
+  color: var(--v-anchor-base);
+  border-bottom: 1px solid var(--v-anchor-base) !important;
 }
 </style>
