@@ -2,7 +2,7 @@
   <div>
     <div id="intersection" class="d-flex flex-column align-end text-center justify-center intersection">
       <v-avatar width="100" class="d-flex justify-end">
-        <span>
+        <span @click="interFunc('about')">
           <span :class="isIntersectingAbout ? 'ml-5 intersectionItem activeSection' : 'ml-5 intersectionItem'">
             درباره ما
           </span>
@@ -10,7 +10,7 @@
         </span>
       </v-avatar>
       <v-avatar width="100" class="d-flex justify-end">
-        <span>
+        <span @click="interFunc('timeline')">
           <span :class="isIntersectingTimeline ? 'ml-5 intersectionItem activeSection' : 'ml-5 intersectionItem'">
             زمانبندی
           </span>
@@ -35,17 +35,23 @@ export default {
   methods: {
     onIntersectAbout(entries, observer) {
       this.isIntersectingAbout = entries[0].isIntersecting;
-      //  document.querySelector('.intersectionItem:nth-of-type(1)').classList.remove('')
     },
     onIntersectTimeline(entries, observer) {
       this.isIntersectingTimeline = entries[0].isIntersecting;
-      // document.querySelector('.intersectionItem:nth-of-type(2)').classList.remove('disableSection')
+    },
+    interFunc(item) {
+      let scroll = document.getElementById(item).getBoundingClientRect().top;
+      let scrolltop = document.querySelector('html').scrollTop;
+      window.scrollTo({
+        top: scroll + scrolltop,
+        behavior: 'smooth',
+      });
     },
   },
 };
 </script>
 
-<style>
+<style lang="scss">
 .activeSection {
   opacity: 1 !important;
   transition: 0.4s;
@@ -53,6 +59,10 @@ export default {
 .intersectionItem {
   opacity: 0;
   transition: 0.4s;
+  cursor: pointer;
+  &:hover {
+    opacity: 1 !important;
+  }
 }
 #main {
   position: relative;
@@ -69,7 +79,7 @@ export default {
 .intersectionSpan {
   width: 20px;
   height: 2px;
-  background-color: rgb(255, 0, 55);
+  background-color: white;
   position: absolute;
   left: 0;
   top: 62%;
@@ -77,5 +87,6 @@ export default {
 }
 .active_interSection {
   width: 80px;
+  background-color: rgb(255, 0, 55);
 }
 </style>

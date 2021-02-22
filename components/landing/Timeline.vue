@@ -2,6 +2,7 @@
   <v-responsive class="overflow-y-auto">
     <v-responsive class="d-flex align-center text-center">
       <v-card
+        id="timeline"
         v-intersect="{
           handler: onIntersectTimeline,
           options: {

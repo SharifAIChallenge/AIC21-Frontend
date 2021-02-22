@@ -1,7 +1,8 @@
 <template>
   <v-responsive class="overflow-y-auto">
     <v-responsive class="d-flex align-center text-center pa-2">
-      <v-card
+      <v-card 
+      id="about"
         v-intersect="{
           handler: onIntersectAbout,
           options: {

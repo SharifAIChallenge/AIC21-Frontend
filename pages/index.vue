@@ -16,7 +16,6 @@ export default {
     scrollHandle() {
       window.addEventListener('scroll', scrollHandleFunc);
       let height = window.innerHeight;
-      console.log(height);
       function scrollHandleFunc() {
         if (document.querySelector('html').scrollTop > height) {
           document.getElementsByClassName('intersectionItem')[0].style.opacity = 0;
