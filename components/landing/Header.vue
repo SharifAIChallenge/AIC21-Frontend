@@ -20,7 +20,7 @@
           mdi-menu
         </v-icon>
       </v-btn>
-      <div class="hidden-xs-only">
+      <div class="hidden-xs-only" id="menu">
         <v-btn plain text tile class="transparent mx-4 " @click="toggleShow()">
           <v-icon left>
             mdi-shield-star
@@ -78,5 +78,8 @@ export default {
 <style scoped>
 .navLinks {
   height: calc(100% - 200px);
+}
+#menu {
+  transition: 0.4s;
 }
 </style>
