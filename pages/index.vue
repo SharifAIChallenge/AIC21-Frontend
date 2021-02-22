@@ -3,10 +3,10 @@
     <!-- <Header color="transparent" /> -->
     <HeadTop />
     <!-- <Social /> -->
+    <Statistics />
+    <Video />
     <Intersection />
     <!-- <About /> -->
-    <Video />
-    <Statistics />
     <TrophyDesktop class="hidden-sm-and-down" />
     <TrophyMobile class="hidden-md-and-up" />
     <Sponsor />

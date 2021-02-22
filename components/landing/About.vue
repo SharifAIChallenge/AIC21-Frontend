@@ -61,7 +61,6 @@ div {
 .description {
   text-align: center;
   font-size: 0.9rem;
-  opacity: 0.7;
   padding-top: 8px;
 }
 </style>

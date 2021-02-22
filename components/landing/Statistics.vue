@@ -5,7 +5,7 @@
         <v-col cols="6" md="3" v-for="(stat, i) in stats" :key="i">
           <v-card-text class="px-10 py-0 text-right mx-auto">
             <v-icon size="60px" right class="mb-7 black--text">{{ stat.icon }}</v-icon>
-            <h1 class="text-h3 mb-7">{{ stat.part }}</h1>
+            <h1 class="text-h3 mb-7 font-weight-bold">{{ stat.part }}</h1>
             <span class="pt-1 text-h5" style="border-top:1px solid white">{{ stat.info }}</span>
           </v-card-text>
         </v-col>

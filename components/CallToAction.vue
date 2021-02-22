@@ -1,5 +1,5 @@
 <template>
-  <v-card flat tile class="transparent mx-auto my-10" style="max-width:750px">
+  <v-card flat tile class="callToAction transparent mx-auto my-10" style="max-width:750px">
     <v-row>
       <v-col cols="5" class="align-center justify-center">
         <div class="d-flex flex-column align-end justify-center pl-5" style="height:100%">
@@ -12,6 +12,7 @@
         <v-btn
           @click="loginWithGoogle"
           plain
+          block
           tile
           x-large
           class="primary my-3 white--text text-center font-weight-bold"
@@ -24,6 +25,7 @@
           @click="toggleShow"
           plain
           tile
+          block
           x-large
           class="black white--text my-3 text-center font-weight-bold"
           style="width:calc(100% - 12px)"
@@ -51,8 +53,10 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-btn__content {
-  opacity: 1 !important;
+<style lang="scss">
+.callToAction {
+  .v-btn__content {
+    opacity: 1 !important;
+  }
 }
 </style>

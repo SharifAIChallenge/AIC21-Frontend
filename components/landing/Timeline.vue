@@ -117,9 +117,6 @@ export default {
     h3 {
       font-size: 2.3rem;
     }
-    p {
-      color: gray;
-    }
     i {
       color: #ef394e;
     }
