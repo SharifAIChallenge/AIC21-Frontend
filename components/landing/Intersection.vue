@@ -97,6 +97,7 @@ export default {
   cursor: pointer;
   &:hover {
     opacity: 1 !important;
+    color: #e03459;
   }
 }
 #main {
