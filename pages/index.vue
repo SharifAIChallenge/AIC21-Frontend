@@ -9,8 +9,8 @@
     <Statistics />
     <TrophyDesktop class="hidden-sm-and-down" />
     <TrophyMobile class="hidden-md-and-up" />
-    <Sponsor />
     <Staff />
+    <Sponsor />
   </div>
 </template>
 
