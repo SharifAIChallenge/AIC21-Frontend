@@ -3,7 +3,7 @@
     tile
     flat
     class="transparent my-15"
-    id="trophy"
+    id="trophyM"
     v-intersect="{
       handler: onIntersecTrophy,
       options: {

@@ -62,7 +62,12 @@
 export default {
   methods: {
     interFunc(item) {
-      let scroll = document.getElementById(item).getBoundingClientRect().top;
+      let scroll = 0;
+      if (item === 'trophy' && window.innerWidth < 960) {
+        scroll = document.getElementById('trophyM').getBoundingClientRect().top;
+      } else {
+        scroll = document.getElementById(item).getBoundingClientRect().top;
+      }
       let scrolltop = document.querySelector('html').scrollTop;
       window.scrollTo({
         top: scroll + scrolltop,
