@@ -13,6 +13,7 @@
   height: calc(100vh - 56px);
   transition: 0.4s;
   position: relative;
+  background-color: #090c18;
   .scroll{
     display: block;
     width: 2px;
