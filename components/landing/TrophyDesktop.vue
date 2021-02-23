@@ -12,9 +12,9 @@
           <span class="pt-1" style="border-top:1px solid white">میلیون تومان</span>
         </v-card-text>
         <v-card-text class="secondary text-center darken-2 font-weight-black">
-          <span class="font-weight-black text-body-1">{{ trophy.place }}</span>
+          <span class="font-weight-black text-h6">{{ trophy.place }}</span>
         </v-card-text>
-        <v-card-text class="secondary text-center pb-0 pt-15">
+        <v-card-text class="secondary text-center pb-0" style="height:12rem;padding-top:5.8rem">
           <v-icon size="7rem" class="black--text">{{ trophy.icon }}</v-icon>
         </v-card-text>
       </v-col>
