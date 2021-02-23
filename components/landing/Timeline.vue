@@ -65,11 +65,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#timeline{
+@import '../../assets/mixins.scss';
+
+#timeline {
   background-color: #0e1224;
 }
 .timelineTitle {
-  font-size: 7vw;
+  font-size: 4.2rem;
+  @include not-md {
+    font-size: 7vw;
+  }
 }
 .timelineLogo {
   position: absolute;
@@ -83,8 +88,18 @@ export default {
     background-color: #ef394e;
     position: relative;
     h3 {
-      font-size: 4rem;
-      line-height: 80px;
+      font-size: 9rem;
+      line-height: 150px;
+      @include not-xl {
+        font-size: 7rem;
+      }
+      @include not-lg {
+        font-size: 5rem;
+      }
+      @include not-md {
+        font-size: 4rem;
+        line-height: 80px;
+      }
     }
     h4 {
       border-top: 3px solid white;
@@ -93,7 +108,13 @@ export default {
   }
   .timelineDes {
     position: relative;
-    padding-right: 48px;
+    padding-right: 96px;
+    @include not-md {
+      padding-right: 48px !important;
+      span {
+        right: 24px !important;
+      }
+    }
     > div {
       margin-top: 70px;
     }
@@ -103,7 +124,7 @@ export default {
       display: block;
       position: absolute;
       height: 100%;
-      right: 24px;
+      right: 48px;
       top: 0;
       &::after {
         display: block;
@@ -131,11 +152,18 @@ export default {
     background-color: #ef394e;
   }
   .timeLineBtn {
-    margin-right: 48px;
+    margin-right: 96px;
     position: relative;
+    @include not-md {
+      margin-right: 48px;
+    }
     button {
       margin-top: 30px;
       border-radius: 0;
+      padding: 0 45px;
+      @include not-md {
+        padding: 0;
+      }
     }
     span {
       background-color: white;
@@ -143,8 +171,11 @@ export default {
       display: block;
       height: 100%;
       position: absolute;
-      right: -24px;
+      right: -48px;
       top: 0;
+      @include not-md {
+        right: -24px;
+      }
       &::after {
         display: block;
         content: '';
@@ -156,27 +187,6 @@ export default {
         top: 50px;
         left: -10px;
       }
-    }
-  }
-}
-@media screen and (min-width: 767px) {
-  .timelineDate h3 {
-    font-size: 9rem !important;
-    line-height: 150px !important;
-  }
-  .timelineTitle {
-    font-size: 4.2rem;
-  }
-  .timeLineBtn {
-    margin-right: 96px !important;
-    span {
-      right: -48px !important;
-    }
-  }
-  .timelineDes {
-    padding-right: 96px !important;
-    span {
-      right: 48px !important;
     }
   }
 }
