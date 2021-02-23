@@ -65,6 +65,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#timeline{
+  background-color: #0e1224;
+}
 .timelineTitle {
   font-size: 7vw;
 }
