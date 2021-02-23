@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div id="HeadTop"></div>
+    <div id="HeadTop">
+      <span class="scroll"></span>
+    </div>
   </div>
 </template>
 
@@ -10,5 +12,16 @@
 #HeadTop {
   height: calc(100vh - 56px);
   transition: 0.4s;
+  position: relative;
+  .scroll{
+    display: block;
+    width: 2px;
+    height: 30px;
+    background-color: white;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+
+  }
 }
 </style>
