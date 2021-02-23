@@ -75,12 +75,12 @@ export default {
           for (let item = 0; item < 6; item++) {
             document.getElementsByClassName('intersectionItem')[item].style.opacity = 0;
           }
-           document.getElementsByClassName('intersection')[0].style.left = '0px'
+          document.getElementsByClassName('intersection')[0].style.left = '0px';
         } else {
           for (let item = 0; item < 6; item++) {
             document.getElementsByClassName('intersectionItem')[item].style.opacity = 1;
           }
-          document.getElementsByClassName('intersection')[0].style.left = '30px'
+          document.getElementsByClassName('intersection')[0].style.left = '30px';
         }
       }
     },
@@ -94,4 +94,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+body {
+  overflow-x: hidden;
+}
+</style>
