@@ -52,7 +52,8 @@ export default {
 }
 .social {
   position: absolute !important;
-  top: -56px;
+  // top: -56px;
+  top: 0;
   right: -7px;
   border-radius: 0px !important;
 }
@@ -60,7 +61,7 @@ export default {
 .vert-text-btn {
   transform: rotate(90deg);
   position: absolute !important;
-  top: calc(100vh - 160px);
+  top: calc(100vh - 90px);
   right: -25px;
   z-index: 50;
   cursor: pointer;
@@ -74,11 +75,6 @@ export default {
         color: black;
       }
     }
-  }
-}
-@media screen and (min-width: 960px) {
-  .social {
-    top: -64px;
   }
 }
 </style>

@@ -15,15 +15,13 @@
       <v-row>
         <v-col cols="12" md="6">
           <div class="title-video">
-            <div>
-              <span style="font-size: 1.8rem;">ثبت نام کنید، تیم تشکیل دهید</span>
+            <div class="d-flex justify-center first-line">
+              <span>ثبت نام کنید، تیم تشکیل دهید</span>
               <span class="border-text-white">و</span>
             </div>
-            <div style="margin: 30px 0px 10px;">
+            <div style="margin: 30px 0px 10px;" class="second-line d-flex justify-center align-center">
               <span class="text-primary-color">بگذارید</span>
-              <span class="border-text-primary">
-                کدها
-              </span>
+              <span class="border-text-primary">کدها</span>
               <span class="text-primary-color">بجنگند</span>
             </div>
             <v-row>
@@ -65,13 +63,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/mixins.scss';
+
 .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 11vmin 0;
-  margin: 6vmin 0;
+  padding: 13vmin 0;
+  margin: 120px 0 30px;
   position: relative;
+  .first-line {
+    align-items: flex-end;
+    > span:nth-of-type(1) {
+      font-size: 2.3rem;
+      font-weight: bold;
+      @include not-md {
+        font-size: 1.3rem;
+      }
+    }
+    > span:nth-of-type(2) {
+      font-weight: normal;
+      font-size: 5rem;
+      @include not-md {
+        font-size: 3rem;
+      }
+    }
+  }
+  .second-line {
+    span {
+      font-size: 4.5rem;
+        @include not-md {
+          font-size: 2.2rem;
+        }
+    }
+  }
   .title {
     text-align: center;
     margin-bottom: 10px;
@@ -85,12 +110,15 @@ export default {
     width: 100%;
   }
   .background-logo {
-    height: 80%;
+    height: 150%;
     right: 0;
     position: absolute;
-    opacity: 0.3;
+    opacity: 0.2;
     transform: translateX(50%);
     z-index: 0;
+    @include not-xl {
+      height: 80%;
+    }
   }
   .btn {
     border-radius: 0;
@@ -99,13 +127,11 @@ export default {
     color: transparent;
     border: white;
     -webkit-text-stroke: 2px white;
-    font-size: 4rem;
   }
   .border-text-primary {
     color: transparent;
     border: white;
     -webkit-text-stroke: 2px var(--v-primary-base);
-    font-size: 4rem;
     margin-bottom: 10px;
     margin-top: 10px;
   }

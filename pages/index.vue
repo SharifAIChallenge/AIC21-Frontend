@@ -71,14 +71,16 @@ export default {
       window.addEventListener('scroll', scrollHandleFunc);
       let height = window.innerHeight;
       function scrollHandleFunc() {
-        if (document.querySelector('html').scrollTop > height) {
+        if (document.querySelector('html').scrollTop > height/2) {
           for (let item = 0; item < 6; item++) {
             document.getElementsByClassName('intersectionItem')[item].style.opacity = 0;
           }
+          document.getElementsByClassName('intersection')[0].style.left = '0px';
         } else {
           for (let item = 0; item < 6; item++) {
             document.getElementsByClassName('intersectionItem')[item].style.opacity = 1;
           }
+          document.getElementsByClassName('intersection')[0].style.left = '30px';
         }
       }
     },
@@ -92,4 +94,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+body {
+  overflow-x: hidden;
+}
+</style>

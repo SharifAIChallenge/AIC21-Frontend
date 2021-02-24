@@ -108,4 +108,7 @@ export default {
   border-bottom: 1px solid white !important;
   transition: all 0.7s;
 }
+#header{
+  background-color: #090c18;
+}
 </style>
