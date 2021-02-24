@@ -1,13 +1,16 @@
 <template>
   <div id="header">
     <v-navigation-drawer :color="color" absolute right v-model="showMenu" height="100%" width="100%">
-      <v-btn icon @click="showMenu = !showMenu" class="transparent ma-3">
+      <v-btn icon @click="showMenu = !showMenu" class="transparent ma-3 pb-4">
         <v-icon>
           mdi-close
         </v-icon>
       </v-btn>
       <v-row class="justify-center">
         <v-list>
+          <v-list-item>
+            <v-btn plain text tile :class="getClass()" to="/">خانه</v-btn>
+          </v-list-item>
           <v-list-item>
             <v-btn plain text tile :class="getClass()" to="/blog">اخبار</v-btn>
           </v-list-item>
@@ -27,11 +30,14 @@
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only" id="menu">
-        <v-btn plain text tile class="transparent mx-4 " @click="toggleShow()">
+        <v-btn plain text tile :class="`${getClass()}`" @click="toggleShow()">
           <v-icon left>
             mdi-shield-star
           </v-icon>
-          <span>ورود</span>
+          <span class="font-weight-bold">ورود</span>
+        </v-btn>
+        <v-btn plain text tile :class="getClass()" to="/">
+          خانه
         </v-btn>
         <v-btn plain text tile :class="getClass()" to="/blog">
           اخبار
@@ -44,11 +50,11 @@
         </v-btn>
       </div>
       <v-spacer></v-spacer>
-      <v-btn plain text tile class="head_btn transparent mx-4 hidden-sm-and-up" @click="toggleShow()">
+      <v-btn plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow()">
         <v-icon left>
           mdi-shield-star
         </v-icon>
-        <span>ورود</span>
+        <span class="font-weight-bold">ورود</span>
       </v-btn>
       <v-spacer></v-spacer>
       <div>
@@ -83,32 +89,44 @@ export default {
       this.$store.commit('formStatus/toggleShow');
     },
     getClass() {
-      return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent px-4';
+      return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent pb-4';
     },
   },
 };
 </script>
-<style scoped>
-.logo {
-  width: 40px;
-  margin-top: 10px;
-}
-.navLinks {
-  height: calc(100% - 200px);
-}
-#menu {
-  transition: 0.4s;
-}
-.hover_white:hover {
-  color: var(--v-anchor-base);
-  border-bottom: 1px solid var(--v-anchor-base) !important;
-  transition: all 0.7s;
-}
-.hover_primary:hover {
-  border-bottom: 1px solid white !important;
-  transition: all 0.7s;
-}
-#header{
-  background-color: #090c18;
+<style lang="scss">
+#header {
+  .logo {
+    width: 40px;
+    margin-top: 10px;
+  }
+  .navLinks {
+    height: calc(100% - 200px);
+  }
+  #menu {
+    transition: 0.4s;
+  }
+  .v-toolbar__content {
+    padding-bottom: 0 !important;
+    align-items: flex-end;
+  }
+  .hover_white {
+    &.v-btn--active,
+    &:hover {
+      color: var(--v-anchor-base);
+      border-bottom: 1px solid var(--v-anchor-base) !important;
+      transition: all 0.7s;
+    }
+  }
+  .hover_primary {
+    &.v-btn--active,
+    &:hover {
+      border-bottom: 1px solid white !important;
+      transition: all 0.7s;
+    }
+  }
+  .v-btn--active #header {
+    background-color: #090c18;
+  }
 }
 </style>

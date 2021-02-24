@@ -91,8 +91,10 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    browserBaseURL: 'https://api-stg.aichallenge.ir/api',
-    baseURL: 'https://api-stg.aichallenge.ir/api',
+    browserBaseURL: 'https://api-stg.aichallenge.ir/api/',
+    // browserBaseURL: 'https://aichallenge.sharif.edu/api',
+    baseURL: 'https://api-stg.aichallenge.ir/api/',
+    // baseURL: 'https://aichallenge.sharif.edu/api',
     // baseURL: 'http://172.17.0.1:8000/api'
   },
   /*

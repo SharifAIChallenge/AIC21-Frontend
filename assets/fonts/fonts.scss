@@ -1,13 +1,19 @@
 @font-face {
   font-family: Vazir;
-  src: url('./KanunStencilAR+LT-Thin.otf');
-  font-weight: normal;
+  src: url('./KanunStencilAR+LT-Regular.otf');
+  font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: Vazir;
-  src: url('./KanunStencilAR+LT-Bold.otf');
+  src: url('./KanunStencilAR+LT-Heavy.otf');
   font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: Vazir;
+  src: url('./KanunStencilAR+LT-Medium.otf');
+  font-weight: normal;
   font-style: normal;
 }

@@ -19,6 +19,7 @@
     <TrophyMobile class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
     <Staff :onIntersecStaff="onIntersecStaff" />
     <Sponsor :onIntersecSponser="onIntersecSponser" />
+    <CallToAction />
   </div>
 </template>
 
@@ -34,10 +35,25 @@ import Social from '~/components/landing/Social.vue';
 import About from '~/components/landing/About.vue';
 import Sponsor from '~/components/landing/Sponsor.vue';
 import HeadTop from '~/components/landing/HeadTop.vue';
+import CallToAction from '~/components/CallToAction.vue';
 import Staff from '~/components/landing/staff/Staff';
 
 export default {
-  components: { Header, Video, Statistics, Intersection, TimeLine, TrophyDesktop, TrophyMobile, Social, About, Sponsor, HeadTop, Staff },
+  components: {
+    Header,
+    Video,
+    Statistics,
+    Intersection,
+    TimeLine,
+    TrophyDesktop,
+    TrophyMobile,
+    Social,
+    About,
+    Sponsor,
+    HeadTop,
+    Staff,
+    CallToAction,
+  },
   layout: 'landing',
   auth: false,
   data: () => ({
@@ -71,7 +87,7 @@ export default {
       window.addEventListener('scroll', scrollHandleFunc);
       let height = window.innerHeight;
       function scrollHandleFunc() {
-        if (document.querySelector('html').scrollTop > height/2) {
+        if (document.querySelector('html').scrollTop > height / 2) {
           for (let item = 0; item < 6; item++) {
             document.getElementsByClassName('intersectionItem')[item].style.opacity = 0;
           }
@@ -85,7 +101,7 @@ export default {
       }
     },
   },
-  beforeMount() {
+  mounted() {
     for (let item = 0; item < 6; item++) {
       document.getElementsByClassName('intersectionItem')[item].style.opacity = 1;
     }
