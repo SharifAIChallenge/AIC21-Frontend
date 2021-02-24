@@ -32,20 +32,26 @@
 <script>
 import StaffCard from '../landing/staff/StaffCard';
 export default {
+  props:['techStaffs'],
   data() {
-      return{
-          graphicTeam:[],
-          webTeam:[],
-          substructureTeam:[],
-          serverTeam:[]
-      }
+    return {
+      graphicTeam: [],
+      webTeam: [],
+      substructureTeam: [],
+      serverTeam: [],
+    };
   },
   components: {
     StaffCard,
   },
-  methods:{
-
-  },
+  methods: {},
+  mounted(){
+    console.log("hello")
+    console.log(this.techStaffs)
+    for( let prop in this.techStaffs){
+      console.log(prop , this.techStaffs[prop])
+    }
+  }
 };
 </script>
 
