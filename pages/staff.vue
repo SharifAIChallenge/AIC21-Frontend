@@ -1,7 +1,9 @@
 <template>
   <div>
     <app-header></app-header>
-    <app-staffIntro v-bind:staffs="staffs"></app-staffIntro>
+
+    <app-staffIntro v-for="group in groups" :key="group" :group="staffs[group]"></app-staffIntro>
+    <!-- <div v-for="group in groups" :key="group">{{ staffs[group] }}</div> -->
   </div>
 </template>
 
@@ -10,11 +12,6 @@ import Header from '../components/staffs/Header';
 import StaffIntro from '../components/staffs/StaffIntro';
 
 export default {
-  data() {
-    return {
-      staffs: [],
-    };
-  },
   auth: false,
   components: {
     'app-header': Header,
@@ -23,6 +20,11 @@ export default {
   async asyncData({ $axios }) {
     let staffs = await $axios.$get('staff/staffs');
     return { staffs };
+  },
+  computed: {
+    groups() {
+      return Object.keys(this.staffs);
+    },
   },
 };
 </script>
