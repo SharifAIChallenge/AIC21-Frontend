@@ -50,8 +50,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$image-width: 30vmin;
 .padding-y {
-  padding: 100px 0px;
+  padding: 20vmin 0px;
 }
 .digikalaLogoCol {
   background-color: var(--v-primary-base);
@@ -62,7 +63,7 @@ export default {
     justify-content: center;
     height: 100%;
     img {
-      width: 20vw;
+      width: $image-width;
     }
   }
 }
@@ -90,7 +91,7 @@ export default {
     justify-content: center;
     height: 100%;
     img {
-      width: 20vw;
+      width: $image-width;
       filter: invert(0%) sepia(0%) saturate(7500%) hue-rotate(327deg) brightness(0%) contrast(104%);
     }
   }

@@ -15,9 +15,9 @@
         <StaffCard />
       </v-col>
     </v-row>
-    <v-row class="hidden-lg-and-up px-8">
+    <v-row class="hidden-lg-and-up">
       <div class="scroller d-flex">
-        <StaffCard v-for="n in 4" :key="n" class="mx-1 my-3" />
+        <StaffCard v-for="n in 4" :key="n" class="ml-6 my-3" />
       </div>
     </v-row>
     <div class="d-flex justify-center my-15">

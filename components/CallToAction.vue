@@ -9,10 +9,6 @@
         </div>
       </v-col>
       <v-col cols="6" class="align-center justify-center px-3">
-        <div class="d-flex activeBox align-center mb-5">
-          <input type="checkbox" id="active" value="false" @click="activeBtn" class="ml-2" />
-          <p for="active" class="mb-0">شرایط و قوانین را می پذیرم</p>
-        </div>
         <v-btn
           @click="loginWithGoogle"
           plain
@@ -21,7 +17,6 @@
           x-large
           class="primary my-3 white--text text-center font-weight-bold"
           style="width:calc(100% - 12px)"
-          :disabled="!active"
         >
           <v-icon>mdi-google</v-icon>
           ثبت نام باگوگل
@@ -32,9 +27,8 @@
           tile
           block
           x-large
-          class="black white--text my-3 text-center font-weight-bold"
+          class="black white--text my-3 px-sm-1 text-center font-weight-bold"
           style="width:calc(100% - 12px)"
-          :disabled="!active"
         >
           ثبت نام با ایمیل و رمز عبور
         </v-btn>
@@ -59,7 +53,6 @@ export default {
     },
     activeBtn() {
       this.active = !this.active;
-      console.log(this.active);
     },
   },
 };

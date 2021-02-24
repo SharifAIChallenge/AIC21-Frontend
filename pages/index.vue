@@ -71,7 +71,7 @@ export default {
       window.addEventListener('scroll', scrollHandleFunc);
       let height = window.innerHeight;
       function scrollHandleFunc() {
-        if (document.querySelector('html').scrollTop > height/2) {
+        if (document.querySelector('html').scrollTop > height / 2) {
           for (let item = 0; item < 6; item++) {
             document.getElementsByClassName('intersectionItem')[item].style.opacity = 0;
           }
@@ -85,7 +85,7 @@ export default {
       }
     },
   },
-  beforeMount() {
+  mounted() {
     for (let item = 0; item < 6; item++) {
       document.getElementsByClassName('intersectionItem')[item].style.opacity = 1;
     }
