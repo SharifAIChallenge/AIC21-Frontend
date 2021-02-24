@@ -59,6 +59,7 @@ export default {
       this.loading = false;
     },
     startListeners() {
+      console.log(this.$auth.user);
       this.startOnMessageListener();
       this.startTokenRefreshListener();
       this.listenersStarted = true;

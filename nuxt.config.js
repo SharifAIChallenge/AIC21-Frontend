@@ -178,12 +178,12 @@ export default {
     },
     strategies: {
       google: {
-        clientId: '939108343385-ki4hppc0879jktshp5po57lhihn617st.apps.googleusercontent.com',
+        client_id: '864043474548-9is9rd8jbf3bbq4tdrhsfdjnivasj7l6.apps.googleusercontent.com',
         codeChallengeMethod: '',
         responseType: 'code',
         endpoints: {
-          token: 'http://localhost:8000/social-login/google/',
-          userInfo: 'http://localhost:8000/auth/user/',
+          token: 'https://api-stg.aichallenge.ir/social-login/google/',
+          userInfo: 'https://api-stg.aichallenge.ir/auth/',
         },
       },
       local: {
