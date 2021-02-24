@@ -34,8 +34,6 @@ import StaffCard from '../landing/staff/StaffCard';
 export default {
   data() {
       return{
-          team:[],
-          techTeam:[],
           graphicTeam:[],
           webTeam:[],
           substructureTeam:[],
@@ -48,11 +46,6 @@ export default {
   methods:{
 
   },
-  async fetch(){
-      this.team=await fetch(
-          '/api/staff/staffs'
-      ).then(res=>res.json)
-  }
 };
 </script>
 

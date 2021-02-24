@@ -9,7 +9,7 @@
         <span class="px-5">سرور و کلاینت</span>
       </div>
     </div>
-    <!-- <TechTeam /> -->
+    <app-techTeam v-bind:techStaffs="techStaffs"></app-techTeam>
     <div class="marketing mt-15">
       <h1 class="text-right">برندینگ</h1>
       <div class="text-left">
@@ -25,17 +25,16 @@ export default {
   props: ['staffs'],
   data() {
     return {
-      techStaff: [],
+      techStaffs: [],
     };
   },
   components: {
-    TechTeam,
+    'app-techTeam': TechTeam,
   },
   methods: {},
   mounted() {
     for (var prop in this.staffs) {
-      this.techStaff.push(this.staffs.tech)
-      console.log(this.techStaff)
+      this.techStaffs.push(this.staffs.tech);
     }
   },
 };
