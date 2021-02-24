@@ -1,5 +1,6 @@
 <template>
   <div class="mt-7 mx-15">
+    <h1 v-for="key in keys" :key="key">{{ key }}</h1>
     <v-container class="mt-7">
       <div class="techTeam">
         <p>گرافیک</p>
@@ -32,7 +33,11 @@
 <script>
 import StaffCard from '../landing/staff/StaffCard';
 export default {
-  props:['techStaffs'],
+  props: {
+    techStaffs:{
+      type : Array
+    }
+  },
   data() {
     return {
       graphicTeam: [],
@@ -45,13 +50,12 @@ export default {
     StaffCard,
   },
   methods: {},
-  mounted(){
-    console.log("hello")
-    console.log(this.techStaffs)
-    for( let prop in this.techStaffs){
-      console.log(prop , this.techStaffs[prop])
-    }
-  }
+  mounted() {},
+  computed: {
+    keys() {
+      return Object.keys(this.techStaffs)
+    },
+  },
 };
 </script>
 
