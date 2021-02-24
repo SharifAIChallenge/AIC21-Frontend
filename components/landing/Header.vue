@@ -89,7 +89,7 @@ export default {
       this.$store.commit('formStatus/toggleShow');
     },
     getClass() {
-      return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'font-weight-bold transparent pb-4';
+      return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent pb-4';
     },
   },
 };

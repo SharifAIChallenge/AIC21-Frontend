@@ -10,27 +10,11 @@
         </div>
       </v-col>
       <v-col cols="7" class="align-start justify-center px-3">
-        <v-btn
-          @click="loginWithGoogle"
-          plain
-          block
-          tile
-          x-large
-          class="primary my-3 white--text text-center font-weight-bold"
-          style="width:calc(100% - 12px)"
-        >
+        <v-btn @click="loginWithGoogle" block tile x-large class="primary my-3 text-center" style="width:calc(100% - 12px)">
           <v-icon>mdi-google</v-icon>
           ثبت نام باگوگل
         </v-btn>
-        <v-btn
-          @click="toggleShow"
-          plain
-          tile
-          block
-          x-large
-          class="black white--text my-3 px-sm-1 text-center font-weight-bold"
-          style="width:calc(100% - 12px)"
-        >
+        <v-btn @click="toggleShow()" tile block x-large class="black white--text my-3 px-sm-1 text-center" style="width:calc(100% - 12px)">
           ثبت نام با ایمیل و رمز عبور
         </v-btn>
       </v-col>
@@ -49,7 +33,6 @@ export default {
       this.$auth.loginWith('google');
     },
     toggleShow() {
-      this.$store.commit('formStatus/toggleShow');
       this.$store.commit('formStatus/changeStatus', 'signUp');
     },
     activeBtn() {
@@ -69,9 +52,9 @@ export default {
 .call_to_action {
   max-width: 750px;
   position: relative;
-  padding-top: 0px;
+  padding-top: 6rem;
   padding-bottom: 200px;
-  margin-top: 16rem;
+  margin-top: 8rem;
   overflow: hidden;
 }
 </style>

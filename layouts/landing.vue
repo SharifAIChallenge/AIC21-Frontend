@@ -2,20 +2,17 @@
   <v-app>
     <v-main>
       <nuxt />
-      <Social />
     </v-main>
-    <call-to-action />
+
     <my-footer />
   </v-app>
 </template>
 
 <script>
 import MyFooter from '../components/MyFooter';
-import CallToAction from '~/components/CallToAction.vue';
-import Social from '../components/landing/Social.vue';
 
 export default {
-  components: { MyFooter, CallToAction, Social },
+  components: { MyFooter },
 };
 </script>
 

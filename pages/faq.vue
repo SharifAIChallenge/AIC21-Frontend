@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <Header color="primary" />
     <div class="first-slider" style="position: relative;">
       <div class="slider-text">
@@ -43,21 +43,21 @@
         </v-row>
       </div>
     </v-container>
-  </v-app>
+    <CallToAction />
+  </div>
 </template>
 
 <script>
 import Header from '~/components/landing/Header.vue';
 import { FAQ } from '~/api/index';
+import CallToAction from '~/components/CallToAction.vue';
 export default {
   auth: false,
   layout: 'landing',
-  components: { Header },
+  components: { Header, CallToAction },
   async asyncData({ $axios }) {
     let data = await FAQ($axios);
-    console.log(data);
     let aq = data.questions;
-    console.log(aq);
     return {
       aq,
       faq: [
