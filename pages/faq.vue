@@ -18,7 +18,6 @@
       </div>
       <div class="vl"></div>
     </div>
-
     <div class="titles">
       <div class="title" v-for="(subject, index) in faq" :key="index">
         {{ subject.title }}
@@ -28,16 +27,16 @@
       <div v-for="(subject, index) in faq" :key="index">
         <div class="fag-title-for-show">{{ subject.title }}</div>
         <v-row class="mb-10">
-          <v-col v-for="(question, index) in subject.questions" :key="index" cols="12" sm="6" lg="4" xl="3">
+          <v-col v-for="(question, index) in aq" :key="index" cols="12" sm="6" lg="4" xl="3">
             <div class="faq-card">
               <div class="faq-card-title">
                 <v-icon right color="primary" size="55">
                   mdi-calendar
                 </v-icon>
-                {{ question.title }}
+                {{ question.question_fa }}
               </div>
               <p class="faq-card-text">
-                {{ question.answer }}
+                {{ question.answer_fa }}
               </p>
             </div>
           </v-col>
@@ -49,12 +48,18 @@
 
 <script>
 import Header from '~/components/landing/Header.vue';
+import { FAQ } from '~/api/index';
 export default {
   auth: false,
   layout: 'landing',
   components: { Header },
-  data() {
+  async asyncData({ $axios }) {
+    let data = await FAQ($axios);
+    console.log(data);
+    let aq = data.questions;
+    console.log(aq);
     return {
+      aq,
       faq: [
         {
           title: 'عمومی',
