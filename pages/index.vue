@@ -12,13 +12,13 @@
       :isIntersecTrophy="isIntersecTrophy"
     />
     <About :onIntersecAbout="onIntersecAbout" />
-    <TimeLine :onIntersecTimeline="onIntersecTimeline" />
     <Video :onIntersecVideo="onIntersecVideo" />
     <Statistics />
+    <TimeLine :onIntersecTimeline="onIntersecTimeline" />
     <TrophyDesktop class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy" />
     <TrophyMobile class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
-    <Sponsor :onIntersecSponser="onIntersecSponser" />
     <Staff :onIntersecStaff="onIntersecStaff" />
+    <Sponsor :onIntersecSponser="onIntersecSponser" />
   </div>
 </template>
 
