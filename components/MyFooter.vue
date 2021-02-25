@@ -36,34 +36,16 @@ import LogoMark from '../components/LogoMark';
 
 export default {
   components: { LogoMark },
+  async fetch() {
+    let data = await this.$axios.$get('homepage/socials');
+    this.socials = data.socials;
+  },
   data() {
     return {
-      socials: [
-        {
-          icon: 'mdi-twitch',
-          url: '/',
-        },
-        {
-          icon: 'mdi-linkedin',
-          url: '/',
-        },
-        {
-          icon: 'mdi-instagram',
-          url: 'http://www.instagram.com/AiChallenge',
-        },
-        {
-          icon: 'mdi-github',
-          url: '/',
-        },
-        {
-          icon: 'mdi-twitter',
-          url: 'http://www.twitter.com/AiChallenge',
-        },
-        {
-          icon: 'mdi-telegram',
-          url: 'https://t.me/aichallenge',
-        },
-      ],
+      socials: [],
+      //     url: 'http://www.instagram.com/AiChallenge',
+      //     url: 'http://www.twitter.com/AiChallenge',
+      //     url: 'https://t.me/aichallenge',
     };
   },
 };
