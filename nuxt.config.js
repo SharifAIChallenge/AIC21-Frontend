@@ -24,8 +24,8 @@ export default {
    ** Customize the progress-bar color
    */
   loading: {
-    color: '#FF5722',
-    height: '3px',
+    color: '#eb3654',
+    height: '2px',
   },
   /*
    ** Global CSS
@@ -53,7 +53,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    '@nuxtjs/auth-next',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
@@ -178,7 +178,7 @@ export default {
     },
     strategies: {
       google: {
-        client_id: '864043474548-9is9rd8jbf3bbq4tdrhsfdjnivasj7l6.apps.googleusercontent.com',
+        clientId: '864043474548-9is9rd8jbf3bbq4tdrhsfdjnivasj7l6.apps.googleusercontent.com',
         codeChallengeMethod: '',
         responseType: 'code',
         endpoints: {
