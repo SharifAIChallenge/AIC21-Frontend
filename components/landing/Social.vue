@@ -9,18 +9,19 @@
       <v-expand-x-transition>
         <v-card v-show="expand" height="100vh" width="70" class="primary social">
           <div class="social-wrap d-flex flex-column justify-center align-center">
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-instagram</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-linkedin</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-instagram</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-linkedin</v-icon>
-            </a>
+            <v-btn
+              v-for="social in socials"
+              :key="social.icon"
+              :href="social.url"
+              class="mx-4 transparent white--text mx-sm-4"
+              target="_blank"
+              icon
+              large
+            >
+              <v-icon size="30px">
+                {{ social.icon }}
+              </v-icon>
+            </v-btn>
           </div>
         </v-card>
       </v-expand-x-transition>
@@ -31,8 +32,14 @@
 
 <script>
 export default {
+  async fetch() {
+    let data = await this.$axios.$get('homepage/socials');
+    console.log(data.socials)
+    this.socials = data.socials;
+  },
   data: () => ({
     expand: false,
+    socials:[]
   }),
   methods: {
     openSocial() {

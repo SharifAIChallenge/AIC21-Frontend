@@ -39,7 +39,6 @@ export default {
   async fetch() {
     let data = await this.$axios.$get('homepage/staffs');
     this.staffs = data.data;
-    console.log('this:', this.staffs);
   },
   data() {
     return {

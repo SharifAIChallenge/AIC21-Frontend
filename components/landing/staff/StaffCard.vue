@@ -1,7 +1,7 @@
 <template>
   <div class="staff_card" style="max-width:350px;min-width:290px">
     <div class="staff_img grey darken-3" style="margin:24px auto;height:230px;width:230px">
-      <img :src="staff.image" alt="staff image" width="100%" height="100%" style="object-fit: cover;" />
+      <img :src="`https://api-stg.aichallenge.ir/${staff.image}`" alt="staff image" width="100%" height="100%" style="object-fit: cover;" />
     </div>
     <div class="staff_intro pb-4" style="width:230px; margin:5px auto;">
       <div class="font-weight-bold white--text">
@@ -19,10 +19,6 @@
 <script>
 export default {
   props:['staff'],
-  data(){
-    console.log('sol:',this.staff)
-    return{}
-  }
 }
 </script>
 <style scoped>
