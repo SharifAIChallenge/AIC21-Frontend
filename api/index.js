@@ -196,7 +196,7 @@ export const submitLargeCode = (axios, data) => {
 
 //todo Check in code !
 //Change Hesam
-export const viewSubmissions = (axios) => {
+export const viewSubmissions = axios => {
   return axios.$get('/challenge/submission/submissions');
 };
 
@@ -290,11 +290,16 @@ export const getChallenge = (axios, challenge) => {
 //   url: '/challenge/game/stats',
 // };
 
-export const gameStats=(axios=>{
-  const config={
+export const gameStats = axios => {
+  const config = {
     name: 'GAME_STATS',
     method: 'get',
-    url: '/challenge/game/stats', 
-  }
-  return axios.$get(config.url)
-  })
+    url: '/challenge/game/stats',
+  };
+  return axios.$get(config.url);
+};
+
+/*******************************/
+export const test = (axios) => {
+  return axios.$get('/ticket');
+};
