@@ -2,54 +2,54 @@
   <div>
     <div id="intersection" class="d-flex flex-column align-end text-center justify-center intersection">
       <!-- about -->
-      <v-avatar width="100" class="d-flex justify-end">
-        <span @click="interFunc('about')">
-          <span :class="isIntersecAbout ? 'ml-5 intersectionItem activeSection' : 'ml-6 intersectionItem'">
+      <v-avatar width="150" class="d-flex justify-end">
+        <span @click="interFunc('about')" class="wraper">
+          <span class="ml-6 intersectionItem">
             درباره ما
           </span>
           <span :class="isIntersecAbout ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
         </span>
       </v-avatar>
       <!-- video -->
-      <v-avatar width="100" class="d-flex justify-end">
-        <span @click="interFunc('video')">
-          <span :class="isIntersecVideo ? 'ml-5 intersectionItem activeSection' : 'ml-6 intersectionItem'">
+      <v-avatar width="150" class="d-flex justify-end">
+        <span @click="interFunc('video')" class="wraper">
+          <span class="ml-6 intersectionItem">
             ویدیو
           </span>
           <span :class="isIntersecVideo ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
         </span>
       </v-avatar>
       <!-- timeline -->
-      <v-avatar width="100" class="d-flex justify-end">
-        <span @click="interFunc('timeline')">
-          <span :class="isIntersecTimeline ? 'ml-5 intersectionItem activeSection' : 'ml-6 intersectionItem'">
+      <v-avatar width="150" class="d-flex justify-end">
+        <span @click="interFunc('timeline')" class="wraper">
+          <span class="ml-6 intersectionItem">
             برنامه زمانی
           </span>
           <span :class="isIntersecTimeline ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
         </span>
       </v-avatar>
       <!-- trophy -->
-      <v-avatar width="100" class="d-flex justify-end">
-        <span @click="interFunc('trophy')">
-          <span :class="isIntersecTrophy ? 'ml-5 intersectionItem activeSection' : 'ml-6 intersectionItem'">
+      <v-avatar width="150" class="d-flex justify-end">
+        <span @click="interFunc('trophy')" class="wraper">
+          <span class="ml-6 intersectionItem">
             جوایز
           </span>
           <span :class="isIntersecTrophy ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
         </span>
       </v-avatar>
       <!-- staff -->
-      <v-avatar width="100" class="d-flex justify-end">
-        <span @click="interFunc('staff')">
-          <span :class="isIntersecStaff ? 'ml-5 intersectionItem activeSection' : 'ml-6 intersectionItem'">
+      <v-avatar width="150" class="d-flex justify-end">
+        <span @click="interFunc('staff')" class="wraper">
+          <span class="ml-6 intersectionItem">
             تیم ما
           </span>
           <span :class="isIntersecStaff ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
         </span>
       </v-avatar>
       <!-- sponser -->
-      <v-avatar width="100" class="d-flex justify-end">
-        <span @click="interFunc('sponser')">
-          <span :class="isIntersecSponser ? 'ml-5 intersectionItem activeSection' : 'ml-6 intersectionItem'">
+      <v-avatar width="150" class="d-flex justify-end">
+        <span @click="interFunc('sponser')" class="wraper">
+          <span class="ml-6 intersectionItem">
             اسپانسر
           </span>
           <span :class="isIntersecSponser ? 'active_interSection intersectionSpan' : 'intersectionSpan'"></span>
@@ -87,18 +87,25 @@ export default {
 </script>
 
 <style lang="scss">
-.activeSection {
-  opacity: 1 !important;
-  transition: 0.4s;
+#intersection {
+  .wraper {
+    cursor: pointer;
+    position: relative;
+    &:hover {
+      .intersectionItem {
+        transform: translateX(0px) !important;
+      }
+      .intersectionSpan {
+        width: 100%;
+      }
+    }
+  }
 }
 .intersectionItem {
-  opacity: 0;
   transition: 0.4s;
-  cursor: pointer;
-  &:hover {
-    opacity: 1 !important;
-    color: #e03459;
-  }
+  padding: 8px;
+  display: block;
+  transform: translateX(-100px);
 }
 #main {
   position: relative;
@@ -123,7 +130,6 @@ export default {
   transition: 0.4s;
 }
 .active_interSection {
-  width: 80px;
   background-color: rgb(255, 0, 55);
 }
 </style>
