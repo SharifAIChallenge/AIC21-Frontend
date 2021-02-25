@@ -302,3 +302,7 @@ export const gameStats = axios => {
 export const FAQ = axios => {
   return axios.$get('/faq/questions');
 };
+
+export const PastAi = axios => {
+  return axios.$get('/past/');
+};
