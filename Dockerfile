@@ -1,4 +1,4 @@
-FROM reg.aichallenge.ir/node:latest
+FROM node:latest
 
 ENV APP_ROOT /src
 
