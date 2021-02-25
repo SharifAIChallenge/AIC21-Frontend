@@ -12,7 +12,10 @@
 
 <script>
 export default {
-
+async fetch() {
+    console.log(this.$auth.user);
+    // this.$axios.$get('homepage/media').then(res => console.log(res));
+  },
   data() {
     return {};
   },

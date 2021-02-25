@@ -47,7 +47,7 @@ export default {
         text: '',
         html: 'ddd',
       },
-      tagItems: ['7c37a111-f84c-411c-8514-2cee42a05331', 'Item 2', 'Item 3', 'Item 4'],
+      tagItems: ['dba4ca82-81e9-4c91-ac86-718e9dc8fe7b', 'Item 2', 'Item 3', 'Item 4'],
     };
   },
   methods: {
