@@ -14,7 +14,7 @@
   transition: 0.4s;
   position: relative;
   background-color: #090c18;
-  .scroll{
+  .scroll {
     display: block;
     width: 2px;
     height: 30px;
@@ -22,7 +22,24 @@
     position: absolute;
     bottom: 30px;
     left: 50%;
-
+    animation: ScrollAnimate 2s infinite;
+  }
+}
+@keyframes ScrollAnimate {
+  0% {
+    opacity: 1;
+    height: 0;
+    bottom: 30px;
+  }
+  50% {
+    opacity: 1;
+    height: 50px;
+    bottom: 30px;
+  }
+  100% {
+    opacity: 0;
+    bottom: 80px;
+    height: 0;
   }
 }
 </style>
