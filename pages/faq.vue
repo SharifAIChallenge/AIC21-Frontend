@@ -43,18 +43,18 @@
         </v-row>
       </div>
     </v-container>
-    <CallToAction />
+    <EmailCallToAction />
   </div>
 </template>
 
 <script>
 import Header from '~/components/landing/Header.vue';
 import { FAQ } from '~/api/index';
-import CallToAction from '~/components/CallToAction.vue';
+import EmailCallToAction from '~/components/EmailCallToAction.vue';
 export default {
   auth: false,
   layout: 'landing',
-  components: { Header, CallToAction },
+  components: { Header, EmailCallToAction },
   async asyncData({ $axios }) {
     let data = await FAQ($axios);
     let aq = data.questions;

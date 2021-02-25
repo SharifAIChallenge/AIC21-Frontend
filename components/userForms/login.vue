@@ -97,7 +97,7 @@ export default {
         });
     },
     loginWithGoogle() {
-      this.$auth.loginWith('google');
+      this.$auth.loginWith('google', { params: { prompt: 'select_account' } });
     },
   },
 };

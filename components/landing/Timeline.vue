@@ -36,7 +36,7 @@
             <div class="timeLineBtn">
               <span></span>
               <v-btn block class="btn">
-                <v-icon medium>mdi-calendar-plus</v-icon>
+                <v-icon medium class="ml-2">mdi-calendar-plus</v-icon>
                 به تقویمم اضافه کن
               </v-btn>
             </div>

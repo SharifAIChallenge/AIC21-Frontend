@@ -13,13 +13,14 @@
     />
     <About :onIntersecAbout="onIntersecAbout" />
     <Video :onIntersecVideo="onIntersecVideo" />
-    <Statistics />
+    <!-- <Statistics /> -->
     <TimeLine :onIntersecTimeline="onIntersecTimeline" />
     <TrophyDesktop class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy" />
     <TrophyMobile class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
     <Staff :onIntersecStaff="onIntersecStaff" />
     <Sponsor :onIntersecSponser="onIntersecSponser" />
-    <CallToAction />
+    <EmaliCallToAction />
+    <!-- <CallToAction /> -->
   </div>
 </template>
 
@@ -37,6 +38,7 @@ import Sponsor from '~/components/landing/Sponsor.vue';
 import HeadTop from '~/components/landing/HeadTop.vue';
 import CallToAction from '~/components/CallToAction.vue';
 import Staff from '~/components/landing/staff/Staff';
+import EmaliCallToAction from '~/components/EmailCallToAction.vue';
 
 export default {
   components: {
@@ -53,9 +55,11 @@ export default {
     HeadTop,
     Staff,
     CallToAction,
+    EmaliCallToAction,
   },
   layout: 'landing',
-  auth: false,
+  aut,
+  EmaliCallToActionh: false,
   data: () => ({
     isIntersecAbout: false,
     isIntersecTimeline: false,
