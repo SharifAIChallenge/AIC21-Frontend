@@ -68,20 +68,20 @@ export default {
       this.isIntersecTrophy = entries[0].isIntersecting;
     },
     scrollHandle() {
-      window.addEventListener('scroll', scrollHandleFunc);
+      window.addEventListener('scroll',this.scrollHandleFunc);
+    },
+    scrollHandleFunc() {
       let height = window.innerHeight;
-      function scrollHandleFunc() {
-        if (document.querySelector('html').scrollTop > height/2) {
-          for (let item = 0; item < 6; item++) {
-            document.getElementsByClassName('intersectionItem')[item].style.opacity = 0;
-          }
-          document.getElementsByClassName('intersection')[0].style.left = '0px';
-        } else {
-          for (let item = 0; item < 6; item++) {
-            document.getElementsByClassName('intersectionItem')[item].style.opacity = 1;
-          }
-          document.getElementsByClassName('intersection')[0].style.left = '30px';
+      if (document.querySelector('html').scrollTop > height / 2) {
+        for (let item = 0; item < 6; item++) {
+          document.getElementsByClassName('intersectionItem')[item].style.opacity = 0;
         }
+        document.getElementsByClassName('intersection')[0].style.left = '0px';
+      } else {
+        for (let item = 0; item < 6; item++) {
+          document.getElementsByClassName('intersectionItem')[item].style.opacity = 1;
+        }
+        document.getElementsByClassName('intersection')[0].style.left = '30px';
       }
     },
   },
@@ -90,6 +90,9 @@ export default {
       document.getElementsByClassName('intersectionItem')[item].style.opacity = 1;
     }
     this.scrollHandle();
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.scrollHandleFunc);
   },
 };
 </script>

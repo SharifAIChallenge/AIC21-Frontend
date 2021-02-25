@@ -2,25 +2,26 @@
   <div>
     <v-col class="shrink">
       <div class="vert-text-btn" bottom="50" right="-21" color="primary" @click="expand = !expand" v-on:click="openSocial">
-        <v-icon medium>mdi-plus</v-icon>
+        <v-icon medium>mdi-plus-circle-outline</v-icon>
         ما را دنبال کنید
       </div>
 
       <v-expand-x-transition>
         <v-card v-show="expand" height="100vh" width="70" class="primary social">
           <div class="social-wrap d-flex flex-column justify-center align-center">
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-instagram</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-linkedin</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-instagram</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-linkedin</v-icon>
-            </a>
+            <v-btn
+            v-for="social in socials"
+            :key="social.icon"
+            :href="social.url"
+            class="mx-4 my-1 ml-2"
+            target="_blank"
+            icon
+            large
+          >
+            <v-icon size="30px">
+              {{ social.icon }}
+            </v-icon>
+            </v-btn>
           </div>
         </v-card>
       </v-expand-x-transition>
@@ -32,6 +33,30 @@
 <script>
 export default {
   data: () => ({
+    socials: [{
+          icon: 'mdi-twitch',
+          url: '/',},
+        {
+          icon: 'mdi-linkedin',
+          url: '/',
+        },
+        {
+          icon: 'mdi-instagram',
+          url: 'http://www.instagram.com/AiChallenge',
+        },
+        {
+          icon: 'mdi-github',
+          url: '/',
+        },
+        {
+          icon: 'mdi-twitter',
+          url: 'http://www.twitter.com/AiChallenge',
+        },
+        {
+          icon: 'mdi-telegram',
+          url: 'https://t.me/aichallenge',
+        },
+      ],
     expand: false,
   }),
   methods: {
