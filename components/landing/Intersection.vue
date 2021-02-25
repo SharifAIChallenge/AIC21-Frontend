@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="intersection" class="d-flex flex-column align-end text-center justify-center intersection">
+    <div id="intersection" class="d-none d-md-flex flex-column align-end text-center justify-center intersection">
       <!-- about -->
       <v-avatar width="150" class="d-flex justify-end">
         <span @click="interFunc('about')" class="wraper">
