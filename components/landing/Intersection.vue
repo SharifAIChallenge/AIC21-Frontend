@@ -97,6 +97,7 @@ export default {
       }
       .intersectionSpan {
         width: 100%;
+        transition-delay: 0.4s;
       }
     }
   }
