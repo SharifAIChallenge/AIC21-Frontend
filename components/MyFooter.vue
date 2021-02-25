@@ -1,34 +1,32 @@
 <template>
-  <v-footer dark padless>
-    <v-card-text class="align-center justify-space-between d-flex mx-sm-3 flex-wrap flex-md-column">
-      <div class="social_box order-md-1 order-0 mx-auto mb-3 justify-center">
-        <v-row justify="center" align="center">
-          <v-col cols="4" sm="2"></v-col>
-        </v-row>
-      <v-btn
-        v-for="social in socials"
-        :key="social.icon"
-        :href="social.url"
-        class="mx-4 transparent primary--text mx-sm-2"
-        target="_blank"
-        icon
-        large
-      >
-        <v-icon size="24px">
-          {{ social.icon }}
-        </v-icon>
-      </v-btn>
-      </div>
-    <!-- </v-card-text> -->
-
-    <!-- <v-card-text class="align-center justify-space-between d-flex mx-sm-3"> -->
-      <div dir="ltr" class="primary--text order-md-0 order-1">
-        <strong>
-          <v-icon right small class="primary--text">mdi-copyright</v-icon>
-          2021 Sharif AI Challenge
-        </strong>
-      </div>
-      <logo-mark class="order-2"/>
+  <v-footer dark padless class="footer">
+    <v-card-text class="align-center justify-space-between d-flex mx-md-3 flex-wrap">
+      <v-row>
+        <v-col cols="12" md="2" dir="ltr" class="primary--text d-flex align-center justify-center justify-md-start">
+          <strong>
+            <v-icon right small class="primary--text">mdi-copyright</v-icon>
+            2021 Sharif AI Challenge
+          </strong>
+        </v-col>
+        <v-col cols="12" md="8" class="hidden-md-and-down social_box mx-auto mb-3 d-flex justify-center align-center">
+          <v-btn
+            v-for="social in socials"
+            :key="social.icon"
+            :href="social.url"
+            class="mx-4 transparent primary--text mx-sm-4"
+            target="_blank"
+            icon
+            large
+          >
+            <v-icon size="30px">
+              {{ social.icon }}
+            </v-icon>
+          </v-btn>
+        </v-col>
+        <v-col cols="12" md="2" dir="ltr" class="d-flex justify-center justify-md-start">
+          <img src="../assets/images/logo/logo__primary.svg" class="logo" />
+        </v-col>
+      </v-row>
     </v-card-text>
   </v-footer>
 </template>
@@ -72,10 +70,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
- @import 'assets/mixins.scss';
- .social_box{
-   @include not-md{
-     width: 100vw;
-   }
- }
+@import 'assets/mixins.scss';
+.footer {
+  padding: 40px 0px;
+  .social_box {
+    @include not-md {
+      width: 100vw;
+    }
+  }
+  .logo {
+    width: 60px;
+  }
+}
 </style>

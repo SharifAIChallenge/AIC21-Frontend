@@ -17,12 +17,10 @@ $material-dark-elevation-colors: (
   '24': #321854,
 );
 $material-dark: (
-  'background': #060711,
+  'background': #0e1224,
   'surface': #160031,
   'bg-color': #160031,
-  'navigation-drawer': map-get($material-dark-elevation-colors, '16'),
   'toolbar': map-get($material-dark-elevation-colors, '4'),
-  'app-bar': map-get($material-dark-elevation-colors, '4'),
   'bottom-navigation': map-get($material-dark-elevation-colors, '8'),
   'cards': map-get($material-dark-elevation-colors, '4'),
   'calendar': (
@@ -46,8 +44,11 @@ $material-dark: (
   'chips': map-get($material-dark-elevation-colors, '24'),
 );
 $data-table-expanded-content-box-shadow: inset 0px 4px 8px -5px rgba(255, 255, 255, 0.1), inset 0px -4px 8px -5px rgba(255, 255, 255, 0.1) !default;
-$btn-outline-border-width: 2px;
+$btn-outline-border-width: 0px;
 $border-radius-root: 10px;
 $treeview-label-font-size: 0.7rem;
 $treeview-node-height-dense: 30px;
 //@import '~vuetify/src/styles/styles.sass';
+$container-max-widths: (
+  'xl': 1200px,
+);

@@ -36,9 +36,7 @@ export default {
   }),
   methods: {
     openSocial() {
-      document.getElementById('main').classList.toggle('open');
-      document.getElementById('aic-logo-mark').classList.toggle('open2');
-      document.getElementById('intersection').classList.toggle('open3');
+      document.getElementById('menu').classList.toggle('open');
     },
   },
 };
@@ -50,16 +48,11 @@ export default {
   transition: 0.4s;
 }
 .open {
-  transform: translateX(-70px);
-}
-.open2 {
-  transform: translateX(70px);
-}
-.open3 {
-  transform: translate(70px, -50%) !important;
+  transform: translateX(-50px);
 }
 .social {
-  position: fixed !important;
+  position: absolute !important;
+  // top: -56px;
   top: 0;
   right: -7px;
   border-radius: 0px !important;
@@ -67,8 +60,8 @@ export default {
 
 .vert-text-btn {
   transform: rotate(90deg);
-  position: fixed !important;
-  bottom: 60px;
+  position: absolute !important;
+  top: calc(100vh - 90px);
   right: -25px;
   z-index: 50;
   cursor: pointer;
