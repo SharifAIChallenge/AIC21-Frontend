@@ -18,10 +18,14 @@
       شریف
     </h1>
     <p class="description mt-8">
-      نبرد هوش مصنوعی شریف یک مسابقه تیمی است که در آن تیم ها استراتژی های خود را برای پیروزی در یک نبرد استراتژیک طراحی و در قالب کد پیاده
+      {{ post.motto }}
+      
+      <!-- نبرد هوش مصنوعی شریف یک مسابقه تیمی است که در آن تیم ها استراتژی های خود را برای پیروزی در یک نبرد استراتژیک طراحی و در قالب کد پیاده
       سازی میکنند. هر تیم با استفاده از ایده های خلاقانه و استراتژی های متفاوت سعی میکند یک هوش مصنوعی قدرتمنده طراحی کند که تا جای ممکن بر
-      تیم های حریف چیره شود و به مرحله حضوری مسابقات راه پیدا کند.
+      تیم های حریف چیره شود و به مرحله حضوری مسابقات راه پیدا کند. -->
+
     </p>
+    
   </v-container>
   <!-- <v-responsive class="overflow-y-auto">
     <v-responsive class="d-flex align-center text-center pa-2">
@@ -44,8 +48,18 @@
 
 <script>
 export default {
+  data(){
+    return{
+      post:{}
+    }
+  },
+  auth:false,
   props: {
     onIntersecAbout: Function,
+  },
+  async fetch(){
+    let description = await this.$axios.$get('homepage/motto')
+    this.post = description.data[0]
   },
 };
 </script>

@@ -17,7 +17,7 @@
     <TimeLine :onIntersecTimeline="onIntersecTimeline" />
     <TrophyDesktop class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy" />
     <TrophyMobile class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
-    <Staff :onIntersecStaff="onIntersecStaff" />
+    <!-- <Staff :onIntersecStaff="onIntersecStaff" /> -->
     <Sponsor :onIntersecSponser="onIntersecSponser" />
   </div>
 </template>

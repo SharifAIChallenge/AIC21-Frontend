@@ -4,6 +4,7 @@
 
     <app-staffIntro v-for="group in groups" :key="group" :group="staffs[group]"></app-staffIntro>
     <!-- <div v-for="group in groups" :key="group">{{ staffs[group] }}</div> -->
+    
   </div>
 </template>
 

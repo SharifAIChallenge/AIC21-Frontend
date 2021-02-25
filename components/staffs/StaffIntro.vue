@@ -1,30 +1,20 @@
 <template>
   <div>
     <div class="techDiv">
-      <h1 class="text-right">فنی</h1>
       <div class="text-left">
-        <span v-for="team in teams" :key="team" class="px-5">{{ team }}</span>
+        <span v-for="team in teams" :key="team" class="px-5 ma-5">{{ team }}</span>
       </div>
     </div>
-    <section v-for="team in teams" :key="team">
+    <section class="ma-5" v-for="team in teams" :key="team">
       <h1>{{ team }}</h1>
       <v-row>
-        <v-col cols="4" v-for="(staff, index) in group[team]" :key="index">
-          <!-- <staff-card /> -->
+        <v-col cols="3" v-for="(staff, index) in group[team]" :key="index">
           <div>
-            {{ staff }}
+            <StaffCard class="mt-3" :staff="staff" />
           </div>
         </v-col>
       </v-row>
     </section>
-    <!-- <app-techTeam :techStaffs="techStaffs"></app-techTeam> -->
-    <!-- <div class="marketing mt-15">
-      <h1 class="text-right">برندینگ</h1>
-      <div class="text-left">
-        <span class="px-5">محتوا</span>
-        <span class="px-5">مدیا</span>
-      </div>
-    </div> -->
   </div>
 </template>
 <script>
