@@ -41,7 +41,7 @@
         </v-col>
         <v-col cols="12" sm="12" md="6">
           <video width="80% " controls autoplay class="video">
-            <source src="landing.mp4" type="video/mp4" />
+            <source :src="url" type="video/mp4" />
           </video>
         </v-col>
       </v-row>
@@ -51,6 +51,16 @@
 
 <script>
 export default {
+  data() {
+    return {
+      url: '',
+    };
+  },
+  async fetch() {
+    this.$axios.$get('/homepage/media').then(res => {
+      this.url = res.data[0].file;
+    });
+  },
   methods: {
     changeStatus(form) {
       this.$store.commit('formStatus/changeStatus', form);
