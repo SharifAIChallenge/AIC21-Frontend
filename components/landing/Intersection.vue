@@ -98,6 +98,7 @@ export default {
       }
       .intersectionSpan {
         width: 100%;
+        background: var(--v-primary-base);
       }
     }
   }
@@ -129,7 +130,7 @@ export default {
   background-color: white;
   position: absolute;
   left: 0;
-  top: 62%;
+  top: 70%;
   transition: 0.4s;
 }
 .active_interSection {
