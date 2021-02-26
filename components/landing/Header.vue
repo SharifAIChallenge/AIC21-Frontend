@@ -9,8 +9,10 @@
       <div class="d-flex flex-column align-center justify-center" style="height: 94%">
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/">خانه</v-btn>
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/faq">سوالات متداول</v-btn>
-        <v-btn plain :ripple="false" text tile :class="getClass()">تاریخچه</v-btn>
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
+          تاریخچه
+        </v-btn>
       </div>
     </v-dialog>
     <v-app-bar flat absolute :color="color">
@@ -37,6 +39,9 @@
         </v-btn> -->
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/faq">
           سوالات متداول
+        </v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
+          تاریخچه
         </v-btn>
       </div>
       <v-spacer></v-spacer>
