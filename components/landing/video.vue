@@ -69,9 +69,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 13vmin 0;
-  margin: 120px 0 30px;
   position: relative;
+  padding: 28vmin 0;
+  margin: 120px 0 30px;
+  @include not-md {
+    padding: 13vmin 0;
+  }
   .first-line {
     align-items: flex-end;
     > span:nth-of-type(1) {
@@ -92,9 +95,9 @@ export default {
   .second-line {
     span {
       font-size: 4.5rem;
-        @include not-md {
-          font-size: 2.2rem;
-        }
+      @include not-md {
+        font-size: 2.2rem;
+      }
     }
   }
   .title {
@@ -110,15 +113,14 @@ export default {
     width: 100%;
   }
   .background-logo {
-    height: 150%;
+    height: 100vmin;
     right: 0;
+    top: 0;
+    bottom: 0;
     position: absolute;
     opacity: 0.2;
     transform: translateX(50%);
     z-index: 0;
-    @include not-xl {
-      height: 80%;
-    }
   }
   .btn {
     border-radius: 0;
