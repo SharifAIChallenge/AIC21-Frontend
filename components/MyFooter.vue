@@ -2,13 +2,13 @@
   <v-footer dark padless class="footer">
     <v-card-text class="align-center justify-space-between d-flex mx-md-3 flex-wrap">
       <v-row>
-        <v-col cols="12" md="2" dir="ltr" class="primary--text d-flex align-center justify-center justify-md-start">
-          <strong>
+        <v-col cols="12" md="3" dir="ltr" class="primary--text d-flex align-center justify-center justify-md-start">
+          <strong class="flex-nowrap">
             <v-icon right small class="primary--text">mdi-copyright</v-icon>
             2021 Sharif AI Challenge
           </strong>
         </v-col>
-        <v-col cols="0" md="8" class="hidden-md-and-down mx-auto mb-3 d-flex justify-center align-center">
+        <v-col cols="12" md="7" class="hidden-md-and-down social_box mx-auto mb-3 d-flex justify-center align-center">
           <v-btn
             v-for="social in socials"
             :key="social.icon"
