@@ -20,11 +20,9 @@
         <StaffCard v-for="(staff, index) in staffs" :staff="staff" class="ml-6 my-3" :key="index" />
       </div>
     </v-row>
-    <div class="d-flex justify-center my-15">
-      <v-btn tile class="primary px-15 py-6 text-center">
-        <span class="white--text font-weight-black" style="width:170px">
-          مشاهده همه تیم ها
-        </span>
+    <div style="max-width: 230px; margin: 70px auto">
+      <v-btn tile block>
+        مشاهده همه تیم ها
       </v-btn>
     </div>
   </v-container>
@@ -50,11 +48,16 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 #staff {
   margin: 20vmin auto;
 }
 .scroller {
   overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>

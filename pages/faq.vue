@@ -119,11 +119,31 @@ export default {
   position: absolute;
 }
 .vl {
-  border-left: 3px solid white;
-  height: 150px;
+  display: block;
+  width: 2px;
+  height: 30px;
+  background-color: white;
   position: absolute;
-  left: 49%;
-  bottom: 0px;
+  bottom: 30px;
+  left: 50%;
+  animation: ScrollAnimate 2s infinite;
+  @keyframes ScrollAnimate {
+    0% {
+      opacity: 1;
+      height: 0;
+      bottom: 30px;
+    }
+    50% {
+      opacity: 1;
+      height: 50px;
+      bottom: 30px;
+    }
+    100% {
+      opacity: 0;
+      bottom: 80px;
+      height: 0;
+    }
+  }
 }
 .titles {
   position: sticky;
