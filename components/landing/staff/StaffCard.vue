@@ -4,22 +4,20 @@
       <img :src="`https://api-stg.aichallenge.ir/${staff.image}`" alt="staff image" width="100%" height="100%" style="object-fit: cover;" />
     </div>
     <div class="staff_intro pb-4" style="width:230px; margin:5px auto;">
-      <div class="font-weight-bold white--text">
-        {{staff.first_name_en}} {{staff.last_name_fa}}
-      </div>
+      <div class="font-weight-bold white--text">{{ staff.first_name_en }} {{ staff.last_name_fa }}</div>
       <div class="text-caption text-start" style="margin-top:12px">
-        {{staff.team_title}}
+        {{ staff.team_title }}
       </div>
     </div>
     <div class="primary py-1 text-center white--text font-weight-black">
-      {{staff.group_title}}
+      {{ staff.group_title }}
     </div>
   </div>
 </template>
 <script>
 export default {
-  props:['staff'],
-}
+  props: ['staff'],
+};
 </script>
 <style scoped>
 .staff_card {

@@ -2,7 +2,8 @@
   <div>
     <v-col class="shrink">
       <div class="vert-text-btn" bottom="50" right="-21" color="primary" @click="expand = !expand" v-on:click="openSocial">
-        <v-icon medium>mdi-plus</v-icon>
+        <v-icon medium v-if="expand">mdi-minus-circle-outline</v-icon>
+        <v-icon medium v-else>mdi-plus-circle-outline</v-icon>
         ما را دنبال کنید
       </div>
 
@@ -34,12 +35,38 @@
 export default {
   async fetch() {
     let data = await this.$axios.$get('homepage/socials');
-    console.log(data.socials)
+    console.log(data.socials);
     this.socials = data.socials;
   },
   data: () => ({
+    socials: [
+      {
+        icon: 'mdi-twitch',
+        url: '/',
+      },
+      {
+        icon: 'mdi-linkedin',
+        url: '/',
+      },
+      {
+        icon: 'mdi-instagram',
+        url: 'http://www.instagram.com/AiChallenge',
+      },
+      {
+        icon: 'mdi-github',
+        url: '/',
+      },
+      {
+        icon: 'mdi-twitter',
+        url: 'http://www.twitter.com/AiChallenge',
+      },
+      {
+        icon: 'mdi-telegram',
+        url: 'https://t.me/aichallenge',
+      },
+    ],
     expand: false,
-    socials:[]
+    socials: [],
   }),
   methods: {
     openSocial() {

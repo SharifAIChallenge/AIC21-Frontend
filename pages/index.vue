@@ -13,13 +13,14 @@
     />
     <About :onIntersecAbout="onIntersecAbout" />
     <Video :onIntersecVideo="onIntersecVideo" />
-    <Statistics />
+    <!-- <Statistics /> -->
     <TimeLine :onIntersecTimeline="onIntersecTimeline" />
     <TrophyDesktop class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy" />
     <TrophyMobile class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
     <Staff :onIntersecStaff="onIntersecStaff" />
     <Sponsor :onIntersecSponser="onIntersecSponser" />
-    <CallToAction />
+    <EmaliCallToAction />
+    <!-- <CallToAction /> -->
   </div>
 </template>
 
@@ -37,6 +38,7 @@ import Sponsor from '~/components/landing/Sponsor.vue';
 import HeadTop from '~/components/landing/HeadTop.vue';
 import CallToAction from '~/components/CallToAction.vue';
 import Staff from '~/components/landing/staff/Staff';
+import EmaliCallToAction from '~/components/EmailCallToAction.vue';
 
 export default {
   components: {
@@ -53,9 +55,11 @@ export default {
     HeadTop,
     Staff,
     CallToAction,
+    EmaliCallToAction,
   },
   layout: 'landing',
   auth: false,
+  EmaliCallToActionh: false,
   data: () => ({
     isIntersecAbout: false,
     isIntersecTimeline: false,
@@ -84,28 +88,31 @@ export default {
       this.isIntersecTrophy = entries[0].isIntersecting;
     },
     scrollHandle() {
-      window.addEventListener('scroll', scrollHandleFunc);
+      window.addEventListener('scroll', this.scrollHandleFunc);
+    },
+    scrollHandleFunc() {
       let height = window.innerHeight;
-      function scrollHandleFunc() {
-        if (document.querySelector('html').scrollTop > height / 2) {
-          for (let item = 0; item < 6; item++) {
-            document.getElementsByClassName('intersectionItem')[item].style.opacity = 0;
-          }
-          document.getElementsByClassName('intersection')[0].style.left = '0px';
-        } else {
-          for (let item = 0; item < 6; item++) {
-            document.getElementsByClassName('intersectionItem')[item].style.opacity = 1;
-          }
-          document.getElementsByClassName('intersection')[0].style.left = '30px';
+      if (document.querySelector('html').scrollTop > height / 2) {
+        for (let item = 0; item < 6; item++) {
+          document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(-100px)';
         }
+        document.getElementsByClassName('intersection')[0].style.left = '0px';
+      } else {
+        for (let item = 0; item < 6; item++) {
+          document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(0px)';
+        }
+        document.getElementsByClassName('intersection')[0].style.left = '30px';
       }
     },
   },
   mounted() {
     for (let item = 0; item < 6; item++) {
-      document.getElementsByClassName('intersectionItem')[item].style.opacity = 1;
+      document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(0px)';
     }
     this.scrollHandle();
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.scrollHandleFunc);
   },
 };
 </script>
