@@ -6,11 +6,13 @@
           mdi-close
         </v-icon>
       </v-btn>
-      <div class="d-flex flex-column align-center justify-center" style="height: 94%">
+      <div class="d-flex flex-column align-center justify-center" style="height: 85%">
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/">خانه</v-btn>
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/faq">سوالات متداول</v-btn>
-        <v-btn plain :ripple="false" text tile :class="getClass()">تاریخچه</v-btn>
-        <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn>
+        <!-- <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn> -->
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
+          تاریخچه
+        </v-btn>
       </div>
     </v-dialog>
     <v-app-bar flat absolute :color="color">
@@ -20,12 +22,12 @@
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only" id="menu">
-        <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
+        <!-- <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
           <v-icon left>
             mdi-shield-star
           </v-icon>
           <span class="font-weight-bold">ورود</span>
-        </v-btn>
+        </v-btn> -->
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>
@@ -37,6 +39,9 @@
         </v-btn> -->
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/faq">
           سوالات متداول
+        </v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
+          تاریخچه
         </v-btn>
       </div>
       <v-spacer></v-spacer>
@@ -77,7 +82,7 @@ export default {
       this.$store.commit('formStatus/toggleShow');
     },
     getClass() {
-      return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent pb-4';
+      return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent py-8 text-h5 text-sm-subtitle-2';
     },
   },
 };
