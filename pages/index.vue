@@ -147,7 +147,7 @@ export default {
       }
     },
   },
-  beforeMount() {
+  mounted() {
     this.height = window.innerHeight;
     this.width = window.innerWidth;
     for (let item = 0; item < 6; item++) {
