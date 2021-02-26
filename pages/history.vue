@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header color="transparent" />
     <v-carousel v-model="model" height="100%">
       <v-carousel-item v-for="(history, index) in histories" :key="index">
         <v-sheet height="100%" tile>
@@ -30,9 +31,11 @@
 
 <script>
 import { PastAi } from '~/api/index';
-
+import Header from '~/components/landing/Header.vue';
 export default {
+  layout: 'landing',
   auth: false,
+  components: { Header },
   async asyncData({ $axios }) {
     let data = await PastAi($axios);
     let histories = data.data;
