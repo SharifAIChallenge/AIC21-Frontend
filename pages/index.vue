@@ -4,12 +4,12 @@
     <HeadTop />
     <Social />
     <Intersection
-      :isIntersecAbout="isIntersecAbout"
-      :isIntersecTimeline="isIntersecTimeline"
-      :isIntersecSponser="isIntersecSponser"
-      :isIntersecVideo="isIntersecVideo"
-      :isIntersecStaff="isIntersecStaff"
-      :isIntersecTrophy="isIntersecTrophy"
+      :isIntersecAbout="isIntersec.About"
+      :isIntersecTimeline="isIntersec.Timeline"
+      :isIntersecSponser="isIntersec.Sponser"
+      :isIntersecVideo="isIntersec.Video"
+      :isIntersecStaff="isIntersec.Staff"
+      :isIntersecTrophy="isIntersec.Trophy"
     />
     <About :onIntersecAbout="onIntersecAbout" />
     <Video :onIntersecVideo="onIntersecVideo" />
@@ -61,51 +61,95 @@ export default {
   auth: false,
   EmaliCallToActionh: false,
   data: () => ({
-    isIntersecAbout: false,
-    isIntersecTimeline: false,
-    isIntersecSponser: false,
-    isIntersecVideo: false,
-    isIntersecStaff: false,
-    isIntersecTrophy: false,
+    isIntersec: {
+      About: false,
+      Timeline: false,
+      Sponser: false,
+      Video: false,
+      Staff: false,
+      Trophy: false,
+    },
+    width: 0,
+    height: 0,
+    scrollItem: 0,
   }),
   methods: {
     onIntersecAbout(entries, observer) {
-      this.isIntersecAbout = entries[0].isIntersecting;
+      this.isIntersec.About = entries[0].isIntersecting;
     },
     onIntersecTimeline(entries, observer) {
-      this.isIntersecTimeline = entries[0].isIntersecting;
+      this.isIntersec.Timeline = entries[0].isIntersecting;
     },
     onIntersecSponser(entries, observer) {
-      this.isIntersecSponser = entries[0].isIntersecting;
+      this.isIntersec.Sponser = entries[0].isIntersecting;
     },
     onIntersecVideo(entries, observer) {
-      this.isIntersecVideo = entries[0].isIntersecting;
+      this.isIntersec.Video = entries[0].isIntersecting;
     },
     onIntersecStaff(entries, observer) {
-      this.isIntersecStaff = entries[0].isIntersecting;
+      this.isIntersec.Staff = entries[0].isIntersecting;
     },
     onIntersecTrophy(entries, observer) {
-      this.isIntersecTrophy = entries[0].isIntersecting;
+      this.isIntersec.Trophy = entries[0].isIntersecting;
     },
     scrollHandle() {
       window.addEventListener('scroll', this.scrollHandleFunc);
+      window.addEventListener('resize', this.reSize);
+    },
+    reSize() {
+      this.width = window.innerWidth;
+      this.height = window.innerHeight;
     },
     scrollHandleFunc() {
-      let height = window.innerHeight;
-      if (document.querySelector('html').scrollTop > height / 2) {
-        for (let item = 0; item < 6; item++) {
-          document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(-200px)';
+      if (this.width > 767) {
+        if (document.querySelector('html').scrollTop > this.height / 2) {
+          for (let item = 0; item < 6; item++) {
+            document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(-200px)';
+          }
+          document.getElementsByClassName('intersection')[0].style.left = '0px';
+        } else {
+          for (let item = 0; item < 6; item++) {
+            document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(0px)';
+          }
+          document.getElementsByClassName('intersection')[0].style.left = '30px';
         }
-        document.getElementsByClassName('intersection')[0].style.left = '0px';
-      } else {
-        for (let item = 0; item < 6; item++) {
-          document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(0px)';
+      } else if (this.width < 500) {
+        switch (true) {
+          case this.isIntersec.About: {
+            this.scrollItem = 0;
+            break;
+          }
+          case this.isIntersec.Video: {
+            this.scrollItem = 50;
+            break;
+          }
+          case this.isIntersec.Timeline: {
+            this.scrollItem = 100;
+            break;
+          }
+          case this.isIntersec.Trophy: {
+            this.scrollItem = 150;
+            break;
+          }
+          case this.isIntersec.Staff: {
+            this.scrollItem = 200;
+            break;
+          }
+          case this.isIntersec.Sponser: {
+            this.scrollItem = 250;
+            break;
+          }
         }
-        document.getElementsByClassName('intersection')[0].style.left = '30px';
+        document.getElementById('intersection').scrollTo({
+          left: -this.scrollItem,
+          behavior: 'smooth',
+        });
       }
     },
   },
-  mounted() {
+  beforeMount() {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
     for (let item = 0; item < 6; item++) {
       document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(0px)';
     }

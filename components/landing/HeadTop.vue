@@ -29,6 +29,9 @@
   position: relative;
   background-color: #090c18;
   padding-top: 50px;
+  @include not-md {
+    height: calc(100vh - 116px);
+  }
   .aiTitle {
     height: 100%;
     width: 100%;
