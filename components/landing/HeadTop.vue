@@ -28,6 +28,9 @@
   transition: 0.4s;
   position: relative;
   background-color: #090c18;
+  @include not-md{
+    height: calc(100vh - 116px);
+  }
   .aiTitle {
     height: 100%;
     width: 100%;
