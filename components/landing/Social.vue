@@ -35,36 +35,9 @@
 export default {
   async fetch() {
     let data = await this.$axios.$get('homepage/socials');
-    console.log(data.socials);
     this.socials = data.socials;
   },
   data: () => ({
-    socials: [
-      {
-        icon: 'mdi-twitch',
-        url: '/',
-      },
-      {
-        icon: 'mdi-linkedin',
-        url: '/',
-      },
-      {
-        icon: 'mdi-instagram',
-        url: 'http://www.instagram.com/AiChallenge',
-      },
-      {
-        icon: 'mdi-github',
-        url: '/',
-      },
-      {
-        icon: 'mdi-twitter',
-        url: 'http://www.twitter.com/AiChallenge',
-      },
-      {
-        icon: 'mdi-telegram',
-        url: 'https://t.me/aichallenge',
-      },
-    ],
     expand: false,
     socials: [],
   }),

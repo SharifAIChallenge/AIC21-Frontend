@@ -36,6 +36,11 @@ import LogoMark from '../components/LogoMark';
 
 export default {
   components: { LogoMark },
+  data() {
+    return {
+      socials: [],
+    };
+  },
   async fetch() {
     let data = await this.$axios.$get('homepage/socials');
     this.socials = data.socials;

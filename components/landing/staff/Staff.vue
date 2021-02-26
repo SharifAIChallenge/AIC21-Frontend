@@ -20,11 +20,11 @@
         <StaffCard v-for="(staff, index) in staffs" :staff="staff" class="ml-6 my-3" :key="index" />
       </div>
     </v-row>
-    <div style="max-width: 230px; margin: 70px auto">
+    <!-- <div style="max-width: 230px; margin: 70px auto">
       <v-btn tile block>
         مشاهده همه تیم ها
       </v-btn>
-    </div>
+    </div> -->
   </v-container>
 </template>
 
