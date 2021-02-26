@@ -94,19 +94,21 @@ export default {
     &:hover {
       .intersectionItem {
         transform: translateX(0px) !important;
+        color: var(--v-primary-base);
       }
       .intersectionSpan {
         width: 100%;
-        transition-delay: 0.4s;
       }
     }
   }
 }
 .intersectionItem {
   transition: 0.4s;
-  padding: 8px;
+  padding: 8px 0 8px 8px;
   display: block;
-  transform: translateX(-100px);
+  transform: translateX(-200px);
+  position: relative;
+  z-index: 200;
 }
 #main {
   position: relative;
@@ -131,6 +133,6 @@ export default {
   transition: 0.4s;
 }
 .active_interSection {
-  background-color: rgb(255, 0, 55);
+  background-color: var(--v-primary-base);
 }
 </style>

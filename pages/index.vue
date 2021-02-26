@@ -74,7 +74,7 @@ export default {
       let height = window.innerHeight;
       if (document.querySelector('html').scrollTop > height / 2) {
         for (let item = 0; item < 6; item++) {
-          document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(-100px)';
+          document.getElementsByClassName('intersectionItem')[item].style.transform = ' translateX(-200px)';
         }
         document.getElementsByClassName('intersection')[0].style.left = '0px';
       } else {
