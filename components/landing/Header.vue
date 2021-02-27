@@ -121,14 +121,12 @@ export default {
     &.v-btn--active,
     &:hover {
       color: var(--v-anchor-base);
-      border-bottom: 1px solid var(--v-anchor-base) !important;
       transition: all 0.7s;
     }
   }
   .hover_primary {
     &.v-btn--active,
     &:hover {
-      border-bottom: 1px solid white !important;
       transition: all 0.7s;
     }
   }

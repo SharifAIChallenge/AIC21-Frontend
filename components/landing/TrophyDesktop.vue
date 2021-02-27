@@ -17,16 +17,16 @@
           <h2 style="font-size: 5rem">جوایز</h2>
         </div>
       </v-col>
-      <v-col cols="3" v-for="(trophy, i) in trophies" :key="i" :style="`margin-top:${trophy.marg}rem`">
+      <v-col cols="3" v-for="(trophy, i) in data" :key="i" :style="`margin-top:${trophy.marg}rem`">
         <v-card-text class="d-flex flex-column px-10 text-center white--text">
-          <span class="font-weight-black price">{{ trophy.price }}</span>
+          <span class="font-weight-black price">{{ trophy.prize_fa }}</span>
           <span class="pt-3 text-h4" style="border-top:2px solid white">میلیون تومان</span>
         </v-card-text>
         <v-card-text class="secondary text-center darken-1 font-weight-black py-9">
-          <span class="font-weight-black text-h4">{{ trophy.place }}</span>
+          <span class="font-weight-black text-h4">{{ data[2].title_fa }}</span>
         </v-card-text>
         <v-card-text class="secondary text-center pb-0 px-0 iconWraper">
-          <v-icon size="200px" class="black--text icon">{{ trophy.icon }}</v-icon>
+          <v-icon size="200px" class="black--text icon">{{ data[2].icon }}</v-icon>
         </v-card-text>
       </v-col>
     </v-row>
@@ -38,7 +38,7 @@
       </div>
       <div class="pr-0">
         <v-card-text>
-          <span class="white--text font-weight-black d-flex pr-8 plusText">
+          <span class="white--text d-flex pr-8 plusText">
             دو جایزه رندوم برای تیم های چهارم تا بیستم
             <br />
             دوجایزه ویژه برای مینی گیم ها
@@ -53,22 +53,19 @@
 export default {
   data() {
     return {
-      trophies: [
+      data: [
         {
-          place: 'تیم سوم',
-          price: '۶',
+          ...this.trophies[1],
           icon: 'mdi-trophy-variant-outline',
           marg: 38,
         },
         {
-          place: 'تیم اول',
-          price: '۱۲',
+          ...this.trophies[0],
           icon: 'mdi-trophy',
           marg: 10,
         },
         {
-          place: 'تیم دوم',
-          price: '۸',
+          ...this.trophies[2],
           icon: 'mdi-trophy-outline',
           marg: 24,
         },
@@ -77,6 +74,7 @@ export default {
   },
   props: {
     onIntersecTrophy: Function,
+    trophies: Object,
   },
 };
 </script>
@@ -106,7 +104,7 @@ export default {
     }
   }
   .plusText {
-    font-size: 2.3rem;
+    font-size: 1.5rem;
     line-height: 60px;
     text-align: right;
   }

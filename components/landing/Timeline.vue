@@ -35,7 +35,7 @@
             <div class="timelineDate col-4"></div>
             <div class="timeLineBtn">
               <span></span>
-              <v-btn block class="btn" :href="calendarLink" target="blank">
+              <v-btn block :href="calendarLink" target="blank">
                 <v-icon medium class="ml-2">mdi-calendar-plus</v-icon>
                 به تقویمم اضافه کن
               </v-btn>
@@ -55,11 +55,10 @@ export default {
     };
   },
   async fetch() {
-    this.$axios.$get('homepage/timeline').then(res => {
-      this.calendarLink = res.calendar;
-      this.timelineArrey = res.data.map(item => {
-        return { title: item.title_fa, des: item.text_fa, day: item.day, month: item.month };
-      });
+    const res = await this.$axios.$get('homepage/timeline');
+    this.calendarLink = res.calendar;
+    this.timelineArrey = res.data.map(item => {
+      return { title: item.title_fa, des: item.text_fa, day: item.day, month: item.month };
     });
   },
   props: {
@@ -120,7 +119,9 @@ export default {
       }
     }
     > div {
-      margin-top: 70px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
     }
     span {
       background-color: white;
@@ -138,7 +139,8 @@ export default {
         background-color: #42b3aa;
         border: 3px solid #0e1224;
         position: absolute;
-        top: 189px;
+        top: 50%;
+        transform: translateY(-12px);
         left: -10px;
       }
     }
@@ -158,11 +160,12 @@ export default {
   .timeLineBtn {
     margin-right: 96px;
     position: relative;
+    display: flex;
+    align-items: center;
     @include not-md {
       margin-right: 48px;
     }
     button {
-      margin-top: 30px;
       border-radius: 0;
       padding: 0 45px;
       @include not-md {
@@ -188,7 +191,8 @@ export default {
         background-color: #42b3aa;
         border: 3px solid #0e1224;
         position: absolute;
-        top: 50px;
+        top: 50%;
+        transform: translateY(-12px);
         left: -10px;
       }
     }

@@ -10,16 +10,16 @@
     }"
   >
     <div class="mb-12 text-center white--text text-h2 font-weight-bold" width="100%">تیم ما</div>
-    <v-row class="hidden-md-and-down justify-center">
+    <!-- <v-row class="hidden-md-and-down justify-center">
       <v-col cols="12" lg="3" md="4" v-for="(staff, index) in staffs" class="d-flex justify-center mx-2" :key="index">
         <StaffCard :staff="staff" />
       </v-col>
-    </v-row>
-    <v-row class="hidden-lg-and-up">
-      <div class="scroller d-flex">
-        <StaffCard v-for="(staff, index) in staffs" :staff="staff" class="ml-6 my-3" :key="index" />
-      </div>
-    </v-row>
+    </v-row> -->
+    <div class="d-flex pr-2 scroller">
+      <!-- <v-col cols="5"> -->
+      <StaffCard v-for="(staff, index) in staffs" :staff="staff" class="ml-6 my-3" :key="index" />
+      <!-- </v-col> -->
+    </div>
     <!-- <div style="max-width: 230px; margin: 70px auto">
       <v-btn tile block>
         مشاهده همه تیم ها

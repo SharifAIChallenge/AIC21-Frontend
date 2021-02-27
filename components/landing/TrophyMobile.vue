@@ -14,11 +14,11 @@
     <v-row>
       <h2 class="px-10 mb-10" style="font-size: 3rem">جوایز</h2>
     </v-row>
-    <v-row v-for="(trophy, i) in trophies" :key="i" class="trophyMobWraper">
+    <v-row v-for="(trophy, i) in data" :key="i" class="trophyMobWraper">
       <v-col :cols="trophy.col">
         <v-card-text class="d-flex justify-center px-0 pl-4 secondary text-center darken-1" style="height:200px">
           <div class="d-flex align-end font-weight-black trophyMobTitle" style="transform: rotate(90deg);font-size: 1.5rem">
-            {{ trophy.place }}
+            {{ trophy.title_fa }}
           </div>
         </v-card-text>
         <v-card-text class="d-flex justify-end secondary text-start iconWraper">
@@ -27,7 +27,7 @@
       </v-col>
       <div class="d-flex justify-center align-center">
         <v-card-text class="d-flex flex-column pl-15 text-center white--text">
-          <span class="text-h1 font-weight-black">{{ trophy.price }}</span>
+          <span class="text-h1 font-weight-black">{{ trophy.prize_fa }}</span>
           <span style="border-top:2px solid white" class="pt-2 text-h6">میلیون تومان</span>
         </v-card-text>
       </div>
@@ -59,22 +59,19 @@
 export default {
   data() {
     return {
-      trophies: [
+      data: [
         {
-          place: 'تیم اول',
-          price: '۱۲',
+          ...this.trophies[0],
           icon: 'mdi-trophy',
           col: 6,
         },
         {
-          place: 'تیم دوم',
-          price: '۸',
+          ...this.trophies[1],
           icon: 'mdi-trophy-outline',
           col: 5,
         },
         {
-          place: 'تیم سوم',
-          price: '۶',
+          ...this.trophies[2],
           icon: 'mdi-trophy-variant-outline',
           col: 4,
         },
@@ -83,6 +80,7 @@ export default {
   },
   props: {
     onIntersecTrophy: Function,
+    trophies: Object,
   },
 };
 </script>

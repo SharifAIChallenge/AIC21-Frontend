@@ -2,8 +2,9 @@
   <div>
     <v-col class="shrink">
       <div class="vert-text-btn socialBox" right="-21" color="primary" @click="expand = !expand" v-on:click="openSocial">
-        <v-icon medium v-if="expand">mdi-minus-circle-outline</v-icon>
-        <v-icon medium v-else>mdi-plus-circle-outline</v-icon>
+        <v-icon :class="{ 'icon-open': expand }" class="icon-wrapper" medium>
+          {{ expand ? 'mdi-minus-circle-outline' : 'mdi-plus-circle-outline' }}
+        </v-icon>
         ما را دنبال کنید
       </div>
 
@@ -41,7 +42,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../assets/mixins.scss';
 #main,
 #aic-logo-mark {
@@ -49,6 +50,12 @@ export default {
 }
 .open {
   transform: translateX(-50px);
+}
+.icon-wrapper {
+  transition: transform 0.7s;
+}
+.icon-open {
+  transform: rotate(450deg);
 }
 .socialBox {
   transform: rotate(90deg);
