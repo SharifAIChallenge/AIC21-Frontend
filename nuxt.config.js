@@ -120,23 +120,14 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    browserBaseURL: process.env.browserBaseURL,
+    baseURL: process.env.IS_STAGING_AI_TOF === 1 ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api',
+    browserBaseURL: process.env.IS_STAGING_AI_TOF === 1 ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api',
     // browserBaseURL: 'https://aichallenge.sharif.edu/api',
     baseURL: process.env.baseURL,
     // baseURL: 'https://aichallenge.sharif.edu/api',
     // baseURL: 'http://172.17.0.1:8000/api'
   },
-  publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL,
-    },
-  },
 
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.BASE_URL,
-    },
-  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
