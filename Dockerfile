@@ -1,5 +1,4 @@
 FROM reg.aichallenge.ir/aic/aic21-front:83-2c97f1c1
-ENV IS_STAGING_AI_TOF=1
 ENV APP_ROOT /src
 
 RUN mkdir -p  ${APP_ROOT}
