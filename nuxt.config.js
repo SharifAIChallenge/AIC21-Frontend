@@ -120,7 +120,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    browserBaseURL: process.env.baseURL,
+    browserBaseURL: process.env.browserBaseURL,
     // browserBaseURL: 'https://aichallenge.sharif.edu/api',
     baseURL: process.env.baseURL,
     // baseURL: 'https://aichallenge.sharif.edu/api',
