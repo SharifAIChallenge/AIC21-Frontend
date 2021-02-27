@@ -120,10 +120,10 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: process.env.IS_STAGING_AI_TOF === 1 ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api',
-    browserBaseURL: process.env.IS_STAGING_AI_TOF === 1 ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api',
+    baseURL: process.env.IS_STAGING_AI_TOF ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api',
+    browserBaseURL: process.env.IS_STAGING_AI_TOF ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api',
     // browserBaseURL: 'https://aichallenge.sharif.edu/api',
-    baseURL: process.env.baseURL,
+    // baseURL: process.env.baseURL,
     // baseURL: 'https://aichallenge.sharif.edu/api',
     // baseURL: 'http://172.17.0.1:8000/api'
   },
