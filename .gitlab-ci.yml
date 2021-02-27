@@ -28,6 +28,7 @@ var-check:
     - echo "image url == $IMAGE_URL"
     - echo "ip ======== $SWARM_MANAGER_SERVER"
   script:
+    - echo sed "1 i\ENV TOF_MODE=$CI_COMMIT_BRANCH" > Dockerfile
     - cat Dockerfile
 build-push-image:
   stage: publish-image
