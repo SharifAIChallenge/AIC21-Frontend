@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors';
 import fa from 'vuetify/es5/locale/fa';
 require('dotenv').config();
 
-const [MODE, a] = process.env.IS_STAGING_AI_TOF;
+const [MODE, a] = process.env.TOF_MODE;
 console.log(MODE);
 export default {
   mode: 'universal',
@@ -123,8 +123,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: MODE == 1 ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
-    browserBaseURL: MODE == 1 ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
+    baseURL: MODE == 'STAGING' ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
+    browserBaseURL: MODE == 'STAGING' ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
     // browserBaseURL: 'https://aichallenge.sharif.edu/api',
     // baseURL: process.env.baseURL,
     // baseURL: 'https://aichallenge.sharif.edu/api',
