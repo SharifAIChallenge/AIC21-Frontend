@@ -1,6 +1,6 @@
 import colors from 'vuetify/es5/util/colors';
 import fa from 'vuetify/es5/locale/fa';
-
+require('dotenv').config();
 export default {
   mode: 'universal',
   /*
@@ -56,7 +56,7 @@ export default {
     '@nuxtjs/auth-next',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
+    ['@nuxtjs/dotenv'],
     '@nuxtjs/toast',
     '@nuxtjs/markdownit',
     '@nuxtjs/svg',
@@ -120,9 +120,9 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    browserBaseURL: 'https://api-stg.aichallenge.ir/api/',
+    browserBaseURL: process.env.baseURL,
     // browserBaseURL: 'https://aichallenge.sharif.edu/api',
-    baseURL: 'https://api-stg.aichallenge.ir/api/',
+    baseURL: process.env.baseURL,
     // baseURL: 'https://aichallenge.sharif.edu/api',
     // baseURL: 'http://172.17.0.1:8000/api'
   },

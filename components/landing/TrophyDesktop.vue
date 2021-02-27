@@ -74,7 +74,7 @@ export default {
   },
   props: {
     onIntersecTrophy: Function,
-    trophies: Object,
+    trophies: Array,
   },
 };
 </script>

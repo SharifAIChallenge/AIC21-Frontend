@@ -1,7 +1,7 @@
 <template>
   <div class="staff_card">
     <div class="staff_img grey darken-3" style="margin:24px 0;height:230px;width:230px;position:relative">
-      <img :src="`https://api-stg.aichallenge.ir/${staff.image}`" alt="staff image" width="100%" height="100%" style="object-fit: cover;" />
+      <img :src="staff.image" alt="staff image" width="100%" height="100%" style="object-fit: cover;" />
       <div class="primary py-1 text-center white--text font-weight-black" style="position:absolute;width:30%;left:0;bottom:20px">
         {{ staff.group_title }}
       </div>

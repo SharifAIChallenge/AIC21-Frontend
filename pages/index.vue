@@ -72,7 +72,7 @@ export default {
     width: 0,
     height: 0,
     scrollItem: 0,
-    trophies: {},
+    trophies: [],
   }),
   async fetch() {
     const trophies = await this.$axios.$get('homepage/prizes');
