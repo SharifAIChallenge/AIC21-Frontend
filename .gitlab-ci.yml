@@ -26,9 +26,9 @@ var-check:
     - echo "reg ====== $SSC_REGISTRY_URL"
     - echo "image tag == $IMAGE_TAG"
     - echo "image url == $IMAGE_URL"
+    - echo "ip ======== $SWARM_MANAGER_SERVER"
   script:
-   - echo "ip ======== $SWARM_MANAGER_SERVER"
-
+    - cat Dockerfile
 build-push-image:
   stage: publish-image
   image:
