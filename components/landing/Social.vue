@@ -1,26 +1,20 @@
 <template>
   <div>
     <v-col class="shrink">
-      <div class="vert-text-btn" bottom="50" right="-21" color="primary" @click="expand = !expand" v-on:click="openSocial">
-        <v-icon medium>mdi-plus</v-icon>
+      <div class="vert-text-btn socialBox" right="-21" color="primary" @click="expand = !expand" v-on:click="openSocial">
+        <v-icon medium v-if="expand">mdi-minus-circle-outline</v-icon>
+        <v-icon medium v-else>mdi-plus-circle-outline</v-icon>
         ما را دنبال کنید
       </div>
 
       <v-expand-x-transition>
-        <v-card v-show="expand" height="100vh" width="70" class="primary social">
+        <v-card v-show="expand" width="70" class="primary social">
           <div class="social-wrap d-flex flex-column justify-center align-center">
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-instagram</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-linkedin</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-instagram</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-linkedin</v-icon>
-            </a>
+            <v-btn v-for="social in socials" :key="social.icon" :href="social.url" class="mx-4 my-1 ml-2" target="_blank" icon large>
+              <v-icon size="30px">
+                {{ social.icon }}
+              </v-icon>
+            </v-btn>
           </div>
         </v-card>
       </v-expand-x-transition>
@@ -31,8 +25,13 @@
 
 <script>
 export default {
+  async fetch() {
+    let data = await this.$axios.$get('homepage/socials');
+    this.socials = data.socials;
+  },
   data: () => ({
     expand: false,
+    socials: [],
   }),
   methods: {
     openSocial() {
@@ -42,7 +41,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '../../assets/mixins.scss';
 #main,
 #aic-logo-mark {
   transition: 0.4s;
@@ -50,24 +50,32 @@ export default {
 .open {
   transform: translateX(-50px);
 }
-.social {
-  position: absolute !important;
-  // top: -56px;
-  top: 0;
-  right: -7px;
-  border-radius: 0px !important;
-}
-
-.vert-text-btn {
+.socialBox {
   transform: rotate(90deg);
   position: absolute !important;
   top: calc(100vh - 90px);
   right: -25px;
   z-index: 50;
   cursor: pointer;
+  @include not-md {
+    top: calc(100vh - 150px);
+  }
+}
+.social {
+  position: absolute !important;
+  top: 0;
+  right: -7px;
+  border-radius: 0px !important;
+  height: 100vh;
+  @include not-md {
+    height: calc(100vh - 60px);
+  }
 }
 .social-wrap {
   height: 100vh;
+  @include not-md {
+    height: calc(100vh - 60px);
+  }
   a {
     text-decoration: none;
     i {

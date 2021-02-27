@@ -1,66 +1,59 @@
 <template>
   <div id="header">
-    <v-navigation-drawer :color="color" absolute right v-model="showMenu" height="100%" width="100%">
-      <v-btn icon @click="showMenu = !showMenu" class="transparent ma-3 pb-4">
+    <v-dialog fullscreen v-model="showMenu" transition="fade-transition">
+      <v-btn icon @click="showMenu = !showMenu" class="ma-3">
         <v-icon>
           mdi-close
         </v-icon>
       </v-btn>
-      <v-row class="justify-center">
-        <v-list>
-          <v-list-item>
-            <v-btn plain text tile :class="getClass()" to="/">خانه</v-btn>
-          </v-list-item>
-          <v-list-item>
-            <v-btn plain text tile :class="getClass()" to="/blog">اخبار</v-btn>
-          </v-list-item>
-          <v-list-item>
-            <v-btn plain text tile :class="getClass()">تاریخچه</v-btn>
-          </v-list-item>
-          <v-list-item>
-            <v-btn plain text tile :class="getClass()" to="/faq">سوالات متداول</v-btn>
-          </v-list-item>
-        </v-list>
-      </v-row>
-    </v-navigation-drawer>
-    <v-app-bar flat :color="color">
+      <div class="d-flex flex-column align-center justify-center" style="height: 85%">
+        <v-btn plain :ripple="false" text tile :class="getClass()" to="/">خانه</v-btn>
+        <v-btn plain :ripple="false" text tile :class="getClass()" to="/faq">سوالات متداول</v-btn>
+        <!-- <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn> -->
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
+          تاریخچه
+        </v-btn>
+      </div>
+    </v-dialog>
+    <v-app-bar flat absolute :color="color">
       <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
         <v-icon>
           mdi-menu
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only" id="menu">
-        <v-btn plain text tile :class="`${getClass()}`" @click="toggleShow()">
+        <!-- <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
           <v-icon left>
             mdi-shield-star
           </v-icon>
           <span class="font-weight-bold">ورود</span>
-        </v-btn>
-        <v-btn plain text tile :class="getClass()" to="/">
+        </v-btn> -->
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>
-        <v-btn plain text tile :class="getClass()" to="/blog">
+        <!-- <v-btn plain text tile :class="getClass()" to="/blog">
           اخبار
         </v-btn>
         <v-btn plain text tile :class="getClass()">
           تاریخچه
-        </v-btn>
-        <v-btn plain text tile :class="getClass()" to="/faq">
+        </v-btn> -->
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/faq">
           سوالات متداول
+        </v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
+          تاریخچه
         </v-btn>
       </div>
       <v-spacer></v-spacer>
-      <v-btn plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow()">
+      <!-- <v-btn plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow()">
         <v-icon left>
           mdi-shield-star
         </v-icon>
         <span class="font-weight-bold">ورود</span>
-      </v-btn>
+      </v-btn> -->
       <v-spacer></v-spacer>
-      <div>
-        <img src="logo__white.svg" class="logo" v-if="color === 'primary'" />
-        <img src="../../assets/images/logo/logo__primary.svg" class="logo" v-else />
-      </div>
+      <img src="logo__white.svg" class="logo" v-if="color === 'primary'" />
+      <img src="../../assets/images/logo/logo__primary.svg" class="logo" v-else />
     </v-app-bar>
     <formManager :isPage="false" />
   </div>
@@ -89,16 +82,30 @@ export default {
       this.$store.commit('formStatus/toggleShow');
     },
     getClass() {
-      return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent pb-4';
+      return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent py-8 text-h5 text-sm-subtitle-2';
     },
   },
 };
 </script>
 <style lang="scss">
 #header {
+  position: relative;
+  .mobile-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    a {
+      display: block;
+    }
+  }
   .logo {
-    width: 40px;
-    margin-top: 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 56px;
   }
   .navLinks {
     height: calc(100% - 200px);

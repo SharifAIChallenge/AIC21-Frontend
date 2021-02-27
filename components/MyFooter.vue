@@ -8,7 +8,7 @@
             2021 Sharif AI Challenge
           </strong>
         </v-col>
-        <v-col cols="12" md="8" class="hidden-md-and-down social_box mx-auto mb-3 d-flex justify-center align-center">
+        <v-col cols="0" md="8" class="hidden-md-and-down mx-auto mb-3 d-flex justify-center align-center">
           <v-btn
             v-for="social in socials"
             :key="social.icon"
@@ -38,33 +38,12 @@ export default {
   components: { LogoMark },
   data() {
     return {
-      socials: [
-        {
-          icon: 'mdi-twitch',
-          url: '/',
-        },
-        {
-          icon: 'mdi-linkedin',
-          url: '/',
-        },
-        {
-          icon: 'mdi-instagram',
-          url: 'http://www.instagram.com/AiChallenge',
-        },
-        {
-          icon: 'mdi-github',
-          url: '/',
-        },
-        {
-          icon: 'mdi-twitter',
-          url: 'http://www.twitter.com/AiChallenge',
-        },
-        {
-          icon: 'mdi-telegram',
-          url: 'https://t.me/aichallenge',
-        },
-      ],
+      socials: [],
     };
+  },
+  async fetch() {
+    let data = await this.$axios.$get('homepage/socials');
+    this.socials = data.socials;
   },
 };
 </script>
@@ -73,11 +52,6 @@ export default {
 @import 'assets/mixins.scss';
 .footer {
   padding: 40px 0px;
-  .social_box {
-    @include not-md {
-      width: 100vw;
-    }
-  }
   .logo {
     width: 60px;
   }

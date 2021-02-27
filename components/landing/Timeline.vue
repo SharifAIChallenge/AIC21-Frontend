@@ -35,8 +35,8 @@
             <div class="timelineDate col-4"></div>
             <div class="timeLineBtn">
               <span></span>
-              <v-btn block class="btn">
-                <v-icon medium>mdi-calendar-plus</v-icon>
+              <v-btn block class="btn" :href="calendarLink" target="blank">
+                <v-icon medium class="ml-2">mdi-calendar-plus</v-icon>
                 به تقویمم اضافه کن
               </v-btn>
             </div>
@@ -50,13 +50,17 @@
 export default {
   data() {
     return {
-      timelineArrey: [
-        { day: '۱۰', month: 'اسفند', title: 'عنوان', des: 'متن نمونه' },
-        { day: '۱۲', month: 'اسفند', title: 'عنوان', des: 'متن نمونه' },
-        { day: '۱۵ و ۱۶', month: 'اسفند', title: 'عنوان', des: 'متن نمونه' },
-        { day: '۲', month: 'فروردین', title: 'عنوان', des: 'متن ن یققلیذیبذ زدلپلاا مکزتذمبا یذمنیم یما مونه' },
-      ],
+      timelineArrey: [],
+      calendarLink: '',
     };
+  },
+  async fetch() {
+    this.$axios.$get('homepage/timeline').then(res => {
+      this.calendarLink = res.calendar;
+      this.timelineArrey = res.data.map(item => {
+        return { title: item.title_fa, des: item.text_fa, day: item.day, month: item.month };
+      });
+    });
   },
   props: {
     onIntersecTimeline: Function,
