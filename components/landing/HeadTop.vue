@@ -24,13 +24,13 @@
 @import '../../assets/mixins.scss';
 
 #HeadTop {
-  height: calc(100vh);
+  height: 100vh;
   transition: 0.4s;
   position: relative;
   background-color: #090c18;
   padding-top: 50px;
   @include not-md {
-    height: calc(100vh - 116px);
+    height: 100vh;
   }
   .aiTitle {
     height: 100%;

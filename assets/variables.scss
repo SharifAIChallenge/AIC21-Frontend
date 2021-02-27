@@ -47,6 +47,8 @@ $data-table-expanded-content-box-shadow: inset 0px 4px 8px -5px rgba(255, 255, 2
 $btn-outline-border-width: 0px;
 $border-radius-root: 0px;
 $treeview-label-font-size: 0.7rem;
+$text-field-filled-full-width-outlined-slot-min-height: 50px !default;
+// $text-field-filled-full-width-outlined-single-line-slot-min-height: px !default;
 $treeview-node-height-dense: 30px;
 //@import '~vuetify/src/styles/styles.sass';
 $container-max-widths: (

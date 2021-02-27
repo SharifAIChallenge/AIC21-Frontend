@@ -18,7 +18,7 @@
       </div>
       <div class="vl"></div>
     </div>
-    <div class="titles">
+    <div class="faq-titles">
       <div class="title" v-for="(title, index) in titles" :key="index">
         {{ title }}
       </div>
@@ -107,7 +107,7 @@ export default {
     }
   }
 }
-.titles {
+.faq-titles {
   position: sticky;
   top: 0;
   display: flex;

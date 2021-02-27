@@ -21,7 +21,7 @@
             </div>
             <div style="margin: 30px 0px 10px;" class="second-line d-flex justify-center align-center">
               <span class="text-primary-color">بگذارید</span>
-              <span class="border-text-primary">کدها</span>
+              <span class="font-weight-bold border-text-primary">کدها</span>
               <span class="text-primary-color">بجنگند</span>
             </div>
             <v-row>
@@ -57,9 +57,8 @@ export default {
     };
   },
   async fetch() {
-    this.$axios.$get('/homepage/media').then(res => {
-      this.url = res.data[0].file;
-    });
+    const res = await this.$axios.$get('/homepage/media');
+    this.url = res.data[0].file;
   },
   methods: {
     changeStatus(form) {
