@@ -47,7 +47,7 @@ build-push-image:
     - mkdir -p /kaniko/.docker/
     - echo "{\"auths\":{\"$SSC_REGISTRY_URL\":{\"username\":\"$SSC_REGISTRY_USERNAME\",\"password\":\"$SSC_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - echo pushing image $IMAGE_URL to registry
-    - echo sed -i "1 i\ENV TOF_MODE=$CI_COMMIT_BRANCH" Dockerfile 
+    - echo sed "1 i\ENV TOF_MODE=$CI_COMMIT_BRANCH" > Dockerfile 
     - cat Dockerfile
 
   script:
