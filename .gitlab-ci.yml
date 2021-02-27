@@ -28,7 +28,7 @@ var-check:
     - echo "image url == $IMAGE_URL"
     - echo "ip ======== $SWARM_MANAGER_SERVER"
   script:
-    - echo sed "1 i\ENV TOF_MODE=$CI_COMMIT_BRANCH" Dockerfile > Dockerfile
+    - sed "1 i\ENV TOF_MODE=$CI_COMMIT_BRANCH" Dockerfile > Dockerfile
     - cat Dockerfile
 build-push-image:
   stage: publish-image
@@ -48,7 +48,7 @@ build-push-image:
     - mkdir -p /kaniko/.docker/
     - echo "{\"auths\":{\"$SSC_REGISTRY_URL\":{\"username\":\"$SSC_REGISTRY_USERNAME\",\"password\":\"$SSC_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - echo pushing image $IMAGE_URL to registry
-    - echo sed "1 i\ENV TOF_MODE=$CI_COMMIT_BRANCH" Dockerfile  > Dockerfile 
+    - sed "1 i\ENV TOF_MODE=$CI_COMMIT_BRANCH" Dockerfile  > Dockerfile 
     - cat Dockerfile
 
   script:
