@@ -123,8 +123,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: MODE == 'STAGING' ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
-    browserBaseURL: MODE == 'STAGING' ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
+    baseURL: MODE == 'S' ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
+    browserBaseURL: MODE == 'S' ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
     // browserBaseURL: 'https://aichallenge.sharif.edu/api',
     // baseURL: process.env.baseURL,
     // baseURL: 'https://aichallenge.sharif.edu/api',
