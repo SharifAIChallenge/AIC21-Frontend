@@ -9,7 +9,7 @@
     <div class="staff_intro pb-4" style="width:230px; margin:5px 0;">
       <div class="font-weight-bold white--text">{{ staff.first_name_fa }} {{ staff.last_name_fa }}</div>
       <div class="text-caption text-start primary--text" style="margin-top:12px;">
-        {{ staff.team_title }}
+        {{ staff.team_title && staff.team_title }}
       </div>
     </div>
   </div>
@@ -21,8 +21,7 @@ export default {
 </script>
 <style scoped>
 .staff_card {
-  max-width: 350px;
-  min-width: 290px;
+  max-width: 300px;
   width: 100%;
   /* border: 2px solid var(--v-primary-base); */
 }
@@ -30,5 +29,12 @@ export default {
 .staff_img {
   width: calc(100% - 40px);
   margin: 24px 20px;
+}
+.staff_img img {
+  filter: grayscale();
+  transition: filter 0.7s;
+}
+.staff_img img:hover {
+  filter: none;
 }
 </style>

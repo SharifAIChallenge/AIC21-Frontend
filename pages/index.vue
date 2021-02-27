@@ -15,8 +15,8 @@
     <Video :onIntersecVideo="onIntersecVideo" />
     <!-- <Statistics /> -->
     <TimeLine :onIntersecTimeline="onIntersecTimeline" />
-    <TrophyDesktop class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy" />
-    <TrophyMobile class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
+    <TrophyDesktop :trophies="trophies" class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy" />
+    <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
     <Staff :onIntersecStaff="onIntersecStaff" />
     <Sponsor :onIntersecSponser="onIntersecSponser" />
     <EmaliCallToAction />
@@ -72,7 +72,13 @@ export default {
     width: 0,
     height: 0,
     scrollItem: 0,
+    trophies: {},
   }),
+  async fetch() {
+    const trophies = await this.$axios.$get('homepage/prizes');
+    this.trophies = trophies.data;
+  },
+
   methods: {
     onIntersecAbout(entries, observer) {
       this.isIntersec.About = entries[0].isIntersecting;

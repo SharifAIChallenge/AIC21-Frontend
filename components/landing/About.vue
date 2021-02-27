@@ -35,7 +35,6 @@ export default {
   },
   async fetch() {
     let description = await this.$axios.$get('homepage/motto');
-    console.log(description);
     this.post = description.data[0];
   },
 };
