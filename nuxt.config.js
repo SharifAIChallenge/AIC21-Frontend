@@ -179,7 +179,7 @@ export default {
     middleware: ['auth'],
   },
   auth: {
-    plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
+    // plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
     redirect: {
       home: '/dashboard',
     },
@@ -207,11 +207,16 @@ export default {
             propertyName: 'user',
           },
         },
-        tokenRequired: true,
-        tokenType: 'token',
+        token: {
+          required: true,
+          type: 'token',
+        },
       },
     },
     resetOnError: true,
+    token: {
+      prefix: 'token.',
+    },
   },
   toast: {
     position: 'bottom-center',

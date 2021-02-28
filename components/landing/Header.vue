@@ -22,12 +22,12 @@
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only" id="menu">
-        <!-- <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
+        <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
           <v-icon left>
             mdi-shield-star
           </v-icon>
           <span class="font-weight-bold">ورود</span>
-        </v-btn> -->
+        </v-btn>
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>
