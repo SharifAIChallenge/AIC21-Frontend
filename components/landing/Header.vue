@@ -15,19 +15,19 @@
         </v-btn>
       </div>
     </v-dialog>
-    <v-app-bar flat absolute :color="color">
+    <v-app-bar flat absolute height="75px" :color="color">
       <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
         <v-icon>
           mdi-menu
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only" id="menu">
-        <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
+        <!-- <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
           <v-icon left>
             mdi-shield-star
           </v-icon>
           <span class="font-weight-bold">ورود</span>
-        </v-btn>
+        </v-btn> -->
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>
@@ -103,9 +103,13 @@ export default {
   }
   .logo {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 56px;
+    top: 20px;
+    left: 20px;
+    width: 66px;
+    &:after {
+      content: 'AIC';
+      position: absolute;
+    }
   }
   .navLinks {
     height: calc(100% - 200px);
