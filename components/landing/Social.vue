@@ -1,26 +1,21 @@
 <template>
   <div>
     <v-col class="shrink">
-      <div class="vert-text-btn" bottom="50" right="-21" color="primary" @click="expand = !expand" v-on:click="openSocial">
-        <v-icon medium>mdi-plus</v-icon>
+      <div class="vert-text-btn socialBox" right="-21" color="primary" @click="expand = !expand" v-on:click="openSocial">
+        <v-icon :class="{ 'icon-open': expand }" class="icon-wrapper" medium>
+          {{ expand ? 'mdi-minus-circle-outline' : 'mdi-plus-circle-outline' }}
+        </v-icon>
         ما را دنبال کنید
       </div>
 
       <v-expand-x-transition>
-        <v-card v-show="expand" height="100vh" width="70" class="primary social">
+        <v-card v-show="expand" width="70" class="primary social">
           <div class="social-wrap d-flex flex-column justify-center align-center">
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-instagram</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-linkedin</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-instagram</v-icon>
-            </a>
-            <a href="instagram.com" class="my-2">
-              <v-icon medium>mdi-linkedin</v-icon>
-            </a>
+            <v-btn v-for="social in socials" :key="social.icon" :href="social.url" class="mx-4 my-1 ml-2" target="_blank" icon large>
+              <v-icon size="30px">
+                {{ social.icon }}
+              </v-icon>
+            </v-btn>
           </div>
         </v-card>
       </v-expand-x-transition>
@@ -31,50 +26,64 @@
 
 <script>
 export default {
+  async fetch() {
+    let data = await this.$axios.$get('homepage/socials');
+    this.socials = data.socials;
+  },
   data: () => ({
     expand: false,
+    socials: [],
   }),
   methods: {
     openSocial() {
-      document.getElementById('main').classList.toggle('open');
-      document.getElementById('aic-logo-mark').classList.toggle('open2');
-      document.getElementById('intersection').classList.toggle('open3');
+      document.getElementById('menu').classList.toggle('open');
+      console.log(process.env.baseURL);
     },
   },
 };
 </script>
 
 <style lang="scss">
+@import '../../assets/mixins.scss';
 #main,
 #aic-logo-mark {
   transition: 0.4s;
 }
 .open {
-  transform: translateX(-70px);
+  transform: translateX(-50px);
 }
-.open2 {
-  transform: translateX(70px);
+.icon-wrapper {
+  transition: transform 0.7s;
 }
-.open3 {
-  transform: translate(70px, -50%) !important;
+.icon-open {
+  transform: rotate(450deg);
 }
-.social {
-  position: fixed !important;
-  top: 0;
-  right: -7px;
-  border-radius: 0px !important;
-}
-
-.vert-text-btn {
+.socialBox {
   transform: rotate(90deg);
-  position: fixed !important;
-  bottom: 60px;
+  position: absolute !important;
+  top: calc(100vh - 90px);
   right: -25px;
   z-index: 50;
   cursor: pointer;
+  @include not-md {
+    top: calc(100vh - 150px);
+  }
+}
+.social {
+  position: absolute !important;
+  top: 0;
+  right: -7px;
+  border-radius: 0px !important;
+  height: 100vh;
+  @include not-md {
+    height: calc(100vh - 60px);
+  }
 }
 .social-wrap {
   height: 100vh;
+  @include not-md {
+    height: calc(100vh - 60px);
+  }
   a {
     text-decoration: none;
     i {

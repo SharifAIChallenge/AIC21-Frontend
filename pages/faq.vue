@@ -1,16 +1,16 @@
 <template>
-  <v-app>
+  <div>
     <Header color="primary" />
     <div class="first-slider" style="position: relative;">
       <div class="slider-text">
-        <div style="margin-top: 20vh; font-size: 6rem;">
+        <div style="margin-top: 20vh;" class="font-weight-bold text-h3 text-sm-h1">
           سوالات متداول
         </div>
         <div style="font-size: 50px;">
-          <span style="  color: transparent; border: white; -webkit-text-stroke: 2px white; font-size: 6rem;">و</span>
-          <span style="font-size: 6rem;">قوانین</span>
+          <span class="text-h3 text-sm-h1" style="color: transparent; border: white; -webkit-text-stroke: 2px white;">و</span>
+          <span class="font-weight-bold text-h3 text-sm-h1">قوانین</span>
         </div>
-        <div>
+        <div class="mt-10">
           این مجموعه برای پاسخگویی به سوالات رایج در مورد نبرد هوش مصنوعی شریف
           <br />
           و قوانین آن طراحی شده است
@@ -18,85 +18,50 @@
       </div>
       <div class="vl"></div>
     </div>
-
-    <div class="titles">
-      <div class="title" v-for="(subject, index) in faq" :key="index">
-        {{ subject.title }}
+    <div class="faq-titles">
+      <div class="title" v-for="(title, index) in titles" :key="index">
+        {{ title }}
       </div>
     </div>
     <v-container>
       <div v-for="(subject, index) in faq" :key="index">
         <div class="fag-title-for-show">{{ subject.title }}</div>
         <v-row class="mb-10">
-          <v-col v-for="(question, index) in subject.questions" :key="index" cols="12" sm="6" lg="4" xl="3">
+          <v-col v-for="(question, index) in subject.faqs" :key="index" cols="12" sm="6" lg="4" xl="3">
             <div class="faq-card">
               <div class="faq-card-title">
-                <v-icon right color="primary" size="55">
+                <v-icon right color="primary" class="faq-icon" size="55">
                   mdi-calendar
                 </v-icon>
-                {{ question.title }}
+                {{ question.question_fa }}
               </div>
               <p class="faq-card-text">
-                {{ question.answer }}
+                {{ question.answer_fa }}
               </p>
             </div>
           </v-col>
         </v-row>
       </div>
     </v-container>
-  </v-app>
+    <EmailCallToAction />
+  </div>
 </template>
 
 <script>
 import Header from '~/components/landing/Header.vue';
+import { FAQ } from '~/api/index';
+import EmailCallToAction from '~/components/EmailCallToAction.vue';
 export default {
   auth: false,
   layout: 'landing',
-  components: { Header },
-  data() {
+  components: { Header, EmailCallToAction },
+  async asyncData({ $axios }) {
+    let data = await FAQ($axios);
+    const titles = data.data.map(item => item.title);
+    let faq = data.data;
     return {
-      faq: [
-        {
-          title: 'عمومی',
-          questions: [
-            {
-              title: ' نبرد هوش مصنوعی چگونه کار می کند',
-              answer:
-                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان.',
-            },
-            {
-              title: ' نبرد هوش مصنوعی چگونه کار می کند',
-              answer:
-                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان.',
-            },
-            {
-              title: ' نبرد هوش مصنوعی چگونه کار می کند',
-              answer:
-                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان.',
-            },
-          ],
-        },
-        {
-          title: 'عمومی',
-          questions: [
-            {
-              question: ' نبرد هوش مصنوعی چگونه کار می کند',
-              answer:
-                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد.',
-            },
-            {
-              question: ' نبرد هوش مصنوعی چگونه کار می کند',
-              answer:
-                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد.',
-            },
-            {
-              question: ' نبرد هوش مصنوعی چگونه کار می کند',
-              answer:
-                'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد.',
-            },
-          ],
-        },
-      ],
+      faq,
+      titles,
     };
   },
 };
@@ -104,7 +69,9 @@ export default {
 
 <style lang="scss">
 @import 'assets/variables.scss';
-
+.faq-icon {
+  transform: translateX(10px);
+}
 .first-slider {
   background-color: var(--v-primary-base);
   height: 100vh;
@@ -114,13 +81,33 @@ export default {
   position: absolute;
 }
 .vl {
-  border-left: 3px solid white;
-  height: 150px;
+  display: block;
+  width: 2px;
+  height: 30px;
+  background-color: white;
   position: absolute;
-  left: 49%;
-  bottom: 0px;
+  bottom: 30px;
+  left: 50%;
+  animation: ScrollAnimate 2s infinite;
+  @keyframes ScrollAnimate {
+    0% {
+      opacity: 1;
+      height: 0;
+      bottom: 30px;
+    }
+    50% {
+      opacity: 1;
+      height: 50px;
+      bottom: 30px;
+    }
+    100% {
+      opacity: 0;
+      bottom: 80px;
+      height: 0;
+    }
+  }
 }
-.titles {
+.faq-titles {
   position: sticky;
   top: 0;
   display: flex;
@@ -136,6 +123,7 @@ export default {
   font-size: 4rem;
   color: var(--v-primary-base);
   margin-bottom: 40px;
+  font-weight: bold;
 }
 
 .faq-card {
@@ -145,5 +133,6 @@ export default {
 .faq-card-title {
   display: inline-block;
   font-size: 2rem;
+  font-weight: bold;
 }
 </style>

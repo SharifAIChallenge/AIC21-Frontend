@@ -300,6 +300,13 @@ export const gameStats = axios => {
 };
 
 /*******************************/
-export const test = (axios) => {
+export const test = axios => {
   return axios.$get('/ticket');
+};
+export const FAQ = axios => {
+  return axios.$get('/faq/questions');
+};
+
+export const PastAi = axios => {
+  return axios.$get('/past/');
 };

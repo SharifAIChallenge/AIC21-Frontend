@@ -1,6 +1,9 @@
 import colors from 'vuetify/es5/util/colors';
 import fa from 'vuetify/es5/locale/fa';
+require('dotenv').config();
 
+const [MODE, a] = process.env.TOF_MODE;
+console.log(MODE);
 export default {
   mode: 'universal',
   /*
@@ -24,8 +27,8 @@ export default {
    ** Customize the progress-bar color
    */
   loading: {
-    color: '#FF5722',
-    height: '3px',
+    color: '#eb3654',
+    height: '2px',
   },
   /*
    ** Global CSS
@@ -53,14 +56,43 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    '@nuxtjs/auth-next',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
+    ['@nuxtjs/dotenv'],
     '@nuxtjs/toast',
     '@nuxtjs/markdownit',
     '@nuxtjs/svg',
+    '@nuxtjs/firebase',
   ],
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyDtXWh4UP3nDBeDUudcqGyVjIJ4GLGh64M',
+      authDomain: 'aichallenge-304910.firebaseapp.com',
+      projectId: 'aichallenge-304910',
+      storageBucket: 'aichallenge-304910.appspot.com',
+      messagingSenderId: '939108343385',
+      appId: '1:939108343385:web:91529ac9fec89612569b48',
+      measurementId: 'G-RXW9NMM24B',
+    },
+    services: {
+      auth: true, // Just as example. Can be any other service.
+      messaging: {
+        createServiceWorker: true,
+        actions: [
+          {
+            action: 'goToLupasGithub',
+            url: 'https://github.com/lupas',
+          },
+          {
+            action: 'goToModuleGithub',
+            url: 'https://github.com/nuxt-community/firebase-module',
+          },
+        ],
+        fcmPublicVapidKey: 'BMYHV8jvmOJUQQWxVl0WrvkE6NNdQ-zZz37egrtRww6cLayU-ybLj-tZfbrScQ1hSFLCM6VWamR-KI13fiaUr3Q',
+      },
+    },
+  },
 
   markdownit: {
     preset: 'default',
@@ -91,10 +123,14 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    browserBaseURL: 'https://api-stg.aichallenge.ir/api',
-    baseURL: 'https://api-stg.aichallenge.ir/api',
+    baseURL: MODE == 's' ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
+    browserBaseURL: MODE == 's' ? 'https://stg.aichallenge.ir/api/' : 'https://aichallenge.ir/api/',
+    // browserBaseURL: 'https://aichallenge.sharif.edu/api',
+    // baseURL: process.env.baseURL,
+    // baseURL: 'https://aichallenge.sharif.edu/api',
     // baseURL: 'http://172.17.0.1:8000/api'
   },
+
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -143,12 +179,19 @@ export default {
     middleware: ['auth'],
   },
   auth: {
+    plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
     redirect: {
       home: '/dashboard',
     },
     strategies: {
       google: {
-        client_id: '939108343385-ki4hppc0879jktshp5po57lhihn617st.apps.googleusercontent.com',
+        clientId: '864043474548-9is9rd8jbf3bbq4tdrhsfdjnivasj7l6.apps.googleusercontent.com',
+        codeChallengeMethod: '',
+        responseType: 'code',
+        endpoints: {
+          token: 'https://api-stg.aichallenge.ir/social-login/google/',
+          userInfo: 'https://api-stg.aichallenge.ir/auth/',
+        },
       },
       local: {
         endpoints: {

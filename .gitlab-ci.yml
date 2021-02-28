@@ -1,3 +1,4 @@
+
 stages:
   - publish-image
   - deploy-production
@@ -14,16 +15,42 @@ workflow:
       when: always
     - when: never
 
-build-push-image: # ali is so go
+var-check: 
+  stage: publish-image
+  image:
+    name: reg.aichallenge.ir/alpine:latest
+    entrypoint: [""]
+
+  before_script:
+    - echo "service == $SERVICE_NAME"
+    - echo "reg ====== $SSC_REGISTRY_URL"
+    - echo "image tag == $IMAGE_TAG"
+    - echo "image url == $IMAGE_URL"
+    - echo "ip ======== $SWARM_MANAGER_SERVER"
+  script:
+    - sed -i "2 i\ENV TOF_MODE=$CI_COMMIT_BRANCH" Dockerfile 
+    - cat Dockerfile
+build-push-image:
   stage: publish-image
   image:
     name: $SSC_REGISTRY_URL/kaniko:debug
     entrypoint: [""]
+  
+  # rules:
+  #   - if: '$CI_COMMIT_BRANCH == "main"'
+  #     when: on_success
+  #   - if: '$CI_COMMIT_BRANCH == "staging"'
+  #     when: on_success
+  #   - when: never
+  
 
   before_script:
     - mkdir -p /kaniko/.docker/
     - echo "{\"auths\":{\"$SSC_REGISTRY_URL\":{\"username\":\"$SSC_REGISTRY_USERNAME\",\"password\":\"$SSC_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - echo pushing image $IMAGE_URL to registry
+    - sed -i "2 i\ENV TOF_MODE=$CI_COMMIT_BRANCH" Dockerfile 
+    - cat Dockerfile
+
   script:
    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $IMAGE_URL
 
@@ -34,7 +61,7 @@ deploy-production:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: on_success
     - if: '$CI_COMMIT_BRANCH == "staging"'
-      when: always
+      when: on_success
     - when: never
   before_script:
     - mkdir -p ~/.ssh
@@ -42,5 +69,9 @@ deploy-production:
     - chmod 700 ~/.ssh/id_rsa
     - eval "$(ssh-agent -s)"
     - ssh-add ~/.ssh/id_rsa
+    - declare -A NAME_PREFIX
+    - NAME_PREFIX=([main]=prd [staging]=stg)
+    - FINAL_SERVICE_NAME=${NAME_PREFIX[$CI_COMMIT_BRANCH]}_$SERVICE_NAME
   script:
-    - ssh -o "StrictHostKeyChecking=no" root@$SWARM_MANAGER_SERVER -p$SWARM_MANAGER_SERVER_SSH_PORT -t "docker service update --image $IMAGE_URL $SERVICE_NAME"
+    - ssh -o "StrictHostKeyChecking=no" root@$SWARM_MANAGER_SERVER -p$SWARM_MANAGER_SERVER_SSH_PORT -t "docker service update --image $IMAGE_URL $FINAL_SERVICE_NAME"
+
