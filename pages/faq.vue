@@ -10,11 +10,11 @@
           <span class="text-h3 text-sm-h1" style="color: transparent; border: white; -webkit-text-stroke: 2px white;">و</span>
           <span class="font-weight-bold text-h3 text-sm-h1">قوانین</span>
         </div>
-        <div class="mt-10">
+        <p class="mt-10 text-h6">
           این مجموعه برای پاسخگویی به سوالات رایج در مورد نبرد هوش مصنوعی شریف
           <br />
           و قوانین آن طراحی شده است
-        </div>
+        </p>
       </div>
       <div class="vl"></div>
     </div>
@@ -75,6 +75,8 @@ export default {
 .first-slider {
   background-color: var(--v-primary-base);
   height: 100vh;
+  display: flex;
+  align-items: center;
 }
 .slider-text {
   margin-right: 50px;

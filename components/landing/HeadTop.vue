@@ -8,7 +8,7 @@
             <h2 class="fight fight-ai">ai</h2>
           </div>
           <div>
-            <h2>clallenge</h2>
+            <h2>challenge</h2>
           </div>
           <div><h2 class="fight">2021</h2></div>
         </div>
@@ -68,7 +68,7 @@
     height: 30px;
     background-color: white;
     position: absolute;
-    bottom: 30px;
+    bottom: 200px;
     left: 50%;
     animation: ScrollAnimate 2s infinite;
   }

@@ -57,9 +57,9 @@
 
 <script>
 export default {
-  data() {
-    return {
-      data: [
+  computed: {
+    data() {
+      return [
         {
           ...this.trophies[0],
           icon: 'mdi-trophy',
@@ -75,8 +75,8 @@ export default {
           icon: 'mdi-trophy-variant-outline',
           col: 4,
         },
-      ],
-    };
+      ];
+    },
   },
   props: {
     onIntersecTrophy: Function,

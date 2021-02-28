@@ -23,10 +23,10 @@
           <span class="pt-3 text-h4" style="border-top:2px solid white">میلیون تومان</span>
         </v-card-text>
         <v-card-text class="secondary text-center darken-1 font-weight-black py-9">
-          <span class="font-weight-black text-h4">{{ data[2].title_fa }}</span>
+          <span class="font-weight-black text-h4">{{ trophy.title_fa }}</span>
         </v-card-text>
         <v-card-text class="secondary text-center pb-0 px-0 iconWraper">
-          <v-icon size="200px" class="black--text icon">{{ data[2].icon }}</v-icon>
+          <v-icon size="200px" class="black--text icon">{{ trophy.icon }}</v-icon>
         </v-card-text>
       </v-col>
     </v-row>
@@ -51,9 +51,9 @@
 
 <script>
 export default {
-  data() {
-    return {
-      data: [
+  computed: {
+    data() {
+      return [
         {
           ...this.trophies[1],
           icon: 'mdi-trophy-variant-outline',
@@ -69,8 +69,8 @@ export default {
           icon: 'mdi-trophy-outline',
           marg: 24,
         },
-      ],
-    };
+      ];
+    },
   },
   props: {
     onIntersecTrophy: Function,

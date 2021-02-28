@@ -26,9 +26,12 @@
             </div>
             <v-row>
               <v-col>
-                <v-btn block class="btn" @click="changeStatus('signUp')">
-                  {{ $t('home.signUpNow') }}
+                <v-btn block class="btn" @click="scrollToCallToAction()">
+                  عضویت در خبرنامه
                 </v-btn>
+                <!-- <v-btn block class="btn" @click="changeStatus('signUp')">
+                  {{ $t('home.signUpNow') }}
+                </v-btn> -->
               </v-col>
               <v-col>
                 <v-btn block color="black" class="btn" to="/faq">
@@ -61,6 +64,14 @@ export default {
     this.url = res.data[0].file;
   },
   methods: {
+    scrollToCallToAction() {
+      const scroll = document.getElementById('CallToAction').getBoundingClientRect().top;
+      let scrolltop = document.querySelector('html').scrollTop;
+      window.scrollTo({
+        top: scroll + scrolltop,
+        behavior: 'smooth',
+      });
+    },
     changeStatus(form) {
       this.$store.commit('formStatus/changeStatus', form);
     },
@@ -106,6 +117,9 @@ export default {
       font-size: 4.5rem;
       @include not-md {
         font-size: 2.2rem;
+      }
+      @include lg {
+        font-size: 3.2rem;
       }
     }
   }
