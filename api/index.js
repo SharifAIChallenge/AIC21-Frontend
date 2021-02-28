@@ -299,6 +299,10 @@ export const gameStats = axios => {
   return axios.$get(config.url);
 };
 
+/*******************************/
+export const test = axios => {
+  return axios.$get('/ticket');
+};
 export const FAQ = axios => {
   return axios.$get('/faq/questions');
 };
