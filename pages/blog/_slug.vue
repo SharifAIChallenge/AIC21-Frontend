@@ -2,7 +2,7 @@
   <v-container class="post-page">
     <v-row class="mb-10">
       <v-col sm="6" cols="12">
-        <v-img class="white--text align-end" height="100%" :src="`https://aichallenge.sharif.edu/${post.image}`"></v-img>
+        <v-img class="white--text align-end" height="100%" :src="post.image"></v-img>
       </v-col>
       <v-col sm="6" cols="12">
         <v-card flat tile>
@@ -22,13 +22,13 @@
               <v-btn icon class="red darken-3 ml-1 rounded-0">
                 <v-icon class="white--text">mdi-heart</v-icon>
               </v-btn>
-              <v-btn class="white--text text--lighten-2" tile outlined>کپی لینک</v-btn>
+              <v-btn class="white--text text--lighten-2" tile outlined @click="copyLink">کپی لینک</v-btn>
             </v-col>
             <v-col cols="12" class="pa-1">
               <v-btn icon class="red darken-3 ml-1 rounded-0">
-                <v-icon class="white--text">mdi-heart</v-icon>
+                <v-icon class="white--text">mdi-heart-outline</v-icon>
               </v-btn>
-              <v-btn class="green--text text--darken-3" tile outlined>کپی لینک</v-btn>
+              <v-btn class="green--text text--darken-3" tile outlined @click="copyLink">کپی لینک</v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -65,6 +65,19 @@ export default {
       return value.id != id;
     });
     return { post, posts };
+  },
+  methods: {
+    copyLink() {
+      const el = document.createElement('textarea');
+      el.value = window.location.href;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    },
   },
   components: {
     'app-post-button': Buttons,
