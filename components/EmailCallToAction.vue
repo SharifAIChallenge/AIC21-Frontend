@@ -14,11 +14,12 @@
         <v-btn
           @click="submit"
           :disabled="loading"
+          color="primary"
           tile
           block
           x-large
           style="max-width: 400px; margin: auto"
-          class="black white--text my-3 px-sm-1 text-center action-btn"
+          class="white--text my-3 px-sm-1 text-center action-btn"
         >
           عضویت در خبرنامه
         </v-btn>
@@ -52,14 +53,9 @@ export default {
 @import '../assets/mixins.scss';
 .background-logo {
   position: absolute;
-  top: -100px;
+  top: 0;
   opacity: 0.15;
   z-index: 0;
-  transform: scale(0.63) translateY(-100px);
-  @include not-sm {
-    top: 0px;
-    transform: translateY(100px);
-  }
 }
 .action-btn {
   position: relative;
@@ -68,13 +64,13 @@ export default {
 .call_to_action {
   max-width: 750px;
   position: relative;
-  padding-top: 10rem;
-  padding-bottom: 200px;
-  margin-top: 14rem;
+  padding-top: 11rem;
+  padding-bottom: 250px;
+  margin-top: 13rem;
   overflow: hidden;
-  height: 100vh;
   @include not-md {
     margin-top: 6rem;
+    padding-top: 6rem;
   }
 }
 </style>

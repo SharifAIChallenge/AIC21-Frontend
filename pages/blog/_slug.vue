@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-row class="my-8">
+  <v-container class="post-page">
+    <v-row class="mb-10">
       <v-col sm="6" cols="12">
         <v-img class="white--text align-end" height="100%" :src="`https://aichallenge.sharif.edu/${post.image}`"></v-img>
       </v-col>
@@ -13,7 +13,9 @@
             {{ post.title_fa }}
           </v-card-title>
           <v-card-text class="mb-5">
-            {{ post.text_fa }}
+            <p>
+              {{ post.text_fa }}
+            </p>
           </v-card-text>
           <v-row class="mr-2 ml-3 mb-1 pb-2" align="center" justify="start">
             <v-col cols="12" class="pa-1">
@@ -32,7 +34,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row class="mb-3">
+    <v-row class="mb-6" v-if="posts.length">
       <v-col cols="12" class="headline font-weight-black">
         سایر اخبار
       </v-col>
@@ -71,4 +73,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.post-page {
+  margin-top: 150px;
+}
+</style>
