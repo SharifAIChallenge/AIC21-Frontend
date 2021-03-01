@@ -1,6 +1,7 @@
 <template>
   <div class="main">
-    <v-data-table center :headers="headers" :items="data" class="elevation-1 table-cursor" @click:row="handleClick($event)">
+    <v-btn @click="toggleOpenStatus()">{{ filterStatus.open }}</v-btn>
+    <v-data-table center :headers="headers" :items="filter(data)" class="elevation-1 table-cursor" @click:row="handleClick($event)">
       <template v-slot:[`item.status`]="{ item }">
         <v-chip :color="getColor(item.status)" dark>
           {{ fixStatus(item.status) }}
@@ -20,7 +21,6 @@
 </template>
 
 <script>
-
 export default {
   async fetch() {
     this.$axios.$get('/ticket').then(res => {
@@ -29,6 +29,10 @@ export default {
   },
   data() {
     return {
+      filterStatus: {
+        open: false,
+        closed: false,
+      },
       headers: [
         {
           text: 'موضوع',
@@ -46,6 +50,12 @@ export default {
     };
   },
   methods: {
+    toggleOpenStatus() {
+      this.filterStatus.open = !this.filterStatus.open;
+    },
+    toggleClosedStatus() {
+      this.filterStatus.closed = !this.filterStatus.closed;
+    },
     getColor(status) {
       if (status === 'answered') return 'green';
       else if (status === 'pending') return 'orange';
@@ -74,7 +84,16 @@ export default {
       else if (status === 'closed') return 'بسته';
     },
     handleClick(row) {
-      this.$router.push(`/ticket/${row.id}`)
+      this.$router.push(`/ticket/${row.id}`);
+    },
+    filter(data) {
+      if (this.filterStatus.open === true && this.filterStatus.closed === false) {
+        return data.filter(data => data.status === 'open');
+      } else if (this.filterStatus.open === false && this.filterStatus.closed === true) {
+        return data.filter(data => statusOfReply(data) === 'closed');
+      } else {
+        return data;
+      }
     },
   },
 };
