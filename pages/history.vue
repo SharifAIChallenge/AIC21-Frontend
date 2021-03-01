@@ -3,7 +3,15 @@
     <Header color="transparent" />
     <div class="wrapper">
       <v-container class="pb-4">
-        <v-carousel hide-delimiter-background v-model="model" height="100%" style="background: black" class="pb-8 carousel">
+        <v-carousel
+          hide-delimiter-background
+          :cycle="false"
+          :continuous="false"
+          v-model="model"
+          height="100%"
+          style="background: black"
+          class="pb-8 carousel"
+        >
           <template v-slot:prev="{ on, attrs }">
             <v-btn v-bind="attrs" color="black" v-on="on" class="arrow-btn ">
               <v-icon class="ml-2">
