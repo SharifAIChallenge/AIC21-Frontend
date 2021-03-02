@@ -42,6 +42,7 @@
         <app-post :post="post"></app-post>
       </v-col>
     </v-row>
+    <EmailCallToAction />
   </v-container>
 </template>
 
@@ -49,6 +50,8 @@
 import Buttons from '~/components/blog/Buttons';
 import Post from '~/components/blog/Post';
 import { getPost, getPosts } from '~/api/blog';
+import EmailCallToAction from '~/components/EmailCallToAction.vue';
+
 export default {
   auth: false,
   data() {
@@ -83,6 +86,7 @@ export default {
   components: {
     'app-post-button': Buttons,
     'app-post': Post,
+    EmailCallToAction,
   },
 };
 </script>
