@@ -7,6 +7,7 @@
           <app-post :post="post"></app-post>
         </v-col>
       </v-row>
+          <EmailCallToAction />
     </v-container>
   </v-app>
 </template>
@@ -14,7 +15,9 @@
 <script>
 import { getPosts } from '~/api/blog';
 import Post from '~/components/blog/Post';
+import EmailCallToAction from '~/components/EmailCallToAction';
 export default {
+  components: { EmailCallToAction },
   auth: false,
   data() {
     return {

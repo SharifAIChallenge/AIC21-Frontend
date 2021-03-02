@@ -37,10 +37,10 @@
                   </div>
                 </v-col>
                 <v-col cols="12" md="7" class="pr-2">
-                  <div class="history-date text-h5 text-sm-h4">
+                  <div class="history-date text-h5 text-sm-h4 px-3">
                     {{ history.title_fa }}
                   </div>
-                  <p class="history-detail">{{ history.description_fa }}</p>
+                  <p class="history-detail px-3">{{ history.description_fa }}</p>
                 </v-col>
               </v-row>
             </v-sheet>
@@ -74,21 +74,36 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../assets/mixins.scss';
 .history {
   min-height: 100vh;
   background: black;
+  #header {
+  height: 110px;
+}
   .wrapper {
     display: flex;
     align-items: center;
-    height: 100vh;
+    // height: 100vh;
     .carousel {
       position: relative;
       padding-bottom: 100px;
       .v-window__prev,
       .v-window__next {
         z-index: 100;
-        top: 110.5%;
-        bottom: 0;
+        top: calc(100% + 57px);
+        @include not-md{
+          margin: 0;
+          button{
+            padding: 0;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+    .v-item-group button{
+      @include not-md{
+        margin: 2px !important;
       }
     }
   }
