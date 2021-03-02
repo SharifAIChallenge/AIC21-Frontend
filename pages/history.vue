@@ -41,7 +41,6 @@
                     {{ history.title_fa }}
                   </div>
                   <p class="history-detail">{{ history.description_fa }}</p>
-                  <p class="font-weight-bold text-subtitle">تیم اول: {{ history.firstTeam }}</p>
                 </v-col>
               </v-row>
             </v-sheet>
