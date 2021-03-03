@@ -37,9 +37,9 @@ export default {
       { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/fav-icon/android-icon-192x192.png' },
       { rel: 'icon', type: 'image/png', sizes: '36x36', href: '/fav-icon/android-icon-36x36.png' },
       { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/fav-icon/android-icon-96x96.png' },
-      { rel: 'icon', type: 'image/png', sizes: '144x144', href: '/fav-icon/android-icon-144x144.png' },
+      { rel: 'icon', type: 'image/png', sizes: '72x72', href: '/fav-icon/android-icon-72x72.png' },
       { rel: 'manifest', type: 'image/png', href: '/fav-icon/manifest.json' },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ],
   },
   /*
@@ -198,7 +198,7 @@ export default {
     middleware: ['auth'],
   },
   auth: {
-    plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
+    // plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
     redirect: {
       home: '/dashboard',
     },

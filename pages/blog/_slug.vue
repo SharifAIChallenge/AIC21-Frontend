@@ -51,7 +51,6 @@ import Buttons from '~/components/blog/Buttons';
 import Post from '~/components/blog/Post';
 import { getPost, getPosts } from '~/api/blog';
 import EmailCallToAction from '~/components/EmailCallToAction.vue';
-
 export default {
   auth: false,
   data() {
