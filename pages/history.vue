@@ -79,8 +79,8 @@ export default {
   min-height: 100vh;
   background: black;
   #header {
-    height: 110px;
-  }
+  height: 110px;
+}
   .wrapper {
     display: flex;
     align-items: center;
@@ -92,17 +92,17 @@ export default {
       .v-window__next {
         z-index: 100;
         top: calc(100% + 57px);
-        @include not-md {
+        @include not-md{
           margin: 0;
-          button {
+          button{
             padding: 0;
             font-size: 12px;
           }
         }
       }
     }
-    .v-item-group button {
-      @include not-md {
+    .v-item-group button{
+      @include not-md{
         margin: 2px !important;
       }
     }
