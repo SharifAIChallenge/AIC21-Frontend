@@ -1,9 +1,9 @@
 
 importScripts(
-  'https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js'
+  'https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js'
 )
 importScripts(
-  'https://www.gstatic.com/firebasejs/8.2.9/firebase-messaging.js'
+  'https://www.gstatic.com/firebasejs/8.2.5/firebase-messaging.js'
 )
 firebase.initializeApp({"apiKey":"AIzaSyDtXWh4UP3nDBeDUudcqGyVjIJ4GLGh64M","authDomain":"aichallenge-304910.firebaseapp.com","projectId":"aichallenge-304910","storageBucket":"aichallenge-304910.appspot.com","messagingSenderId":"939108343385","appId":"1:939108343385:web:91529ac9fec89612569b48","measurementId":"G-RXW9NMM24B"})
 
