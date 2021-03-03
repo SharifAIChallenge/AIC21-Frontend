@@ -28,16 +28,14 @@
         <div class="fag-title-for-show">{{ subject.title }}</div>
         <v-row class="mb-10">
           <v-col v-for="(question, index) in subject.faqs" :key="index" cols="12" sm="6" lg="4" xl="3">
-            <div class="faq-card pa-12">
+            <div class="faq-card">
               <div class="faq-card-title">
                 <v-icon right color="primary" class="faq-icon" size="55">
                   mdi-calendar
                 </v-icon>
-                <div>
-                  {{ question.question_fa }}
-                </div>
+                {{ question.question_fa }}
               </div>
-              <p class="faq-card-text py-8">
+              <p class="faq-card-text">
                 {{ question.answer_fa }}
               </p>
             </div>
@@ -136,8 +134,8 @@ export default {
   height: 100%;
 }
 .faq-card-title {
-  display: flex;
-  font-size: 1.5rem;
+  display: inline-block;
+  font-size: 2rem;
   font-weight: bold;
 }
 </style>

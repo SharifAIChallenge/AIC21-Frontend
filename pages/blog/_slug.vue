@@ -2,7 +2,7 @@
   <v-container class="post-page">
     <v-row class="mb-10">
       <v-col sm="6" cols="12">
-        <v-img class="white--text align-end" height="100%" :src="`https://aichallenge.ir${post.image}`"></v-img>
+        <v-img class="white--text align-end" height="100%" :src="post.image"></v-img>
       </v-col>
       <v-col sm="6" cols="12">
         <v-card flat tile>
@@ -13,22 +13,22 @@
             {{ post.title_fa }}
           </v-card-title>
           <v-card-text class="mb-5">
-            <div v-html="$md.render(post.text_fa)"></div>
+            <p>
+              {{ post.text_fa }}
+            </p>
           </v-card-text>
           <v-row class="mr-2 ml-3 mb-1 pb-2" align="center" justify="start">
-            <!-- <v-col cols="12" class="pa-1">
+            <v-col cols="12" class="pa-1">
               <v-btn icon class="red darken-3 ml-1 rounded-0">
                 <v-icon class="white--text">mdi-heart</v-icon>
               </v-btn>
               <v-btn class="white--text text--lighten-2" tile outlined @click="copyLink">کپی لینک</v-btn>
-            </v-col> -->
+            </v-col>
             <v-col cols="12" class="pa-1">
-              <v-btn class="green--text text--darken-3" tile outlined @click="copyLink()">
-                <v-icon class="white--text">mdi-content-copy</v-icon>
-                <span class="mr-2">
-                  کپی لینک پست
-                </span>
+              <v-btn icon class="red darken-3 ml-1 rounded-0">
+                <v-icon class="white--text">mdi-heart-outline</v-icon>
               </v-btn>
+              <v-btn class="green--text text--darken-3" tile outlined @click="copyLink">کپی لینک</v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -80,7 +80,6 @@ export default {
       el.select();
       document.execCommand('copy');
       document.body.removeChild(el);
-      this.$toast.success('لینک پست در کلیپ‌بورد کپی شد');
     },
   },
   components: {

@@ -66,12 +66,12 @@ export default {
           col: 6,
         },
         {
-          ...this.trophies[2],
+          ...this.trophies[1],
           icon: 'mdi-trophy-outline',
           col: 5,
         },
         {
-          ...this.trophies[1],
+          ...this.trophies[2],
           icon: 'mdi-trophy-variant-outline',
           col: 4,
         },
