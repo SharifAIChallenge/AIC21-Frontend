@@ -6,7 +6,6 @@
         :close-on-content-click="false"
         :nudge-width="200"
         transition="scale-transition"
-        close-on-content-click
       >
         <template v-slot:activator="{ on }">
           <v-btn x-large rounded class="pa-0" :icon="mobile" v-on="on">

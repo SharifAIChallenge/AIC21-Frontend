@@ -223,12 +223,14 @@ export default {
           user: {
             url: '/accounts/profile',
             method: 'get',
-            propertyName: 'user',
           },
         },
         token: {
           required: true,
           type: 'token',
+        },
+        user: {
+          property: 'data',
         },
       },
     },
