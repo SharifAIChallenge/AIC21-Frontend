@@ -9,13 +9,13 @@
       <div class="d-flex flex-column align-center justify-center" style="height: 85%">
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/">خانه</v-btn>
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/faq">سوالات متداول</v-btn>
-        <!-- <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn> -->
+        <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn>
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
           تاریخچه
         </v-btn>
       </div>
     </v-dialog>
-    <v-app-bar flat absolute :color="color">
+    <v-app-bar flat absolute height="75px" :color="color">
       <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
         <v-icon>
           mdi-menu
@@ -31,12 +31,9 @@
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>
-        <!-- <v-btn plain text tile :class="getClass()" to="/blog">
+        <v-btn plain text tile :class="getClass()" to="/blog">
           اخبار
         </v-btn>
-        <v-btn plain text tile :class="getClass()">
-          تاریخچه
-        </v-btn> -->
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/faq">
           سوالات متداول
         </v-btn>
@@ -103,9 +100,13 @@ export default {
   }
   .logo {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 56px;
+    top: 20px;
+    left: 20px;
+    width: 66px;
+    &:after {
+      content: 'AIC';
+      position: absolute;
+    }
   }
   .navLinks {
     height: calc(100% - 200px);
