@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <v-data-table center :headers="headers" :items="data" class="elevation-1 table-cursor" @click:row="handleClick($event)" >
+    <v-data-table center :headers="headers" :items="data" class="elevation-1 table-cursor" @click:row="handleClick($event)">
       <template v-slot:[`item.status`]="{ item }">
         <v-chip :color="getColor(item.status)" dark>
           {{ fixStatus(item.status) }}
@@ -22,7 +22,6 @@
 <script>
 export default {
   async fetch() {
-
     this.$axios.$get('/ticket/publicTickets').then(res => {
       this.data = res.data;
     });
@@ -74,7 +73,7 @@ export default {
       else if (status === 'closed') return 'بسته';
     },
     handleClick(row) {
-      this.$router.push(`/ticket/${row.id}`)
+      this.$router.push(`/ticket/${row.id}`);
     },
   },
 };
@@ -87,5 +86,4 @@ export default {
 .table-cursor tbody tr:hover {
   cursor: pointer;
 }
-
 </style>

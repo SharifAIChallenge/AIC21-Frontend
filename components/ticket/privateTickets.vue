@@ -88,11 +88,11 @@ export default {
     },
     filter(data) {
       if (this.filterStatus.open === true && this.filterStatus.closed === false) {
-        return data.filter(data => data.status === 'open');
+        this.data = data.filter(data => data.status === 'open');
       } else if (this.filterStatus.open === false && this.filterStatus.closed === true) {
-        return data.filter(data => statusOfReply(data) === 'closed');
+        this.data = data.filter(data => statusOfReply(data) === 'closed');
       } else {
-        return data;
+        this.data = data;
       }
     },
   },
