@@ -11,11 +11,13 @@
       },
     }"
   >
-    <div class="font-weight-bold trophyTitle">
-      <h2 class="font-weight-bold" style="font-size: 5rem">جوایز</h2>
-    </div>
-    <v-row>
-      <v-col cols="4" v-for="(trophy, i) in data" :key="i" :style="`margin-top:${trophy.marg}rem`">
+    <v-row justify="end" align="center">
+      <v-col cols="3">
+        <div class="px-3 font-weight-bold trophyTitle" style="padding-bottom:22rem">
+          <h2 style="font-size: 5rem">جوایز</h2>
+        </div>
+      </v-col>
+      <v-col cols="3" v-for="(trophy, i) in data" :key="i" :style="`margin-top:${trophy.marg}rem`">
         <v-card-text class="d-flex flex-column px-10 text-center white--text">
           <span class="font-weight-black price">{{ trophy.prize_fa }}</span>
           <span class="pt-3 text-h4" style="border-top:2px solid white">میلیون تومان</span>
@@ -37,11 +39,9 @@
       <div class="pr-0">
         <v-card-text>
           <span class="white--text d-flex pr-8 plusText">
-            دو جایزه رندوم برای تیم‌های
+            دو جایزه رندوم برای تیم های چهارم تا بیستم
             <br />
-            چهارم تا بیستم
-            <br />
-            دو جایزه ویژه برای مینی‌گیم‌ها
+            دوجایزه ویژه برای مینی گیم ها
           </span>
         </v-card-text>
       </div>
@@ -57,17 +57,17 @@ export default {
         {
           ...this.trophies[1],
           icon: 'mdi-trophy-variant-outline',
-          marg: 17,
+          marg: 38,
         },
         {
           ...this.trophies[0],
           icon: 'mdi-trophy',
-          marg: 0,
+          marg: 10,
         },
         {
           ...this.trophies[2],
           icon: 'mdi-trophy-outline',
-          marg: 9,
+          marg: 24,
         },
       ];
     },
@@ -81,13 +81,13 @@ export default {
 
 <style lang="scss" scoped>
 #trophy {
-  margin: 200px auto;
+  margin: 0 auto;
   .price {
     font-size: 9rem;
     margin-bottom: 65px;
   }
   .trophyTitle {
-    margin-bottom: 100px;
+    transform: translateY(-100px);
   }
   .iconWraper {
     padding-top: 100px;

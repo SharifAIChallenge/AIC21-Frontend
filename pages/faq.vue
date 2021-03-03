@@ -131,7 +131,6 @@ export default {
 .faq-card {
   border: 3px solid var(--v-primary-base);
   padding: 20px;
-  height: 100%;
 }
 .faq-card-title {
   display: inline-block;

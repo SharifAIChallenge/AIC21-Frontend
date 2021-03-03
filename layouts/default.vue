@@ -4,7 +4,7 @@
     <v-main>
       <nuxt />
     </v-main>
-    <EmailCallToActionn />
+    <call-to-action />
     <my-footer />
   </v-app>
 </template>
@@ -12,8 +12,8 @@
 <script>
 import MyFooter from '../components/MyFooter';
 import Header from '~/components/landing/Header.vue';
-import EmailCallToAction from '~/components/EmailCallToAction.vue';
+import CallToAction from '~/components/CallToAction.vue';
 export default {
-  components: { MyFooter, Header, EmailCallToAction },
+  components: { MyFooter, Header, CallToAction },
 };
 </script>

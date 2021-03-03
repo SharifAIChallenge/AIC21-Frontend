@@ -20,27 +20,8 @@ export default {
         name: 'description',
         content: process.env.npm_package_description || '',
       },
-      { name: 'msapplication-TileColor', content: '#ffffff' },
-      { name: 'msapplication-TileImage', content: '/fav-icon/ms-icon-144x144.png' },
-      { name: 'theme-color', content: '#ffffff' },
     ],
-    link: [
-      { rel: 'apple-touch-icon', sizes: '57x57', href: '/fav-icon/apple-icon-57x57.png' },
-      { rel: 'apple-touch-icon', sizes: '60x60', href: '/fav-icon/apple-icon-60x60.png' },
-      { rel: 'apple-touch-icon', sizes: '72x72', href: '/fav-icon/apple-icon-72x72.png' },
-      { rel: 'apple-touch-icon', sizes: '76x76', href: '/fav-icon/apple-icon-76x76.png' },
-      { rel: 'apple-touch-icon', sizes: '114x114', href: '/fav-icon/apple-icon-114x114.png' },
-      { rel: 'apple-touch-icon', sizes: '120x120', href: '/fav-icon/apple-icon-120x120.png' },
-      { rel: 'apple-touch-icon', sizes: '144x144', href: '/fav-icon/apple-icon-144x144.png' },
-      { rel: 'apple-touch-icon', sizes: '152x152', href: '/fav-icon/apple-icon-152x152.png' },
-      { rel: 'apple-touch-icon', sizes: '180x180', href: '/fav-icon/apple-icon-180x180.png' },
-      { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/fav-icon/android-icon-192x192.png' },
-      { rel: 'icon', type: 'image/png', sizes: '36x36', href: '/fav-icon/android-icon-36x36.png' },
-      { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/fav-icon/android-icon-96x96.png' },
-      { rel: 'icon', type: 'image/png', sizes: '144x144', href: '/fav-icon/android-icon-144x144.png' },
-      { rel: 'manifest', type: 'image/png', href: '/fav-icon/manifest.json' },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
-    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo__white.svg' }],
   },
   /*
    ** Customize the progress-bar color
@@ -208,8 +189,8 @@ export default {
         codeChallengeMethod: '',
         responseType: 'code',
         endpoints: {
-          token: '/social-login/google/',
-          userInfo: '/auth/',
+          token: 'https://api-stg.aichallenge.ir/social-login/google/',
+          userInfo: 'https://api-stg.aichallenge.ir/auth/',
         },
       },
       local: {
@@ -226,16 +207,11 @@ export default {
             propertyName: 'user',
           },
         },
-        token: {
-          required: true,
-          type: 'token',
-        },
+        tokenRequired: true,
+        tokenType: 'token',
       },
     },
     resetOnError: true,
-    token: {
-      prefix: 'token.',
-    },
   },
   toast: {
     position: 'bottom-center',
