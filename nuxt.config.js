@@ -39,7 +39,6 @@ export default {
       { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/fav-icon/android-icon-96x96.png' },
       { rel: 'icon', type: 'image/png', sizes: '144x144', href: '/fav-icon/android-icon-144x144.png' },
       { rel: 'manifest', type: 'image/png', href: '/fav-icon/manifest.json' },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
     ],
   },
   /*
@@ -198,7 +197,7 @@ export default {
     middleware: ['auth'],
   },
   auth: {
-    plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
+    // plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
     redirect: {
       home: '/dashboard',
     },
@@ -208,8 +207,8 @@ export default {
         codeChallengeMethod: '',
         responseType: 'code',
         endpoints: {
-          token: '/social-login/google/',
-          userInfo: '/auth/',
+          token: 'https://api-stg.aichallenge.ir/social-login/google/',
+          userInfo: 'https://api-stg.aichallenge.ir/auth/',
         },
       },
       local: {
