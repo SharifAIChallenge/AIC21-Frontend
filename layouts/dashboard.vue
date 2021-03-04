@@ -48,8 +48,8 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-main>
-      <v-container class="dashboard px-md-6 pb-12" fluid>
+    <v-main style="padding: 0px 256px 0px 0px;">
+      <v-container class="dashboard px-md-0 pt-0 pb-12" fluid>
         <nuxt />
       </v-container>
     </v-main>
