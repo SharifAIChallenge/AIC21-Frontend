@@ -1,0 +1,35 @@
+<template>
+  <v-card flat tile>
+    <v-card-text class="d-flex align-center">
+      <v-icon large class="primary--text pl-3">mdi-bell-ring-outline</v-icon>
+      <span class="white--text text-h5">اعلان ها</span>
+    </v-card-text>
+    <v-timeline dense fill-dot>
+      <v-timeline-item small v-for="(notif,index) in notifs" :key="index">
+        <v-card tile class="ml-4">
+          <v-card-text class="py-1 white--text text-body-1">
+            {{notif.text}}
+          </v-card-text>
+          <v-card-subtitle class="py-1 text-left text-caption">
+            {{ new Intl.DateTimeFormat($i18n.locale).format(new Date(notif.create_date)) }}
+          </v-card-subtitle>
+        </v-card>
+      </v-timeline-item>
+    </v-timeline>
+  </v-card>
+</template>
+
+<script>
+export default {
+  async fetch() {
+      let data=await this.$axios.$get('/notifications')
+      this.notifs=data.notifications;
+      console.log(this.notifs)
+  },
+  data(){
+      return{
+          notifs:[]
+      }
+  }
+};
+</script>
