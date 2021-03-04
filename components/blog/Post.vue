@@ -5,8 +5,7 @@
       {{ new Intl.DateTimeFormat($i18n.locale).format(new Date(post.date)) }}
     </v-card-subtitle>
     <h6 class="mb-8 pr-3 pl-5 text-h6 font-weight-black">
-      <!-- {{ post.title_fa }} -->
-      دانشگاه صنعتی شریف بسیار قدرتمند بسیار زیبا و خوب
+      {{ post.title_fa }}
     </h6>
   </v-card>
 </template>
