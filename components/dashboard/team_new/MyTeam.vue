@@ -1,30 +1,35 @@
 <template>
   <div>
-    <h1>
-      <v-icon color="primary" size="40px" class="pl-2 pr-2">mdi-account-group-outline</v-icon>
-      تیم من
-    </h1>
-    <img :src="team.image" :alt="team.name" width="500px" />
-    <div>
+    <div v-if="team.status_code === 200">
+      <h1>
+        <v-icon color="primary" size="40px" class="pl-2 pr-2">mdi-account-group-outline</v-icon>
+        تیم من
+      </h1>
+      <img :src="team.image" :alt="team.name" width="500px" />
       <div>
-        <h1 class="pr-2">
-          تیم
-          {{ team.name }}
-          <v-icon color="blue">mdi-check-decagram</v-icon>
-        </h1>
-        <h2 class="pr-10">
-          اعضای تیم :
-        </h2>
-        <ul class="pr-14 pa-3">
-          <li v-for="(member, index) in team.members" :key="index">{{ member.first_name }} {{ member.last_name }}</li>
-        </ul>
+        <div>
+          <h1 class="pr-2">
+            تیم
+            {{ team.name }}
+            <v-icon color="blue">mdi-check-decagram</v-icon>
+          </h1>
+          <h2 class="pr-10">
+            اعضای تیم :
+          </h2>
+          <ul class="pr-14 pa-3">
+            <li v-for="(member, index) in team.members" :key="index">{{ member.first_name }} {{ member.last_name }}</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <v-btn width="50vw" height="60px" class="text-h6" @click="getOutFromTeam()">
+          <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-exit-run</v-icon>
+          ترک تیم
+        </v-btn>
       </div>
     </div>
-    <div>
-      <v-btn width="50vw" height="60px" class="text-h6" @click="getOutFromTeam()">
-        <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-exit-run</v-icon>
-        ترک تیم
-      </v-btn>
+    <div v-else>
+      مشکلی در لود کردن تیم وجود دارید ! شاید شما داخل تیم نیستید
     </div>
   </div>
 </template>
@@ -80,5 +85,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
