@@ -6,7 +6,9 @@ export default function({ $axios, redirect }) {
     }
   });
   $axios.onRequest(config => {
-    config.data = convertObjToSnakeCase(config.data);
+    try {
+      if (!config.data instanceof FormData) config.data = convertObjToSnakeCase(config.data);
+    } catch (error) {}
   });
 }
 
