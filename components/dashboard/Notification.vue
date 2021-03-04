@@ -6,7 +6,7 @@
     </v-card-text>
     <v-timeline dense fill-dot>
       <v-timeline-item small v-for="(notif,index) in notifs" :key="index">
-        <v-card tile class="ml-4">
+        <v-card flat tile class="ml-4" style="background-color:#141432;border-radius:0">
           <v-card-text class="py-1 white--text text-body-1">
             {{notif.text}}
           </v-card-text>
@@ -33,3 +33,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.v-card{
+    border-radius: 0px !important;
+}
+</style>
