@@ -51,11 +51,11 @@
 <script>
 export default {
   auth: false,
-    async fetch() {
-      await this.$axios.$get('team/invitations/team_sent').then(res => {
-        this.invitationsList = res;
-      });
-    },
+  async fetch() {
+    await this.$axios.$get('team/invitations/team_sent').then(res => {
+      this.invitationsList = res;
+    });
+  },
   data() {
     return {
       email: '',
@@ -76,6 +76,23 @@ export default {
     };
   },
   methods: {
+    sendInvitation() {
+      if (this.email) {
+        return;
+      }
+      let user_email = this.email;
+      this.$axios.$post('team/invitations/team_sent', user_email).then(res => {
+        console.log(res);
+        if (res.status_code === 200) {
+          this.$toast.success(this.translateResponseMessage(res.message));
+          this.$axios.$get('team/invitations/team_sent').then(res => {
+            this.invitationsList = res;
+          });
+        } else {
+          this.$toast.error(this.translateResponseMessage(res.message));
+        }
+      });
+    },
     statusIcon(status) {
       if (status === 'pending') return 'mdi-progress-question';
       else if (status === 'accepted') return 'mdi-progress-check';
@@ -90,6 +107,10 @@ export default {
       if (status === 'pending') return 'در انتظار پاسخ';
       else if (status === 'accepted') return 'قبول کرد';
       else if (status === 'rejected') return 'رد کرد';
+    },
+    translateResponseMessage(response) {
+      if (response === 'your invitation sent') return 'دعوت نامه ارسال شد!';
+      else return 'مشکلی در ارسال دعوت نامه رخ داد! لطفا ایمیل را چک کنید!';
     },
   },
 };
