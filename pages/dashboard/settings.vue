@@ -90,48 +90,27 @@ export default {
       } else {
         this.formData = new FormData();
         //append to formDate
-        if (this.information.firstnameFa !== profile.firstname_fa) {
-          this.formData.append('firstname_fa', this.information.firstnameFa);
-          console.log(this.information.resume);
-          // console.log(formData.get('firstname_fa'));
-          this.disable = false;
-        } else if (this.information.firstnameEn !== profile.firstname_en) {
-          this.formData.append('firstname_en', this.information.firstnameEn);
-          this.disable = false;
-        } else if (this.information.lastnameFa !== profile.lastname_fa) {
-          this.formData.append('lastname_fa', this.information.lastnameFa);
-          this.disable = false;
-        } else if (this.information.lastnameEn !== profile.lastname_en) {
-          this.formData.append('lastname_en', this.information.lastnameEn);
-          this.disable = false;
-        } else if (this.information.birthDate !== profile.birth_date) {
-          // this.save()
-          console.log(this.information.birthDate);
-          this.formData.append('birth_date', this.information.birthDate);
-          this.disable = false;
-        } else if (this.information.university !== profile.university) {
-          this.formData.append('university', this.information.university);
-          this.disable = false;
-        } else if (this.information.resume !== profile.resume) {
-          this.formData.append('resume', this.information.resume);
-          console.log(formData.get('resume'));
+        this.formData.append('firstname_fa', this.information.firstnameFa);
+        this.formData.append('firstname_en', this.information.firstnameEn);
+        this.formData.append('lastname_fa', this.information.lastnameFa);
+        this.formData.append('lastname_en', this.information.lastnameEn);
+        this.formData.append('birth_date', this.information.birthDate);
+        this.formData.append('university', this.information.university);
+        if (
+          this.information.firstnameFa !== profile.firstname_fa ||
+          this.information.firstnameEn !== profile.firstname_en ||
+          this.information.lastnameFa !== profile.lastname_fa ||
+          this.information.lastnameEn !== profile.lastname_en ||
+          this.information.birthDate !== profile.birth_date ||
+          this.information.university !== profile.university
+        ) {
           this.disable = false;
         } else {
-          // delete from formDate
-          if (this.information.firstnameFa == profile.firstname_fa) {
-            this.formData.delete('firstname_fa');
-          } else if (this.information.firstnameEn == profile.firstname_en) {
-            this.formData.delete('firstname_en');
-          } else if (this.information.lastnameFa == profile.lastname_fa) {
-            this.formData.delete('lastname_fa');
-          } else if (this.information.lastnameEn == profile.lastname_en) {
-            this.formData.delete('lastname_en');
-          } else if (this.information.birthDate == profile.birth_date) {
-            this.formData.delete('birth_date');
-          } else if (this.information.university == profile.university) {
-            this.formData.delete('university');
-          }
           this.disable = true;
+        }
+        if (this.information.resume !== profile.resume) {
+          this.formData.append('resume', this.information.resume);
+          this.disable = false;
         }
       }
     },
@@ -141,9 +120,9 @@ export default {
       this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {
+          // console.log('sucsess !!!')
           this.$toast.success('تغییرات با موفقیت دخیره شد.');
-        }
-        else {
+        } else {
           this.$toast.error('خطایی در دخیره تغییرات رخ داد.');
         }
       }
