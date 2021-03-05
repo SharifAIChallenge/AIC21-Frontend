@@ -12,7 +12,14 @@
             </v-tab-item>
             <v-tab-item>
               <v-card-text class="settingWraper">
-                <Resume :signUp="signUp" :edited="edited" :disable="disable" :information="this.information" />
+                <Resume
+                  :resume="resume"
+                  :deleteResume="deleteResume"
+                  :signUp="signUp"
+                  :edited="edited"
+                  :disable="disable"
+                  :information="this.information"
+                />
               </v-card-text>
             </v-tab-item>
             <v-tab-item>
@@ -80,6 +87,7 @@ export default {
       disable: true,
       loading: false,
       formData: [],
+      resume: '',
     };
   },
   methods: {
@@ -88,7 +96,6 @@ export default {
       if (!profile) {
         this.disable = true;
       } else {
-        this.formData = new FormData();
         //append to formDate
         this.formData.append('firstname_fa', this.information.firstnameFa);
         this.formData.append('firstname_en', this.information.firstnameEn);
@@ -105,28 +112,31 @@ export default {
           this.information.university !== profile.university
         ) {
           this.disable = false;
-        } else {
-          this.disable = true;
-        }
-        if (this.information.resume !== profile.resume) {
+        } else if (this.information.resume !== profile.resume) {
           this.formData.append('resume', this.information.resume);
           this.disable = false;
+        } else {
+          if (this.information.resume == profile.resume) {
+            this.formData.delete('resume');
+          }
+          this.disable = true;
         }
       }
     },
     async signUp() {
       this.loading = true;
-      let { data } = await editProfile(this.$axios, this.formData);
-      this.loading = false;
-      console.log(data)
-      if (data.status_code) {
-        if (data.status_code === 200) {
-          this.$toast.success('تغییرات با موفقیت دخیره شد.');
-          this.resetForm()
-        } else {
-          this.$toast.error('خطایی در دخیره تغییرات رخ داد.');
+      await editProfile(this.$axios, this.formData).then(res => {
+        this.loading = false;
+        console.log(res);
+        if (res.status_code) {
+          if (res.status_code === 200) {
+            this.$toast.success('تغییرات با موفقیت دخیره شد.');
+            this.resetForm();
+          } else {
+            this.$toast.error('خطایی در دخیره تغییرات رخ داد.');
+          }
         }
-      }
+      });
     },
     // save() {
     //   this.$refs.dialog.save(date);
@@ -143,6 +153,16 @@ export default {
       this.information.university = profile.university;
       this.information.resume = profile.resume;
     },
+    deleteResume() {
+      this.information.resume = '';
+      if (this.formData.get('resume') == null) {
+        this.formData.append('resume', '');
+      } else {
+        this.formData.delete('resume');
+      }
+      this.disable = false;
+      console.log(this.formData.get('resume'));
+    },
   },
   watch: {
     menu(val) {
@@ -150,8 +170,9 @@ export default {
     },
   },
   mounted() {
+    this.formData = new FormData();
+    this.resume = this.$auth.user.resume;
     this.resetForm();
-    // this.edited();
     this.disable = true;
   },
 };
