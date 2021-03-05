@@ -186,6 +186,9 @@ export default {
   @include not-md {
     flex-wrap: wrap;
     flex-flow: column-reverse;
+    > div {
+      width: 100vw;
+    }
   }
   .v-tab--active {
     background-color: var(--v-secondary-base) !important;
