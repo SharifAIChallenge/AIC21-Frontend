@@ -34,21 +34,21 @@
             <div class="d-flex tabsW">
               <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
                 <div style="margin:15px auto" class="d-flex flex-column">
-                  <v-tab style="width:150px;height:150px" class="secondary">
+                  <v-tab style="width:150px;height:150px;background:#141432;color: white">
                     {{ $t('dashboard.editProfile') }}
-                    <v-icon size="40">mdi-account-circle-outline</v-icon>
+                    <v-icon size="60" style="color: white">mdi-account-circle-outline</v-icon>
                   </v-tab>
                 </div>
                 <div style="margin:15px auto" class="d-flex flex-column">
-                  <v-tab style="width:150px;height:150px" class="secondary">
+                  <v-tab style="width:150px;height:150px;background:#141432;color: white">
                     {{ $t('dashboard.resume') }}
-                    <v-icon size="40">mdi-badge-account-horizontal</v-icon>
+                    <v-icon size="60" style="color: white">mdi-badge-account-horizontal</v-icon>
                   </v-tab>
                 </div>
                 <div style="margin:15px auto" class="d-flex flex-column">
-                  <v-tab style="width:150px;height:150px" class="secondary">
+                  <v-tab style="width:150px;height:150px;background:#141432;color: white">
                     {{ $t('form.changePassword') }}
-                    <v-icon size="40">mdi-form-textbox-password</v-icon>
+                    <v-icon size="60" style="color: white">mdi-form-textbox-password</v-icon>
                   </v-tab>
                 </div>
               </v-tabs>
@@ -186,6 +186,10 @@ export default {
   @include not-md {
     flex-wrap: wrap;
     flex-flow: column-reverse;
+  }
+  .v-tab--active {
+    background-color: var(--v-secondary-base) !important;
+    color: white !important;
   }
   hr {
     display: none;

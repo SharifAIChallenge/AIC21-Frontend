@@ -3,17 +3,22 @@
     <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
       <v-row>
         <div class="pa-3 d-flex align-center mb-12">
-          <v-icon class="ml-1" color="primary">mdi-account-circle-outline</v-icon>
-          <h2>اطلاعات شخصی</h2>
+          <v-icon class="ml-3" color="primary">mdi-account-circle-outline</v-icon>
+          <h2>رزومه</h2>
         </div>
       </v-row>
       <v-row>
         <v-col cols="12" class="d-flex mb-8">
-          <div class="pa-2 bg"><v-icon @click="deleteResume" :disabled="resume==null">mdi-trash-can-outline</v-icon></div>
+          <div class="pa-2 bg"><v-icon @click="deleteResume" :disabled="resume == null">mdi-trash-can-outline</v-icon></div>
           <div class="secondary pa-2 d-flex" style="width:100%;overflow: hidden;">
             <v-icon>mdi-file-download-outline</v-icon>
-            <a v-if="(resume !== '')&&(information.resume !== '')" :href="resume" target="_blanck" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-              <span>{{resume }}</span>
+            <a
+              v-if="resume !== '' && information.resume !== ''"
+              :href="resume"
+              target="_blanck"
+              style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+            >
+              <span>{{ resume }}</span>
             </a>
           </div>
         </v-col>
@@ -25,8 +30,7 @@
             label="تغییر فایل"
             outlined
             dense
-            prepend-icon="mdi-file-download-outline"
-            clear-icon="mdi-file-download-outline"
+            prepend-icon="mdi-file-upload-outline"
             @change="edited"
           ></v-file-input>
           <!-- <v-text-field
@@ -71,7 +75,7 @@ export default {
     disable: Boolean,
     signUp: Function,
     deleteResume: Function,
-    resume : String
+    resume: String,
   },
   methods: {},
 };
