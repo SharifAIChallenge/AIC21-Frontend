@@ -41,7 +41,7 @@
                 </div>
                 <div style="margin:15px auto" class="d-flex flex-column">
                   <v-tab style="width:150px;height:150px" class="secondary">
-                    {{ $t('dashboard.editProfile') }}
+                    {{ $t('dashboard.resume') }}
                     <v-icon size="40">mdi-badge-account-horizontal</v-icon>
                   </v-tab>
                 </div>
