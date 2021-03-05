@@ -118,10 +118,11 @@ export default {
       this.loading = true;
       let { data } = await editProfile(this.$axios, this.formData);
       this.loading = false;
+      console.log(data)
       if (data.status_code) {
         if (data.status_code === 200) {
-          // console.log('sucsess !!!')
           this.$toast.success('تغییرات با موفقیت دخیره شد.');
+          this.resetForm()
         } else {
           this.$toast.error('خطایی در دخیره تغییرات رخ داد.');
         }
