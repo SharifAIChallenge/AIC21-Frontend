@@ -136,18 +136,14 @@ export default {
       }
     },
     async signUp() {
-      console.log('hi :)');
       this.loading = true;
       let { data } = await editProfile(this.$axios, this.formData);
       this.loading = false;
-      this.$store.dispatch('api/accounts/profile');
       if (data.status_code) {
         if (data.status_code === 200) {
           this.$toast.success('تغییرات با موفقیت دخیره شد.');
-        } else if (data.detail.non_field_errors) {
-          if (data.detail.non_field_errors[0].includes('wait'))
-            this.$toast.error(this.$tc('dashboard.codeSubmissionMessage', this.codeSubmitDelay));
-        } else {
+        }
+        else {
           this.$toast.error('خطایی در دخیره تغییرات رخ داد.');
         }
       }
