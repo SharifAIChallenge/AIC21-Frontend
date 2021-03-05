@@ -2,7 +2,7 @@
   <dashboard-page title="dashboard.settings">
     <v-col>
       <div class="overflow-hidden d-flex setting">
-        <v-col cols="6" class="pa-0">
+        <v-col cols="12" md="6" class="pa-0">
           <v-divider />
           <v-tabs-items v-model="tabs">
             <v-tab-item>
@@ -23,8 +23,8 @@
           </v-tabs-items>
         </v-col>
         <client-only>
-          <v-col cols="6" class="pa-0">
-            <div style="min-height:100vh;" class="d-flex">
+          <v-col cols="12" md="6" class="pa-0">
+            <div class="d-flex tabsW">
               <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
                 <div style="margin:15px auto" class="d-flex flex-column">
                   <v-tab style="width:150px;height:150px" class="secondary">
@@ -183,7 +183,13 @@ export default {
 
 <style lang="scss">
 @import '../../assets/variables.scss';
+@import '../../assets/mixins.scss';
+
 .setting {
+  @include not-md {
+    flex-wrap: wrap;
+    flex-flow: column-reverse;
+  }
   hr {
     display: none;
   }
@@ -194,12 +200,36 @@ export default {
     min-height: 100vh;
     background-color: #0e1224;
   }
+  .tabsW {
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    width: calc(50% - 136px);
+    @include not-md {
+      position: relative;
+      width: auto;
+      min-height: 150px;
+    }
+  }
   .tabsWraper .v-item-group {
     min-height: 100vh;
+    @include not-md {
+      min-height: 150px;
+    }
     .v-slide-group__content {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      @include not-md {
+        flex-direction: row;
+        > div {
+          margin: 0 !important;
+          width: 33.3333%;
+          > div {
+            width: 100% !important;
+          }
+        }
+      }
     }
   }
   input {
