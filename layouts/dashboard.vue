@@ -48,8 +48,8 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-main style="padding: 0px 256px 0px 0px;">
-      <v-container class="dashboard px-md-0 pt-0 pb-12" fluid>
+    <v-main style="padding: 0px;">
+      <v-container class="dashboard px-0 pt-0 pb-12 pb-md-0" fluid>
         <nuxt />
       </v-container>
     </v-main>
@@ -136,7 +136,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '~/assets/mixins.scss';
+.dashboard {
+  padding-top: 100px !important;
+  @include md {
+    padding-right: 241px !important;
+    padding-top: 0 !important;
+  }
+}
 .nav_logo:hover {
   height: 200px;
 }

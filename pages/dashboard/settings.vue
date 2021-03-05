@@ -2,7 +2,7 @@
   <dashboard-page title="dashboard.settings">
     <v-col>
       <div class="overflow-hidden d-flex setting">
-        <v-col cols="6" class="pa-0">
+        <v-col cols="12" md="6" class="pa-0">
           <v-divider />
           <v-tabs-items v-model="tabs">
             <v-tab-item>
@@ -12,7 +12,14 @@
             </v-tab-item>
             <v-tab-item>
               <v-card-text class="settingWraper">
-                <Resume :signUp="signUp" :edited="edited" :disable="disable" :information="this.information" />
+                <Resume
+                  :resume="resume"
+                  :deleteResume="deleteResume"
+                  :signUp="signUp"
+                  :edited="edited"
+                  :disable="disable"
+                  :information="this.information"
+                />
               </v-card-text>
             </v-tab-item>
             <v-tab-item>
@@ -23,25 +30,25 @@
           </v-tabs-items>
         </v-col>
         <client-only>
-          <v-col cols="6" class="pa-0">
-            <div style="min-height:100vh;" class="d-flex">
+          <v-col cols="12" md="6" class="pa-0">
+            <div class="d-flex tabsW">
               <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
                 <div style="margin:15px auto" class="d-flex flex-column">
-                  <v-tab style="width:150px;height:150px" class="secondary">
+                  <v-tab style="width:150px;height:150px;background:#141432;color: white">
                     {{ $t('dashboard.editProfile') }}
-                    <v-icon size="40">mdi-account-circle-outline</v-icon>
+                    <v-icon size="60" style="color: white">mdi-account-circle-outline</v-icon>
                   </v-tab>
                 </div>
                 <div style="margin:15px auto" class="d-flex flex-column">
-                  <v-tab style="width:150px;height:150px" class="secondary">
-                    {{ $t('dashboard.editProfile') }}
-                    <v-icon size="40">mdi-badge-account-horizontal</v-icon>
+                  <v-tab style="width:150px;height:150px;background:#141432;color: white">
+                    {{ $t('dashboard.resume') }}
+                    <v-icon size="60" style="color: white">mdi-badge-account-horizontal</v-icon>
                   </v-tab>
                 </div>
                 <div style="margin:15px auto" class="d-flex flex-column">
-                  <v-tab style="width:150px;height:150px" class="secondary">
+                  <v-tab style="width:150px;height:150px;background:#141432;color: white">
                     {{ $t('form.changePassword') }}
-                    <v-icon size="40">mdi-form-textbox-password</v-icon>
+                    <v-icon size="60" style="color: white">mdi-form-textbox-password</v-icon>
                   </v-tab>
                 </div>
               </v-tabs>
@@ -80,6 +87,7 @@ export default {
       disable: true,
       loading: false,
       formData: [],
+      resume: '',
     };
   },
   methods: {
@@ -88,69 +96,47 @@ export default {
       if (!profile) {
         this.disable = true;
       } else {
-        this.formData = new FormData();
         //append to formDate
-        if (this.information.firstnameFa !== profile.firstname_fa) {
-          this.formData.append('firstname_fa', this.information.firstnameFa);
-          console.log(this.information.resume);
-          // console.log(formData.get('firstname_fa'));
-          this.disable = false;
-        } else if (this.information.firstnameEn !== profile.firstname_en) {
-          this.formData.append('firstname_en', this.information.firstnameEn);
-          this.disable = false;
-        } else if (this.information.lastnameFa !== profile.lastname_fa) {
-          this.formData.append('lastname_fa', this.information.lastnameFa);
-          this.disable = false;
-        } else if (this.information.lastnameEn !== profile.lastname_en) {
-          this.formData.append('lastname_en', this.information.lastnameEn);
-          this.disable = false;
-        } else if (this.information.birthDate !== profile.birth_date) {
-          // this.save()
-          console.log(this.information.birthDate);
-          this.formData.append('birth_date', this.information.birthDate);
-          this.disable = false;
-        } else if (this.information.university !== profile.university) {
-          this.formData.append('university', this.information.university);
+        this.formData.append('firstname_fa', this.information.firstnameFa);
+        this.formData.append('firstname_en', this.information.firstnameEn);
+        this.formData.append('lastname_fa', this.information.lastnameFa);
+        this.formData.append('lastname_en', this.information.lastnameEn);
+        this.formData.append('birth_date', this.information.birthDate);
+        this.formData.append('university', this.information.university);
+        if (
+          this.information.firstnameFa !== profile.firstname_fa ||
+          this.information.firstnameEn !== profile.firstname_en ||
+          this.information.lastnameFa !== profile.lastname_fa ||
+          this.information.lastnameEn !== profile.lastname_en ||
+          this.information.birthDate !== profile.birth_date ||
+          this.information.university !== profile.university
+        ) {
           this.disable = false;
         } else if (this.information.resume !== profile.resume) {
           this.formData.append('resume', this.information.resume);
-          console.log(formData.get('resume'));
           this.disable = false;
         } else {
-          // delete from formDate
-          if (this.information.firstnameFa == profile.firstname_fa) {
-            this.formData.delete('firstname_fa');
-          } else if (this.information.firstnameEn == profile.firstname_en) {
-            this.formData.delete('firstname_en');
-          } else if (this.information.lastnameFa == profile.lastname_fa) {
-            this.formData.delete('lastname_fa');
-          } else if (this.information.lastnameEn == profile.lastname_en) {
-            this.formData.delete('lastname_en');
-          } else if (this.information.birthDate == profile.birth_date) {
-            this.formData.delete('birth_date');
-          } else if (this.information.university == profile.university) {
-            this.formData.delete('university');
+          if (this.information.resume == profile.resume) {
+            this.formData.delete('resume');
           }
           this.disable = true;
         }
       }
     },
     async signUp() {
-      console.log('hi :)');
       this.loading = true;
-      let { data } = await editProfile(this.$axios, this.formData);
-      this.loading = false;
-      this.$store.dispatch('api/accounts/profile');
-      if (data.status_code) {
-        if (data.status_code === 200) {
-          this.$toast.success('تغییرات با موفقیت دخیره شد.');
-        } else if (data.detail.non_field_errors) {
-          if (data.detail.non_field_errors[0].includes('wait'))
-            this.$toast.error(this.$tc('dashboard.codeSubmissionMessage', this.codeSubmitDelay));
-        } else {
-          this.$toast.error('خطایی در دخیره تغییرات رخ داد.');
+      await editProfile(this.$axios, this.formData).then(res => {
+        this.loading = false;
+        console.log(res);
+        if (res.status_code) {
+          if (res.status_code === 200) {
+            this.$toast.success('تغییرات با موفقیت دخیره شد.');
+            this.resetForm();
+          } else {
+            this.$toast.error('خطایی در دخیره تغییرات رخ داد.');
+          }
         }
-      }
+      });
     },
     // save() {
     //   this.$refs.dialog.save(date);
@@ -167,6 +153,16 @@ export default {
       this.information.university = profile.university;
       this.information.resume = profile.resume;
     },
+    deleteResume() {
+      this.information.resume = '';
+      if (this.formData.get('resume') == null) {
+        this.formData.append('resume', '');
+      } else {
+        this.formData.delete('resume');
+      }
+      this.disable = false;
+      console.log(this.formData.get('resume'));
+    },
   },
   watch: {
     menu(val) {
@@ -174,8 +170,9 @@ export default {
     },
   },
   mounted() {
+    this.formData = new FormData();
+    this.resume = this.$auth.user.resume;
     this.resetForm();
-    // this.edited();
     this.disable = true;
   },
 };
@@ -183,7 +180,21 @@ export default {
 
 <style lang="scss">
 @import '../../assets/variables.scss';
+@import '../../assets/mixins.scss';
+
 .setting {
+  @include not-md {
+    flex-wrap: wrap;
+    flex-flow: column-reverse;
+    > div {
+      width: 100vw;
+    }
+  }
+  .v-tab--active {
+    background-color: var(--v-secondary-base) !important;
+    color: white !important;
+  }
+  
   hr {
     display: none;
   }
@@ -194,12 +205,36 @@ export default {
     min-height: 100vh;
     background-color: #0e1224;
   }
+  .tabsW {
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    width: calc(50% - 136px);
+    @include not-md {
+      position: relative;
+      width: auto;
+      min-height: 150px;
+    }
+  }
   .tabsWraper .v-item-group {
     min-height: 100vh;
+    @include not-md {
+      min-height: 150px;
+    }
     .v-slide-group__content {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      @include not-md {
+        flex-direction: row;
+        > div {
+          margin: 0 !important;
+          width: 33.3333%;
+          > div {
+            width: 100% !important;
+          }
+        }
+      }
     }
   }
   input {
