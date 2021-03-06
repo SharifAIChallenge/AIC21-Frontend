@@ -32,6 +32,7 @@
                   <div class="history-title-fixed">تاریخچه</div>
                   <div class="history-date text-h2 text-sm-h1">
                     {{ history.title_fa }}
+                    <!-- {{ history.event_year }} -->
                   </div>
                   <span class="history-detail text-h6">• {{ history.description_fa }}</span>
                   <ol class="history-team">
@@ -58,7 +59,7 @@ export default {
   components: { Header },
   async asyncData({ $axios }) {
     let data = await PastAi($axios);
-    let histories = data.data;
+    let histories = data.data.sort((a, b) => a.event_year > b.event_year);
     return {
       histories,
     };
@@ -75,6 +76,9 @@ export default {
 .history {
   min-height: 100vh;
   background: black;
+  #header {
+    height: 110px;
+  }
   .wrapper {
     display: flex;
     align-items: center;
@@ -84,8 +88,19 @@ export default {
       .v-window__prev,
       .v-window__next {
         z-index: 100;
-        top: 98.5%;
-        bottom: 0;
+        top: calc(100% + 57px);
+        @include not-md {
+          margin: 0;
+          button {
+            padding: 0;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+    .v-item-group button {
+      @include not-md {
+        margin: 2px !important;
       }
     }
   }

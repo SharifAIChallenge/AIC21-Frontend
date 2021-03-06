@@ -20,6 +20,26 @@ export default {
         name: 'description',
         content: process.env.npm_package_description || '',
       },
+      { name: 'msapplication-TileColor', content: '#ffffff' },
+      { name: 'msapplication-TileImage', content: '/fav-icon/ms-icon-144x144.png' },
+      { name: 'theme-color', content: '#ffffff' },
+    ],
+    link: [
+      { rel: 'apple-touch-icon', sizes: '57x57', href: '/fav-icon/apple-icon-57x57.png' },
+      { rel: 'apple-touch-icon', sizes: '60x60', href: '/fav-icon/apple-icon-60x60.png' },
+      { rel: 'apple-touch-icon', sizes: '72x72', href: '/fav-icon/apple-icon-72x72.png' },
+      { rel: 'apple-touch-icon', sizes: '76x76', href: '/fav-icon/apple-icon-76x76.png' },
+      { rel: 'apple-touch-icon', sizes: '114x114', href: '/fav-icon/apple-icon-114x114.png' },
+      { rel: 'apple-touch-icon', sizes: '120x120', href: '/fav-icon/apple-icon-120x120.png' },
+      { rel: 'apple-touch-icon', sizes: '144x144', href: '/fav-icon/apple-icon-144x144.png' },
+      { rel: 'apple-touch-icon', sizes: '152x152', href: '/fav-icon/apple-icon-152x152.png' },
+      { rel: 'apple-touch-icon', sizes: '180x180', href: '/fav-icon/apple-icon-180x180.png' },
+      { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/fav-icon/android-icon-192x192.png' },
+      { rel: 'icon', type: 'image/png', sizes: '36x36', href: '/fav-icon/android-icon-36x36.png' },
+      { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/fav-icon/android-icon-96x96.png' },
+      { rel: 'icon', type: 'image/png', sizes: '72x72', href: '/fav-icon/android-icon-72x72.png' },
+      { rel: 'manifest', type: 'image/png', href: '/fav-icon/manifest.json' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo__white.svg' }],
   },
@@ -63,37 +83,7 @@ export default {
     '@nuxtjs/toast',
     '@nuxtjs/markdownit',
     '@nuxtjs/svg',
-    '@nuxtjs/firebase',
   ],
-  firebase: {
-    config: {
-      apiKey: 'AIzaSyDtXWh4UP3nDBeDUudcqGyVjIJ4GLGh64M',
-      authDomain: 'aichallenge-304910.firebaseapp.com',
-      projectId: 'aichallenge-304910',
-      storageBucket: 'aichallenge-304910.appspot.com',
-      messagingSenderId: '939108343385',
-      appId: '1:939108343385:web:91529ac9fec89612569b48',
-      measurementId: 'G-RXW9NMM24B',
-    },
-    services: {
-      auth: true, // Just as example. Can be any other service.
-      messaging: {
-        createServiceWorker: true,
-        actions: [
-          {
-            action: 'goToLupasGithub',
-            url: 'https://github.com/lupas',
-          },
-          {
-            action: 'goToModuleGithub',
-            url: 'https://github.com/nuxt-community/firebase-module',
-          },
-        ],
-        fcmPublicVapidKey: 'BMYHV8jvmOJUQQWxVl0WrvkE6NNdQ-zZz37egrtRww6cLayU-ybLj-tZfbrScQ1hSFLCM6VWamR-KI13fiaUr3Q',
-      },
-    },
-  },
-
   markdownit: {
     preset: 'default',
     linkify: true,
@@ -179,7 +169,7 @@ export default {
     middleware: ['auth'],
   },
   auth: {
-    plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
+    // plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
     redirect: {
       home: '/dashboard',
     },

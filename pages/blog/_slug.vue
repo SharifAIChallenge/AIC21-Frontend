@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-row class="my-8">
+  <v-container class="post-page" v-if="post.date">
+    <v-row class="mb-10">
       <v-col sm="6" cols="12">
         <v-img class="white--text align-end" height="100%" :src="`https://aichallenge.sharif.edu/${post.image}`"></v-img>
       </v-col>
@@ -32,7 +32,13 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row class="mb-3">
+
+    <div class="my-10" v-for="(video, index) in post.aparats" :key="index">
+      <div :id="video.aparat_id">
+        <script type="text/JavaScript" :src="video.aparat_src"></script>
+      </div>
+    </div>
+    <v-row class="mt-15 mb-6" v-if="posts.length">
       <v-col cols="12" class="headline font-weight-black">
         سایر اخبار
       </v-col>
@@ -47,6 +53,7 @@
 import Buttons from '~/components/blog/Buttons';
 import Post from '~/components/blog/Post';
 import { getPost, getPosts } from '~/api/blog';
+import EmailCallToAction from '~/components/EmailCallToAction.vue';
 export default {
   auth: false,
   data() {
@@ -62,7 +69,31 @@ export default {
     posts = posts.filter(value => {
       return value.id != id;
     });
-    return { post, posts };
+    return { posts, post };
+  },
+  // async fetch() {
+  //   let id = this.$route.params.slug;
+  //   let post = await getPost(this.$axios, id);
+  //   let posts = await getPosts(this.$axios);
+  //   posts = posts.filter(value => {
+  //     return value.id != id;
+  //   });
+  //   this.posts = posts;
+  //   this.post = post;
+  // },
+  methods: {
+    copyLink() {
+      const el = document.createElement('textarea');
+      el.value = window.location.href;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      this.$toast.success('لینک پست در کلیپ‌بورد کپی شد');
+    },
   },
   components: {
     'app-post-button': Buttons,

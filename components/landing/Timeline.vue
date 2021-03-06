@@ -12,7 +12,7 @@
       >
         <img src="../../assets/images/logo/logo__white.svg" alt="Ai-challenge" class="timelineLogo d-none d-md-block" width="30%" />
         <div class="col-4 d-flex align-center justify-end timelineTitle my-5">
-          <h4 class="mt-5">زمانبندی</h4>
+          <h4 class="mt-5">زمان‌بندی</h4>
         </div>
         <div>
           <div v-for="(time, index) in timelineArrey" :key="index" class="timelineItem d-flex">
