@@ -70,6 +70,64 @@
   }
 }
 
+@mixin v-sm {
+  & {
+    @media screen and (min-width: 600px) {
+      @content;
+    }
+  }
+}
+
+@mixin v-md {
+  & {
+    @media screen and (min-width: 960px) {
+      @content;
+    }
+  }
+}
+@mixin v-lg {
+  & {
+    @media screen and (min-width: 1264px) {
+      @content;
+    }
+  }
+}
+@mixin v-xl {
+  & {
+    @media screen and (min-width: 1904px) {
+      @content;
+    }
+  }
+}
+@mixin v-not-sm {
+  & {
+    @media screen and (max-width: 599px) {
+      @content;
+    }
+  }
+}
+@mixin v-not-md {
+  & {
+    @media screen and (max-width: 959px) {
+      @content;
+    }
+  }
+}
+@mixin v-not-lg {
+  & {
+    @media screen and (max-width: 1263px) {
+      @content;
+    }
+  }
+}
+@mixin v-not-xl {
+  & {
+    @media screen and (max-width: 1903px) {
+      @content;
+    }
+  }
+}
+
 @mixin responsive($property, $value: false, $sm: false, $md: false, $lg: false, $xl: false, $xxl: false) {
   @if $value {
     #{$property}: $value;

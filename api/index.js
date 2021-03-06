@@ -49,7 +49,7 @@ export const changePassword = (axios, data) => {
 
 //change hesam
 export const editProfile = (axios, data) => {
-  return axios.$put('/accounts/profile', data);
+  return axios.$put('/accounts/profile', data, { headers: { 'content-type': 'multipart/form-data' } });
 };
 
 //team
