@@ -191,7 +191,7 @@ export default {
 @import '../../assets/mixins.scss';
 
 .setting {
-  @include not-md {
+  @include v-not-md {
     flex-wrap: wrap;
     flex-flow: column-reverse;
     > div {
@@ -218,7 +218,7 @@ export default {
     position: fixed;
     left: 0;
     width: calc(50% - 136px);
-    @include not-md {
+    @include v-not-md {
       position: relative;
       width: auto;
       min-height: 150px;
@@ -226,14 +226,14 @@ export default {
   }
   .tabsWraper .v-item-group {
     min-height: 100vh;
-    @include not-md {
+    @include v-not-md {
       min-height: 150px;
     }
     .v-slide-group__content {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      @include not-md {
+      @include v-not-md {
         flex-direction: row;
         > div {
           margin: 0 !important;
