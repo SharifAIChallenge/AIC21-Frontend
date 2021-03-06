@@ -150,7 +150,7 @@ export default {
 }
 .dashbordNav {
   width: 265px;
-  @include not-md {
+  @include v-not-md {
     width: 100%;
     position: relative;
     .logo {
@@ -162,7 +162,7 @@ export default {
 }
 .dashboard {
   padding-top: 90px !important;
-  @include md {
+  @include v-md {
     padding-right: 265px !important;
     padding-top: 0 !important;
   }
