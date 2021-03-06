@@ -8,7 +8,7 @@
         </div>
       </v-row>
       <v-row>
-        <v-col cols="12" class="d-flex mb-8">
+        <v-col cols="12" class="d-flex mb-8" v-if="information.resume !== '' && resume !== null">
           <div class="pa-2 bg"><v-icon @click="deleteResume" :disabled="resume == null">mdi-trash-can-outline</v-icon></div>
           <div class="secondary pa-2 d-flex" style="width:100%;overflow: hidden;">
             <v-icon>mdi-file-download-outline</v-icon>
@@ -44,7 +44,7 @@
           /> -->
         </v-col>
       </v-row>
-      <v-row class="justify-space-between pa-3">
+      <v-row class="justify-space-between pa-3" v-bind:class="[information.resume == '' || resume == null ? 'marginTop' : '']">
         <v-btn style="flex-basis: 20%;">لغو</v-btn>
         <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%;">
           <v-icon left>mdi-content-save-outline</v-icon>
@@ -73,6 +73,7 @@ export default {
     information: Object,
     edited: Function,
     disable: Boolean,
+    loading: Boolean,
     signUp: Function,
     deleteResume: Function,
     resume: String,
@@ -90,5 +91,8 @@ export default {
   .v-input__append-inner {
     display: none;
   }
+}
+.marginTop {
+  margin-top: 100px !important;
 }
 </style>

@@ -7,7 +7,14 @@
           <v-tabs-items v-model="tabs">
             <v-tab-item>
               <v-card-text class="settingWraper">
-                <EditProfile :signUp="signUp" :information="this.information" :edited="edited" :menu="menu" :disable="disable" />
+                <EditProfile
+                  :loading="loading"
+                  :signUp="signUp"
+                  :information="this.information"
+                  :edited="edited"
+                  :menu="menu"
+                  :disable="disable"
+                />
               </v-card-text>
             </v-tab-item>
             <v-tab-item>
@@ -19,6 +26,7 @@
                   :edited="edited"
                   :disable="disable"
                   :information="this.information"
+                  :loading="loading"
                 />
               </v-card-text>
             </v-tab-item>
@@ -127,7 +135,6 @@ export default {
       this.loading = true;
       await editProfile(this.$axios, this.formData).then(res => {
         this.loading = false;
-        console.log(res);
         if (res.status_code) {
           if (res.status_code === 200) {
             this.$toast.success('تغییرات با موفقیت دخیره شد.');
@@ -155,6 +162,7 @@ export default {
     },
     deleteResume() {
       this.information.resume = '';
+      this.resume = null;
       if (this.formData.get('resume') == null) {
         this.formData.append('resume', '');
       } else {
@@ -194,7 +202,7 @@ export default {
     background-color: var(--v-secondary-base) !important;
     color: white !important;
   }
-  
+
   hr {
     display: none;
   }
