@@ -22,9 +22,15 @@
 <script>
 export default {
   async fetch() {
-      let data=await this.$axios.$get('/notifications')
-      this.notifs=data.notifications;
-      console.log(this.notifs)
+      let dataPub=await this.$axios.$get('/notifications')
+      let dataPri=await this.$axios.$get('/notifications/public')
+      console.log(dataPri);
+      this.notifs=dataPub.notifications;
+      this.notifs=[...this.notifs,...dataPri.notifications];
+      this.notifs.sort((a,b)=>{
+        return  a.create_date > b.create_date 
+      });
+      this.notifs.reverse();
   },
   data(){
       return{

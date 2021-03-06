@@ -1,5 +1,7 @@
 <template>
-<Notification/>
+<div>
+<Notification class="pb-3" style="width:40%;margin-right:auto;"/>
+</div>
 </template>
 
 <script>
