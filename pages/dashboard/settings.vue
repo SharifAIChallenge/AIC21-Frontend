@@ -194,6 +194,7 @@ export default {
     background-color: var(--v-secondary-base) !important;
     color: white !important;
   }
+  
   hr {
     display: none;
   }
