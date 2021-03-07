@@ -39,6 +39,7 @@
                 <v-col cols="12" md="7" class="pr-2">
                   <div class="history-date text-h5 text-sm-h4 px-3">
                     {{ history.title_fa }}
+                    <!-- {{ history.event_year }} -->
                   </div>
                   <p class="history-detail px-3">{{ history.description_fa }}</p>
                 </v-col>
@@ -60,7 +61,7 @@ export default {
   components: { Header },
   async asyncData({ $axios }) {
     let data = await PastAi($axios);
-    let histories = data.data;
+    let histories = data.data.sort((a, b) => a.event_year > b.event_year);
     return {
       histories,
     };
