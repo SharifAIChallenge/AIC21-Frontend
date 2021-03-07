@@ -54,9 +54,18 @@ export default {
 @import '../assets/mixins.scss';
 .background-logo {
   position: absolute;
-  top: 0;
+  top: -100px;
   opacity: 0.15;
   z-index: 0;
+  transform: scale(0.63) translateY(-100px);
+  @include not-sm {
+    top: 0px;
+    transform: translateY(100px);
+  }
+}
+.action-btn {
+  position: relative;
+  z-index: 1000;
 }
 .action-btn {
   position: relative;

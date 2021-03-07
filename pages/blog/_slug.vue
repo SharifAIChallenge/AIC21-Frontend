@@ -98,6 +98,19 @@ export default {
       this.$toast.success('لینک پست در کلیپ‌بورد کپی شد');
     },
   },
+  methods: {
+    copyLink() {
+      const el = document.createElement('textarea');
+      el.value = window.location.href;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    },
+  },
   components: {
     'app-post-button': Buttons,
     'app-post': Post,
