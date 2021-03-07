@@ -14,10 +14,10 @@
         >
           <div
             class="white d-inline-block"
-            style="width: 30%;
+            style="width: 44%;
                    height: 3px;
                    position: absolute;
-                   right: 35%;
+                   right: 28%;
                    margin-top: 4px;
                    z-index: -1;"
           ></div>
@@ -30,7 +30,7 @@
             style="cursor:pointer"
           >
             <div class="white mx-auto" :style="index == model ? 'height:13px;width:13px;margin-bottom:17px' : 'height:10px;width:10px;margin-bottom:20px'" style="border-radius:50%"></div>
-            <span>
+            <span :style="(index==model) ? '':'opacity:0.6'">
               {{ year }}
             </span>
           </div>
@@ -66,7 +66,7 @@
               <v-row class="pb-8" style="background: black">
                 <v-col cols="12" md="5">
                   <div class="image-year">
-                    <img :src="`${history.image}`" :alt="`${history.title_fa}`" width="100%" />
+                    <img :src="`${history.image}`" :alt="`${history.title_fa}`" width="100%" height="280px"/>
                   </div>
                 </v-col>
                 <v-col cols="12" md="7" class="pr-2">
