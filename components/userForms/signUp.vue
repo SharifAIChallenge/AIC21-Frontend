@@ -185,7 +185,7 @@ export default {
       });
     },
     loginWithGoogle() {
-      this.$auth.loginWith('google');
+      // this.$auth.loginWith('google');
     },
     clearError(field) {
       if (this.result.errors[field]) {
