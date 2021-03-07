@@ -1,6 +1,6 @@
 <template>
   <v-container flat tile class="call_to_action transparent mx-auto" id="CallToAction">
-    <img src="logo__white.svg" class="background-logo" />
+    <img src="../assets/images/logo/logo__white.svg" class="background-logo" />
     <v-row class="mb-16" justify="space-between">
       <v-col cols="12" sm="5" class="align-start justify-center" style="z-index:1">
         <div class="d-flex flex-column align-center align-sm-end justify-center " style="height:100%">
@@ -38,9 +38,10 @@ export default {
   methods: {
     submit() {
       this.loading = true;
-      this.$axios.$post('/homepage/subscribe', { email: this.email }).then(res => {
+      this.$axios.$post('homepage/subscribe', { email: this.email }).then(res => {
         this.loading = false;
         this.email = '';
+        console.log(res.status_code);
         if (res.status_code === 200) this.$toast.success('ایمیل شما با موفقیت ثبت شد');
         else this.$toast.error('ایمیل شما تکراری یا نامعتبر است');
       });
