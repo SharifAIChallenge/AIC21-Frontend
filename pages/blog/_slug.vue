@@ -5,14 +5,14 @@
         <v-img class="white--text align-end" height="100%" :src="`https://aichallenge.ir${post.image}`"></v-img>
       </v-col>
       <v-col sm="6" cols="12">
-        <v-card flat tile>
+        <v-card flat tile class="transparent">
           <v-card-subtitle class="white--text">
             {{ new Intl.DateTimeFormat($i18n.locale).format(new Date(post.date)) }}
           </v-card-subtitle>
-          <v-card-title class="primary--text font-weight-black">
+          <v-card-title class="primary--text text-h3 font-weight-black">
             {{ post.title_fa }}
           </v-card-title>
-          <v-card-text class="mb-5">
+          <v-card-text class="mb-5 mt-4 font-weight-bold">
             <div v-html="$md.render(post.text_fa)"></div>
           </v-card-text>
           <v-row class="mr-2 ml-3 mb-1 pb-2" align="center" justify="start">
