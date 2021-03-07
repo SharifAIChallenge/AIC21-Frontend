@@ -7,14 +7,33 @@
           class="d-flex justify-center"
           style=" 
           position: absolute;
-          bottom: 50px;
+          bottom: 30px;
           z-index: 10;
           width:100%;
           "
         >
-          <span v-for="(year, index) in years" :key="index" :class="index == model ? 'primary--text' : ''" class="px-5" @click="model=index" style="cursor:pointer">
-            {{ year }}
-          </span>
+          <div
+            class="white d-inline-block"
+            style="width: 30%;
+                   height: 3px;
+                   position: absolute;
+                   right: 35%;
+                   margin-top: 4px;
+                   z-index: -1;"
+          ></div>
+          <div
+            class="d-inline-block px-5"
+            v-for="(year, index) in years"
+            :key="index"
+            :class="index == model ? 'font-weight-black' : ''"
+            @click="model = index"
+            style="cursor:pointer"
+          >
+            <div class="white mx-auto" :style="index == model ? 'height:13px;width:13px;margin-bottom:17px' : 'height:10px;width:10px;margin-bottom:20px'" style="border-radius:50%"></div>
+            <span>
+              {{ year }}
+            </span>
+          </div>
         </div>
         <v-carousel
           hide-delimiter-background
