@@ -2,14 +2,28 @@
   <div class="history">
     <Header color="transparent" />
     <div class="wrapper">
-      <v-container class="pb-10">
+      <v-container class="pb-10" style="position:relative">
+        <div
+          class="d-flex justify-center"
+          style=" 
+          position: absolute;
+          bottom: 50px;
+          z-index: 10;
+          width:100%;
+          "
+        >
+          <span v-for="(year, index) in years" :key="index" :class="index == model ? 'primary--text' : ''" class="px-5" @click="model=index" style="cursor:pointer">
+            {{ year }}
+          </span>
+        </div>
         <v-carousel
           hide-delimiter-background
+          hide-delimiters
           :cycle="false"
           :continuous="false"
           v-model="model"
           height="100%"
-          style="background: black"
+          style="background: black;"
           class="carousel"
         >
           <template v-slot:prev="{ on, attrs }">
@@ -62,14 +76,24 @@ export default {
   async asyncData({ $axios }) {
     let data = await PastAi($axios);
     let histories = data.data.sort((a, b) => a.event_year > b.event_year);
+    let years = histories.map(el => {
+      return el.event_year;
+    });
+    console.log('this:', years);
     return {
       histories,
+      years,
     };
   },
   data() {
     return {
       model: 0,
     };
+  },
+  methods: {
+    log(item, item2) {
+      console.log(item, item2);
+    },
   },
 };
 </script>
