@@ -35,10 +35,11 @@ export default {
       { rel: 'apple-touch-icon', sizes: '152x152', href: '/fav-icon/apple-icon-152x152.png' },
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/fav-icon/apple-icon-180x180.png' },
       { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/fav-icon/android-icon-192x192.png' },
-      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/fav-icon/android-icon-32x32.png' },
+      { rel: 'icon', type: 'image/png', sizes: '36x36', href: '/fav-icon/android-icon-36x36.png' },
       { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/fav-icon/android-icon-96x96.png' },
-      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/fav-icon/android-icon-16x16.png' },
+      { rel: 'icon', type: 'image/png', sizes: '72x72', href: '/fav-icon/android-icon-72x72.png' },
       { rel: 'manifest', type: 'image/png', href: '/fav-icon/manifest.json' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ],
   },
   /*
@@ -207,8 +208,8 @@ export default {
         codeChallengeMethod: '',
         responseType: 'code',
         endpoints: {
-          token: 'https://api-stg.aichallenge.ir/social-login/google/',
-          userInfo: 'https://api-stg.aichallenge.ir/auth/',
+          token: '/social-login/google/',
+          userInfo: '/auth/',
         },
       },
       local: {
