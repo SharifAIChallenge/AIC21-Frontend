@@ -4,7 +4,7 @@
       <v-col sm="6" cols="12">
         <v-img class="white--text align-end" height="100%" :src="`https://aichallenge.ir${post.image}`"></v-img>
       </v-col>
-      <v-col sm="6" cols="12">
+      <v-col sm="6" cols="12" style="height:100%">
         <v-card flat tile class="transparent">
           <v-card-subtitle class="white--text">
             {{ new Intl.DateTimeFormat($i18n.locale).format(new Date(post.date)) }}
@@ -22,7 +22,7 @@
               </v-btn>
               <v-btn class="white--text text--lighten-2" tile outlined @click="copyLink">کپی لینک</v-btn>
             </v-col> -->
-            <v-col cols="12" class="pa-1">
+            <v-col cols="12" class="pa-1 mt-lg-16">
               <v-btn class="green--text text--darken-3" tile outlined @click="copyLink()">
                 <v-icon class="white--text">mdi-content-copy</v-icon>
                 <span class="mr-2">
