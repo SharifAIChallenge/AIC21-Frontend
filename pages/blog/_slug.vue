@@ -90,7 +90,6 @@ export default {
   async asyncData({ $axios, params }) {
     const id = await params.slug;
     let post = await getPost($axios, id);
-    console.log(post);
     let posts = await getPosts($axios);
     posts = posts.filter(value => {
       return value.id != id;
