@@ -59,6 +59,7 @@
 import PasswordInput from '../PasswordInput';
 import { emailRules, requiredRules } from '../../mixins/formValidations';
 import { mapState } from 'vuex';
+import { sendGoogleAuthCode } from '~/api/auth';
 
 export default {
   mixins: [requiredRules, emailRules],
@@ -82,8 +83,14 @@ export default {
         password: this.password,
       });
     },
-    loginWithGoogle() {
-      // this.$auth.loginWith('google', { params: { prompt: 'select_account' } });
+    async loginWithGoogle() {
+      const googleUser = await this.$gAuth.signIn();
+      console.log(googleUser.getAuthResponse());
+
+      // const authCode = await this.$gAuth.getAuthCode();
+      // console.log(authCode);
+      // const backendRes = await sendGoogleAuthCode(this.$axios, authCode);
+      // console.log(backendRes);
     },
   },
   computed: {

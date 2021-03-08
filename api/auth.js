@@ -7,5 +7,9 @@ export const getUser = axios => {
 };
 
 export const logout = axios => {
-  return axios.$get('/accounts/logout');
+  return axios.$post('/accounts/logout');
+};
+
+export const sendGoogleAuthCode = (axios, code) => {
+  return axios.$post('/social-login/google/', { code });
 };
