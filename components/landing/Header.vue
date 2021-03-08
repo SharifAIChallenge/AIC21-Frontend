@@ -31,6 +31,9 @@
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/dashboard">
+          داشبورد
+        </v-btn>
         <v-btn plain text tile :class="getClass()" to="/blog">
           اخبار
         </v-btn>
@@ -77,6 +80,7 @@ export default {
   methods: {
     toggleShow() {
       this.$store.commit('formStatus/toggleShow');
+      this.$store.commit('formStatus/changeStatus', 'login');
     },
     getClass() {
       return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent py-8 text-h5 text-sm-subtitle-2';

@@ -75,44 +75,15 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next',
+    // '@nuxtjs/auth-next',
+    'cookie-universal-nuxt',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     ['@nuxtjs/dotenv'],
     '@nuxtjs/toast',
     '@nuxtjs/markdownit',
     '@nuxtjs/svg',
-    '@nuxtjs/firebase',
   ],
-  firebase: {
-    config: {
-      apiKey: 'AIzaSyDtXWh4UP3nDBeDUudcqGyVjIJ4GLGh64M',
-      authDomain: 'aichallenge-304910.firebaseapp.com',
-      projectId: 'aichallenge-304910',
-      storageBucket: 'aichallenge-304910.appspot.com',
-      messagingSenderId: '939108343385',
-      appId: '1:939108343385:web:91529ac9fec89612569b48',
-      measurementId: 'G-RXW9NMM24B',
-    },
-    services: {
-      auth: true, // Just as example. Can be any other service.
-      messaging: {
-        createServiceWorker: true,
-        actions: [
-          {
-            action: 'goToLupasGithub',
-            url: 'https://github.com/lupas',
-          },
-          {
-            action: 'goToModuleGithub',
-            url: 'https://github.com/nuxt-community/firebase-module',
-          },
-        ],
-        fcmPublicVapidKey: 'BMYHV8jvmOJUQQWxVl0WrvkE6NNdQ-zZz37egrtRww6cLayU-ybLj-tZfbrScQ1hSFLCM6VWamR-KI13fiaUr3Q',
-      },
-    },
-  },
-
   markdownit: {
     preset: 'default',
     linkify: true,
@@ -197,48 +168,51 @@ export default {
   router: {
     middleware: ['auth'],
   },
-  auth: {
-    // plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
-    redirect: {
-      home: '/dashboard',
-    },
-    strategies: {
-      google: {
-        clientId: '864043474548-9is9rd8jbf3bbq4tdrhsfdjnivasj7l6.apps.googleusercontent.com',
-        codeChallengeMethod: '',
-        responseType: 'code',
-        endpoints: {
-          token: '/social-login/google/',
-          userInfo: '/auth/',
-        },
-      },
-      local: {
-        endpoints: {
-          login: {
-            url: '/accounts/login',
-            method: 'post',
-            propertyName: 'token',
-          },
-          logout: { url: '/accounts/logout', method: 'post' },
-          user: {
-            url: '/accounts/profile',
-            method: 'get',
-          },
-        },
-        token: {
-          required: true,
-          type: 'token',
-        },
-        user: {
-          property: 'data',
-        },
-      },
-    },
-    resetOnError: true,
-    token: {
-      prefix: 'token.',
-    },
-  },
+  // auth: {
+  //   plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
+  //   strategies: {
+  //     google: {
+  //       clientId: '864043474548-9is9rd8jbf3bbq4tdrhsfdjnivasj7l6.apps.googleusercontent.com',
+  //       codeChallengeMethod: '',
+  //       responseType: 'code',
+  //       endpoints: {
+  //         token: '/social-login/google/',
+  //         userInfo: '/auth/',
+  //       },
+  //     },
+  //     local: {
+  //       endpoints: {
+  //         login: {
+  //           url: '/accounts/login',
+  //           method: 'post',
+  //           propertyName: 'token',
+  //         },
+  //         logout: { url: '/accounts/logout', method: 'post' },
+  //         user: {
+  //           url: '/accounts/profile',
+  //           method: 'get',
+  //           propertyName: false,
+  //         },
+  //       },
+  //       token: {
+  //         required: true,
+  //         type: 'token',
+  //         maxAge: 10000000000,
+  //       },
+  //       user: {
+  //         property: 'data',
+  //       },
+  //     },
+  //   },
+  //   resetOnError: true,
+  //   redirect: {
+  //     login: '/login',
+  //     logout: '/',
+  //     callback: '/login',
+  //     home: '/dashboard',
+  //   },
+  //   watchLoggedIn: true,
+  // },
   toast: {
     position: 'bottom-center',
     theme: 'bubble',

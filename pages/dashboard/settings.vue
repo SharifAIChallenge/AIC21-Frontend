@@ -100,7 +100,8 @@ export default {
   },
   methods: {
     edited() {
-      const profile = this.$auth.user;
+      // const profile = this.$auth.user;
+      const profile = null;
       if (!profile) {
         this.disable = true;
       } else {
@@ -150,7 +151,8 @@ export default {
     //   this.menu = false;
     // },
     resetForm() {
-      const profile = this.$auth.user;
+      const profile = null;
+      // const profile = this.$auth.user;
       if (!profile) return;
       this.information.firstnameFa = profile.firstname_fa;
       this.information.firstnameEn = profile.firstname_en;
@@ -179,7 +181,7 @@ export default {
   },
   mounted() {
     this.formData = new FormData();
-    this.resume = this.$auth.user.resume;
+    // this.resume = this.$auth.user.resume;
     this.resetForm();
     this.disable = true;
   },

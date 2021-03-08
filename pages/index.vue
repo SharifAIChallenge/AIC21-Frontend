@@ -58,7 +58,6 @@ export default {
     EmaliCallToAction,
   },
   layout: 'landing',
-  auth: false,
   EmaliCallToActionh: false,
   data: () => ({
     isIntersec: {
