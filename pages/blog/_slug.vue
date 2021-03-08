@@ -29,6 +29,18 @@
                   کپی لینک پست
                 </span>
               </v-btn>
+              <v-btn class="green--text text--darken-3" tile outlined v-if="post.webinar_link" :to="post.webinar_link">
+                <v-icon class="white--text">mdi-link</v-icon>
+                <span class="mr-2">
+                  وبینار
+                </span>
+              </v-btn>
+                            <v-btn class="green--text text--darken-3" tile outlined v-if="post.google_calendar_link" :to="post.google_calendar_link">
+                <v-icon class="white--text">mdi-calendar</v-icon>
+                <span class="mr-2">
+                  تقویم گوگل
+                </span>
+              </v-btn>
             </v-col>
           </v-row>
         </v-card>
@@ -68,6 +80,7 @@ export default {
   async asyncData({ $axios, params }) {
     const id = await params.slug;
     let post = await getPost($axios, id);
+    console.log(post);
     let posts = await getPosts($axios);
     posts = posts.filter(value => {
       return value.id != id;
