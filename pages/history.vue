@@ -29,8 +29,12 @@
             @click="model = index"
             style="cursor:pointer"
           >
-            <div class="white mx-auto" :style="index == model ? 'height:13px;width:13px;margin-bottom:17px' : 'height:10px;width:10px;margin-bottom:20px'" style="border-radius:50%"></div>
-            <span :style="(index==model) ? '':'opacity:0.6'">
+            <div
+              class="white mx-auto"
+              :style="index == model ? 'height:13px;width:13px;margin-bottom:17px' : 'height:10px;width:10px;margin-bottom:20px'"
+              style="border-radius:50%"
+            ></div>
+            <span :style="index == model ? '' : 'opacity:0.6'">
               {{ year }}
             </span>
           </div>
@@ -66,7 +70,7 @@
               <v-row class="pb-8" style="background: black">
                 <v-col cols="12" md="5">
                   <div class="image-year">
-                    <img :src="`${history.image}`" :alt="`${history.title_fa}`" width="100%" height="280px"/>
+                    <img :src="`${history.image}`" :alt="`${history.title_fa}`" width="100%" height="280px" />
                   </div>
                 </v-col>
                 <v-col cols="12" md="7" class="pr-2">
@@ -94,11 +98,10 @@ export default {
   components: { Header },
   async asyncData({ $axios }) {
     let data = await PastAi($axios);
-    let histories = data.data.sort((a, b) => a.event_year > b.event_year);
+    let histories = data.data.sort((a, b) => a.event_year - b.event_year);
     let years = histories.map(el => {
       return el.event_year;
     });
-    console.log('this:', years);
     return {
       histories,
       years,
@@ -108,11 +111,6 @@ export default {
     return {
       model: 0,
     };
-  },
-  methods: {
-    log(item, item2) {
-      console.log(item, item2);
-    },
   },
 };
 </script>
