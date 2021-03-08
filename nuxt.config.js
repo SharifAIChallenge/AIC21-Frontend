@@ -64,7 +64,12 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/i18n.js', '~/plugins/axios.js', { src: '~plugins/nuxt-quill-plugin', ssr: false }],
+  plugins: [
+    '~/plugins/i18n.js',
+    '~/plugins/axios.js',
+    { src: '~/plugins/vue-google-oauth2', ssr: false },
+    { src: '~plugins/nuxt-quill-plugin', ssr: false },
+  ],
   /*
    ** Nuxt.js dev-modules
    */
