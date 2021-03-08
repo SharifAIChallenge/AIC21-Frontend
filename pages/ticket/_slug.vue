@@ -2,18 +2,12 @@
   <v-container>
     {{ dataa }}
     <!-- {{profile}} -->
-
-
-
-
-
   </v-container>
 </template>
 
 <script>
 export default {
-async fetch() {
-    console.log(this.$auth.user);
+  async fetch() {
     // this.$axios.$get('homepage/media').then(res => console.log(res));
   },
   data() {

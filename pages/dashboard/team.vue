@@ -1,4 +1,5 @@
 <template>
+
   <dashboard-page title="dashboard.team">
     <v-row v-if="team" class="mx-0">
       <v-col cols="12" md="6">

@@ -1,47 +1,52 @@
 <template>
   <v-app>
-    <v-app-bar flat clipped-right absolute height="80" color="transparent">
-      <v-row class="justify-end">
-        <account-menu :mobile="$vuetify.breakpoint.xsOnly" class="me-5" />
-      </v-row>
-    </v-app-bar>
-    <v-app-bar app flat clipped-right collapse :min-width="mobile ? 220 : 256" :hide-on-scroll="mobile" style="left: unset" height="80">
-      <v-app-bar-nav-icon class="ms-1 hidden-md-and-up" @click.stop="drawer = !drawer" />
-      <v-row class="justify-center">
+    <v-app-bar app flat clipped-right :hide-on-scroll="mobile" style="left: unset;overflow:hidden;" height="90" class="dashbordNav">
+      <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
+      <v-row class="justify-center logo">
         <nuxt-link to="/" class="white--text">
-          <logo />
-          <!--        <logo-mark />-->
+          <img src="../assets/images/logo/logo__primary.svg" alt="" height="80px" class="nav_logo mt-2" />
         </nuxt-link>
       </v-row>
     </v-app-bar>
-    <v-navigation-drawer
-      v-model="drawer"
-      mobile-break-point="960"
-      floating
-      app
-      right
-      clipped
-      bottom
-      class="dashboard-nav mt-6"
-      color="primary"
-    >
-      <v-list shaped>
-        <template v-for="(item) in routes">
-          <v-list-item :key="item.title" active-class="font-weight-bold" :disabled="item.disabled" :to="item.link" exact nuxt>
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+    <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right clipped class="" color="primary">
+      <v-list class="py-0">
+        <template v-for="item in routes">
+          <v-list-item
+            :key="item.title"
+            class="mt-6 pr-9"
+            active-class="font-weight-bold"
+            @click="activeLink = item.title"
+            style="min-height:36px;height:36px;font-weight-bold"
+            :disabled="item.disabled"
+            :to="item.link"
+            exact
+            nuxt
+          >
+            <span class="white" style="width:6px;height:100%;position: absolute;right:0" v-show="activeLink == item.title">I</span>
+            <v-list-item-icon class="py-1 my-0">
+              <v-icon v-if="activeLink != item.title">{{ item.icon }}</v-icon>
+              <v-icon v-else>{{ item.hover }}</v-icon>
             </v-list-item-icon>
-
             <v-list-item-content>
-              <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
+              <v-list-item-title class="mr-6">{{ item.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-divider v-if="item.divider" :key="`+${item.title}`" />
         </template>
+        <div class="d-flex justify-center mt-auto">
+          <v-list class="pa-2 d-flex">
+            <v-list-item :to="bottomRoute.settings.link" class="ma-2">
+              <v-icon>{{ bottomRoute.settings.icon }}</v-icon>
+            </v-list-item>
+            <v-list-item @click="logout" style="cursor: pointer" class="ma-2 ">
+              <v-icon>{{ bottomRoute.logout.icon }}</v-icon>
+            </v-list-item>
+          </v-list>
+        </div>
       </v-list>
     </v-navigation-drawer>
-    <v-main>
-      <v-container class="dashboard px-md-6 pb-12" fluid>
+    <v-main style="padding: 0px;">
+      <v-container class="dashboard px-0 pt-0 pb-12 pb-md-0" fluid>
         <nuxt />
       </v-container>
     </v-main>
@@ -50,82 +55,79 @@
 
 <script>
 import Logo from '../components/Logo';
-import AccountMenu from '../components/AccountMenu';
 
 export default {
-  components: { AccountMenu, Logo },
+  components: { Logo },
   data() {
     return {
       drawer: null,
+      activeLink: 'خانه',
       routes: {
         home: {
-          title: 'dashboard.home',
+          title: 'خانه',
           icon: 'mdi-home-variant-outline',
+          hover: 'mdi-home-variant',
           link: '/dashboard',
           disabled: false,
         },
         terms: {
-          title: 'dashboard.termsAndConditions',
-          icon: 'mdi-alert-circle-outline',
+          title: 'مستندات و منابع',
+          icon: 'mdi-file-document-outline',
+          hover: 'mdi-file-document',
           link: '/dashboard/terms',
           disabled: false,
         },
         updates: {
-          title: 'dashboard.updates',
-          icon: 'mdi-bell-outline',
+          title: 'محتوای آموزشی',
+          icon: 'mdi-school-outline',
+          hover: 'mdi-school',
           link: '/dashboard/updates',
           disabled: false,
-          divider: true,
-        },
-        // getting_started: {
-        //   title: "dashboard.gettingStarted",
-        //   icon: "mdi-help-circle-outline",
-        //   link: "/dashboard/getting_started",
-        //   disabled: true
-        // },
-        resources: {
-          title: 'dashboard.resources',
-          icon: 'mdi-file-document-outline',
-          link: '/dashboard/resources',
-          disabled: false,
-        },
-        tutorials: {
-          title: 'dashboard.tutorials',
-          icon: 'mdi-school-outline',
-          link: '/dashboard/tutorials',
-          disabled: false,
-          divider: true,
         },
         tournaments: {
-          title: 'dashboard.tournaments',
+          title: 'تورنومنت ها',
           icon: 'mdi-tournament',
+          hover: 'mdi-tournament',
           link: '/dashboard/tournaments',
           disabled: false,
         },
         scoreboard: {
-          title: 'dashboard.scoreboard',
+          title: 'جدول امتیازات',
           icon: 'mdi-scoreboard-outline',
+          hover: 'mdi-scoreboard',
           link: '/dashboard/scoreboard',
           disabled: false,
-          divider: true,
         },
         team: {
-          title: 'dashboard.team',
-          icon: 'mdi-account-group',
+          title: 'تیم',
+          icon: 'mdi-account-group-outline',
+          hover: 'mdi-account-group',
           link: '/dashboard/team',
           disabled: false,
         },
         submissions: {
-          title: 'dashboard.submissions',
-          icon: 'mdi-upload-outline',
+          title: 'ارسال کد',
+          icon: 'mdi-code-braces',
+          hover: 'mdi-code-braces-box',
           link: '/dashboard/submissions',
           disabled: false,
         },
         games: {
-          title: 'dashboard.games',
-          icon: 'mdi-gamepad-variant-outline',
+          title: 'بازی ها',
+          icon: 'mdi-sword',
+          hover: 'mdi-sword-cross',
           link: '/dashboard/games',
           disabled: false,
+        },
+      },
+      bottomRoute: {
+        settings: {
+          icon: 'mdi-cog-outline',
+          link: '/dashboard/settings',
+        },
+        logout: {
+          icon: 'mdi-logout-variant',
+          link: '/',
         },
       },
     };
@@ -135,14 +137,46 @@ export default {
       return this.$vuetify.breakpoint.smAndDown;
     },
   },
-  created() {
-    return this.$store.dispatch('games/getChallenge');
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout');
+    },
+  },
+  mounted() {
+    this.$store.dispatch('auth/getUser');
   },
 };
 </script>
 
-<style scoped>
-.dashboard-nav {
-  border-top-left-radius: 24px;
+<style scoped lang="scss">
+@import '~/assets/mixins.scss';
+
+.v-navigation-drawer {
+  width: 265px !important;
+}
+.dashbordNav {
+  width: 265px;
+  @include v-not-md {
+    width: 100%;
+    position: relative;
+    .logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-30%) scale(4);
+    }
+  }
+}
+.dashboard {
+  padding-top: 90px !important;
+  @include v-md {
+    padding-right: 265px !important;
+    padding-top: 0 !important;
+  }
+}
+.nav_logo {
+  transition: 0.4s;
+}
+.nav_logo:hover {
+  height: 200px;
 }
 </style>

@@ -1,19 +1,16 @@
-export default function({ $axios, redirect }) {
+export default function({ $axios, redirect, store }) {
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status);
+    console.log(error);
     if (code === 401) {
+      store.commit('auth/removeToken');
       redirect('/login');
     }
   });
   $axios.onRequest(config => {
-    if (config.url === '/social-login/google/') {
-      const code = config.data.split('&')[0].substring(5);
-      console.log(code);
-      console.log(config);
-      config.data = { code };
-      config.baseURL = 'https://aichallenge.ir/';
-    }
-    config.data = convertObjToSnakeCase(config.data);
+    // console.log(store);
+    if (store.state.auth.isAuthenticated) config.headers.common['Authorization'] = 'token ' + store.state.auth.token;
+    if (typeof config.data === 'object') config.data = convertObjToSnakeCase(config.data);
   });
 }
 

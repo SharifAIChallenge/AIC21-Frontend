@@ -21,6 +21,7 @@
               autofocus
               validate-on-blur
               height="36px"
+              aria-autocomplete="email"
             ></v-text-field>
             <password-input v-model="password" />
             <v-row>
@@ -57,6 +58,8 @@
 <script>
 import PasswordInput from '../PasswordInput';
 import { emailRules, requiredRules } from '../../mixins/formValidations';
+import { mapState } from 'vuex';
+import { sendGoogleAuthCode } from '~/api/auth';
 
 export default {
   mixins: [requiredRules, emailRules],
@@ -67,38 +70,33 @@ export default {
       valid: false,
       email: '',
       password: '',
-      loading: false,
     };
   },
   methods: {
-    toggleShow() {
-      this.$store.commit('formStatus/toggleShow');
-    },
     changeStatus(form) {
       this.$store.commit('formStatus/changeStatus', form);
     },
     login() {
-      this.loading = true;
-      this.$auth
-        .loginWith('local', {
-          data: {
-            username: this.email,
-            password: this.password,
-          },
-        })
-        .then(() => (this.loading = false))
-        .catch(() => {
-          this.loading = false;
-          if (!this.$auth.loggedIn) {
-            this.$toast.error('ایمیل وجود ندارد یا رمز عبور اشتباه است.');
-          } else {
-            this.$toast.success('با موفقیت وارد شدید!');
-          }
-        });
+      // this.loading = true;
+      this.$store.dispatch('auth/login', {
+        username: this.email,
+        password: this.password,
+      });
     },
-    loginWithGoogle() {
-      this.$auth.loginWith('google', { params: { prompt: 'select_account' } });
+    async loginWithGoogle() {
+      const googleUser = await this.$gAuth.signIn();
+      console.log(googleUser.getAuthResponse());
+
+      // const authCode = await this.$gAuth.getAuthCode();
+      // console.log(authCode);
+      // const backendRes = await sendGoogleAuthCode(this.$axios, authCode);
+      // console.log(backendRes);
     },
+  },
+  computed: {
+    ...mapState({
+      loading: state => state.auth.isLoading,
+    }),
   },
 };
 </script>
