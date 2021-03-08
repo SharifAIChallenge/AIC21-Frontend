@@ -9,9 +9,9 @@
           <v-card-subtitle class="white--text">
             {{ new Intl.DateTimeFormat($i18n.locale).format(new Date(post.date)) }}
           </v-card-subtitle>
-          <v-card-title class="primary--text text-h3 font-weight-black">
+          <h3 class="primary--text text-h3 font-weight-black">
             {{ post.title_fa }}
-          </v-card-title>
+          </h3>
           <v-card-text class="mb-5 mt-4 font-weight-bold">
             <div v-html="$md.render(post.text_fa)"></div>
           </v-card-text>
