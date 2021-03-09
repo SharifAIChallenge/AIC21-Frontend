@@ -11,6 +11,7 @@
       <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
       <template v-slot:[`item.showProfile`]="{ item }">
         <v-dialog v-model="dialog" width="350">
+          <div class="close-btn" @click="dialog = false" > X </div>
           <template v-slot:activator="{ on, attrs }">
             <v-icon size="30px" dark v-bind="attrs" v-on="on">mdi-card-account-details-outline</v-icon>
           </template>
@@ -135,5 +136,9 @@ export default {
 .profile {
   display: flex;
   align-items: center;
+}
+.close-btn {
+  font-size: 20px;
+  right: 0px;
 }
 </style>
