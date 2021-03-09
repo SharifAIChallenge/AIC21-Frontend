@@ -1,16 +1,15 @@
 <template>
   <!-- <SendInvitationFromTeam /> -->
-  <SearchUsers />
+  <SearchUsersAndSendInvitation />
 
 </template>
 
 <script>
-import SendInvitationFromTeam from '../components/dashboard/team_new/SendInvitationFromTeam';
-import SearchUsers from '../components/dashboard/team_new/SearchUsers';
+import SearchUsersAndSendInvitation from '../components/dashboard/team_new/SearchUsersAndSendInvitation';
 
 export default {
   layout: 'landing',
-  components: { SendInvitationFromTeam, SearchUsers },
+  components: { SearchUsersAndSendInvitation },
   auth: false,
 };
 </script>
