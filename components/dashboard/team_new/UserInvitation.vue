@@ -52,7 +52,7 @@ export default {
     let res1 = await this.$axios.$get('team/invitations/user_pending');
     let res2 = await this.$axios.$get('team/invitations/user_sent');
     console.log(res1);
-    // console.log(res.data);
+    console.log(res2.data);
     this.pending = res1.data;
     this.reqHistory = res2.data;
   },

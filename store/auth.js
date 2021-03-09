@@ -43,7 +43,7 @@ export const mutations = {
     this.$cookies.set('token', token, {
       maxAge: 60 * 60 * 24 * 7,
     });
-    this.$router.push('/dashboard');
+    // this.$router.push('/dashboard');
     this.$axios.setToken(token, 'token');
   },
   removeToken(state) {
