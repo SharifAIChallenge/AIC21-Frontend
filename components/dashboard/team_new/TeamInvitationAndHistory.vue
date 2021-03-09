@@ -18,6 +18,7 @@
           :rules="[v => !!v || 'ایمیل نمی تواند خالی باشد!', v => /.+@.+/.test(v) || 'لطفا ایمیل وارد کنید!']"
           required
           height="36px"
+          class="email-field"
         ></v-text-field>
         <div>
           <v-btn width="50vw" height="60px" class="text-h6" color="primary">
@@ -116,4 +117,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.email-field{
+  width: 50%;
+}
+</style>
