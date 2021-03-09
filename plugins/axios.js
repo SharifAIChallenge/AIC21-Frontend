@@ -1,14 +1,16 @@
-export default function({ $axios, redirect }) {
+export default function({ $axios, redirect, store }) {
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status);
+    console.log(error);
     if (code === 401) {
+      store.commit('auth/removeToken');
       redirect('/login');
     }
   });
   $axios.onRequest(config => {
-    try {
-      if (!config.data instanceof FormData) config.data = convertObjToSnakeCase(config.data);
-    } catch (error) {}
+    // console.log(store);
+    if (store.state.auth.isAuthenticated) config.headers.common['Authorization'] = 'token ' + store.state.auth.token;
+    if (typeof config.data === 'object') config.data = convertObjToSnakeCase(config.data);
   });
 }
 

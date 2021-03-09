@@ -74,6 +74,7 @@ import Resume from '../../components/dashboard/settings/resume';
 import ChangePassword from '../../components/dashboard/settings/ChangePassword';
 import DashboardPage from '../../components/dashboard/DashboardPage';
 import { editProfile } from '~/api';
+import { mapState } from 'vuex';
 
 export default {
   components: { DashboardPage, ChangePassword, EditProfile, Resume },
@@ -100,8 +101,7 @@ export default {
   },
   methods: {
     edited() {
-      const profile = this.$auth.user;
-      if (!profile) {
+      if (!this.profile) {
         this.disable = true;
       } else {
         //append to formDate
@@ -112,19 +112,19 @@ export default {
         this.formData.append('birth_date', this.information.birthDate);
         this.formData.append('university', this.information.university);
         if (
-          this.information.firstnameFa !== profile.firstname_fa ||
-          this.information.firstnameEn !== profile.firstname_en ||
-          this.information.lastnameFa !== profile.lastname_fa ||
-          this.information.lastnameEn !== profile.lastname_en ||
-          this.information.birthDate !== profile.birth_date ||
-          this.information.university !== profile.university
+          this.information.firstnameFa !== this.profile.firstname_fa ||
+          this.information.firstnameEn !== this.profile.firstname_en ||
+          this.information.lastnameFa !== this.profile.lastname_fa ||
+          this.information.lastnameEn !== this.profile.lastname_en ||
+          this.information.birthDate !== this.profile.birth_date ||
+          this.information.university !== this.profile.university
         ) {
           this.disable = false;
-        } else if (this.information.resume !== profile.resume) {
+        } else if (this.information.resume !== this.profile.resume) {
           this.formData.append('resume', this.information.resume);
           this.disable = false;
         } else {
-          if (this.information.resume == profile.resume) {
+          if (this.information.resume == this.profile.resume) {
             this.formData.delete('resume');
           }
           this.disable = true;
@@ -150,15 +150,14 @@ export default {
     //   this.menu = false;
     // },
     resetForm() {
-      const profile = this.$auth.user;
-      if (!profile) return;
-      this.information.firstnameFa = profile.firstname_fa;
-      this.information.firstnameEn = profile.firstname_en;
-      this.information.lastnameFa = profile.lastname_fa;
-      this.information.lastnameEn = profile.lastname_en;
-      this.information.birthDate = profile.birth_date;
-      this.information.university = profile.university;
-      this.information.resume = profile.resume;
+      if (!this.profile) return;
+      this.information.firstnameFa = this.profile.firstname_fa;
+      this.information.firstnameEn = this.profile.firstname_en;
+      this.information.lastnameFa = this.profile.lastname_fa;
+      this.information.lastnameEn = this.profile.lastname_en;
+      this.information.birthDate = this.profile.birth_date;
+      this.information.university = this.profile.university;
+      this.information.resume = this.profile.resume;
     },
     deleteResume() {
       this.information.resume = '';
@@ -177,9 +176,14 @@ export default {
       val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'));
     },
   },
+  computed: {
+    ...mapState({
+      profile: state => state.auth.user,
+    }),
+  },
   mounted() {
     this.formData = new FormData();
-    this.resume = this.$auth.user.resume;
+    // this.resume = this.$auth.user.resume;
     this.resetForm();
     this.disable = true;
   },

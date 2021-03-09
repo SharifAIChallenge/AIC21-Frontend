@@ -15,60 +15,6 @@
         </v-col>
         <v-col cols="12">
           <form ref="form" @submit.prevent="signUp">
-            <v-row>
-              <v-text-field
-                v-if="$i18n.locale === 'fa'"
-                :label="$t('form.nameInPersian')"
-                v-model="form.nameInPersian"
-                required
-                :rules="requiredRules"
-                outlined
-                height="36px"
-                style="margin: 10px;"
-                autofocus
-                :error="result.errors.firstname_fa"
-                @focus="clearError('firstname_fa')"
-              ></v-text-field>
-              <v-text-field
-                v-if="$i18n.locale === 'fa'"
-                :label="$t('form.lastNameInPersian')"
-                v-model="form.lastNameInPersian"
-                required
-                :rules="requiredRules"
-                outlined
-                height="36px"
-                style="margin: 10px;"
-                :error="result.errors.lastname_fa"
-                @focus="clearError('lastname_fa')"
-              ></v-text-field>
-            </v-row>
-            <v-row>
-              <v-text-field
-                :label="$t('form.nameInEnglish')"
-                v-model="form.nameInEnglish"
-                required
-                :rules="requiredRules"
-                outlined
-                dir="ltr"
-                height="36px"
-                style="margin: 10px;"
-                :error="result.errors.firstname_en"
-                @focus="clearError('firstname_en')"
-              ></v-text-field>
-              <v-text-field
-                :label="$t('form.lastNameInEnglish')"
-                v-model="form.lastNameInEnglish"
-                required
-                :rules="requiredRules"
-                outlined
-                dir="ltr"
-                height="36px"
-                style="margin: 10px;"
-                :error="result.errors.lastname_en"
-                @focus="clearError('lastname_en')"
-              ></v-text-field>
-            </v-row>
-
             <v-text-field
               :label="$t('form.email')"
               v-model="form.email"
@@ -83,7 +29,8 @@
               @focus="clearError('email')"
             ></v-text-field>
 
-            <password-input v-model="form.password" style="height:36px" />
+            <password-input v-model="form.password1" style="height:36px" />
+            <password-input v-model="form.password2" style="height:36px" label="form.passwordRepeat" />
             <v-checkbox required outlined v-model="termsAndConditions" :label="$t('form.termsAndConditions')"></v-checkbox>
             <v-row>
               <v-col>
@@ -132,14 +79,9 @@ export default {
       showPassword: false,
       valid: false,
       form: {
-        nameInPersian: '',
-        lastNameInPersian: '',
-        nameInEnglish: '',
-        lastNameInEnglish: '',
-        birthday: '',
-        university: '',
         email: '',
-        password: '',
+        password1: '',
+        password2: '',
       },
       result: {
         value: false,
@@ -160,32 +102,31 @@ export default {
     },
     async signUp() {
       this.loading = true;
-      await signup(this.$axios, this.form).then(data => {
-        this.loading = false;
-        if (data.status_code) {
-          if (data.status_code === 200) {
-            this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
-            this.result.type = 'success';
-            this.result.value = true;
-            this.$refs.form.reset();
-          } else {
-            this.errors = {};
-            this.errors = Object.keys(data.detail).forEach(x => {
-              if (x === 'profile') {
-                Object.keys(data.detail.profile).forEach(y => this.$set(this.result.errors, y, true));
-              } else {
-                this.$set(this.result.errors, x, true);
-              }
-            });
-            this.result.message = 'ثبت‌نام با خطا مواجه شد.';
-            this.result.type = 'error';
-            this.result.value = true;
-          }
+      let data = await signup(this.$axios, this.form);
+      this.loading = false;
+      if (data.status_code) {
+        if (data.status_code === 200) {
+          this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
+          this.result.type = 'success';
+          this.result.value = true;
+          this.$refs.form.reset();
+        } else {
+          this.errors = {};
+          this.errors = Object.keys(data.detail).forEach(x => {
+            if (x === 'profile') {
+              Object.keys(data.detail.profile).forEach(y => this.$set(this.result.errors, y, true));
+            } else {
+              this.$set(this.result.errors, x, true);
+            }
+          });
+          this.result.message = 'ثبت‌نام با خطا مواجه شد.';
+          this.result.type = 'error';
+          this.result.value = true;
         }
-      });
+      }
     },
     loginWithGoogle() {
-      this.$auth.loginWith('google');
+      // this.$auth.loginWith('google');
     },
     clearError(field) {
       if (this.result.errors[field]) {

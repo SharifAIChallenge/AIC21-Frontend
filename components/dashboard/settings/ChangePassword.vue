@@ -42,7 +42,7 @@ export default {
   methods: {
     async resetPasswordConfirm() {
       this.loading = true;
-      let { data } = await changePassword(this.$axios, this.passes);
+      let data = await changePassword(this.$axios, this.passes);
       this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {

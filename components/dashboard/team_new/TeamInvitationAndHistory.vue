@@ -21,7 +21,7 @@
           class="email-field"
         ></v-text-field>
         <div>
-          <v-btn width="50vw" height="60px" class="text-h6" color="primary">
+          <v-btn width="50vw" height="60px" class="text-h6" color="primary" @click="sendInvitation()">
             <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-script-outline</v-icon>
             ارسال دعوتنامه
           </v-btn>
@@ -36,7 +36,7 @@
           <div>
             <div>
               {{ list.user.first_name }} {{ list.user.last_name }}
-              <v-icon :color="statusColor(list.status)" size="30px" class="pl-4 pr-2">{{ statusIcon(list.status) }}</v-icon>
+              <v-icon :color="statusColor(list.status)" >{{ statusIcon(list.status) }}</v-icon>
               {{ statusMessage(list.status) }}
             </div>
           </div>
@@ -78,11 +78,11 @@ export default {
   },
   methods: {
     sendInvitation() {
-      if (this.email) {
-        return;
-      }
+      // if (this.email) {
+      //   return;
+      // }
       let user_email = this.email;
-      this.$axios.$post('team/invitations/team_sent', user_email).then(res => {
+      this.$axios.$post('team/invitations/team_sent', {user_email}).then(res => {
         console.log(res);
         if (res.status_code === 200) {
           this.$toast.success(this.translateResponseMessage(res.message));

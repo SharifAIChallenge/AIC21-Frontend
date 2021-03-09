@@ -33,13 +33,14 @@
           </v-list-item>
           <v-divider v-if="item.divider" :key="`+${item.title}`" />
         </template>
-        <div class="d-flex justify-center">
+        <div class="d-flex justify-center mt-auto">
           <v-list class="pa-2 d-flex">
-            <template v-for="item in bottomRoute">
-              <v-list-item :key="item" :to="item.link" class="ma-2">
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item>
-            </template>
+            <v-list-item :to="bottomRoute.settings.link" class="ma-2">
+              <v-icon>{{ bottomRoute.settings.icon }}</v-icon>
+            </v-list-item>
+            <v-list-item @click="logout" style="cursor: pointer" class="ma-2 ">
+              <v-icon>{{ bottomRoute.logout.icon }}</v-icon>
+            </v-list-item>
           </v-list>
         </div>
       </v-list>
@@ -124,7 +125,7 @@ export default {
           icon: 'mdi-cog-outline',
           link: '/dashboard/settings',
         },
-        logOut: {
+        logout: {
           icon: 'mdi-logout-variant',
           link: '/',
         },
@@ -136,9 +137,14 @@ export default {
       return this.$vuetify.breakpoint.smAndDown;
     },
   },
-  // created() {
-  //   return this.$store.dispatch('games/getChallenge');
-  // },
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout');
+    },
+  },
+  mounted() {
+    this.$store.dispatch('auth/getUser');
+  },
 };
 </script>
 
