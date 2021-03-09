@@ -1,6 +1,32 @@
 <template>
   <div class="main">
-    <v-data-table center :headers="headers" :items="data" class="elevation-1 table-cursor" @click:row="handleClick($event)">
+    <div class="title">
+      <div>
+        <v-icon>
+          mdi-account-search-outline
+        </v-icon>
+        جستجوی افراد بدون تیم
+      </div>
+      <div>
+        <v-btn color="primary" height="60px" class="text-h7">
+          <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-script-outline</v-icon>
+          ارسال دعوتنامه با ایمیل
+        </v-btn>
+        <v-btn color="secondary" height="60px" class="text-h7">
+          <v-icon color="white" size="30px" class="pl-2 pr-2">mdi-filter-variant</v-icon>
+          فیلتر ها
+        </v-btn>
+      </div>
+    </div>
+
+    <v-data-table
+      center
+      :headers="headers"
+      :items="data"
+      class="elevation-1 table-cursor"
+
+      @click:row="handleClick($event)"
+    >
       <template v-slot:[`item.profile.firstname_fa`]="{ item }">
         <div class="profile">
           <img :src="item.profile.image" :alt="item.email" height="80px" class="ma-2" />
@@ -11,7 +37,7 @@
       <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
       <template v-slot:[`item.showProfile`]="{ item }">
         <v-dialog v-model="dialog" width="350">
-          <div class="close-btn" @click="dialog = false" > X </div>
+          <div class="close-btn" @click="dialog = false">X</div>
           <template v-slot:activator="{ on, attrs }">
             <v-icon size="30px" dark v-bind="attrs" v-on="on">mdi-card-account-details-outline</v-icon>
           </template>
@@ -20,6 +46,9 @@
       </template>
       <template v-slot:[`item.send`]="{ item }"><v-icon @click="sendInvitation(item.email)" size="30px">mdi-plus-circle</v-icon></template>
     </v-data-table>
+    <div class="text-center pt-2">
+      <v-pagination v-model="page" :length="pageCount"></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -35,6 +64,9 @@ export default {
   data() {
     return {
       dialog: false,
+      filter: false,
+      page: 1,
+      pageCount: 0,
       headers: [
         {
           text: 'نام و نام‌خانوادگی',
@@ -140,5 +172,9 @@ export default {
 .close-btn {
   font-size: 20px;
   right: 0px;
+}
+.title {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
