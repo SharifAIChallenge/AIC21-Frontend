@@ -35,7 +35,7 @@
           <div>
             <div>
               {{ list.user.first_name }} {{ list.user.last_name }}
-              <v-icon :color="statusColor(list.status)" size="30px" class="pl-4 pr-2">{{ statusIcon(list.status) }}</v-icon>
+              <v-icon :color="statusColor(list.status)" >{{ statusIcon(list.status) }}</v-icon>
               {{ statusMessage(list.status) }}
             </div>
           </div>

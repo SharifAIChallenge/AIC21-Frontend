@@ -9,7 +9,7 @@
     <v-alert color="black" dark icon="mdi-information" width="50%" dense>
       ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
     </v-alert>
-    <div v-if="this.pending.length===0">
+    <div v-if="this.pending.length === 0">
       <h1>
         لیست دعوتنامه های شما خالی است
       </h1>
@@ -34,18 +34,28 @@
       </v-row>
     </div>
     <div class="invitesHistory">
-      <v-row v-for="(item, index) in reqHistory" :key="index">
-        <v-col>
-          <!-- <div class="requestCol">
-            <img :src=item. alt="">
-          </div> -->
-        </v-col>
-      </v-row>
+      <div v-for="(item, index) in reqHistory" :key="index">
+        <div>
+          <div>
+            {{ item.team }}
+            <v-icon :color="iconColor(item.status)" size="30px" class="pl-4 pr-2">{{ requestStatusIcon(item.status) }}</v-icon>
+            {{ statusMessage(item.status) }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 export default {
+  async fetch() {
+    let res1 = await this.$axios.$get('team/invitations/user_pending');
+    let res2 = await this.$axios.$get('team/invitations/user_sent');
+    console.log(res1);
+    // console.log(res.data);
+    this.pending = res1.data;
+    this.reqHistory = res2.data;
+  },
   data() {
     return {
       pending: [],
@@ -54,27 +64,30 @@ export default {
   },
   methods: {
     acceptRequest(id) {
-      console.log('hi');
+      // console.log('hi');
       this.$axios.$put(`team/invitations/user_pending/${id}?answer=1`).then(res => {
         console.log(res);
       });
     },
     rejectRequest(id) {
-      console.log('hi');
+      // console.log('hi');
       this.$axios.$put(`team/invitations/user_pending/${id}?answer=0`).then(res => [console.log(res)]);
     },
-  },
-  async fetch() {
-    await this.$axios.$get('team/invitations/user_pending').then(res => {
-      console.log(res);
-      this.pending = res.data;
-    });
-  },
-  async fetch() {
-    await this.$axios.$get('team/invitations/team_sent').then(res => {
-      console.log(res.data);
-      this.reqHistory = res;
-    });
+    requestStatusIcon(status) {
+      if (status === 'pending') return 'mdi-progress-question';
+      else if (status === 'accepted') return 'mdi-progress-check';
+      else if (status === 'rejected') return 'mdi-progress-close';
+    },
+    iconColor(status) {
+      if (status === 'pending') return 'blue';
+      else if (status === 'accepted') return 'green';
+      else if (status === 'rejected') return 'orange';
+    },
+    statusMessage(status) {
+      if (status === 'pending') return 'در انتظار پاسخ';
+      else if (status === 'accepted') return 'قبول کرد';
+      else if (status === 'rejected') return 'رد کرد';
+    },
   },
 };
 </script>
