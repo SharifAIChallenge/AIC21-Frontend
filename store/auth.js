@@ -14,7 +14,7 @@ export const actions = {
   },
   async login({ commit, dispatch }, payload) {
     commit('loading');
-    let res = await login(this.$axios, payload);
+    let res = await login(this.$axios, payload).catch(e => this.$toast.error('ایمیل یا رمز اشتباه است'));
     commit('loaded');
     if (res.token) {
       commit('setToken', res);
@@ -28,7 +28,8 @@ export const actions = {
   },
   async logout({ commit }) {
     let res = await logout(this.$axios);
-    commit('logout');
+    commit('removeToken');
+    this.$router.push('/');
   },
 };
 
@@ -45,11 +46,12 @@ export const mutations = {
     this.$router.push('/dashboard');
     this.$axios.setToken(token, 'token');
   },
-  logout(state) {
+  removeToken(state) {
     state.isAuthenticated = false;
     state.token = null;
+    state.user = null;
+    this.$axios.setToken(false);
     this.$cookies.remove('token');
-    this.$router.push('/');
   },
   loading(state) {
     state.isLoading = true;

@@ -2,6 +2,7 @@
   "form": {
     "email": "ایمیل",
     "password": "رمز عبور",
+    "passwordRepeat": "تکرار رمز عبور",
     "nameInPersian": "نام به فارسی",
     "lastNameInPersian": "نام خانوادگی به فارسی",
     "nameInEnglish": "نام به انگلیسی",
