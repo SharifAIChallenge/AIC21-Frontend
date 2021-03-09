@@ -143,7 +143,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('auth/getUser');
+    // this.$store.dispatch('auth/getUser');
   },
 };
 </script>

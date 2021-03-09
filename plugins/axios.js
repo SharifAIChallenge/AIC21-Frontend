@@ -1,15 +1,24 @@
-export default function({ $axios, redirect, store }) {
+export default function({ $axios, redirect, store, app, route }) {
+  // console.log('middle');
+  const token = app.$cookies.get('token');
+  // console.log(token, 'axios');
+  if (token && !store.state.auth.token) {
+    store.dispatch('auth/loadUser', { token });
+  }
+  // if (route.path.includes('dashboard') && !store.state.auth.isAuthenticated) {
+  //   console.log('auth 401');
+  //   return redirect('/login');
+  // }
+  console.log('axios plugin', store.state.auth.isAuthenticated);
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status);
-    console.log(error);
     if (code === 401) {
+      console.log('axios 401');
       store.commit('auth/removeToken');
       redirect('/login');
     }
   });
   $axios.onRequest(config => {
-    // console.log(store);
-    if (store.state.auth.isAuthenticated) config.headers.common['Authorization'] = 'token ' + store.state.auth.token;
     if (typeof config.data === 'object') config.data = convertObjToSnakeCase(config.data);
   });
 }
