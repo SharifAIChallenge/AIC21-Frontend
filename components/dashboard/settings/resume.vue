@@ -44,6 +44,9 @@
           /> -->
         </v-col>
       </v-row>
+      <v-row class="resumeCheckbox px-3">
+        <v-checkbox v-model="information.isComplete" label="اطلاعاتم برای اسپانسر قابل مشاهده باشد." @change="edited"></v-checkbox>
+      </v-row>
       <v-row class="justify-space-between pa-3" v-bind:class="[information.resume == '' || resume == null ? 'marginTop' : '']">
         <v-btn style="flex-basis: 20%;">لغو</v-btn>
         <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%;">
@@ -83,7 +86,6 @@ export default {
 </script>
 <style lang="scss">
 .resume {
-  min-height: calc(100vh - 300px);
   .v-input__prepend-outer {
     position: absolute;
     left: 3px;
@@ -91,6 +93,9 @@ export default {
   .v-input__append-inner {
     display: none;
   }
+}
+.resumeCheckbox {
+  min-height: calc(100vh - 380px);
 }
 .marginTop {
   margin-top: 100px !important;

@@ -90,6 +90,8 @@ export default {
         lastnameEn: '',
         birthDate: '',
         university: '',
+        hideProfileInfo: '',
+        isComplete: '',
         resume: '',
       },
       menu: false,
@@ -111,13 +113,17 @@ export default {
         this.formData.append('lastname_en', this.information.lastnameEn);
         this.formData.append('birth_date', this.information.birthDate);
         this.formData.append('university', this.information.university);
+        this.formData.append('hide_profile_info', this.information.hideProfileInfo);
+        this.formData.append('is_complete', this.information.isComplete);
         if (
           this.information.firstnameFa !== this.profile.firstname_fa ||
           this.information.firstnameEn !== this.profile.firstname_en ||
           this.information.lastnameFa !== this.profile.lastname_fa ||
           this.information.lastnameEn !== this.profile.lastname_en ||
           this.information.birthDate !== this.profile.birth_date ||
-          this.information.university !== this.profile.university
+          this.information.university !== this.profile.university ||
+          this.information.hideProfileInfo !== this.profile.hide_profile_info ||
+          this.information.isComplete !== this.profile.is_complete
         ) {
           this.disable = false;
         } else if (this.information.resume !== this.profile.resume) {
@@ -157,6 +163,8 @@ export default {
       this.information.lastnameEn = this.profile.lastname_en;
       this.information.birthDate = this.profile.birth_date;
       this.information.university = this.profile.university;
+      this.information.hideProfileInfo = this.profile.hide_profile_info;
+      this.information.isComplete = this.profile.is_complete;
       this.information.resume = this.profile.resume;
     },
     deleteResume() {
