@@ -13,3 +13,7 @@ export const logout = axios => {
 export const sendGoogleAuthCode = (axios, code) => {
   return axios.$post('/social-login/google/', { code });
 };
+
+export const activeAccount = (axios, eid, token) => {
+  return axios.$get(`/accounts/activate/${eid}/${token}`);
+};
