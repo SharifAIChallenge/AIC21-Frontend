@@ -29,8 +29,8 @@
               @focus="clearError('email')"
             ></v-text-field>
 
-            <password-input v-model="form.password1" style="height:36px" />
-            <password-input v-model="form.password2" style="height:36px" label="form.passwordRepeat" />
+            <password-input v-model="form.password_1" style="height:36px" />
+            <password-input v-model="form.password_2" style="height:36px" label="form.passwordRepeat" />
             <v-checkbox required outlined v-model="termsAndConditions" :label="$t('form.termsAndConditions')"></v-checkbox>
             <v-row>
               <v-col>
@@ -80,8 +80,8 @@ export default {
       valid: false,
       form: {
         email: '',
-        password1: '',
-        password2: '',
+        password_1: '',
+        password_2: '',
       },
       result: {
         value: false,
