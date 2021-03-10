@@ -40,6 +40,7 @@
         </template>
         <template v-slot:[`item.send`]="{ item }">
           <v-icon @click="sendInvitation(item.email)" size="30px">mdi-plus-circle</v-icon>
+          
         </template>
       </v-data-table>
       <div class="text-center pt-2">
