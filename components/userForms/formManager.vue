@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'assets/variables.scss';
 .form-wrapper {
   width: 100%;
