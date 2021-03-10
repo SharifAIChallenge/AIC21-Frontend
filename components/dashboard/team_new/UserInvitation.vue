@@ -1,45 +1,56 @@
 <template>
   <div>
-    <h1>
-      <v-icon color="primary" x-large>
-        mdi-script-text-outline
-      </v-icon>
-      دعوت نامه های من
-    </h1>
-    <v-alert color="black" dark icon="mdi-information" width="50%" dense>
-      ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
-    </v-alert>
-    <div v-if="this.pending.length === 0">
+    <div>
       <h1>
-        لیست دعوتنامه های شما خالی است
+        <v-icon color="primary" x-large>
+          mdi-script-text-outline
+        </v-icon>
+        دعوت نامه های من
       </h1>
-    </div>
-    <div v-else>
-      <v-row v-for="(request, index) in pending" :key="index">
-        <v-col>
-          <div class="requestCol">
-            <img class="team-Img" :src="request.team.image" height="100" />
-            <div class="requsetInfo">
-              <h1>{{ request.team.name }}</h1>
-              <div class="requestBtn">
-                <v-btn color="black" elevation="2" tile @click="rejectRequest(request.id)">رد کردن</v-btn>
-                <v-btn color="primary" elevation="2" tile @click="acceptRequest(request.id)">
-                  <v-icon>mdi-handshake</v-icon>
-                  پیوستن به تیم
-                </v-btn>
+      <v-alert color="black" dark icon="mdi-information" width="50%" dense>
+        ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
+      </v-alert>
+      <div v-if="this.pending.length === 0">
+        <h1>
+          لیست دعوتنامه های شما خالی است
+        </h1>
+      </div>
+      <div v-else>
+        <v-row v-for="(request, index) in pending" :key="index">
+          <v-col>
+            <div class="requestCol">
+              <img class="team-Img" :src="request.team.image" height="100" />
+              <div class="requsetInfo">
+                <h1>{{ request.team.name }}</h1>
+                <div class="requestBtn">
+                  <v-btn color="black" elevation="2" tile @click="rejectRequest(request.id)">رد کردن</v-btn>
+                  <v-btn color="primary" elevation="2" tile @click="acceptRequest(request.id)">
+                    <v-icon>mdi-handshake</v-icon>
+                    پیوستن به تیم
+                  </v-btn>
+                </div>
               </div>
             </div>
-          </div>
-        </v-col>
-      </v-row>
-    </div>
-    <div class="invitesHistory">
-      <div v-for="(item, index) in reqHistory" :key="index">
+          </v-col>
+        </v-row>
+      </div>
+      <div class="invitesHistory">
         <div>
+          <h1>
+            <v-icon color="primary" x-large>mdi-script-outline</v-icon>
+            تاریخچه دعوت ها
+          </h1>
+        </div>
+        <v-alert color="black" dark icon="mdi-information" width="50%" dense>
+          در این قسمت وضعیت دعوتنامه هایی را که به تیم ها برای عضویت در آن ها فرستاده اید مشاهده میکنید.
+        </v-alert>
+        <div v-for="(item, index) in reqHistory" :key="index">
           <div>
-            {{ item.team }}
-            <v-icon :color="iconColor(item.status)" size="30px" class="pl-4 pr-2">{{ requestStatusIcon(item.status) }}</v-icon>
-            {{ statusMessage(item.status) }}
+            <div>
+              {{ item.team }}
+              <v-icon :color="iconColor(item.status)" size="30px" class="pl-4 pr-2">{{ requestStatusIcon(item.status) }}</v-icon>
+              {{ statusMessage(item.status) }}
+            </div>
           </div>
         </div>
       </div>
