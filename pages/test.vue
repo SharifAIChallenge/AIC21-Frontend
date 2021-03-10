@@ -2,8 +2,8 @@
   <div>
     <!-- <MyTeam /> -->
     <!-- <CreateTeam /> -->
-    <!-- <IncompleteTeams /> -->
-    <UserInvitation />
+     <IncompleteTeams />
+<!--    <UserInvitation />-->
   </div>
 </template>
 
