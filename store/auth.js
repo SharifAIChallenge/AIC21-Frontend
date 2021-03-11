@@ -11,6 +11,7 @@ export const actions = {
   async getUser({ commit, state }) {
     let res = await getUser(this.$axios);
     commit('setUser', res);
+    return res;
   },
   async login({ commit, dispatch }, payload) {
     commit('loading');

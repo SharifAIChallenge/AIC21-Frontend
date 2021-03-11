@@ -15,11 +15,12 @@ export default function({ $axios, redirect, store, app, route }) {
     if (code === 401) {
       console.log('axios 401');
       store.commit('auth/removeToken');
+      app.$cookies.remove('token');
       redirect('/login');
     }
   });
   $axios.onRequest(config => {
-    if (typeof config.data === 'object') config.data = convertObjToSnakeCase(config.data);
+    if (config.data instanceof FormData === false) config.data = convertObjToSnakeCase(config.data);
   });
 }
 
