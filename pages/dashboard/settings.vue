@@ -169,25 +169,19 @@ export default {
           JSON.stringify(this.skills) != JSON.stringify(this.profile.skills) ||
           JSON.stringify(this.jobs) != JSON.stringify(this.profile.jobs)
         ) {
-          console.log('hi');
           this.disable = false;
         } else if (this.information.resume !== this.profile.resume) {
-          console.log('hi 2');
           this.formData.append('resume', this.information.resume);
           this.disable = false;
         } else if (this.information.image !== this.profile.image) {
-          console.log('hi 2');
           this.formData.append('image', this.information.image);
           this.disable = false;
         } else {
           if (this.information.resume == this.profile.resume) {
-            console.log('hi 2');
             this.formData.delete('resume');
           } else if (this.information.image == this.profile.image) {
-            console.log('hi 2');
             this.formData.delete('image');
           }
-          console.log('hi 2');
           this.disable = true;
         }
       }
@@ -196,6 +190,7 @@ export default {
       this.loading = true;
       await editProfile(this.$axios, this.formData).then(res => {
         this.loading = false;
+        console.log(res)
         if (res.status_code) {
           if (res.status_code === 200) {
             this.$toast.success('تغییرات با موفقیت دخیره شد.');
@@ -211,6 +206,7 @@ export default {
     //   this.menu = false;
     // },
     resetForm() {
+      console.log(this.profile)
       if (!this.profile) return;
       this.disable = true
       this.information.firstnameFa = this.profile.firstname_fa;
@@ -264,7 +260,7 @@ export default {
     addToArray(array) {
       if (array === 'skills' && this.information.skill != '') {
         this.skills.push(this.information.skill);
-        // console.log(this.skills);
+        console.log(this.skills);
         this.information.skill = '';
       } else if (array === 'jobs' && this.information.job != '') {
         this.jobs.push(this.information.job);
@@ -334,6 +330,10 @@ export default {
   .settingWraper {
     min-height: 100vh;
     background-color: #0e1224;
+    padding-top: 90px;
+    @include v-not-md{
+      padding-top: 50px;
+    }
   }
   .tabsW {
     min-height: 100vh;

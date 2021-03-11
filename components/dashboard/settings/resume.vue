@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-5">
+  <div class="px-5">
     <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
       <v-row>
         <div class="pa-3 d-flex align-center mb-12">
