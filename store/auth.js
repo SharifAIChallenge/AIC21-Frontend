@@ -11,6 +11,7 @@ export const actions = {
   async getUser({ commit, state }) {
     let res = await getUser(this.$axios);
     commit('setUser', res);
+    return res;
   },
   async login({ commit, dispatch }, payload) {
     commit('loading');
@@ -20,14 +21,20 @@ export const actions = {
       commit('setToken', res);
       dispatch('getUser');
       commit('formStatus/toggleShow', {}, { root: true });
+      this.$router.push('/dashboard');
+      this.$cookies.set('token', res.token, {
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      });
     }
   },
-  async loadUser({ commit, dispatch }, token) {
+  loadUser({ commit, dispatch }, token) {
     commit('setToken', token);
     dispatch('getUser');
   },
   async logout({ commit }) {
-    let res = await logout(this.$axios);
+    this.$cookies.remove('token');
+    let res = await logout(this.$axios).catch(e => console.log(e));
     commit('removeToken');
     this.$router.push('/');
   },
@@ -40,10 +47,7 @@ export const mutations = {
   setToken(state, { token }) {
     state.token = token;
     state.isAuthenticated = true;
-    this.$cookies.set('token', token, {
-      maxAge: 60 * 60 * 24 * 7,
-    });
-    this.$router.push('/dashboard');
+    // console.log(token, 'setToken');
     this.$axios.setToken(token, 'token');
   },
   removeToken(state) {
@@ -51,7 +55,6 @@ export const mutations = {
     state.token = null;
     state.user = null;
     this.$axios.setToken(false);
-    this.$cookies.remove('token');
   },
   loading(state) {
     state.isLoading = true;
