@@ -166,8 +166,8 @@ export default {
   width: 265px !important;
 }
 .v-list-item--link::before {
-    background-color: transparent !important;
-  }
+  background-color: transparent !important;
+}
 .dashbordNav {
   width: 265px;
   background: #141432 !important;
@@ -187,7 +187,7 @@ export default {
 .dashboard {
   padding-top: 90px !important;
   @include v-md {
-    padding-right: 265px !important;
+    padding-right: 250px !important;
     padding-top: 0 !important;
   }
 }

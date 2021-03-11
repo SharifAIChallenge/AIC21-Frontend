@@ -190,7 +190,7 @@ export default {
       this.loading = true;
       await editProfile(this.$axios, this.formData).then(res => {
         this.loading = false;
-        console.log(res)
+        console.log(res);
         if (res.status_code) {
           if (res.status_code === 200) {
             this.$toast.success('تغییرات با موفقیت دخیره شد.');
@@ -206,9 +206,9 @@ export default {
     //   this.menu = false;
     // },
     resetForm() {
-      console.log(this.profile)
+      console.log(this.profile);
       if (!this.profile) return;
-      this.disable = true
+      this.disable = true;
       this.information.firstnameFa = this.profile.firstname_fa;
       this.information.firstnameEn = this.profile.firstname_en;
       this.information.lastnameFa = this.profile.lastname_fa;
@@ -309,6 +309,18 @@ export default {
 @import '../../assets/mixins.scss';
 
 .setting {
+  .v-text-field--outlined.v-input--dense.v-text-field--outlined > .v-input__control > .v-input__slot {
+    min-height: 50px;
+  }
+  .v-input--dense label {
+    top: 15px !important;
+  }
+  .v-input--is-focused label {
+    top: 10px !important;
+  }
+  .settingBtn button {
+    height: 50px !important;
+  }
   @include v-not-md {
     flex-wrap: wrap;
     flex-flow: column-reverse;
@@ -331,7 +343,7 @@ export default {
     min-height: 100vh;
     background-color: #0e1224;
     padding-top: 90px;
-    @include v-not-md{
+    @include v-not-md {
       padding-top: 50px;
     }
   }

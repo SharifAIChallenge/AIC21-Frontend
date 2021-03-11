@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Notification class="pb-3" style="width:40%;margin-right:auto;" />
+    <Notification class="pb-3" style="width: 33.333%; margin-right: auto; min-height: 100vh" />
   </div>
 </template>
 

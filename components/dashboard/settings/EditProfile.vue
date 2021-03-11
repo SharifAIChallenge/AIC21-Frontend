@@ -80,7 +80,7 @@
           @change="edited"
         ></v-checkbox>
       </v-row>
-      <v-row class="justify-space-between pa-3">
+      <v-row class="justify-space-between pa-3 settingBtn">
         <v-btn style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
         <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
           <v-icon left>mdi-content-save-outline</v-icon>

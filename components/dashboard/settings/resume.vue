@@ -9,7 +9,9 @@
       </v-row>
       <v-row>
         <v-col cols="12" class="d-flex mb-8" style="align-items: flex-end">
-          <div class="pa-2 bg"><v-icon @click="deleteImage" :disabled="image == null">mdi-trash-can-outline</v-icon></div>
+          <div class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
+            <v-icon @click="deleteImage" :disabled="image == null">mdi-trash-can-outline</v-icon>
+          </div>
           <div class="secondary pa-2 d-flex" style="width: 150px; height: 150px; overflow: hidden">
             <img v-if="image !== null" :src="image" alt="profile_picture" style="width: 100%; heght: 100%; object-fit: cover" />
           </div>
@@ -29,7 +31,9 @@
       </v-row>
       <v-row>
         <v-col cols="12" class="d-flex mb-8">
-          <div class="pa-2 bg"><v-icon @click="deleteResume" :disabled="resume == null">mdi-trash-can-outline</v-icon></div>
+          <div class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
+            <v-icon @click="deleteResume" :disabled="resume == null">mdi-trash-can-outline</v-icon>
+          </div>
           <div class="secondary pa-2 d-flex" style="width: 100%; overflow: hidden">
             <v-icon>mdi-file-download-outline</v-icon>
             <a
@@ -180,7 +184,7 @@ export default {
     deleteChip: Function,
     deleteImage: Function,
     image: String,
-    resetForm :Function
+    resetForm: Function,
   },
   methods: {},
 };
