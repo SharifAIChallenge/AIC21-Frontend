@@ -83,6 +83,7 @@ import ChangePassword from '../../components/dashboard/settings/ChangePassword';
 import DashboardPage from '../../components/dashboard/DashboardPage';
 import { editProfile } from '~/api';
 import { mapState } from 'vuex';
+import auth from '~/middleware/auth';
 
 export default {
   components: { DashboardPage, ChangePassword, EditProfile, Resume },
@@ -190,15 +191,8 @@ export default {
       this.loading = true;
       await editProfile(this.$axios, this.formData).then(res => {
         this.loading = false;
-        console.log(res);
-        if (res.status_code) {
-          if (res.status_code === 200) {
-            this.$toast.success('تغییرات با موفقیت دخیره شد.');
-            this.resetForm();
-          } else {
-            this.$toast.error('خطایی در دخیره تغییرات رخ داد.');
-          }
-        }
+        this.disable = true;
+        this.$toast.success('تغییرات با موفقیت دخیره شد.');
       });
     },
     // save() {
@@ -206,7 +200,6 @@ export default {
     //   this.menu = false;
     // },
     resetForm() {
-      console.log(this.profile);
       if (!this.profile) return;
       this.disable = true;
       this.information.firstnameFa = this.profile.firstname_fa;
@@ -260,7 +253,7 @@ export default {
     addToArray(array) {
       if (array === 'skills' && this.information.skill != '') {
         this.skills.push(this.information.skill);
-        console.log(this.skills);
+        // console.log(this.skills);
         this.information.skill = '';
       } else if (array === 'jobs' && this.information.job != '') {
         this.jobs.push(this.information.job);
@@ -315,8 +308,12 @@ export default {
   .v-input--dense label {
     top: 15px !important;
   }
-  .v-input--is-focused label {
+  .v-input--is-focused label,
+  .v-input--is-dirty label {
     top: 10px !important;
+  }
+  .v-input--checkbox label {
+    top: 0 !important;
   }
   .settingBtn button {
     height: 50px !important;

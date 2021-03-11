@@ -41,6 +41,7 @@
               :href="resume"
               target="_blanck"
               style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+              class="d-flex align-center"
             >
               <span>{{ resume }}</span>
             </a>

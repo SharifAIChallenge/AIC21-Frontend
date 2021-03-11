@@ -196,7 +196,7 @@ export default {
   transition: 0.4s;
   transform: scale(4);
 }
-.v-app-bar__nav-icon{
+.v-app-bar__nav-icon {
   position: relative;
   z-index: 2000;
 }
