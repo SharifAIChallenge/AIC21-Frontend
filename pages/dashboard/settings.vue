@@ -211,14 +211,14 @@ export default {
       this.information.linkedin = this.profile.linkedin;
       this.information.email = this.profile.email;
       this.information.github = this.profile.github;
-      this.information.resume = this.profile.resume;
+      this.resume = this.profile.resume;
       this.information.phoneNumber = this.profile.phone_number;
       this.information.major = this.profile.major;
       this.information.programmingLanguage = this.profile.programming_language;
       this.information.term = this.profile.university_term;
       this.information.degree = this.profile.university_degree;
       this.information.province = this.profile.province;
-      this.information.image = this.profile.image;
+      this.image = this.profile.image;
       for (item in this.profile.skills) {
         this.skills.push(item);
       }
@@ -227,7 +227,6 @@ export default {
       }
     },
     deleteResume() {
-      this.information.resume = null;
       this.resume = null;
       if (this.formData.get('resume') == null) {
         this.formData.append('resume', null);
@@ -238,7 +237,6 @@ export default {
     },
 
     deleteImage() {
-      this.information.image = null;
       this.image = null;
       if (this.formData.get('image') == null) {
         this.formData.append('image', null);
@@ -291,7 +289,6 @@ export default {
   },
   mounted() {
     this.formData = new FormData();
-    // this.resume = this.$auth.user.resume;
     this.resetForm();
     this.disable = true;
   },
