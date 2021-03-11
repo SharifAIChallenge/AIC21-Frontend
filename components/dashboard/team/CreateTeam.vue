@@ -23,9 +23,9 @@
       <!-- <input type="file" id="file" @change="handleFileUpload" accept="image/*" /> -->
       <v-text-field label="نام تیم" outlined v-model="name"></v-text-field>
       <div class="buttons">
-        <v-btn tile class="black" @click="forfiet()">لغو</v-btn>
-        <v-btn tile @click="submitTeam()" class="primary submitBtn">
-          <v-icon>
+        <v-btn block class="black" @click="forfiet()">لغو</v-btn>
+        <v-btn block :loading="loading" @click="submitTeam()" class="primary submitBtn">
+          <v-icon class="ml-3">
             mdi-plus-circle-outline
           </v-icon>
           تیمم را بساز
@@ -36,27 +36,36 @@
 </template>
 <script>
 export default {
+  props: ['toggleHaveTeam'],
   data() {
     return {
       name: '',
       image: null,
+      loading: false,
     };
   },
   methods: {
     submitTeam() {
+      if (!this.name) {
+        this.$toast.error('اسم تیم نمی‌تواند خالی باشد');
+        return;
+      }
       const formData = new FormData();
       formData.append('name', this.name);
       if (this.image != null) {
         formData.append('image', this.image);
       }
-
-      // observe formdate object
-      // for (var pair of formData.entries()) {
-      //   console.log(pair[0] + ', ' + pair[1]);
-      // }
-
+      this.loading = true;
       this.$axios.$post('team/', formData, { headers: { 'content-type': 'multipart/form-data' } }).then(res => {
-        console.log(res);
+        this.loading = false;
+        if (res.status_code === 200) {
+          this.$toast.success('تیم شما با موفقیت ساخته‌شد');
+          this.toggleHaveTeam();
+        } else {
+          //TODO: check other errors and status code
+          this.$toast.error('ساخت تیم با خطا مواجه شد');
+          this.forfiet();
+        }
       });
     },
     forfiet() {

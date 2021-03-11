@@ -1,9 +1,173 @@
-<template></template>
+<template>
+  <div class="overflow-hidden d-flex team">
+    <v-col cols="12" md="6" class="pa-0">
+      <v-divider />
+      <v-tabs-items v-model="tabs">
+        <v-tab-item>
+          <v-card-text class="main-content">
+            <MyTeam :toggleHaveTeam="toggleHaveTeam" v-if="haveTeam" />
+            <CreateTeam :toggleHaveTeam="toggleHaveTeam" v-else />
+          </v-card-text>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card-text class="main-content">
+            <SearchUsersAndSendInvitation v-if="haveTeam" />
+            <IncompleteTeams v-else />
+          </v-card-text>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card-text class="main-content">
+            <TeamInvitationAndHistory v-if="haveTeam" />
+            <UserInvitation v-else />
+          </v-card-text>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-col>
+    <client-only>
+      <v-col cols="12" md="6" class="pa-0">
+        <div class="d-flex tabsW">
+          <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
+            <div v-for="(item, key) in haveTeam ? teamHeader : userHeader" :key="key" style="margin: 15px auto" class="d-flex flex-column">
+              <v-tab>
+                {{ item.title }}
+                <v-icon size="60" style="color: white">{{ tabs === key ? item.icon : `${item.icon}-outline` }}</v-icon>
+              </v-tab>
+            </div>
+          </v-tabs>
+        </div>
+      </v-col>
+    </client-only>
+  </div>
+</template>
 
 <script>
+import CreateTeam from '~/components/dashboard/team/CreateTeam';
+import UserInvitation from '~/components/dashboard/team/UserInvitation';
+import IncompleteTeams from '~/components/dashboard/team/IncompleteTeams';
+import MyTeam from '~/components/dashboard/team/MyTeam';
+import TeamInvitationAndHistory from '~/components/dashboard/team/TeamInvitationAndHistory';
+import SearchUsersAndSendInvitation from '~/components/dashboard/team/SearchUsersAndSendInvitation';
 export default {
   layout: 'dashboard',
+  components: { CreateTeam, UserInvitation, IncompleteTeams, MyTeam, SearchUsersAndSendInvitation, TeamInvitationAndHistory },
+  data() {
+    return {
+      haveTeam: false,
+      tabs: null,
+      teamHeader: [
+        {
+          title: 'تیم من',
+          icon: 'mdi-account-multiple-plus',
+        },
+        {
+          title: 'جستجو و دعوت افراد',
+          icon: 'mdi-account-search',
+        },
+        {
+          title: 'دعوت‌نامه‌های تیم‌ من',
+          icon: 'mdi-account-plus',
+        },
+      ],
+      userHeader: [
+        {
+          title: 'ساختن تیم',
+          icon: 'mdi-account-multiple-plus',
+        },
+        {
+          title: 'جستجو تیم‌ها',
+          icon: 'mdi-badge-account-horizontal',
+        },
+        {
+          title: 'دعوتنامه‌های من',
+          icon: 'mdi-script-text',
+        },
+      ],
+    };
+  },
+  async fetch() {
+    let res = await this.$axios.$get('team');
+    console.log(res, 'aaaaaaaaaaaaaaaaaaaaaaaaa');
+    if (res.status_code === 403) this.haveTeam = false;
+    else {
+      this.haveTeam = true;
+    }
+  },
+  methods: {
+    toggleHaveTeam() {
+      this.haveTeam = !this.haveTeam;
+      this.$fetch();
+    },
+  },
 };
 </script>
 
-<style></style>
+<style lang="scss">
+@import 'assets/variables.scss';
+@import 'assets/mixins.scss';
+
+.team {
+  @include v-not-md {
+    flex-wrap: wrap;
+    flex-flow: column-reverse;
+    > div {
+      width: 100vw;
+    }
+  }
+  .v-tab--active {
+    background-color: var(--v-secondary-base) !important;
+    color: white !important;
+  }
+  .v-tab {
+    width: 150px;
+    height: 150px;
+    background: #141432;
+    color: white !important;
+  }
+
+  hr {
+    display: none;
+  }
+  .v-tabs-slider-wrapper {
+    display: none;
+  }
+  .main-content {
+    min-height: 100vh;
+    background-color: #0e1224;
+  }
+  .tabsW {
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    width: calc(50% - 136px);
+    @include v-not-md {
+      position: relative;
+      width: auto;
+      min-height: 150px;
+    }
+  }
+  .tabsWraper .v-item-group {
+    min-height: 100vh;
+    @include v-not-md {
+      min-height: 150px;
+    }
+    .v-slide-group__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      @include v-not-md {
+        flex-direction: row;
+        > div {
+          margin: 0 !important;
+          width: 33.3333%;
+          > div {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+  input {
+    text-align: right;
+  }
+}
+</style>
