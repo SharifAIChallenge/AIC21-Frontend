@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <MyTeam /> -->
-    <!-- <CreateTeam /> -->
+<!--     <CreateTeam />-->
      <IncompleteTeams />
 <!--    <UserInvitation />-->
   </div>
@@ -14,7 +14,7 @@ import IncompleteTeams from '../components/dashboard/team_new/IncompleteTeams';
 import UserInvitation from '../components/dashboard/team_new/UserInvitation';
 
 export default {
-  layout: 'landing',
+  layout: 'dashboard',
   components: { MyTeam, CreateTeam, IncompleteTeams, UserInvitation },
 };
 </script>

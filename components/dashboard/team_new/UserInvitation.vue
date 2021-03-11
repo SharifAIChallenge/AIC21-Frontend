@@ -47,7 +47,7 @@
         <div v-for="(item, index) in reqHistory" :key="index">
           <div>
             <div>
-              {{ item.team }}
+              {{ item.team.name }}
               <v-icon :color="iconColor(item.status)" size="30px" class="pl-4 pr-2">{{ requestStatusIcon(item.status) }}</v-icon>
               {{ statusMessage(item.status) }}
             </div>

@@ -9,15 +9,15 @@
                         class='elevation-1'
                         @page-count='pageCount=$event'>
             <template v-slot:item.image='{ item }'>
-              <img :src='item.image' alt='' style='width: 50px; height: 50px  ' />
+              <img :src='item.image' :alt='item.name'  height='60px' />
             </template>
             <template v-slot:item.profile='{ item }'>
-              <v-icon @click='showTeam(item)'>
+              <v-icon class='icon' @click='showTeam(item)'>
                 mdi-card-account-details-outline
               </v-icon>
             </template>
             <template v-slot:item.sendRequest='{ item }'>
-              <v-icon @click='sendRequest(item.id)'>
+              <v-icon class='icon' @click='sendRequest(item.id)'>
                 mdi-plus-circle-outline
               </v-icon>
             </template>
@@ -30,14 +30,23 @@
           {{ teamInfo.name }}
           <v-container>
             <v-row v-for='(member,index) in teamInfo.members' :key='index'>
+              <v-col cols='2'>
+                <img :src='member.profile.image' :alt='member.first_name' height='40px'>
+              </v-col>
               <v-col cols='10'>
-                {{ member.first_name + '' + member.last_name }}
+
+              <div class='d-flex align-center'>
+                <v-col cols='10'>
+                  {{ member.first_name + '' + member.last_name }}
+                </v-col>
+                <v-col cols='2'>
+                  <v-icon>
+                    mdi-card-account-details-outline
+                  </v-icon>
+                </v-col>
+              </div>
               </v-col>
-              <v-col>
-                <v-icon>
-                  mdi-card-account-details-outline
-                </v-icon>
-              </v-col>
+
               <v-col cols='12' class='d-flex justify-content-center'>
                 <v-btn flat color='primary' class='mt-5' @click='sendRequest(teamInfo.id)'>ارسال درخواست عضویت</v-btn>
               </v-col>
@@ -72,8 +81,8 @@ export default {
     };
   },
   methods: {
-    sendRequest(team) {
-      this.$axios.post('team/invitations/user_sent', { team }).then(res => {
+    sendRequest(team_id) {
+      this.$axios.post('team/invitations/user_sent', { team_id }).then(res => {
         console.log(res.data);
         if (res.data.status_code === 200) {
           this.$toast.success(this.translateResponseMessage(res.data.message));
@@ -97,3 +106,10 @@ export default {
   },
 };
 </script>
+<style lang='scss' scoped>
+.icon{
+  &:hover{
+    color: var(--v-primary-base);
+  }
+}
+</style>
