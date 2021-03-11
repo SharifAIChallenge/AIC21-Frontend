@@ -4,14 +4,14 @@
       <v-col sm="6" cols="12">
         <v-img class="white--text align-end" height="100%" :src="`https://aichallenge.ir${post.image}`"></v-img>
       </v-col>
-      <v-col sm="6" cols="12">
+      <v-col sm="6" cols="12" style="height:100%">
         <v-card flat tile class="transparent">
           <v-card-subtitle class="white--text">
             {{ new Intl.DateTimeFormat($i18n.locale).format(new Date(post.date)) }}
           </v-card-subtitle>
-          <v-card-title class="primary--text text-h3 font-weight-black">
+          <h3 class="primary--text text-h3 font-weight-black">
             {{ post.title_fa }}
-          </v-card-title>
+          </h3>
           <v-card-text class="mb-5 mt-4 font-weight-bold">
             <div v-html="$md.render(post.text_fa)"></div>
           </v-card-text>
@@ -22,11 +22,29 @@
               </v-btn>
               <v-btn class="white--text text--lighten-2" tile outlined @click="copyLink">کپی لینک</v-btn>
             </v-col> -->
-            <v-col cols="12" class="pa-1">
-              <v-btn class="green--text text--darken-3" tile outlined @click="copyLink()">
+            <v-col cols="12" class="pa-1 mt-lg-16">
+              <v-btn class="green--text text--darken-3 px-3 py-5" tile outlined @click="copyLink()">
                 <v-icon class="white--text">mdi-content-copy</v-icon>
                 <span class="mr-2">
                   کپی لینک پست
+                </span>
+              </v-btn>
+              <v-btn class="green--text text--darken-3 px-3 py-5" tile outlined v-if="post.webinar_link" :href="post.webinar_link">
+                <v-icon class="white--text">mdi-link</v-icon>
+                <span class="mr-2">
+                  وبینار
+                </span>
+              </v-btn>
+              <v-btn
+                class="green--text text--darken-3 px-3 py-5"
+                tile
+                outlined
+                v-if="post.google_calendar_link"
+                :href="post.google_calendar_link"
+              >
+                <v-icon class="white--text">mdi-calendar</v-icon>
+                <span class="mr-2">
+                  تقویم گوگل
                 </span>
               </v-btn>
             </v-col>
@@ -57,7 +75,11 @@ import Post from '~/components/blog/Post';
 import { getPost, getPosts } from '~/api/blog';
 import EmailCallToAction from '~/components/EmailCallToAction.vue';
 export default {
-  auth: false,
+  components: {
+    'app-post-button': Buttons,
+    'app-post': Post,
+    EmailCallToAction,
+  },
   data() {
     return {
       posts: [],
@@ -73,16 +95,6 @@ export default {
     });
     return { posts, post };
   },
-  // async fetch() {
-  //   let id = this.$route.params.slug;
-  //   let post = await getPost(this.$axios, id);
-  //   let posts = await getPosts(this.$axios);
-  //   posts = posts.filter(value => {
-  //     return value.id != id;
-  //   });
-  //   this.posts = posts;
-  //   this.post = post;
-  // },
   methods: {
     copyLink() {
       const el = document.createElement('textarea');
@@ -96,23 +108,6 @@ export default {
       document.body.removeChild(el);
       this.$toast.success('لینک پست در کلیپ‌بورد کپی شد');
     },
-  },
-  methods: {
-    copyLink() {
-      const el = document.createElement('textarea');
-      el.value = window.location.href;
-      el.setAttribute('readonly', '');
-      el.style.position = 'absolute';
-      el.style.left = '-9999px';
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-    },
-  },
-  components: {
-    'app-post-button': Buttons,
-    'app-post': Post,
   },
 };
 </script>

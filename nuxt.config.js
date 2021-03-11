@@ -39,9 +39,8 @@ export default {
       { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/fav-icon/android-icon-96x96.png' },
       { rel: 'icon', type: 'image/png', sizes: '72x72', href: '/fav-icon/android-icon-72x72.png' },
       { rel: 'manifest', type: 'image/png', href: '/fav-icon/manifest.json' },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/icon.png' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo__white.svg' }],
   },
   /*
    ** Customize the progress-bar color
