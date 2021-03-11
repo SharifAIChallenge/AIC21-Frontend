@@ -14,21 +14,21 @@
       </div>
       <div class="social">
         <div>
-          <a :href="userData.profile.linkedin" target="blank">
+          <a :href="userData.profile.linkedin" target="_blank">
             <v-icon :disabled="userData.profile.linkedin === null">
               mdi-linkedin
             </v-icon>
           </a>
         </div>
         <div>
-          <v-btn :href="userData.profile.github" target="blank">
+          <v-btn :href="userData.profile.github" target="_blank">
             <v-icon :disabled="userData.profile.github === null" >
               mdi-github
             </v-icon>
           </v-btn>
         </div>
         <div>
-          <v-btn :href="userData.profile.resume" target="blank">
+          <v-btn :href="userData.profile.resume" target="_blank">
             <v-icon :disabled="userData.profile.resume === null">
               mdi-file-account
             </v-icon>
