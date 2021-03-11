@@ -143,7 +143,7 @@
         <v-checkbox v-model="information.canSponsorsSee" label="اطلاعاتم برای اسپانسر قابل جستو باشد." @change="edited"></v-checkbox>
       </v-row>
       <v-row class="justify-space-between pa-3" v-bind:class="[information.resume == '' || resume == null ? 'marginTop' : '']">
-        <v-btn style="flex-basis: 20%">لغو</v-btn>
+        <v-btn style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
         <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
           <v-icon left>mdi-content-save-outline</v-icon>
           {{ $t('dashboard.editProfile') }}
@@ -180,6 +180,7 @@ export default {
     deleteChip: Function,
     deleteImage: Function,
     image: String,
+    resetForm :Function
   },
   methods: {},
 };

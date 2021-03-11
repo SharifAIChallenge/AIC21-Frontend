@@ -14,6 +14,7 @@
                   :edited="edited"
                   :menu="menu"
                   :disable="disable"
+                  :resetForm="resetForm"
                 />
               </v-card-text>
             </v-tab-item>
@@ -33,6 +34,7 @@
                   :deleteImage="deleteImage"
                   :image="image"
                   :jobs="jobs"
+                  :resetForm="resetForm"
                 />
               </v-card-text>
             </v-tab-item>
@@ -209,8 +211,8 @@ export default {
     //   this.menu = false;
     // },
     resetForm() {
-      console.log(this.profile);
       if (!this.profile) return;
+      this.disable = true
       this.information.firstnameFa = this.profile.firstname_fa;
       this.information.firstnameEn = this.profile.firstname_en;
       this.information.lastnameFa = this.profile.lastname_fa;
