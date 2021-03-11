@@ -8,13 +8,9 @@
         </div>
       </v-row>
       <v-row>
-        <v-col cols="12" class="d-flex mb-8" v-if="information.image !== '' && image !== null">
+        <v-col cols="12" class="d-flex mb-8" style="align-items: flex-end" v-if="information.image !== null && image !== null">
           <div class="pa-2 bg"><v-icon @click="deleteImage" :disabled="image == null">mdi-trash-can-outline</v-icon></div>
-          <div
-            v-if="image !== '' && information.image !== ''"
-            class="secondary pa-2 d-flex"
-            style="width:100px:height:100px; overflow: hidden"
-          >
+          <div class="secondary pa-2 d-flex" style="width: 150px; height: 150px; overflow: hidden">
             <img :src="image" alt="profile_picture" style="width: 100%; heght: 100%; object-fit: cover" />
           </div>
         </v-col>
@@ -32,12 +28,12 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" class="d-flex mb-8" v-if="information.resume !== '' && resume !== null">
+        <v-col cols="12" class="d-flex mb-8" v-if="information.resume !== null && resume !== null">
           <div class="pa-2 bg"><v-icon @click="deleteResume" :disabled="resume == null">mdi-trash-can-outline</v-icon></div>
           <div class="secondary pa-2 d-flex" style="width: 100%; overflow: hidden">
             <v-icon>mdi-file-download-outline</v-icon>
             <a
-              v-if="resume !== '' && information.resume !== ''"
+              v-if="resume !== null && information.resume !== null"
               :href="resume"
               target="_blanck"
               style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
@@ -65,7 +61,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col class="py-0 mb-3 skill" cols="12">
+        <v-col class="py-0 mb-6 skill" cols="12">
           <v-text-field
             v-model="information.skill"
             label="مهارت ها"
@@ -74,8 +70,27 @@
             @keyup.enter="addToArray('skills')"
           ></v-text-field>
           <v-icon v-if="information.skill != ''" @click="addToArray('skills')" @keyup.enter="addToArray('skills')">mdi-check</v-icon>
-          <div>
-            <v-chip v-for="(item, index) in skills" :key="index" class="ma-2" close @click="deleteChip('skills', index)">{{ item }}</v-chip>
+          <div class="my-2">
+            <v-chip v-for="(item, index) in skills" :key="index" class="ma-2" close @click:close="deleteChip('skills', index)">
+              {{ item }}
+            </v-chip>
+          </div>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-6 job" cols="12">
+          <v-text-field
+            v-model="information.job"
+            label="شغل"
+            v-bind="filedProps"
+            @keyup="edited"
+            @keyup.enter="addToArray('jobs')"
+          ></v-text-field>
+          <v-icon v-if="information.job != ''" @click="addToArray('jobs')" @keyup.enter="addToArray('jobs')">mdi-check</v-icon>
+          <div class="my-2">
+            <v-chip v-for="(item, index) in jobs" :key="index" class="ma-2" close @click:close="deleteChip('jobs', index)">
+              {{ item }}
+            </v-chip>
           </div>
         </v-col>
       </v-row>
@@ -148,7 +163,6 @@ export default {
   data() {
     return {
       valid: false,
-      loading: false,
     };
   },
 
@@ -162,6 +176,7 @@ export default {
     resume: String,
     addToArray: Function,
     skills: Array,
+    jobs: Array,
     deleteChip: Function,
     deleteImage: Function,
     image: String,
@@ -182,8 +197,12 @@ export default {
 .marginTop {
   margin-top: 100px !important;
 }
-.skill {
+.skill,
+.job {
   position: relative;
+  .v-text-field__details {
+    display: none;
+  }
   .mdi-check {
     position: absolute !important;
     left: 19px;

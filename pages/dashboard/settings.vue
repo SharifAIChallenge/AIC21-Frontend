@@ -32,6 +32,7 @@
                   :deleteChip="deleteChip"
                   :deleteImage="deleteImage"
                   :image="image"
+                  :jobs="jobs"
                 />
               </v-card-text>
             </v-tab-item>
@@ -105,9 +106,10 @@ export default {
         province: '',
         degree: '',
         term: '',
-        resume: '',
-        image: '',
+        resume: null,
+        image: null,
         skill: '',
+        job:''
       },
       menu: false,
       disable: true,
@@ -116,6 +118,7 @@ export default {
       resume: '',
       image: '',
       skills: [],
+      jobs:[]
     };
   },
   methods: {
@@ -141,6 +144,7 @@ export default {
         this.formData.append('university_degree', this.information.degree);
         this.formData.append('province', this.information.province);
         this.formData.append('skills', this.skills);
+        this.formData.append('jobs', this.jobs);
         if (
           this.information.firstnameFa !== this.profile.firstname_fa ||
           this.information.firstnameEn !== this.profile.firstname_en ||
@@ -157,7 +161,8 @@ export default {
           this.information.term !== this.profile.university_term ||
           this.information.degree !== this.profile.university_degree ||
           this.information.province !== this.profile.province ||
-          JSON.stringify(this.skills) != JSON.stringify(this.profile.skills)
+          JSON.stringify(this.skills) != JSON.stringify(this.profile.skills) ||
+          JSON.stringify(this.jobs) != JSON.stringify(this.profile.jobs)
         ) {
           this.disable = false;
         } else if (this.information.resume !== this.profile.resume) {
@@ -217,12 +222,15 @@ export default {
       for (item in this.profile.skills) {
         this.skills.push(item);
       }
+      for (item in this.profile.jobs) {
+        this.jobs.push(item);
+      }
     },
     deleteResume() {
-      this.information.resume = '';
+      this.information.resume = null;
       this.resume = null;
       if (this.formData.get('resume') == null) {
-        this.formData.append('resume', '');
+        this.formData.append('resume', null);
       } else {
         this.formData.delete('resume');
       }
@@ -230,10 +238,10 @@ export default {
     },
 
     deleteImage() {
-      this.information.image = '';
+      this.information.image = null;
       this.image = null;
       if (this.formData.get('image') == null) {
-        this.formData.append('image', '');
+        this.formData.append('image', null);
       } else {
         this.formData.delete('image');
       }
@@ -243,8 +251,13 @@ export default {
     addToArray(array) {
       if (array === 'skills' && this.information.skill != '') {
         this.skills.push(this.information.skill);
-        console.log(this.skills);
+        // console.log(this.skills);
         this.information.skill = '';
+      }
+      else if(array ==='jobs' && this.information.job != ''){
+        this.jobs.push(this.information.job);
+        // console.log(this.jobs);
+        this.information.job = '';
       }
       this.edited();
     },
@@ -254,6 +267,13 @@ export default {
           this.skills = [];
         } else {
           this.skills.splice(item, 1);
+        }
+      }
+      else if (array == 'jobs') {
+        if (this.jobs.length == 1) {
+          this.jobs = [];
+        } else {
+          this.jobs.splice(item, 1);
         }
       }
       this.edited();
