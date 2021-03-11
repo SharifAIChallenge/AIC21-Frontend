@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     loginWithGoogle() {
-      this.$auth.loginWith('google');
+      // this.$auth.loginWith('google');
     },
     toggleShow() {
       this.$store.commit('formStatus/changeStatus', 'signUp');

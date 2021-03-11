@@ -2,6 +2,7 @@
   "form": {
     "email": "ایمیل",
     "password": "رمز عبور",
+    "passwordRepeat": "تکرار رمز عبور",
     "nameInPersian": "نام به فارسی",
     "lastNameInPersian": "نام خانوادگی به فارسی",
     "nameInEnglish": "نام به انگلیسی",
@@ -83,7 +84,8 @@
     "updates": "اعلان‌ها",
     "recentUpdates": "آخرین اعلان‌ها",
     "gettingStarted": "راهنمای شروع",
-    "editProfile": "ویرایش پروفایل",
+    "editProfile": "اطلاعات شخصی",
+    "resume" : "رزومه",
     "seeAll": "دیدن همه",
     "gameStats": "آمار بازی‌ها",
     "performance": "عملکرد",

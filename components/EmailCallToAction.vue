@@ -54,10 +54,19 @@ export default {
   top: -100px;
   opacity: 0.15;
   z-index: 0;
-  transform: scale(0.7);
-  @include not-md {
+  transform: scale(0.63) translateY(-100px);
+  @include not-sm {
     top: 0px;
+    transform: translateY(100px);
   }
+}
+.action-btn {
+  position: relative;
+  z-index: 1000;
+}
+.action-btn {
+  position: relative;
+  z-index: 1000;
 }
 .call_to_action {
   max-width: 750px;

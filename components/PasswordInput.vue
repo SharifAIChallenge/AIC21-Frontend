@@ -8,7 +8,6 @@
     required
     outlined
     :autofocus="autofocus"
-    v-bind="filedProps"
     dir="ltr"
     @input="val => $emit('input', val)"
     @click:append="toggle"
@@ -16,11 +15,10 @@
 </template>
 
 <script>
-import { fieldProps } from '../mixins/fieldProps';
 import { requiredRules } from '../mixins/formValidations';
 
 export default {
-  mixins: [fieldProps, requiredRules],
+  mixins: [requiredRules],
   props: {
     value: {
       type: String,

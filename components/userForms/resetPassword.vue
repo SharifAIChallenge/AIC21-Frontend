@@ -7,25 +7,16 @@
             <v-icon right size="45px" color="wihte">
               mdi-shield-sync-outline
             </v-icon>
-            {{ $t('form.forgotPassword') }}
+            {{ $t('form.changePassword') }}
           </div>
-          <form ref="form" @submit.prevent="resetPassword">
-            <v-text-field
-              :label="$t('form.email')"
-              v-model="email"
-              type="email"
-              :rules="emailRules"
-              required
-              outlined
-              dir="ltr"
-              height="36px"
-              autofocus
-            ></v-text-field>
+          <form ref="form" @submit.prevent="resetPasswordConfirm">
+            <password-input v-model="passes.newPassword_1" label="form.newPassword" />
+            <password-input v-model="passes.newPassword_2" label="form.confirmNewPassword" />
 
             <v-row>
               <v-col>
                 <v-btn block :loading="loading" type="submit" color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
-                  {{ $t('form.sendResetInstructions') }}
+                  {{ $t('form.changePassword') }}
                 </v-btn>
               </v-col>
             </v-row>
@@ -41,15 +32,26 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../../mixins/formValidations';
-import { resetPassword } from '../../api';
+import { requiredRules } from '../../mixins/formValidations';
+import PasswordInput from '../PasswordInput';
+import { resetPasswordConfirm } from '../../api';
 
 export default {
-  mixins: [requiredRules, emailRules],
+  components: { PasswordInput },
+  mixins: [requiredRules],
+  //   validate({ query }) {
+  //     return query.uid && query.token;
+  //   },
   data() {
     return {
       valid: false,
-      email: '',
+      passes: {
+        newPassword_1: '',
+        newPassword_2: '',
+        uid: this.$route.query.uid,
+        token: this.$route.query.token,
+      },
+      show: false,
       loading: false,
     };
   },
@@ -60,16 +62,16 @@ export default {
     changeStatus(form) {
       this.$store.commit('formStatus/changeStatus', form);
     },
-    async resetPassword() {
+    async resetPasswordConfirm() {
       this.loading = true;
-      let data = await resetPassword(this.$axios, this.email);
+      let data = await resetPasswordConfirm(this.$axios, this.passes);
       this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {
-          this.$toast.success('لینک تغییر رمز عبور به ایمیل شما ارسال شد.');
-          this.$refs.form.reset();
+          this.$toast.success('رمز عبور با موفقیت تغییر یافت.');
+          this.$router.push('/login');
         } else {
-          this.$toast.error('ایمیل پیدا نشد.');
+          this.$toast.error('خطا در تغییر رمز عبور.');
         }
       }
     },
