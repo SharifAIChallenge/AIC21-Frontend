@@ -9,7 +9,7 @@
                         class='elevation-1'
                         @page-count='pageCount=$event'>
             <template v-slot:item.image='{ item }'>
-              <img :src='item.image' :alt='item.name'  height='60px' />
+              <img :src='item.image' :alt='item.name' height='60px' />
             </template>
             <template v-slot:item.profile='{ item }'>
               <v-icon class='icon' @click='showTeam(item)'>
@@ -34,42 +34,50 @@
                 <img :src='member.profile.image' :alt='member.first_name' height='40px'>
               </v-col>
               <v-col cols='10'>
-
-              <div class='d-flex align-center'>
-                <v-col cols='10'>
-                  {{ member.first_name + '' + member.last_name }}
-                </v-col>
-                <v-col cols='2'>
-                  <v-icon>
-                    mdi-card-account-details-outline
-                  </v-icon>
-                </v-col>
-              </div>
-              </v-col>
-
-              <v-col cols='12' class='d-flex justify-content-center'>
-                <v-btn flat color='primary' class='mt-5' @click='sendRequest(teamInfo.id)'>ارسال درخواست عضویت</v-btn>
+                <div class='d-flex align-center'>
+                  <v-col cols='10'>
+                    {{ member.first_name + '' + member.last_name }}
+                  </v-col>
+                  <v-col cols='2'>
+                    <v-icon @click='setCurrentUser(member.profile,member.email,member.id,false)'>
+                      mdi-card-account-details-outline
+                    </v-icon>
+                  </v-col>
+                </div>
               </v-col>
             </v-row>
           </v-container>
+          <v-btn color='primary' class='mt-5' @click='sendRequest(teamInfo.id)' width='100%' height='55px'>ارسال درخواست
+            عضویت
+          </v-btn>
         </v-card>
       </v-dialog>
       <div>
         <v-pagination v-model='page' :length='pageCount'></v-pagination>
       </div>
     </v-container>
+    <v-dialog v-model="ProfileDialog" width="350">
+      <div class="close-btn" @click="ProfileDialog = false">X</div>
+      <UserProfileForTeam :userData="currentUser" />
+    </v-dialog>
   </div>
 </template>
 <script>
 
 
+import UserProfileForTeam from '~/components/dashboard/team_new/UserProfileForTeam';
+
 export default {
+  components: {
+    UserProfileForTeam,
+  },
   data() {
     return {
       page: 1,
       pageCount: 0,
       itemsPerPage: 20,
       teamDetails: false,
+      ProfileDialog: false,
       teamInfo: {},
       header: [
         { text: 'تصویر', value: 'image' },
@@ -78,23 +86,39 @@ export default {
         { text: 'ارسال درخواست عضویت', value: 'sendRequest' },
       ],
       team: [],
+      currentUser: {
+        profile: {},
+        email: '',
+        id: 0,
+        show: true,
+      },
     };
   },
   methods: {
     sendRequest(team_id) {
       this.$axios.post('team/invitations/user_sent', { team_id }).then(res => {
-        console.log(res.data);
         if (res.data.status_code === 200) {
           this.$toast.success(this.translateResponseMessage(res.data.message));
         } else {
-          this.$toast.error(res.data.message);
+          this.$toast.error(this.translateResponseMessage(res.data.message));
         }
       });
     },
     showTeam(team) {
       this.teamDetails = true;
       this.teamInfo = team;
-      console.log(team);
+    },
+    setCurrentUser(profile, email, id, show) {
+      this.teamDetails=false;
+      this.currentUser.profile = profile;
+      this.currentUser.email = email;
+      this.currentUser.id = id;
+      this.currentUser.show = show;
+      this.ProfileDialog = true;
+    },
+    translateResponseMessage(response) {
+      if (response === 'your invitation sent') return 'دعوت نامه ارسال شد!';
+      else return 'مشکلی در ارسال دعوت نامه رخ داد!';
     },
   },
   async fetch() {
@@ -107,8 +131,8 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.icon{
-  &:hover{
+.icon {
+  &:hover {
     color: var(--v-primary-base);
   }
 }
