@@ -20,32 +20,60 @@
         </div>
       </div>
 
-      <v-data-table center :headers="headers" :items="data" class="elevation-1 table-cursor" @click:row="handleClick($event)">
+      <v-data-table
+        hide-default-footer
+        center
+        :headers="headers"
+        :items="data"
+        class="elevation-1 table-cursor"
+        @click:row="handleClick($event)"
+        :page.sync="page"
+        :items-per-page="itemPerPage"
+        @page-count="pageCount = $event"
+      >
         <template v-slot:[`item.profile.firstname_fa`]="{ item }">
-          <div class="profile">
-            <img :src="item.profile.image" :alt="item.email" height="80px" class="ma-2" />
-            <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
+          <div v-if="item.profile.image !== null">
+            <div class="profile">
+              <div>
+                <img :src="item.profile.image" :alt="item.email" height="60px" class="ma-2" />
+              </div>
+              <div>
+                <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
+              </div>
+            </div>
+          </div>
+          <div v-else class="profile">
+            <div class="profile">
+              <div>
+                <v-icon size="80px">
+                  mdi-alert-box
+                </v-icon>
+              </div>
+              <div>
+                <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
+              </div>
+            </div>
           </div>
         </template>
-        <template v-slot:[`item.profile.birth_date`]="{ item }">{{ calculateAge(item.profile.birth_date) }}</template>
+        <template v-slot:[`item.profile.birth_date`]="{ item }">{{ item.profile.university_degree }}</template>
+        <template v-slot:[`item.profile.programming_language`]="{ item }">{{ item.profile.programming_language }}</template>
         <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
         <template v-slot:[`item.profile`]="{ item }">
-          <v-dialog v-model="dialog" width="350">
-            <div class="close-btn" @click="dialog = false">X</div>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon size="30px" dark v-bind="attrs" v-on="on">mdi-card-account-details-outline</v-icon>
-            </template>
-            <UserProfileFroTeam :userData="item" :userEmail="item.email" :id="item.id" />
-          </v-dialog>
+          <v-icon size="30px" dark @click="setCurrentUser(item.profile, item.email, item.id , true)" class="icon-hover">
+            mdi-card-account-details-outline
+          </v-icon>
         </template>
         <template v-slot:[`item.send`]="{ item }">
-          <v-icon @click="sendInvitation(item.email)" size="30px">mdi-plus-circle</v-icon>
-          
+          <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover">mdi-plus-circle</v-icon>
         </template>
       </v-data-table>
       <div class="text-center pt-2">
         <v-pagination v-model="page" :length="pageCount"></v-pagination>
       </div>
+      <v-dialog v-model="dialog" width="350">
+        <div class="close-btn" @click="dialog = false">X</div>
+        <UserProfileFroTeam :userData="currentUser" />
+      </v-dialog>
     </div>
   </v-app>
 </template>
@@ -66,6 +94,7 @@ export default {
       filter: false,
       page: 1,
       pageCount: 0,
+      itemPerPage: 20,
       headers: [
         {
           text: 'نام و نام‌خانوادگی',
@@ -73,7 +102,8 @@ export default {
           sortable: false,
           value: 'profile.firstname_fa',
         },
-        { text: 'سن', align: 'center', value: 'profile.birth_date' },
+        { text: 'ترم', align: 'center', value: 'profile.university_degree' },
+        { text: 'زبان برنامه‌نویسی', align: 'center', value: 'programming_language' },
         { text: 'دانشگاه', align: 'center', value: 'profile.university' },
         { text: 'پروفایل', align: 'center', value: 'profile' },
         { text: 'دعوت', align: 'center', value: 'send' },
@@ -130,13 +160,19 @@ export default {
         //   id: 8,
         // },
       ],
+      currentUser: {
+        profile: {},
+        email: '',
+        id: 0,
+        show: true,
+      },
       status_code: 200,
     };
   },
   methods: {
     sendInvitation(email) {
       let user_email = email;
-      this.$axios.$post('team/invitations/team_sent', user_email).then(res => {
+      this.$axios.$post('team/invitations/team_sent', { user_email }).then(res => {
         if (res.status_code === 200) {
           this.$toast.success(this.translateResponseMessage(res.message));
         } else {
@@ -153,11 +189,22 @@ export default {
       var age_dt = new Date(diff_ms);
       return Math.abs(age_dt.getUTCFullYear() - 1970);
     },
+    setCurrentUser(profile, email, id , show) {
+      this.currentUser.profile = profile;
+      this.currentUser.email = email;
+      this.currentUser.id = id;
+      this.currentUser.show = show;
+      this.dialog = true;
+    },
+    translateResponseMessage(response) {
+      if (response === 'your invitation sent') return 'دعوت نامه ارسال شد!';
+      else return 'مشکلی در ارسال دعوت نامه رخ داد! لطفا ایمیل را چک کنید!';
+    },
   },
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .main {
   text-align: center;
 }
@@ -171,9 +218,15 @@ export default {
 .close-btn {
   font-size: 20px;
   right: 0px;
+  cursor: pointer;
 }
 .title {
   display: flex;
   justify-content: space-between;
+}
+.icon-hover {
+  &:hover {
+    color: var(--v-primary-base);
+  }
 }
 </style>
