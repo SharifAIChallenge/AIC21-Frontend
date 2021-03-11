@@ -8,15 +8,13 @@
           </v-icon>
           جستجوی افراد بدون تیم
         </div>
-        <div>
-          <v-btn color="primary" height="60px" class="text-h7">
-            <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-script-outline</v-icon>
-            ارسال دعوتنامه با ایمیل
-          </v-btn>
-          <v-btn color="secondary" height="60px" class="text-h7">
-            <v-icon color="white" size="30px" class="pl-2 pr-2">mdi-filter-variant</v-icon>
-            فیلتر ها
-          </v-btn>
+        <div class="input-top">
+          <div>
+            <v-btn color="secondary" height="60px" class="text-h7">
+              <v-icon color="white" size="30px" class="pl-2 pr-2">mdi-filter-variant</v-icon>
+              فیلتر ها
+            </v-btn>
+          </div>
         </div>
       </div>
 
@@ -72,16 +70,16 @@
       </div>
       <v-dialog v-model="dialog" width="350">
         <div class="close-btn" @click="dialog = false">X</div>
-        <UserProfileFroTeam :userData="currentUser" />
+        <UserProfileForTeam :userData="currentUser" />
       </v-dialog>
     </div>
   </v-app>
 </template>
 
 <script>
-import UserProfileFroTeam from './UserProfileForTeam';
+import UserProfileForTeam from './UserProfileForTeam';
 export default {
-  components: { UserProfileFroTeam },
+  components: { UserProfileForTeam },
   async fetch() {
     await this.$axios.$get('accounts/without_team').then(res => {
       this.data = res.data;
