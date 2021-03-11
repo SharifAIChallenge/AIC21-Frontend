@@ -40,7 +40,6 @@
             required
             :rules="requiredRules"
             v-bind="filedProps"
-            dir="ltr"
             @keyup="edited"
           />
         </v-col>
@@ -53,7 +52,6 @@
             required
             :rules="requiredRules"
             v-bind="filedProps"
-            dir="ltr"
             @keyup="edited"
           />
         </v-col>

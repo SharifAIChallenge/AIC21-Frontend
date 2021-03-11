@@ -191,7 +191,13 @@ export default {
       this.loading = true;
       await editProfile(this.$axios, this.formData).then(res => {
         this.loading = false;
-        this.disable = true;
+        // this.$store.dispatch(`auth/getUser`).then(res =>{
+        //   console.log(res.data)
+        //   console.log(this.profile)
+        // })
+
+        // this.profile = this.$store.dispatch(`auth/getUser`)
+        this.resetForm();
         this.$toast.success('تغییرات با موفقیت دخیره شد.');
       });
     },
