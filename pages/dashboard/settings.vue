@@ -109,7 +109,7 @@ export default {
         resume: null,
         image: null,
         skill: '',
-        job:''
+        job: '',
       },
       menu: false,
       disable: true,
@@ -118,7 +118,7 @@ export default {
       resume: '',
       image: '',
       skills: [],
-      jobs:[]
+      jobs: [],
     };
   },
   methods: {
@@ -200,6 +200,7 @@ export default {
     //   this.menu = false;
     // },
     resetForm() {
+      console.log(this.profile);
       if (!this.profile) return;
       this.information.firstnameFa = this.profile.firstname_fa;
       this.information.firstnameEn = this.profile.firstname_en;
@@ -251,8 +252,7 @@ export default {
         this.skills.push(this.information.skill);
         // console.log(this.skills);
         this.information.skill = '';
-      }
-      else if(array ==='jobs' && this.information.job != ''){
+      } else if (array === 'jobs' && this.information.job != '') {
         this.jobs.push(this.information.job);
         // console.log(this.jobs);
         this.information.job = '';
@@ -266,8 +266,7 @@ export default {
         } else {
           this.skills.splice(item, 1);
         }
-      }
-      else if (array == 'jobs') {
+      } else if (array == 'jobs') {
         if (this.jobs.length == 1) {
           this.jobs = [];
         } else {

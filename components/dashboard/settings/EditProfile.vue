@@ -44,7 +44,9 @@
             @keyup="edited"
           />
         </v-col>
-        <v-col class="py-0 mb-6" cols="12">
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
           <v-text-field
             v-model="information.lastnameEn"
             :label="$t('form.lastNameInEnglish')"
@@ -56,32 +58,11 @@
           />
         </v-col>
       </v-row>
-
-      <v-dialog ref="dialog" v-model="menu" :return-value.sync="information.birthDate" width="290px">
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="information.birthDate"
-            v-bind="filedProps"
-            required
-            :rules="requiredRules"
-            :label="$t('form.birthday')"
-            readonly
-            v-on="on"
-            dir="ltr"
-            @focus="menu = true"
-            class="mb-3"
-          />
-        </template>
-        <v-date-picker
-          v-model="information.birthDate"
-          :max="new Date().toISOString().substr(0, 10)"
-          ref="picker"
-          min="1950-01-01"
-          locale="en-US"
-          scrollable
-          @change="edited"
-        />
-      </v-dialog>
+      <v-row>
+        <v-col class="py-0 mb-6" cols="12">
+          <v-text-field v-model="information.birthDate" v-bind="filedProps" required :rules="requiredRules" label="سال ورودی" dir="ltr" />
+        </v-col>
+      </v-row>
 
       <v-text-field
         v-model="information.university"
