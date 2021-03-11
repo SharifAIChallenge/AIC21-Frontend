@@ -20,7 +20,7 @@
           <v-col>
             <div class="requestCol">
               <img class="team-Img" :src="request.team.image" height="100" />
-              <div class="requsetInfo">
+              <div class="requestInfo">
                 <h1>{{ request.team.name }}</h1>
                 <div class="requestBtn">
                   <v-btn color="black" elevation="2" tile @click="rejectRequest(request.id)">رد کردن</v-btn>
