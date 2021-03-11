@@ -20,7 +20,9 @@ export default function({ $axios, redirect, store, app, route }) {
     }
   });
   $axios.onRequest(config => {
-    if (config.data instanceof FormData === false) config.data = convertObjToSnakeCase(config.data);
+    try {
+      if (config.data instanceof FormData === false) config.data = convertObjToSnakeCase(config.data);
+    } catch (error) {}
   });
 }
 
