@@ -59,7 +59,7 @@
         <template v-slot:[`item.profile.programming_language`]="{ item }">{{ item.profile.programming_language }}</template>
         <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
         <template v-slot:[`item.profile`]="{ item }">
-          <v-icon size="30px" dark @click="setCurrentUser(item.profile, item.email, item.id , true)" class="icon-hover">
+          <v-icon size="30px" dark @click="setCurrentUser(item.profile, item.email, item.id, true)" class="icon-hover">
             mdi-card-account-details-outline
           </v-icon>
         </template>
@@ -102,64 +102,13 @@ export default {
           sortable: false,
           value: 'profile.firstname_fa',
         },
-        { text: 'ترم', align: 'center', value: 'profile.university_degree' },
+        { text: 'مقطع تحصیلی', align: 'center', value: 'profile.university_degree' },
         { text: 'زبان برنامه‌نویسی', align: 'center', value: 'programming_language' },
         { text: 'دانشگاه', align: 'center', value: 'profile.university' },
         { text: 'پروفایل', align: 'center', value: 'profile' },
         { text: 'دعوت', align: 'center', value: 'send' },
       ],
-      data: [
-        // {
-        //   profile: {
-        //     skills: [],
-        //     jobs: [],
-        //     is_complete: false,
-        //     firstname_fa: 'امیر',
-        //     firstname_en: 'amir',
-        //     lastname_fa: 'قاسمی',
-        //     lastname_en: 'zgh',
-        //     birth_date: '99',
-        //     province: 'تهران',
-        //     phone_number: null,
-        //     university: 'شریف',
-        //     major: 'مهندسی کامپیوتر',
-        //     university_term: null,
-        //     university_degree: null,
-        //     linkedin: '',
-        //     github: null,
-        //     image: null,
-        //     hide_profile_info: false,
-        //     resume: null,
-        //   },
-        //   email: 'user1@user1.com',
-        //   id: 4,
-        // },
-        // {
-        //   profile: {
-        //     skills: [],
-        //     jobs: [],
-        //     is_complete: true,
-        //     firstname_fa: 'asdf',
-        //     firstname_en: 'fa',
-        //     lastname_fa: 'adsf',
-        //     lastname_en: 'sfs',
-        //     birth_date: '2020-08-10',
-        //     province: 'sadf',
-        //     phone_number: '0123456789',
-        //     university: 'asdf',
-        //     major: 'dsf',
-        //     university_term: 1,
-        //     university_degree: 'ST',
-        //     linkedin: 'asf',
-        //     github: 'fs',
-        //     image: 'http://stg.aichallenge.ir/media/1540c612367951.57036a31dc1e3.png',
-        //     hide_profile_info: false,
-        //     resume: null,
-        //   },
-        //   email: 'jamshidi.m799@gmail.com',
-        //   id: 8,
-        // },
-      ],
+      data: [],
       currentUser: {
         profile: {},
         email: '',
@@ -189,7 +138,7 @@ export default {
       var age_dt = new Date(diff_ms);
       return Math.abs(age_dt.getUTCFullYear() - 1970);
     },
-    setCurrentUser(profile, email, id , show) {
+    setCurrentUser(profile, email, id, show) {
       this.currentUser.profile = profile;
       this.currentUser.email = email;
       this.currentUser.id = id;
