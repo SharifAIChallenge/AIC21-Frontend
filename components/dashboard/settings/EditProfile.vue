@@ -3,7 +3,7 @@
     <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
       <v-row>
         <div class="pa-3 d-flex align-center mb-12">
-          <v-icon class="ml-3" color="primary">mdi-account-circle-outline</v-icon>
+          <v-icon class="ml-3" color="primary" size="45">mdi-account-circle-outline</v-icon>
           <h2>اطلاعات شخصی</h2>
         </div>
       </v-row>

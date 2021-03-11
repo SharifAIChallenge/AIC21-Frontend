@@ -344,7 +344,7 @@ export default {
     background-color: #0e1224;
     padding-top: 90px;
     @include v-not-md {
-      padding-top: 50px;
+      padding: 50px 15px 0 30px;
     }
   }
   .tabsW {
