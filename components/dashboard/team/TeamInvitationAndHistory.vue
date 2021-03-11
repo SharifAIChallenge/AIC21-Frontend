@@ -2,10 +2,8 @@
   <div>
     <div>
       <div class="pa-10">
-        <h1>
-          <v-icon color="primary" size="40px" class="pl-2 pr-2">mdi-script-outline</v-icon>
-          دعوتنامه های من
-        </h1>
+        <SectionHeader title="دعوتنامه های من" icon="mdi-script-outline" />
+
         <v-alert color="black" dark icon="mdi-information" width="80%" dense>
           در صورتی که تیم شما قابل جستجو باشد،لیست درخواست هایی را که افراد برای عضویت به شما ارسال کرده انددر اینجا می بینید!
         </v-alert>
@@ -85,9 +83,10 @@
 
 <script>
 import UserProfileForTeam from './UserProfileForTeam';
+import SectionHeader from '~/components/SectionHeader';
 
 export default {
-  components: { UserProfileForTeam },
+  components: { UserProfileForTeam, SectionHeader },
   async fetch() {
     await this.$axios.$get('team/invitations/team_sent').then(res => {
       this.invitationsList = res;

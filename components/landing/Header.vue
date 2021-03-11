@@ -22,18 +22,18 @@
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only" id="menu">
-        <!-- <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
+        <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
           <v-icon left>
             mdi-shield-star
           </v-icon>
           <span class="font-weight-bold">ورود</span>
-        </v-btn> -->
+        </v-btn>
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>
-        <!-- <v-btn plain text :ripple="false" tile :class="getClass()" to="/dashboard">
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/dashboard">
           داشبورد
-        </v-btn> -->
+        </v-btn>
         <v-btn plain text tile :class="getClass()" to="/blog">
           اخبار
         </v-btn>
@@ -45,12 +45,12 @@
         </v-btn>
       </div>
       <v-spacer></v-spacer>
-      <!-- <v-btn plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow()">
+      <v-btn plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow()">
         <v-icon left>
           mdi-shield-star
         </v-icon>
         <span class="font-weight-bold">ورود</span>
-      </v-btn> -->
+      </v-btn>
       <v-spacer></v-spacer>
       <img src="logo__white.svg" class="logo" v-if="color === 'primary'" />
       <img src="../../assets/images/logo/logo__primary.svg" class="logo" v-else />

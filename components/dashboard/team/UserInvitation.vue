@@ -1,12 +1,8 @@
 <template>
   <div>
     <div>
-      <h1>
-        <v-icon color="primary" x-large>
-          mdi-script-text-outline
-        </v-icon>
-        دعوت نامه های من
-      </h1>
+      <SectionHeader title="دعوت نامه های من" icon="mdi-script-text-outline" />
+
       <v-alert color="black" dark icon="mdi-information" width="50%" dense>
         ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
       </v-alert>
@@ -58,7 +54,11 @@
   </div>
 </template>
 <script>
+import SectionHeader from '~/components/SectionHeader';
+
 export default {
+  components: { SectionHeader },
+
   async fetch() {
     let res1 = await this.$axios.$get('team/invitations/user_pending');
     let res2 = await this.$axios.$get('team/invitations/user_sent');

@@ -1,11 +1,6 @@
 <template>
   <div>
-    <h2>
-      <v-icon x-large color="primary">
-        mdi-account-multiple-plus-outline
-      </v-icon>
-      ساختن تیم
-    </h2>
+    <SectionHeader title="ساختن تیم" icon="mdi-account-multiple-plus-outline" />
     <v-alert color="black" dark icon="mdi-information" width="50%" dense>
       پس ازاینکه همه ی اعضای تیم در سایت ثبت ‌نام کردند،کافی است یک نفر تیم بسازد و بقیه اعضا را به آن دعوت کند.
     </v-alert>
@@ -35,8 +30,10 @@
   </div>
 </template>
 <script>
+import SectionHeader from '~/components/SectionHeader';
 export default {
   props: ['toggleHaveTeam'],
+  components: { SectionHeader },
   data() {
     return {
       name: '',

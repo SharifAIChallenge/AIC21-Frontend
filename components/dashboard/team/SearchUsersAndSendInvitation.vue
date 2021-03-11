@@ -2,12 +2,8 @@
   <v-app>
     <div class="main">
       <div class="title">
-        <div>
-          <v-icon>
-            mdi-account-search-outline
-          </v-icon>
-          جستجوی افراد بدون تیم
-        </div>
+        <SectionHeader title="جستجوی افراد بدون تیم" icon="mdi-account-search-outline" />
+
         <div class="input-top">
           <div>
             <v-btn color="secondary" height="60px" class="text-h7">
@@ -77,8 +73,10 @@
 
 <script>
 import UserProfileForTeam from './UserProfileForTeam';
+import SectionHeader from '~/components/SectionHeader';
+
 export default {
-  components: { UserProfileForTeam },
+  components: { UserProfileForTeam, SectionHeader },
   async fetch() {
     await this.$axios.$get('accounts/without_team').then(res => {
       this.data = res.data;
