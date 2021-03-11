@@ -1,72 +1,99 @@
 <template>
-  <v-form ref="createTeam" v-model="valid" @submit.prevent="createTeam">
-    <v-alert text icon="mdi-information" class="mb-6">
-      {{ $t('dashboard.createTeamMessage') }}
-    </v-alert>
-    <v-text-field v-model="name" :label="$t('form.teamName')" :rules="requiredRules" required v-bind="filedProps" />
-
-    <v-file-input
-      v-model="image"
-      accept="image/png, image/jpeg"
-      v-bind="filedProps"
-      :label="$t('form.avatar')"
-      :rules="imageRules"
-      :hint="imageHint"
-      show-size
-      persistent-hint
-      class="mb-3"
-      dir="ltr"
-    />
-
-    <v-btn :disabled="!valid" :loading="loading" type="submit" v-bind="primaryButtonProps">
-      <v-icon left>
-        mdi-plus-circle-outline
+  <div>
+    <h2>
+      <v-icon x-large color="primary">
+        mdi-account-multiple-plus-outline
       </v-icon>
-      {{ $t('form.create') }}
-    </v-btn>
-  </v-form>
+      ساختن تیم
+    </h2>
+    <v-alert color="black" dark icon="mdi-information" width="50%" dense>
+      پس ازاینکه همه ی اعضای تیم در سایت ثبت ‌نام کردند،کافی است یک نفر تیم بسازد و بقیه اعضا را به آن دعوت کند.
+    </v-alert>
+    <div class="input">
+      <div class="fileInput secondary">
+        <v-file-input
+          class="mb-5"
+          hide-input
+          v-model="image"
+          :label="$t('form.file')"
+          prepend-icon="mdi-image-plus"
+          show-size
+        ></v-file-input>
+      </div>
+      <!-- <input type="file" id="file" @change="handleFileUpload" accept="image/*" /> -->
+      <v-text-field label="نام تیم" outlined v-model="name"></v-text-field>
+      <div class="buttons">
+        <v-btn tile class="black" @click="forfiet()">لغو</v-btn>
+        <v-btn tile @click="submitTeam()" class="primary submitBtn">
+          <v-icon>
+            mdi-plus-circle-outline
+          </v-icon>
+          تیمم را بساز
+        </v-btn>
+      </div>
+    </div>
+  </div>
 </template>
-
 <script>
-import { requiredRules } from '../../../mixins/formValidations';
-import { primaryButtonProps } from '../../../mixins/buttonProps';
-import { fieldProps } from '../../../mixins/fieldProps';
-import { CREATE_TEAM , createTeam} from '../../../api';
-
 export default {
-  mixins: [requiredRules, primaryButtonProps, fieldProps],
   data() {
     return {
-      valid: false,
       name: '',
       image: null,
-      imageRules: [value => !value || !value.size || value.size < 200000 || 'سایز عکس باید کمتر از ۲۰۰ کیلوبایت باشد.'],
-      imageHint: 'عکس مربع با حجم حداکثر ۲۰۰ کیلوبایت',
-      loading: false,
     };
   },
   methods: {
-    async createTeam() {
+    submitTeam() {
       const formData = new FormData();
-      if (this.image) formData.append('image', this.image);
       formData.append('name', this.name);
-      // const config = {
-      //   url: CREATE_TEAM.url,
-      //   method: CREATE_TEAM.method,
-      //   [CREATE_TEAM.payload]: formData,
-      // };
-      this.loading = true;
-      let { data } = await createTeam(this.$axios,this.formData);
-      this.loading = false;
-      this.$store.dispatch('team/getTeam');
-      if (data.status_code) {
-        if (data.status_code === 200) {
-          this.$toast.success('تیم با موفقیت ساخته شد.');
-          this.$refs.createTeam.reset();
-        } else if (data.detail.name) this.$toast.error('یک تیم با این اسم موجود است.');
-        else this.$toast.error('خطایی در ساخت تیم رخ داد.');
+      if (this.image != null) {
+        formData.append('image', this.image);
       }
+
+      // observe formdate object
+      // for (var pair of formData.entries()) {
+      //   console.log(pair[0] + ', ' + pair[1]);
+      // }
+
+      this.$axios.$post('team/', formData, { headers: { 'content-type': 'multipart/form-data' } }).then(res => {
+        console.log(res);
+      });
+    },
+    forfiet() {
+      this.name = '';
+      this.image = null;
     },
   },
 };
 </script>
+<style lang="scss" scoped>
+.input {
+  max-width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .fileInput {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10vw;
+    height: 15vh;
+    margin-left: auto;
+    margin-right: auto;
+    .v-file-input {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    .submitBtn {
+      text-align: center;
+      width: 80%;
+      margin-right: auto;
+    }
+  }
+}
+</style>
