@@ -74,13 +74,12 @@
         @keyup="edited"
       />
       <v-row class="px-3">
-        <!-- <v-checkbox
+        <v-checkbox
           v-model="information.hideProfileInfo"
           label="اطلاعاتم برای سایر شرکت کننده ها قابل جستو باشد."
           @change="edited"
-        ></v-checkbox> -->
+        ></v-checkbox>
       </v-row>
-
       <v-row class="justify-space-between pa-3">
         <v-btn style="flex-basis: 20%">لغو</v-btn>
         <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%">

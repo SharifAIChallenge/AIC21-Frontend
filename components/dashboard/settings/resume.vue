@@ -139,9 +139,9 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      <!-- <v-row class="px-3">
-        <v-checkbox v-model="information.isComplete" label="اطلاعاتم برای اسپانسر قابل مشاهده باشد." @change="edited"></v-checkbox>
-      </v-row> -->
+      <v-row class="px-3">
+        <v-checkbox v-model="information.canSponsorsSee" label="اطلاعاتم برای اسپانسر قابل جستو باشد." @change="edited"></v-checkbox>
+      </v-row>
       <v-row class="justify-space-between pa-3" v-bind:class="[information.resume == '' || resume == null ? 'marginTop' : '']">
         <v-btn style="flex-basis: 20%">لغو</v-btn>
         <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%">

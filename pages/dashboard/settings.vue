@@ -97,6 +97,7 @@ export default {
         birthDate: '',
         university: '',
         hideProfileInfo: '',
+        canSponsorsSee: '',
         email: '',
         github: '',
         linkedin: '',
@@ -134,6 +135,7 @@ export default {
         this.formData.append('birth_date', this.information.birthDate);
         this.formData.append('university', this.information.university);
         this.formData.append('hide_profile_info', this.information.hideProfileInfo);
+        this.formData.append('hide_profile_info', this.information.hideProfileInfo);
         this.formData.append('linkedin', this.information.linkedin);
         this.formData.append('email', this.information.email);
         this.formData.append('github', this.information.github);
@@ -153,6 +155,7 @@ export default {
           this.information.birthDate !== this.profile.birth_date ||
           this.information.university !== this.profile.university ||
           this.information.hideProfileInfo !== this.profile.hide_profile_info ||
+          this.information.canSponsorsSee !== this.profile.can_sponsors_see ||
           this.information.linkedin !== this.profile.linkedin ||
           this.information.email !== this.profile.email ||
           this.information.github !== this.profile.github ||
@@ -164,19 +167,25 @@ export default {
           JSON.stringify(this.skills) != JSON.stringify(this.profile.skills) ||
           JSON.stringify(this.jobs) != JSON.stringify(this.profile.jobs)
         ) {
+          console.log('hi');
           this.disable = false;
         } else if (this.information.resume !== this.profile.resume) {
+          console.log('hi 2');
           this.formData.append('resume', this.information.resume);
           this.disable = false;
         } else if (this.information.image !== this.profile.image) {
+          console.log('hi 2');
           this.formData.append('image', this.information.image);
           this.disable = false;
         } else {
           if (this.information.resume == this.profile.resume) {
+            console.log('hi 2');
             this.formData.delete('resume');
           } else if (this.information.image == this.profile.image) {
+            console.log('hi 2');
             this.formData.delete('image');
           }
+          console.log('hi 2');
           this.disable = true;
         }
       }
@@ -209,10 +218,12 @@ export default {
       this.information.birthDate = this.profile.birth_date;
       this.information.university = this.profile.university;
       this.information.hideProfileInfo = this.profile.hide_profile_info;
+      this.information.canSponsorsSee = this.profile.can_sponsors_see;
       this.information.linkedin = this.profile.linkedin;
       this.information.email = this.profile.email;
       this.information.github = this.profile.github;
       this.resume = this.profile.resume;
+      this.information.resume = this.profile.resume;
       this.information.phoneNumber = this.profile.phone_number;
       this.information.major = this.profile.major;
       this.information.programmingLanguage = this.profile.programming_language;
@@ -220,6 +231,7 @@ export default {
       this.information.degree = this.profile.university_degree;
       this.information.province = this.profile.province;
       this.image = this.profile.image;
+      this.information.image = this.profile.image;
       for (item in this.profile.skills) {
         this.skills.push(item);
       }
