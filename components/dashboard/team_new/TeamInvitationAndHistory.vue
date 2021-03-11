@@ -1,66 +1,105 @@
 <template>
   <div>
-    <div v-if="this.invitationsList.status_code === 200">
-      <h1>
-        <v-icon color="primary" size="40px" class="pl-2 pr-2">mdi-account-plus-outline</v-icon>
-        دعوت دیگران به تیم
-      </h1>
-      <v-alert color="black" dark icon="mdi-information" width="50%" dense>
-        اگر هم‌تیمی شما در سایت ثبت‌نلم کرده است، باوراد کردن ایمیل او را به تیمتان دعوت کنید.
-      </v-alert>
-      <v-form ref="form" v-model="valid">
-        <v-text-field
-          v-model="email"
-          label="آدرس ایمیل هم‌تیمی"
-          outlined
-          dir="ltr"
-          type="email"
-          :rules="[v => !!v || 'ایمیل نمی تواند خالی باشد!', v => /.+@.+/.test(v) || 'لطفا ایمیل وارد کنید!']"
-          required
-          height="36px"
-          class="email-field"
-        ></v-text-field>
-        <div>
-          <v-btn width="50vw" height="60px" class="text-h6" color="primary" @click="sendInvitation()">
-            <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-script-outline</v-icon>
-            ارسال دعوتنامه
+    <div>
+      <div class="pa-10">
+        <h1>
+          <v-icon color="primary" size="40px" class="pl-2 pr-2">mdi-script-outline</v-icon>
+          دعوتنامه های من
+        </h1>
+        <v-alert color="black" dark icon="mdi-information" width="80%" dense>
+          در صورتی که تیم شما قابل جستجو باشد،لیست درخواست هایی را که افراد برای عضویت به شما ارسال کرده انددر اینجا می بینید!
+        </v-alert>
+      </div>
+      <div v-for="(list, index) in pendingList.data" :key="index">
+        <div v-if="list.user.profile.image !== null">
+          <div class="profile">
+            <div>
+              <img :src="list.user.profile.image" :alt="list.user.email" height="60px" class="ma-2" />
+            </div>
+            <div>
+              <span>{{ list.user.profile.firstname_fa }} {{ list.user.profile.lastname_fa }}</span>
+            </div>
+            <div class="pr-4">
+              <v-icon size="30px" dark @click="setCurrentUser(list.user.profile, list.user.email, list.user.id, false)" class="icon-hover">
+                mdi-card-account-details-outline
+              </v-icon>
+            </div>
+          </div>
+        </div>
+        <div v-else class="profile">
+          <div class="profile">
+            <div>
+              <v-icon size="80px">
+                mdi-alert-box
+              </v-icon>
+            </div>
+            <div>
+              <span>{{ list.user.profile.firstname_fa }} {{ list.user.profile.lastname_fa }}</span>
+            </div>
+            <div class="pr-4">
+              <v-icon size="30px" dark @click="setCurrentUser(list.user.profile, list.user.email, list.user.id, false)" class="icon-hover">
+                mdi-card-account-details-outline
+              </v-icon>
+            </div>
+          </div>
+        </div>
+        <div class="mr-16">
+          <v-btn height="50" class="ml-4" @click="rejectRequest(list.id)">
+            رد کردن
+          </v-btn>
+          <v-btn color="primary" height="50" @click="acceptRequest(list.id)">
+            <v-icon>
+              mdi-handshake
+            </v-icon>
+            افزودن به تیم
           </v-btn>
         </div>
-      </v-form>
+      </div>
       <div>
         <div class="pa-10">
           <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-script-text-outline</v-icon>
           تاریخچه دعوت ها
+          <v-alert color="black" dark icon="mdi-information" width="80%" dense>
+            در این قسمت وضعیت دعوتنامه ها ارسالی را مشاهده می کنید!
+          </v-alert>
         </div>
-        <div v-for="(list, index) in invitationsList.data" :key="index">
-          <div>
+        <div class="pr-10">
+          <div v-for="(list, index) in invitationsList.data" :key="index">
             <div>
-              {{ list.user.first_name }} {{ list.user.last_name }}
-              <v-icon :color="statusColor(list.status)" >{{ statusIcon(list.status) }}</v-icon>
-              {{ statusMessage(list.status) }}
+              <div>
+                {{ list.user.profile.firstname_fa }} {{ list.user.profile.firstname_fa }}
+                <v-icon :color="statusColor(list.status)">{{ statusIcon(list.status) }}</v-icon>
+                {{ statusMessage(list.status) }}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div v-else>
-      تیم شما پر است
+      <v-dialog v-model="dialog" width="350">
+        <div class="close-btn" @click="dialog = false">X</div>
+        <UserProfileForTeam :userData="currentUser" />
+      </v-dialog>
     </div>
   </div>
 </template>
 
 <script>
+import UserProfileForTeam from './UserProfileForTeam';
+
 export default {
-  auth: false,
+  components: { UserProfileForTeam },
   async fetch() {
     await this.$axios.$get('team/invitations/team_sent').then(res => {
       this.invitationsList = res;
     });
+    await this.$axios.$get('team/invitations/team_pending').then(res => {
+      this.pendingList = res;
+    });
   },
   data() {
     return {
-      email: '',
-      valid: false,
+      dialog: false,
+
       invitationsList: {
         // data: [
         //   {
@@ -74,26 +113,16 @@ export default {
         // ],
         // status_code: 200,
       },
+      pendingList: {},
+      currentUser: {
+        profile: {},
+        email: '',
+        id: 0,
+        show: true,
+      },
     };
   },
   methods: {
-    sendInvitation() {
-      // if (this.email) {
-      //   return;
-      // }
-      let user_email = this.email;
-      this.$axios.$post('team/invitations/team_sent', {user_email}).then(res => {
-        console.log(res);
-        if (res.status_code === 200) {
-          this.$toast.success(this.translateResponseMessage(res.message));
-          this.$axios.$get('team/invitations/team_sent').then(res => {
-            this.invitationsList = res;
-          });
-        } else {
-          this.$toast.error(this.translateResponseMessage(res.message));
-        }
-      });
-    },
     statusIcon(status) {
       if (status === 'pending') return 'mdi-progress-question';
       else if (status === 'accepted') return 'mdi-progress-check';
@@ -113,12 +142,55 @@ export default {
       if (response === 'your invitation sent') return 'دعوت نامه ارسال شد!';
       else return 'مشکلی در ارسال دعوت نامه رخ داد! لطفا ایمیل را چک کنید!';
     },
+    setCurrentUser(profile, email, id, show) {
+      this.currentUser.profile = profile;
+      this.currentUser.email = email;
+      this.currentUser.id = id;
+      this.currentUser.show = show;
+      this.dialog = true;
+    },
+    acceptRequest(id) {
+      // console.log('hi');
+      this.$axios.$put(`team/invitations/team_pending/${id}?answer=1`).then(res => {
+        if (res.status_code === 200) {
+          this.$toast.success('با موفقیت انجام شد!');
+        } else {
+          this.$toast.error('مشکلی رخ داده است!');
+        }
+      });
+      this.$axios.$get('team/invitations/team_sent').then(res => {
+        this.invitationsList = res;
+      });
+      this.$axios.$get('team/invitations/team_pending').then(res => {
+        this.pendingList = res;
+      });
+    },
+    rejectRequest(id) {
+      // console.log('hi');
+      this.$axios.$put(`team/invitations/team_pending/${id}?answer=0`).then(res => {
+        if (res.status_code === 200) {
+          this.$toast.success('با موفقیت انجام شد!');
+        } else {
+          this.$toast.error('مشکلی رخ داده است!');
+        }
+      });
+      this.$axios.$get('team/invitations/team_sent').then(res => {
+        this.invitationsList = res;
+      });
+      this.$axios.$get('team/invitations/team_pending').then(res => {
+        this.pendingList = res;
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
-.email-field{
+.email-field {
   width: 50%;
+}
+.profile {
+  display: flex;
+  align-items: center;
 }
 </style>
