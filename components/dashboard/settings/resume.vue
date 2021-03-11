@@ -8,15 +8,35 @@
         </div>
       </v-row>
       <v-row>
-        <v-col cols="12" class="d-flex mb-8" v-if="information.resume !== '' && resume !== null">
+        <v-col cols="12" class="d-flex mb-8" style="align-items: flex-end" v-if="information.image !== null && image !== null">
+          <div class="pa-2 bg"><v-icon @click="deleteImage" :disabled="image == null">mdi-trash-can-outline</v-icon></div>
+          <div class="secondary pa-2 d-flex" style="width: 150px; height: 150px; overflow: hidden">
+            <img :src="image" alt="profile_picture" style="width: 100%; heght: 100%; object-fit: cover" />
+          </div>
+        </v-col>
+      </v-row>
+      <v-row class="resume">
+        <v-col class="py-0 mb-3" cols="12">
+          <v-file-input
+            v-model="information.image"
+            label="تغییر عکس"
+            outlined
+            dense
+            prepend-icon="mdi-file-upload-outline"
+            @change="edited"
+          ></v-file-input>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" class="d-flex mb-8" v-if="information.resume !== null && resume !== null">
           <div class="pa-2 bg"><v-icon @click="deleteResume" :disabled="resume == null">mdi-trash-can-outline</v-icon></div>
-          <div class="secondary pa-2 d-flex" style="width:100%;overflow: hidden;">
+          <div class="secondary pa-2 d-flex" style="width: 100%; overflow: hidden">
             <v-icon>mdi-file-download-outline</v-icon>
             <a
-              v-if="resume !== '' && information.resume !== ''"
+              v-if="resume !== null && information.resume !== null"
               :href="resume"
               target="_blanck"
-              style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+              style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
             >
               <span>{{ resume }}</span>
             </a>
@@ -27,26 +47,104 @@
         <v-col class="py-0 mb-3" cols="12">
           <v-file-input
             v-model="information.resume"
-            label="تغییر فایل"
+            label="تغییر فایل رزومه"
             outlined
             dense
             prepend-icon="mdi-file-upload-outline"
             @change="edited"
           ></v-file-input>
-          <!-- <v-text-field
-            v-if="$i18n.locale === 'fa'"
-            v-model="information.firstnameFa"
-            :label="$t('form.nameInPersian')"
-            required
-            :rules="requiredRules"
-            v-bind="filedProps"
-            @keyup="edited"
-          /> -->
         </v-col>
       </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
+          <v-text-field v-model="information.email" label="ایمیل" v-bind="filedProps" :rules="emailRules" @keyup="edited"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-6 skill" cols="12">
+          <v-text-field
+            v-model="information.skill"
+            label="مهارت ها"
+            v-bind="filedProps"
+            @keyup="edited"
+            @keyup.enter="addToArray('skills')"
+          ></v-text-field>
+          <v-icon v-if="information.skill != ''" @click="addToArray('skills')" @keyup.enter="addToArray('skills')">mdi-check</v-icon>
+          <div class="my-2">
+            <v-chip v-for="(item, index) in skills" :key="index" class="ma-2" close @click:close="deleteChip('skills', index)">
+              {{ item }}
+            </v-chip>
+          </div>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-6 job" cols="12">
+          <v-text-field
+            v-model="information.job"
+            label="شغل"
+            v-bind="filedProps"
+            @keyup="edited"
+            @keyup.enter="addToArray('jobs')"
+          ></v-text-field>
+          <v-icon v-if="information.job != ''" @click="addToArray('jobs')" @keyup.enter="addToArray('jobs')">mdi-check</v-icon>
+          <div class="my-2">
+            <v-chip v-for="(item, index) in jobs" :key="index" class="ma-2" close @click:close="deleteChip('jobs', index)">
+              {{ item }}
+            </v-chip>
+          </div>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
+          <v-text-field v-model="information.linkedin" label="آدرس لینکدین" v-bind="filedProps" @keyup="edited"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
+          <v-text-field v-model="information.github" label="گیت هاب" v-bind="filedProps" @keyup="edited"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
+          <v-text-field v-model="information.phoneNumber" label="شماره تماس" v-bind="filedProps" @keyup="edited"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
+          <v-text-field v-model="information.major" label="رشته" v-bind="filedProps" @keyup="edited"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
+          <v-text-field v-model="information.term" label="ترم" v-bind="filedProps" @keyup="edited"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
+          <v-text-field v-model="information.degree" label="مدرک" v-bind="filedProps" @keyup="edited"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
+          <v-text-field v-model="information.phoneNumber" label="شماره تماس" v-bind="filedProps" @keyup="edited"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
+          <v-text-field
+            v-model="information.programmingLanguage"
+            label="زبان برنامه نویسی"
+            v-bind="filedProps"
+            @keyup="edited"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <!-- <v-row class="px-3">
+        <v-checkbox v-model="information.isComplete" label="اطلاعاتم برای اسپانسر قابل مشاهده باشد." @change="edited"></v-checkbox>
+      </v-row> -->
       <v-row class="justify-space-between pa-3" v-bind:class="[information.resume == '' || resume == null ? 'marginTop' : '']">
-        <v-btn style="flex-basis: 20%;">لغو</v-btn>
-        <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%;">
+        <v-btn style="flex-basis: 20%">لغو</v-btn>
+        <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
           <v-icon left>mdi-content-save-outline</v-icon>
           {{ $t('dashboard.editProfile') }}
         </v-btn>
@@ -65,7 +163,6 @@ export default {
   data() {
     return {
       valid: false,
-      loading: false,
     };
   },
 
@@ -77,13 +174,18 @@ export default {
     signUp: Function,
     deleteResume: Function,
     resume: String,
+    addToArray: Function,
+    skills: Array,
+    jobs: Array,
+    deleteChip: Function,
+    deleteImage: Function,
+    image: String,
   },
   methods: {},
 };
 </script>
 <style lang="scss">
 .resume {
-  min-height: calc(100vh - 300px);
   .v-input__prepend-outer {
     position: absolute;
     left: 3px;
@@ -94,5 +196,18 @@ export default {
 }
 .marginTop {
   margin-top: 100px !important;
+}
+.skill,
+.job {
+  position: relative;
+  .v-text-field__details {
+    display: none;
+  }
+  .mdi-check {
+    position: absolute !important;
+    left: 19px;
+    cursor: pointer;
+    top: 7px;
+  }
 }
 </style>

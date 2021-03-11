@@ -55,6 +55,7 @@
 
 <script>
 import Logo from '../components/Logo';
+import { mapState } from 'vuex';
 
 export default {
   components: { Logo },
@@ -136,14 +137,20 @@ export default {
     mobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
+    ...mapState({
+      auth: state => state.auth,
+    }),
   },
   methods: {
     logout() {
       this.$store.dispatch('auth/logout');
     },
   },
-  mounted() {
+  beforeMount() {
+    console.log(this.auth.token, this.auth.isAuthenticated);
+    this.$axios.setToken(this.auth.token, 'token');
     this.$store.dispatch('auth/getUser');
+    console.log(this.auth.user);
   },
 };
 </script>

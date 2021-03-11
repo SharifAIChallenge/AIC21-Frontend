@@ -27,6 +27,12 @@
                   :disable="disable"
                   :information="this.information"
                   :loading="loading"
+                  :addToArray="addToArray"
+                  :skills="skills"
+                  :deleteChip="deleteChip"
+                  :deleteImage="deleteImage"
+                  :image="image"
+                  :jobs="jobs"
                 />
               </v-card-text>
             </v-tab-item>
@@ -41,20 +47,20 @@
           <v-col cols="12" md="6" class="pa-0">
             <div class="d-flex tabsW">
               <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
-                <div style="margin:15px auto" class="d-flex flex-column">
-                  <v-tab style="width:150px;height:150px;background:#141432;color: white">
+                <div style="margin: 15px auto" class="d-flex flex-column">
+                  <v-tab style="width: 150px; height: 150px; background: #141432; color: white">
                     {{ $t('dashboard.editProfile') }}
                     <v-icon size="60" style="color: white">mdi-account-circle-outline</v-icon>
                   </v-tab>
                 </div>
-                <div style="margin:15px auto" class="d-flex flex-column">
-                  <v-tab style="width:150px;height:150px;background:#141432;color: white">
+                <div style="margin: 15px auto" class="d-flex flex-column">
+                  <v-tab style="width: 150px; height: 150px; background: #141432; color: white">
                     {{ $t('dashboard.resume') }}
                     <v-icon size="60" style="color: white">mdi-badge-account-horizontal</v-icon>
                   </v-tab>
                 </div>
-                <div style="margin:15px auto" class="d-flex flex-column">
-                  <v-tab style="width:150px;height:150px;background:#141432;color: white">
+                <div style="margin: 15px auto" class="d-flex flex-column">
+                  <v-tab style="width: 150px; height: 150px; background: #141432; color: white">
                     {{ $t('form.changePassword') }}
                     <v-icon size="60" style="color: white">mdi-form-textbox-password</v-icon>
                   </v-tab>
@@ -90,13 +96,29 @@ export default {
         lastnameEn: '',
         birthDate: '',
         university: '',
-        resume: '',
+        hideProfileInfo: '',
+        email: '',
+        github: '',
+        linkedin: '',
+        phoneNumber: '',
+        major: '',
+        programmingLanguage: '',
+        province: '',
+        degree: '',
+        term: '',
+        resume: null,
+        image: null,
+        skill: '',
+        job:''
       },
       menu: false,
       disable: true,
       loading: false,
       formData: [],
       resume: '',
+      image: '',
+      skills: [],
+      jobs:[]
     };
   },
   methods: {
@@ -111,21 +133,49 @@ export default {
         this.formData.append('lastname_en', this.information.lastnameEn);
         this.formData.append('birth_date', this.information.birthDate);
         this.formData.append('university', this.information.university);
+        this.formData.append('hide_profile_info', this.information.hideProfileInfo);
+        this.formData.append('linkedin', this.information.linkedin);
+        this.formData.append('email', this.information.email);
+        this.formData.append('github', this.information.github);
+        this.formData.append('major', this.information.major);
+        this.formData.append('phone_number', this.information.phoneNumber);
+        this.formData.append('programming_language', this.information.programmingLanguage);
+        this.formData.append('university_term', this.information.term);
+        this.formData.append('university_degree', this.information.degree);
+        this.formData.append('province', this.information.province);
+        this.formData.append('skills', this.skills);
+        this.formData.append('jobs', this.jobs);
         if (
           this.information.firstnameFa !== this.profile.firstname_fa ||
           this.information.firstnameEn !== this.profile.firstname_en ||
           this.information.lastnameFa !== this.profile.lastname_fa ||
           this.information.lastnameEn !== this.profile.lastname_en ||
           this.information.birthDate !== this.profile.birth_date ||
-          this.information.university !== this.profile.university
+          this.information.university !== this.profile.university ||
+          this.information.hideProfileInfo !== this.profile.hide_profile_info ||
+          this.information.linkedin !== this.profile.linkedin ||
+          this.information.email !== this.profile.email ||
+          this.information.github !== this.profile.github ||
+          this.information.major !== this.profile.major ||
+          this.information.programmingLanguage !== this.profile.programming_language ||
+          this.information.term !== this.profile.university_term ||
+          this.information.degree !== this.profile.university_degree ||
+          this.information.province !== this.profile.province ||
+          JSON.stringify(this.skills) != JSON.stringify(this.profile.skills) ||
+          JSON.stringify(this.jobs) != JSON.stringify(this.profile.jobs)
         ) {
           this.disable = false;
         } else if (this.information.resume !== this.profile.resume) {
           this.formData.append('resume', this.information.resume);
           this.disable = false;
+        } else if (this.information.image !== this.profile.image) {
+          this.formData.append('image', this.information.image);
+          this.disable = false;
         } else {
           if (this.information.resume == this.profile.resume) {
             this.formData.delete('resume');
+          } else if (this.information.image == this.profile.image) {
+            this.formData.delete('image');
           }
           this.disable = true;
         }
@@ -157,18 +207,76 @@ export default {
       this.information.lastnameEn = this.profile.lastname_en;
       this.information.birthDate = this.profile.birth_date;
       this.information.university = this.profile.university;
+      this.information.hideProfileInfo = this.profile.hide_profile_info;
+      this.information.linkedin = this.profile.linkedin;
+      this.information.email = this.profile.email;
+      this.information.github = this.profile.github;
       this.information.resume = this.profile.resume;
+      this.information.phoneNumber = this.profile.phone_number;
+      this.information.major = this.profile.major;
+      this.information.programmingLanguage = this.profile.programming_language;
+      this.information.term = this.profile.university_term;
+      this.information.degree = this.profile.university_degree;
+      this.information.province = this.profile.province;
+      this.information.image = this.profile.image;
+      for (item in this.profile.skills) {
+        this.skills.push(item);
+      }
+      for (item in this.profile.jobs) {
+        this.jobs.push(item);
+      }
     },
     deleteResume() {
-      this.information.resume = '';
+      this.information.resume = null;
       this.resume = null;
       if (this.formData.get('resume') == null) {
-        this.formData.append('resume', '');
+        this.formData.append('resume', null);
       } else {
         this.formData.delete('resume');
       }
       this.disable = false;
-      console.log(this.formData.get('resume'));
+    },
+
+    deleteImage() {
+      this.information.image = null;
+      this.image = null;
+      if (this.formData.get('image') == null) {
+        this.formData.append('image', null);
+      } else {
+        this.formData.delete('image');
+      }
+      this.disable = false;
+    },
+
+    addToArray(array) {
+      if (array === 'skills' && this.information.skill != '') {
+        this.skills.push(this.information.skill);
+        // console.log(this.skills);
+        this.information.skill = '';
+      }
+      else if(array ==='jobs' && this.information.job != ''){
+        this.jobs.push(this.information.job);
+        // console.log(this.jobs);
+        this.information.job = '';
+      }
+      this.edited();
+    },
+    deleteChip(array, item) {
+      if (array == 'skills') {
+        if (this.skills.length == 1) {
+          this.skills = [];
+        } else {
+          this.skills.splice(item, 1);
+        }
+      }
+      else if (array == 'jobs') {
+        if (this.jobs.length == 1) {
+          this.jobs = [];
+        } else {
+          this.jobs.splice(item, 1);
+        }
+      }
+      this.edited();
     },
   },
   watch: {

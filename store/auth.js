@@ -11,6 +11,7 @@ export const actions = {
   async getUser({ commit, state }) {
     let res = await getUser(this.$axios);
     commit('setUser', res);
+    return res;
   },
   async login({ commit, dispatch }, payload) {
     commit('loading');
@@ -40,10 +41,7 @@ export const mutations = {
   setToken(state, { token }) {
     state.token = token;
     state.isAuthenticated = true;
-    this.$cookies.set('token', token, {
-      maxAge: 60 * 60 * 24 * 7,
-    });
-    // this.$router.push('/dashboard');
+    // console.log(token, 'setToken');
     this.$axios.setToken(token, 'token');
   },
   removeToken(state) {

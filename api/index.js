@@ -1,13 +1,9 @@
 export const signup = (axios, data) => {
-  return axios.$post(
-    '/accounts/signup',
-    { ...data, password_1: data.password, password_2: data.password },
-    {
-      headers: {
-        Authorization: false,
-      },
-    }
-  );
+  return axios.$post('/accounts/signup', data, {
+    headers: {
+      Authorization: false,
+    },
+  });
 };
 
 export const resetPassword = (axios, email) => {

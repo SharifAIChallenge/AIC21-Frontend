@@ -4,13 +4,14 @@ export default function({ $axios, redirect, store }) {
     console.log(error);
     if (code === 401) {
       store.commit('auth/removeToken');
+      app.$cookies.remove('token');
       redirect('/login');
     }
   });
   $axios.onRequest(config => {
-    // console.log(store);
-    if (store.state.auth.isAuthenticated) config.headers.common['Authorization'] = 'token ' + store.state.auth.token;
-    if (typeof config.data === 'object') config.data = convertObjToSnakeCase(config.data);
+    try {
+      if (config.data instanceof FormData === false) config.data = convertObjToSnakeCase(config.data);
+    } catch (error) {}
   });
 }
 
