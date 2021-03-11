@@ -47,13 +47,16 @@ export default {
       }
       let user_email = this.email;
       this.$axios.$post('team/invitations/team_sent', user_email).then(res => {
-        console.log(res);
         if (res.status_code === 200) {
           this.$toast.success(this.translateResponseMessage(res.message));
         } else {
           this.$toast.error(this.translateResponseMessage(res.message));
         }
       });
+    },
+    translateResponseMessage(response) {
+      if (response === 'your invitation sent') return 'دعوت نامه ارسال شد!';
+      else return 'مشکلی در ارسال دعوت نامه رخ داد! لطفا ایمیل را چک کنید!';
     },
   },
 };
