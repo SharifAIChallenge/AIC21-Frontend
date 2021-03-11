@@ -22,14 +22,14 @@
         </div>
         <div>
           <v-btn :href="userData.profile.github" target="_blank">
-            <v-icon :disabled="userData.profile.github === null" :to="userData.profile.github" target="_blank">
+            <v-icon :disabled="userData.profile.github === null" >
               mdi-github
             </v-icon>
           </v-btn>
         </div>
         <div>
           <v-btn :href="userData.profile.resume" target="_blank">
-            <v-icon :disabled="userData.profile.resume === null" :to="userData.profile.resume" target="_blank">
+            <v-icon :disabled="userData.profile.resume === null">
               mdi-file-account
             </v-icon>
           </v-btn>
