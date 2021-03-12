@@ -8,19 +8,19 @@
         </div>
         <div>
           <div>
-            <div class="text-h4 mb-8">
+            <div class="text-h4 mb-4 mt-4">
               {{ team.name }}
               <v-icon color="blue">mdi-check-decagram</v-icon>
             </div>
 
             <div class="pr-8 pr-md-14">
-              <div class="text-h5 my-8" v-for="(member, index) in team.members" :key="index">
+              <div class="text-h5 my-2" v-for="(member, index) in team.members" :key="index">
                 {{ member.first_name }} {{ member.last_name }}
               </div>
             </div>
           </div>
         </div>
-        <div class="mt-6 mt-md-16">
+        <div class="mt-4 mt-md-12">
           <v-btn block :loading="loading" color="black" class="text-h6" @click="getOutFromTeam()">
             <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-exit-run</v-icon>
             ترک تیم
@@ -51,7 +51,6 @@ export default {
     getOutFromTeam() {
       this.loading = true;
       this.$axios.$delete('team').then(res => {
-        console.log(res);
         this.loading = false;
         if (res.status_code === 200) {
           this.$toast.success('شما با موفقیت از تیم خارج شدید!');
@@ -71,8 +70,8 @@ export default {
   img {
     max-width: 100%;
     @include v-md {
-      max-width: 500px;
-      margin: 40px auto 100px;
+      max-width: 250px;
+      margin: 0px auto 10px;
     }
   }
 }
