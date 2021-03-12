@@ -1,26 +1,27 @@
 <template>
   <div>
-    <SectionHeader title="ساختن تیم" icon="mdi-account-multiple-plus-outline" />
+    <SectionHeader title='ساختن تیم' icon='mdi-account-multiple-plus-outline' />
     <SectionContainer>
-      <div class="create-team">
-        <v-alert icon="mdi-information">
+      <div class='create-team'>
+        <v-alert icon='mdi-information'>
           پس ازاینکه همه ی اعضای تیم در سایت ثبت ‌نام کردند،کافی است یک نفر تیم بسازد و بقیه اعضا را به آن دعوت کند.
         </v-alert>
-        <div class="d-flex justify-center my-8 my-md-16">
-          <div class="secondary fileInput">
-            <v-file-input hide-input v-model="image" :label="$t('form.file')" prepend-icon="mdi-image-plus" show-size></v-file-input>
+        <div class='d-flex justify-center my-8 my-md-16'>
+          <div class='secondary fileInput'>
+            <v-file-input hide-input v-model='image' :label="$t('form.file')" prepend-icon='mdi-image-plus'
+                          show-size></v-file-input>
           </div>
         </div>
         <!-- <input type="file" id="file" @change="handleFileUpload" accept="image/*" /> -->
-        <v-text-field label="نام تیم" outlined v-model="name"></v-text-field>
+        <v-text-field label='نام تیم' outlined v-model='name'></v-text-field>
       </div>
-      <div class="d-flex">
-        <div style="flex: 0 1 93px; margin-left: 24px;">
-          <v-btn block class="black" @click="forfiet()">لغو</v-btn>
+      <div class='d-flex'>
+        <div style='flex: 0 1 93px; margin-left: 24px;'>
+          <v-btn block class='black' @click='forfiet()'>لغو</v-btn>
         </div>
-        <div style="flex: 1">
-          <v-btn block :loading="loading" @click="submitTeam()" color="primary" class="">
-            <v-icon class="ml-3">
+        <div style='flex: 1'>
+          <v-btn block :loading='loading' @click='submitTeam()' color='primary' class=''>
+            <v-icon class='ml-3'>
               mdi-plus-circle-outline
             </v-icon>
             تیمم را بساز
@@ -61,6 +62,9 @@ export default {
         if (res.status_code === 200) {
           this.$toast.success('تیم شما با موفقیت ساخته‌شد');
           this.toggleHaveTeam();
+        } else if (res.status_code === 400) {
+          this.$toast.error('تیمی با این نام وجود دارد.');
+          this.forfiet();
         } else {
           //TODO: check other errors and status code
           this.$toast.error('ساخت تیم با خطا مواجه شد');
@@ -75,11 +79,12 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang='scss'>
 .create-team {
   .fileInput {
     width: 15vh;
     height: 15vh;
+
     .v-file-input {
       display: flex;
       justify-content: center;

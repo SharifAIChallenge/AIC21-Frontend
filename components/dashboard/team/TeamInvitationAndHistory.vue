@@ -2,17 +2,19 @@
   <div>
     <SectionHeader title="دعوتنامه های من" icon="mdi-script-outline" />
     <SectionContainer>
-      <v-alert color="black" dark icon="mdi-information" width="80%" dense>
-        در صورتی که تیم شما قابل جستجو باشد،لیست درخواست هایی را که افراد برای عضویت به شما ارسال کرده انددر اینجا می بینید!
+      <v-alert dark icon="mdi-information" dense>
+        در صورتی که تیم شما قابل جستجو باشد، لیست درخواست‌هایی را که افراد برای عضویت به شما ارسال کرده‌اند در اینجا می بینید!
       </v-alert>
       <div v-for="(list, index) in pendingList.data" :key="index">
         <div v-if="list.user.profile.image !== null">
           <div class="profile">
             <div>
-              <img :src="list.user.profile.image" :alt="list.user.email" height="60px" class="ma-2" />
+              <img :src="list.user.profile.image" :alt="list.user.email" height="80px" class="ma-2" />
             </div>
             <div>
-              <span>{{ list.user.profile.firstname_fa }} {{ list.user.profile.lastname_fa }}</span>
+              <h3>
+                <span>{{ list.user.profile.firstname_fa }} {{ list.user.profile.lastname_fa }}</span>
+              </h3>
             </div>
             <div class="pr-4">
               <v-icon size="30px" dark @click="setCurrentUser(list.user.profile, list.user.email, list.user.id, false)" class="icon-hover">
@@ -39,10 +41,10 @@
           </div>
         </div>
         <div class="mr-16">
-          <v-btn height="50" class="ml-4" @click="rejectRequest(list.id)">
+          <v-btn height="50" class="ml-4" @click="rejectRequest(list.id)" :loading="loadingBtn">
             رد کردن
           </v-btn>
-          <v-btn color="primary" height="50" @click="acceptRequest(list.id)">
+          <v-btn color="primary" height="50" @click="acceptRequest(list.id)" :loading="loadingBtn">
             <v-icon>
               mdi-handshake
             </v-icon>
@@ -51,22 +53,40 @@
         </div>
       </div>
       <div>
-        <div class="pa-10">
-          <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-script-text-outline</v-icon>
-          تاریخچه دعوت ها
-          <v-alert color="black" dark icon="mdi-information" width="80%" dense>
-            در این قسمت وضعیت دعوتنامه ها ارسالی را مشاهده می کنید!
+        <div class="pt-14">
+          <h1 class="pb-4">
+            <v-icon color="primary" size="40px" class="pl-4 pr-2">mdi-script-text-outline</v-icon>
+            تاریخچه دعوت ها
+          </h1>
+          <v-alert dark icon="mdi-information" dense class="pt-4 pb-4">
+            در این قسمت وضعیت دعوتنامه‌هایی را که از طرف تیمتان به افراد فرستاده‌اید مشاهده می کنید!
           </v-alert>
         </div>
-        <div class="pr-10">
-          <div v-for="(list, index) in invitationsList.data" :key="index">
-            <div>
-              <div>
-                {{ list.user.profile.firstname_fa }} {{ list.user.profile.firstname_fa }}
-                <v-icon :color="statusColor(list.status)">{{ statusIcon(list.status) }}</v-icon>
-                {{ statusMessage(list.status) }}
+        <div class="pr-10 history-List">
+          <div v-for="(list, index) in invitationsList.data" :key="index" class="pb-4">
+            <h3>
+              <div class="history">
+                <div>{{ list.user.profile.firstname_fa }} {{ list.user.profile.firstname_fa }}</div>
+                <div
+                  v-bind:class="{
+                    blueFont: list.status === 'pending',
+                    orangeFont: list.status === 'rejected',
+                    greenFont: list.status === 'accepted',
+                  }"
+                >
+                  <v-icon
+                    v-bind:class="{
+                      blueFont: list.status === 'pending',
+                      orangeFont: list.status === 'rejected',
+                      greenFont: list.status === 'accepted',
+                    }"
+                  >
+                    {{ statusIcon(list.status) }}
+                  </v-icon>
+                  {{ statusMessage(list.status) }}
+                </div>
               </div>
-            </div>
+            </h3>
           </div>
         </div>
       </div>
@@ -88,29 +108,25 @@ export default {
   components: { UserProfileForTeam, SectionHeader, SectionContainer },
   async fetch() {
     await this.$axios.$get('team/invitations/team_sent').then(res => {
-      this.invitationsList = res;
+      if (res.status_code === 200) {
+        this.invitationsList = res;
+      } else {
+        this.$toast.error('خطا در برقراری ارتباط!');
+      }
     });
     await this.$axios.$get('team/invitations/team_pending').then(res => {
-      this.pendingList = res;
+      if (res.status_code === 200) {
+        this.pendingList = res;
+      } else {
+        this.$toast.error('خطا در برقراری ارتباط!');
+      }
     });
   },
   data() {
     return {
       dialog: false,
-
-      invitationsList: {
-        // data: [
-        //   {
-        //     user: {
-        //       first_name: 'علی',
-        //       last_name: 'علی زاده',
-        //       email: 'user1@user1.com',
-        //     },
-        //     status: 'accepted',
-        //   },
-        // ],
-        // status_code: 200,
-      },
+      loadingBtn: false,
+      invitationsList: {},
       pendingList: {},
       currentUser: {
         profile: {},
@@ -138,7 +154,7 @@ export default {
     },
     translateResponseMessage(response) {
       if (response === 'your invitation sent') return 'دعوت نامه ارسال شد!';
-      else return 'مشکلی در ارسال دعوت نامه رخ داد! لطفا ایمیل را چک کنید!';
+      else return 'مشکلی در ارسال دعوت نامه رخ داد!';
     },
     setCurrentUser(profile, email, id, show) {
       this.currentUser.profile = profile;
@@ -148,7 +164,7 @@ export default {
       this.dialog = true;
     },
     acceptRequest(id) {
-      // console.log('hi');
+      this.loadingBtn = true;
       this.$axios.$put(`team/invitations/team_pending/${id}?answer=1`).then(res => {
         if (res.status_code === 200) {
           this.$toast.success('با موفقیت انجام شد!');
@@ -156,15 +172,24 @@ export default {
           this.$toast.error('مشکلی رخ داده است!');
         }
       });
-      this.$axios.$get('team/invitations/team_sent').then(res => {
-        this.invitationsList = res;
-      });
+      // this.$axios.$get('team/invitations/team_sent').then(res => {
+      //   if (res.status_code === 200) {
+      //     this.invitationsList = res;
+      //   } else {
+      //     this.$toast.error('خطا در برقراری ارتباط!');
+      //   }
+      // });
       this.$axios.$get('team/invitations/team_pending').then(res => {
-        this.pendingList = res;
+        if (res.status_code === 200) {
+          this.pendingList = res;
+        } else {
+          this.$toast.error('خطا در برقراری ارتباط!');
+        }
       });
+      this.loadingBtn = false;
     },
     rejectRequest(id) {
-      // console.log('hi');
+      this.loadingBtn = true;
       this.$axios.$put(`team/invitations/team_pending/${id}?answer=0`).then(res => {
         if (res.status_code === 200) {
           this.$toast.success('با موفقیت انجام شد!');
@@ -172,12 +197,21 @@ export default {
           this.$toast.error('مشکلی رخ داده است!');
         }
       });
-      this.$axios.$get('team/invitations/team_sent').then(res => {
-        this.invitationsList = res;
-      });
+      // this.$axios.$get('team/invitations/team_sent').then(res => {
+      //   if (res.status_code === 200) {
+      //     this.invitationsList = res;
+      //   } else {
+      //     this.$toast.error('خطا در برقراری ارتباط!');
+      //   }
+      // });
       this.$axios.$get('team/invitations/team_pending').then(res => {
-        this.pendingList = res;
+        if (res.status_code === 200) {
+          this.pendingList = res;
+        } else {
+          this.$toast.error('خطا در برقراری ارتباط!');
+        }
       });
+      this.loadingBtn = false;
     },
   },
 };
@@ -191,4 +225,18 @@ export default {
   display: flex;
   align-items: center;
 }
+.blueFont {
+  color: rgb(41, 37, 255);
+}
+.orangeFont {
+  color: orange;
+}
+.greenFont {
+  color: green;
+}
+.history {
+  display: flex;
+  justify-content: space-between;
+}
+
 </style>

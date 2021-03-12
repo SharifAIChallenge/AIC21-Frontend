@@ -27,11 +27,11 @@
 
       <v-dialog v-model="teamDetails" width="350px">
         <v-card>
-          <img :src="teamInfo.image" width="350px" :alt="teamInfo.name" />
+          <img :src="teamInfo.image" width="100%" :alt="teamInfo.name" />
           {{ teamInfo.name }}
-          <v-row v-for="(member, index) in teamInfo.members" :key="index">
+          <v-row v-for="(member, index) in teamInfo.members" :key="index" style=' width:100% '>
             <v-col cols="2">
-              <img :src="member.profile.image" :alt="member.first_name" height="40px" />
+              <img :src="member.profile.image" :alt="member.first_name" height="40px" style='max-width: 40px;' />
             </v-col>
             <v-col cols="10">
               <div class="d-flex align-center">
@@ -46,7 +46,7 @@
               </div>
             </v-col>
           </v-row>
-          <v-btn color="primary" class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال درخواست عضویت</v-btn>
+          <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال درخواست عضویت</v-btn>
         </v-card>
       </v-dialog>
       <div>
