@@ -18,7 +18,7 @@
         <v-tab-item>
           <v-card-text class="main-content">
             <TeamInvitationAndHistory v-if="haveTeam" />
-            <UserInvitation v-else />
+            <UserInvitation :toggleHaveTeam="toggleHaveTeam" v-else />
           </v-card-text>
         </v-tab-item>
       </v-tabs-items>
