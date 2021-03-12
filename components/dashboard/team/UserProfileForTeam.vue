@@ -1,23 +1,25 @@
 <template>
   <v-card>
     <img v-if="userData.profile.image !== null" :src="userData.profile.image" width="100%" :alt="userData.profile.name" />
-    <div class="pa-2 pt-1">
-      {{ userData.profile.firstname_fa }} {{ userData.profile.lastname_fa }}
-      <v-btn :href="userData.profile.github" target="_blank">
-        <v-icon :disabled="userData.profile.linkedin === null">
-          mdi-linkedin
-        </v-icon>
-      </v-btn>
-      <v-btn :href="userData.profile.github" target="_blank">
-        <v-icon :disabled="userData.profile.github === null">
-          mdi-github
-        </v-icon>
-      </v-btn>
-      <v-btn :href="userData.profile.resume" target="_blank">
-        <v-icon :disabled="userData.profile.resume === null">
-          mdi-file-account
-        </v-icon>
-      </v-btn>
+    <div class="pa-2 pt-1 title-profile ">
+      <div>{{ userData.profile.firstname_fa }} {{ userData.profile.lastname_fa }}</div>
+      <div>
+        <v-btn :href="userData.profile.github" target="_blank">
+          <v-icon :disabled="userData.profile.linkedin === null">
+            mdi-linkedin
+          </v-icon>
+        </v-btn>
+        <v-btn :href="userData.profile.github" target="_blank">
+          <v-icon :disabled="userData.profile.github === null">
+            mdi-github
+          </v-icon>
+        </v-btn>
+        <v-btn :href="userData.profile.resume" target="_blank">
+          <v-icon :disabled="userData.profile.resume === null">
+            mdi-file-account
+          </v-icon>
+        </v-btn>
+      </div>
     </div>
     <v-container class="pt-0 mt-0">
       <div class="pr-8 pb-4">
@@ -71,4 +73,9 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.title-profile {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
