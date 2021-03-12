@@ -1,17 +1,19 @@
 <template>
-  <div class="pa-5">
+  <div class="px-5">
     <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
       <v-row>
         <div class="pa-3 d-flex align-center mb-12">
-          <v-icon class="ml-3" color="primary">mdi-account-circle-outline</v-icon>
+          <v-icon class="ml-3" color="primary" size="45">mdi-account-circle-outline</v-icon>
           <h2>رزومه</h2>
         </div>
       </v-row>
       <v-row>
-        <v-col cols="12" class="d-flex mb-8" style="align-items: flex-end" v-if="information.image !== null && image !== null">
-          <div class="pa-2 bg"><v-icon @click="deleteImage" :disabled="image == null">mdi-trash-can-outline</v-icon></div>
+        <v-col cols="12" class="d-flex mb-8" style="align-items: flex-end">
+          <div class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
+            <v-icon @click="deleteImage" :disabled="image == null">mdi-trash-can-outline</v-icon>
+          </div>
           <div class="secondary pa-2 d-flex" style="width: 150px; height: 150px; overflow: hidden">
-            <img :src="image" alt="profile_picture" style="width: 100%; heght: 100%; object-fit: cover" />
+            <img v-if="image !== null" :src="image" alt="profile_picture" style="width: 100%; heght: 100%; object-fit: cover" />
           </div>
         </v-col>
       </v-row>
@@ -28,15 +30,18 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" class="d-flex mb-8" v-if="information.resume !== null && resume !== null">
-          <div class="pa-2 bg"><v-icon @click="deleteResume" :disabled="resume == null">mdi-trash-can-outline</v-icon></div>
-          <div class="secondary pa-2 d-flex" style="width: 100%; overflow: hidden">
+        <v-col cols="12" class="d-flex mb-8">
+          <div class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
+            <v-icon @click="deleteResume" :disabled="resume == null">mdi-trash-can-outline</v-icon>
+          </div>
+          <div class="secondary pa-2 d-flex" style="width: 100%; overflow: hidden; height: 50px">
             <v-icon>mdi-file-download-outline</v-icon>
             <a
-              v-if="resume !== null && information.resume !== null"
+              v-if="resume !== null"
               :href="resume"
               target="_blanck"
               style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+              class="d-flex align-center"
             >
               <span>{{ resume }}</span>
             </a>
@@ -139,11 +144,11 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      <!-- <v-row class="px-3">
-        <v-checkbox v-model="information.isComplete" label="اطلاعاتم برای اسپانسر قابل مشاهده باشد." @change="edited"></v-checkbox>
-      </v-row> -->
-      <v-row class="justify-space-between pa-3" v-bind:class="[information.resume == '' || resume == null ? 'marginTop' : '']">
-        <v-btn style="flex-basis: 20%">لغو</v-btn>
+      <v-row class="px-3">
+        <v-checkbox v-model="information.canSponsorsSee" label="اطلاعاتم برای اسپانسر قابل جستو باشد." @change="edited"></v-checkbox>
+      </v-row>
+      <v-row class="justify-space-between pa-3 settingBtn" v-bind:class="[information.resume == '' || resume == null ? 'marginTop' : '']">
+        <v-btn style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
         <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
           <v-icon left>mdi-content-save-outline</v-icon>
           {{ $t('dashboard.editProfile') }}
@@ -180,6 +185,7 @@ export default {
     deleteChip: Function,
     deleteImage: Function,
     image: String,
+    resetForm: Function,
   },
   methods: {},
 };
@@ -189,6 +195,7 @@ export default {
   .v-input__prepend-outer {
     position: absolute;
     left: 3px;
+    top: 3px;
   }
   .v-input__append-inner {
     display: none;

@@ -1,9 +1,9 @@
 <template>
-  <div class="pa-5">
+  <div class="px-5">
     <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
       <v-row>
         <div class="pa-3 d-flex align-center mb-12">
-          <v-icon class="ml-3" color="primary">mdi-account-circle-outline</v-icon>
+          <v-icon class="ml-3" color="primary" size="45">mdi-account-circle-outline</v-icon>
           <h2>اطلاعات شخصی</h2>
         </div>
       </v-row>
@@ -40,48 +40,27 @@
             required
             :rules="requiredRules"
             v-bind="filedProps"
-            dir="ltr"
             @keyup="edited"
           />
         </v-col>
-        <v-col class="py-0 mb-6" cols="12">
+      </v-row>
+      <v-row>
+        <v-col class="py-0 mb-3" cols="12">
           <v-text-field
             v-model="information.lastnameEn"
             :label="$t('form.lastNameInEnglish')"
             required
             :rules="requiredRules"
             v-bind="filedProps"
-            dir="ltr"
             @keyup="edited"
           />
         </v-col>
       </v-row>
-
-      <v-dialog ref="dialog" v-model="menu" :return-value.sync="information.birthDate" width="290px">
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="information.birthDate"
-            v-bind="filedProps"
-            required
-            :rules="requiredRules"
-            :label="$t('form.birthday')"
-            readonly
-            v-on="on"
-            dir="ltr"
-            @focus="menu = true"
-            class="mb-3"
-          />
-        </template>
-        <v-date-picker
-          v-model="information.birthDate"
-          :max="new Date().toISOString().substr(0, 10)"
-          ref="picker"
-          min="1950-01-01"
-          locale="en-US"
-          scrollable
-          @change="edited"
-        />
-      </v-dialog>
+      <v-row>
+        <v-col class="py-0 mb-6" cols="12">
+          <v-text-field v-model="information.birthDate" v-bind="filedProps" required :rules="requiredRules" label="سال ورودی" dir="ltr" />
+        </v-col>
+      </v-row>
 
       <v-text-field
         v-model="information.university"
@@ -93,15 +72,14 @@
         @keyup="edited"
       />
       <v-row class="px-3">
-        <!-- <v-checkbox
+        <v-checkbox
           v-model="information.hideProfileInfo"
           label="اطلاعاتم برای سایر شرکت کننده ها قابل جستو باشد."
           @change="edited"
-        ></v-checkbox> -->
+        ></v-checkbox>
       </v-row>
-
-      <v-row class="justify-space-between pa-3">
-        <v-btn style="flex-basis: 20%">لغو</v-btn>
+      <v-row class="justify-space-between pa-3 settingBtn">
+        <v-btn style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
         <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
           <v-icon left>mdi-content-save-outline</v-icon>
           {{ $t('dashboard.editProfile') }}
@@ -131,6 +109,7 @@ export default {
     disable: Boolean,
     loading: Boolean,
     signUp: Function,
+    resetForm: Function,
   },
   computed: {},
   methods: {},

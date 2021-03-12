@@ -14,6 +14,7 @@
                   :edited="edited"
                   :menu="menu"
                   :disable="disable"
+                  :resetForm="resetForm"
                 />
               </v-card-text>
             </v-tab-item>
@@ -33,6 +34,7 @@
                   :deleteImage="deleteImage"
                   :image="image"
                   :jobs="jobs"
+                  :resetForm="resetForm"
                 />
               </v-card-text>
             </v-tab-item>
@@ -81,6 +83,7 @@ import ChangePassword from '../../components/dashboard/settings/ChangePassword';
 import DashboardPage from '../../components/dashboard/DashboardPage';
 import { editProfile } from '~/api';
 import { mapState } from 'vuex';
+import auth from '~/middleware/auth';
 
 export default {
   components: { DashboardPage, ChangePassword, EditProfile, Resume },
@@ -97,6 +100,7 @@ export default {
         birthDate: '',
         university: '',
         hideProfileInfo: '',
+        canSponsorsSee: '',
         email: '',
         github: '',
         linkedin: '',
@@ -109,7 +113,7 @@ export default {
         resume: null,
         image: null,
         skill: '',
-        job:''
+        job: '',
       },
       menu: false,
       disable: true,
@@ -118,7 +122,7 @@ export default {
       resume: '',
       image: '',
       skills: [],
-      jobs:[]
+      jobs: [],
     };
   },
   methods: {
@@ -133,6 +137,7 @@ export default {
         this.formData.append('lastname_en', this.information.lastnameEn);
         this.formData.append('birth_date', this.information.birthDate);
         this.formData.append('university', this.information.university);
+        this.formData.append('hide_profile_info', this.information.hideProfileInfo);
         this.formData.append('hide_profile_info', this.information.hideProfileInfo);
         this.formData.append('linkedin', this.information.linkedin);
         this.formData.append('email', this.information.email);
@@ -153,6 +158,7 @@ export default {
           this.information.birthDate !== this.profile.birth_date ||
           this.information.university !== this.profile.university ||
           this.information.hideProfileInfo !== this.profile.hide_profile_info ||
+          this.information.canSponsorsSee !== this.profile.can_sponsors_see ||
           this.information.linkedin !== this.profile.linkedin ||
           this.information.email !== this.profile.email ||
           this.information.github !== this.profile.github ||
@@ -185,14 +191,14 @@ export default {
       this.loading = true;
       await editProfile(this.$axios, this.formData).then(res => {
         this.loading = false;
-        if (res.status_code) {
-          if (res.status_code === 200) {
-            this.$toast.success('تغییرات با موفقیت دخیره شد.');
-            this.resetForm();
-          } else {
-            this.$toast.error('خطایی در دخیره تغییرات رخ داد.');
-          }
-        }
+        // this.$store.dispatch(`auth/getUser`).then(res =>{
+        //   console.log(res.data)
+        //   console.log(this.profile)
+        // })
+
+        // this.profile = this.$store.dispatch(`auth/getUser`)
+        this.resetForm();
+        this.$toast.success('تغییرات با موفقیت دخیره شد.');
       });
     },
     // save() {
@@ -201,6 +207,7 @@ export default {
     // },
     resetForm() {
       if (!this.profile) return;
+      this.disable = true;
       this.information.firstnameFa = this.profile.firstname_fa;
       this.information.firstnameEn = this.profile.firstname_en;
       this.information.lastnameFa = this.profile.lastname_fa;
@@ -208,9 +215,11 @@ export default {
       this.information.birthDate = this.profile.birth_date;
       this.information.university = this.profile.university;
       this.information.hideProfileInfo = this.profile.hide_profile_info;
+      this.information.canSponsorsSee = this.profile.can_sponsors_see;
       this.information.linkedin = this.profile.linkedin;
       this.information.email = this.profile.email;
       this.information.github = this.profile.github;
+      this.resume = this.profile.resume;
       this.information.resume = this.profile.resume;
       this.information.phoneNumber = this.profile.phone_number;
       this.information.major = this.profile.major;
@@ -218,6 +227,7 @@ export default {
       this.information.term = this.profile.university_term;
       this.information.degree = this.profile.university_degree;
       this.information.province = this.profile.province;
+      this.image = this.profile.image;
       this.information.image = this.profile.image;
       for (item in this.profile.skills) {
         this.skills.push(item);
@@ -227,7 +237,6 @@ export default {
       }
     },
     deleteResume() {
-      this.information.resume = null;
       this.resume = null;
       if (this.formData.get('resume') == null) {
         this.formData.append('resume', null);
@@ -238,7 +247,6 @@ export default {
     },
 
     deleteImage() {
-      this.information.image = null;
       this.image = null;
       if (this.formData.get('image') == null) {
         this.formData.append('image', null);
@@ -253,8 +261,7 @@ export default {
         this.skills.push(this.information.skill);
         // console.log(this.skills);
         this.information.skill = '';
-      }
-      else if(array ==='jobs' && this.information.job != ''){
+      } else if (array === 'jobs' && this.information.job != '') {
         this.jobs.push(this.information.job);
         // console.log(this.jobs);
         this.information.job = '';
@@ -268,8 +275,7 @@ export default {
         } else {
           this.skills.splice(item, 1);
         }
-      }
-      else if (array == 'jobs') {
+      } else if (array == 'jobs') {
         if (this.jobs.length == 1) {
           this.jobs = [];
         } else {
@@ -291,7 +297,6 @@ export default {
   },
   mounted() {
     this.formData = new FormData();
-    // this.resume = this.$auth.user.resume;
     this.resetForm();
     this.disable = true;
   },
@@ -303,6 +308,22 @@ export default {
 @import '../../assets/mixins.scss';
 
 .setting {
+  .v-text-field--outlined.v-input--dense.v-text-field--outlined > .v-input__control > .v-input__slot {
+    min-height: 50px;
+  }
+  .v-input--dense label {
+    top: 15px !important;
+  }
+  .v-input--is-focused label,
+  .v-input--is-dirty label {
+    top: 10px !important;
+  }
+  .v-input--checkbox label {
+    top: 0 !important;
+  }
+  .settingBtn button {
+    height: 50px !important;
+  }
   @include v-not-md {
     flex-wrap: wrap;
     flex-flow: column-reverse;
@@ -324,6 +345,10 @@ export default {
   .settingWraper {
     min-height: 100vh;
     background-color: #0e1224;
+    padding-top: 90px;
+    @include v-not-md {
+      padding: 50px 15px 0 30px;
+    }
   }
   .tabsW {
     min-height: 100vh;
