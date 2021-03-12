@@ -1,190 +1,153 @@
 <template>
-  <div class="px-5">
-    <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
-      <v-row>
-        <div class="pa-3 d-flex align-center mb-12">
-          <v-icon class="ml-3" color="primary" size="45">mdi-account-circle-outline</v-icon>
-          <h2>رزومه</h2>
-        </div>
-      </v-row>
-      <v-row>
-        <v-col cols="12" class="d-flex mb-8" style="align-items: flex-end">
-          <div class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
-            <v-icon @click="deleteImage" :disabled="image == null">mdi-trash-can-outline</v-icon>
-          </div>
-          <div class="secondary pa-2 d-flex" style="width: 150px; height: 150px; overflow: hidden">
-            <img v-if="image !== null" :src="image" alt="profile_picture" style="width: 100%; heght: 100%; object-fit: cover" />
-          </div>
-        </v-col>
-      </v-row>
-      <v-row class="resume">
-        <v-col class="py-0 mb-3" cols="12">
-          <v-file-input
-            v-model="information.image"
-            label="تغییر عکس"
-            outlined
-            dense
-            prepend-icon="mdi-file-upload-outline"
-            @change="edited"
-          ></v-file-input>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" class="d-flex mb-8">
-          <div class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
-            <v-icon @click="deleteResume" :disabled="resume == null">mdi-trash-can-outline</v-icon>
-          </div>
-          <div class="secondary pa-2 d-flex" style="width: 100%; overflow: hidden; height: 50px">
-            <v-icon>mdi-file-download-outline</v-icon>
+  <div>
+    <SectionHeader title="رزومه" icon="mdi-badge-account-horizontal-outline" />
+    <SectionContainer>
+      <v-form ref="editProfile" onSubmit="return false;" @submit="signUp">
+        <v-row v-if="information.image !== null">
+          <v-col cols="12" class="d-flex mb-8" style="align-items: flex-end">
+            <v-btn @click="deleteImage" class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
+              <v-icon>mdi-trash-can-outline</v-icon>
+            </v-btn>
+            <div class="secondary pa-2 d-flex" style="width: 150px; height: 150px; overflow: hidden">
+              <img :src="information.image_link" alt="profile_picture" style="width: 100%; heght: 100%; object-fit: cover" />
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row class="resume">
+          <v-col class="py-0 mb-3" cols="12">
+            <v-file-input
+              v-model="information.image"
+              label="تغییر عکس"
+              v-bind="filedProps"
+              prepend-icon="mdi-file-upload-outline"
+            ></v-file-input>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="information.resume !== null">
+          <v-col cols="12" class="d-flex mb-8">
+            <v-btn @click="deleteResume" class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
+              <v-icon>mdi-trash-can-outline</v-icon>
+            </v-btn>
+
             <a
-              v-if="resume !== null"
-              :href="resume"
+              :href="information.resume_link"
               target="_blanck"
-              style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
-              class="d-flex align-center"
+              class="secondary pa-2 d-flex align-center"
+              style="width: 100%; overflow: hidden; height: 50px"
             >
-              <span>{{ resume }}</span>
+              <v-icon class="ml-3">mdi-file-download-outline</v-icon>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ information.resume_link }}</span>
             </a>
+          </v-col>
+        </v-row>
+
+        <v-row class="resume">
+          <v-col class="py-0 mb-3" cols="12">
+            <v-file-input
+              v-model="information.resume"
+              label="تغییر فایل رزومه"
+              v-bind="filedProps"
+              prepend-icon="mdi-file-upload-outline"
+            ></v-file-input>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col class="py-0 mb-6 skill" cols="12">
+            <v-combobox v-model="information.skills" dense chips multiple outlined label="مهارت ها"></v-combobox>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-6 job" cols="12">
+            <v-combobox v-model="information.jobs" dense chips multiple outlined label="شغل"></v-combobox>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-bind="filedProps" v-model="information.linkedin" label="آدرس لینکدین"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-bind="filedProps" v-model="information.github" label="گیت هاب"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-bind="filedProps" v-model="information.major" label="رشته"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-bind="filedProps" v-model="information.term" label="ترم"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-bind="filedProps" v-model="information.degree" label="مدرک"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-select v-model="information.programming_language" :items="languageSelectItem" label="زبان برنامه نویسی" outlined></v-select>
+          </v-col>
+        </v-row>
+        <v-row class="px-3">
+          <v-checkbox v-bind="filedProps" v-model="information.can_sponsors_see" label="اطلاعاتم برای اسپانسر قابل جستو باشد."></v-checkbox>
+        </v-row>
+        <div class="d-flex mt-8">
+          <div style="flex: 0 1 93px; margin-left: 24px;">
+            <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
           </div>
-        </v-col>
-      </v-row>
-      <v-row class="resume">
-        <v-col class="py-0 mb-3" cols="12">
-          <v-file-input
-            v-model="information.resume"
-            label="تغییر فایل رزومه"
-            outlined
-            dense
-            prepend-icon="mdi-file-upload-outline"
-            @change="edited"
-          ></v-file-input>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field v-model="information.email" label="ایمیل" v-bind="filedProps" :rules="emailRules" @keyup="edited"></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-6 skill" cols="12">
-          <v-text-field
-            v-model="information.skill"
-            label="مهارت ها"
-            v-bind="filedProps"
-            @keyup="edited"
-            @keyup.enter="addToArray('skills')"
-          ></v-text-field>
-          <v-icon v-if="information.skill != ''" @click="addToArray('skills')" @keyup.enter="addToArray('skills')">mdi-check</v-icon>
-          <div class="my-2">
-            <v-chip v-for="(item, index) in skills" :key="index" class="ma-2" close @click:close="deleteChip('skills', index)">
-              {{ item }}
-            </v-chip>
+          <div style="flex: 1">
+            <v-btn block :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
+              <v-icon left>mdi-content-save-v-bind="filedProps"</v-icon>
+              {{ $t('dashboard.editProfile') }}
+            </v-btn>
           </div>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-6 job" cols="12">
-          <v-text-field
-            v-model="information.job"
-            label="شغل"
-            v-bind="filedProps"
-            @keyup="edited"
-            @keyup.enter="addToArray('jobs')"
-          ></v-text-field>
-          <v-icon v-if="information.job != ''" @click="addToArray('jobs')" @keyup.enter="addToArray('jobs')">mdi-check</v-icon>
-          <div class="my-2">
-            <v-chip v-for="(item, index) in jobs" :key="index" class="ma-2" close @click:close="deleteChip('jobs', index)">
-              {{ item }}
-            </v-chip>
-          </div>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field v-model="information.linkedin" label="آدرس لینکدین" v-bind="filedProps" @keyup="edited"></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field v-model="information.github" label="گیت هاب" v-bind="filedProps" @keyup="edited"></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field v-model="information.phoneNumber" label="شماره تماس" v-bind="filedProps" @keyup="edited"></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field v-model="information.major" label="رشته" v-bind="filedProps" @keyup="edited"></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field v-model="information.term" label="ترم" v-bind="filedProps" @keyup="edited"></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field v-model="information.degree" label="مدرک" v-bind="filedProps" @keyup="edited"></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field v-model="information.phoneNumber" label="شماره تماس" v-bind="filedProps" @keyup="edited"></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field
-            v-model="information.programmingLanguage"
-            label="زبان برنامه نویسی"
-            v-bind="filedProps"
-            @keyup="edited"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row class="px-3">
-        <v-checkbox v-model="information.canSponsorsSee" label="اطلاعاتم برای اسپانسر قابل جستو باشد." @change="edited"></v-checkbox>
-      </v-row>
-      <v-row class="justify-space-between pa-3 settingBtn" v-bind:class="[information.resume == '' || resume == null ? 'marginTop' : '']">
-        <v-btn style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
-        <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
-          <v-icon left>mdi-content-save-outline</v-icon>
-          {{ $t('dashboard.editProfile') }}
-        </v-btn>
-      </v-row>
-    </v-form>
+        </div>
+      </v-form>
+    </SectionContainer>
   </div>
 </template>
 
 <script>
 import { emailRules, requiredRules } from '../../../mixins/formValidations';
-import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
+import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
 
 export default {
-  mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps],
+  mixins: [requiredRules, emailRules, fieldProps],
+  components: { SectionHeader, SectionContainer },
   data() {
     return {
-      valid: false,
+      languageSelectItem: [
+        {
+          text: 'java',
+          value: 'java',
+        },
+        {
+          text: '++C',
+          value: 'cpp',
+        },
+        {
+          text: 'python',
+          value: 'python',
+        },
+      ],
     };
   },
 
   props: {
     information: Object,
-    edited: Function,
     disable: Boolean,
     loading: Boolean,
     signUp: Function,
     deleteResume: Function,
-    resume: String,
-    addToArray: Function,
-    skills: Array,
-    jobs: Array,
-    deleteChip: Function,
     deleteImage: Function,
-    image: String,
     resetForm: Function,
   },
   methods: {},

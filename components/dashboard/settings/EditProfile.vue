@@ -1,91 +1,69 @@
 <template>
-  <div class="px-5">
-    <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
-      <v-row>
-        <div class="pa-3 d-flex align-center mb-12">
-          <v-icon class="ml-3" color="primary" size="45">mdi-account-circle-outline</v-icon>
-          <h2>اطلاعات شخصی</h2>
+  <div>
+    <SectionHeader title="اطلاعات شخصی" icon="mdi-account-circle-outline" />
+    <SectionContainer>
+      <v-form ref="editProfile" onSubmit="return false;" @submit="signUp">
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-model="information.firstname_fa" :label="$t('form.nameInPersian')" required :rules="requiredRules" outlined />
+          </v-col>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field
+              v-model="information.lastname_fa"
+              :label="$t('form.lastNameInPersian')"
+              required
+              :rules="requiredRules"
+              v-bind="filedProps"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-model="information.email" label="ایمیل" v-bind="filedProps" :rules="emailRules"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-model="information.phone_number" label="شماره تماس" v-bind="filedProps"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-6" cols="12">
+            <v-text-field
+              v-model="information.birth_date"
+              v-bind="filedProps"
+              required
+              :rules="requiredRules"
+              label="سال ورودی"
+              dir="ltr"
+            />
+          </v-col>
+        </v-row>
+
+        <v-text-field
+          v-model="information.university"
+          :label="$t('form.educationPlace')"
+          required
+          :rules="requiredRules"
+          v-bind="filedProps"
+          class="mb-3"
+        />
+        <v-row class="px-3">
+          <v-checkbox v-model="information.hide_profile_info" label="اطلاعاتم برای سایر شرکت کننده ها قابل جستو باشد."></v-checkbox>
+        </v-row>
+        <div class="d-flex mt-8">
+          <div style="flex: 0 1 93px; margin-left: 24px;">
+            <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
+          </div>
+          <div style="flex: 1">
+            <v-btn block :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
+              <v-icon left>mdi-content-save-outline</v-icon>
+              {{ $t('dashboard.editProfile') }}
+            </v-btn>
+          </div>
         </div>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field
-            v-if="$i18n.locale === 'fa'"
-            v-model="information.firstnameFa"
-            :label="$t('form.nameInPersian')"
-            required
-            :rules="requiredRules"
-            v-bind="filedProps"
-            @keyup="edited"
-          />
-        </v-col>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field
-            v-if="$i18n.locale === 'fa'"
-            v-model="information.lastnameFa"
-            :label="$t('form.lastNameInPersian')"
-            required
-            :rules="requiredRules"
-            v-bind="filedProps"
-            @keyup="edited"
-          />
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field
-            v-model="information.firstnameEn"
-            :label="$t('form.nameInEnglish')"
-            required
-            :rules="requiredRules"
-            v-bind="filedProps"
-            @keyup="edited"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field
-            v-model="information.lastnameEn"
-            :label="$t('form.lastNameInEnglish')"
-            required
-            :rules="requiredRules"
-            v-bind="filedProps"
-            @keyup="edited"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-6" cols="12">
-          <v-text-field v-model="information.birthDate" v-bind="filedProps" required :rules="requiredRules" label="سال ورودی" dir="ltr" />
-        </v-col>
-      </v-row>
-
-      <v-text-field
-        v-model="information.university"
-        :label="$t('form.educationPlace')"
-        required
-        :rules="requiredRules"
-        v-bind="filedProps"
-        class="mb-3"
-        @keyup="edited"
-      />
-      <v-row class="px-3">
-        <v-checkbox
-          v-model="information.hideProfileInfo"
-          label="اطلاعاتم برای سایر شرکت کننده ها قابل جستو باشد."
-          @change="edited"
-        ></v-checkbox>
-      </v-row>
-      <v-row class="justify-space-between pa-3 settingBtn">
-        <v-btn style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
-        <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
-          <v-icon left>mdi-content-save-outline</v-icon>
-          {{ $t('dashboard.editProfile') }}
-        </v-btn>
-      </v-row>
-    </v-form>
+      </v-form>
+    </SectionContainer>
   </div>
 </template>
 
@@ -93,25 +71,18 @@
 import { emailRules, requiredRules } from '../../../mixins/formValidations';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
-import { editProfile } from '../../../api';
+import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
 
 export default {
   mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps],
-  data() {
-    return {
-      valid: false,
-    };
-  },
+  components: { SectionHeader, SectionContainer },
+
   props: {
     information: Object,
-    edited: Function,
-    menu: Boolean,
-    disable: Boolean,
     loading: Boolean,
     signUp: Function,
     resetForm: Function,
   },
-  computed: {},
-  methods: {},
 };
 </script>

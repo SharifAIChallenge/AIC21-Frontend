@@ -1,79 +1,47 @@
 <template>
-  <dashboard-page title="dashboard.settings">
-    <v-col>
-      <div class="overflow-hidden d-flex setting">
-        <v-col cols="12" md="6" class="pa-0">
-          <v-divider />
-          <v-tabs-items v-model="tabs">
-            <v-tab-item>
-              <v-card-text class="settingWraper">
-                <EditProfile
-                  :loading="loading"
-                  :signUp="signUp"
-                  :information="this.information"
-                  :edited="edited"
-                  :menu="menu"
-                  :disable="disable"
-                  :resetForm="resetForm"
-                />
-              </v-card-text>
-            </v-tab-item>
-            <v-tab-item>
-              <v-card-text class="settingWraper">
-                <Resume
-                  :resume="resume"
-                  :deleteResume="deleteResume"
-                  :signUp="signUp"
-                  :edited="edited"
-                  :disable="disable"
-                  :information="this.information"
-                  :loading="loading"
-                  :addToArray="addToArray"
-                  :skills="skills"
-                  :deleteChip="deleteChip"
-                  :deleteImage="deleteImage"
-                  :image="image"
-                  :jobs="jobs"
-                  :resetForm="resetForm"
-                />
-              </v-card-text>
-            </v-tab-item>
-            <v-tab-item>
-              <v-card-text class="settingWraper">
-                <ChangePassword />
-              </v-card-text>
-            </v-tab-item>
-          </v-tabs-items>
-        </v-col>
-        <client-only>
-          <v-col cols="12" md="6" class="pa-0">
-            <div class="d-flex tabsW">
-              <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
-                <div style="margin: 15px auto" class="d-flex flex-column">
-                  <v-tab style="width: 150px; height: 150px; background: #141432; color: white">
-                    {{ $t('dashboard.editProfile') }}
-                    <v-icon size="60" style="color: white">mdi-account-circle-outline</v-icon>
-                  </v-tab>
-                </div>
-                <div style="margin: 15px auto" class="d-flex flex-column">
-                  <v-tab style="width: 150px; height: 150px; background: #141432; color: white">
-                    {{ $t('dashboard.resume') }}
-                    <v-icon size="60" style="color: white">mdi-badge-account-horizontal</v-icon>
-                  </v-tab>
-                </div>
-                <div style="margin: 15px auto" class="d-flex flex-column">
-                  <v-tab style="width: 150px; height: 150px; background: #141432; color: white">
-                    {{ $t('form.changePassword') }}
-                    <v-icon size="60" style="color: white">mdi-form-textbox-password</v-icon>
-                  </v-tab>
-                </div>
-              </v-tabs>
-            </div>
-          </v-col>
-        </client-only>
-      </div>
+  <v-row class="setting">
+    <v-col cols="12" md="6" class="pa-0">
+      <v-divider />
+      <v-tabs-items v-model="tabs">
+        <v-tab-item>
+          <v-card-text class="settingWraper">
+            <EditProfile :loading="loading" :signUp="signUp" :information="this.information" :resetForm="resetForm" />
+          </v-card-text>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card-text class="settingWraper">
+            <Resume
+              :deleteResume="deleteResume"
+              :signUp="signUp"
+              :information="this.information"
+              :loading="loading"
+              :deleteImage="deleteImage"
+              :resetForm="resetForm"
+            />
+          </v-card-text>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card-text class="settingWraper">
+            <ChangePassword />
+          </v-card-text>
+        </v-tab-item>
+      </v-tabs-items>
     </v-col>
-  </dashboard-page>
+    <client-only>
+      <v-col cols="12" md="6" class="pa-0">
+        <div class="d-flex tabsW">
+          <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
+            <div v-for="(item, key) in tabLabels" :key="key" style="margin: 15px auto" class="d-flex flex-column">
+              <v-tab>
+                {{ item.title }}
+                <v-icon size="60" style="color: white">{{ tabs === key ? item.icon : item.iconOutline }}</v-icon>
+              </v-tab>
+            </div>
+          </v-tabs>
+        </div>
+      </v-col>
+    </client-only>
+  </v-row>
 </template>
 
 <script>
@@ -83,7 +51,6 @@ import ChangePassword from '../../components/dashboard/settings/ChangePassword';
 import DashboardPage from '../../components/dashboard/DashboardPage';
 import { editProfile } from '~/api';
 import { mapState } from 'vuex';
-import auth from '~/middleware/auth';
 
 export default {
   components: { DashboardPage, ChangePassword, EditProfile, Resume },
@@ -93,20 +60,18 @@ export default {
     return {
       tabs: null,
       information: {
-        firstnameFa: '',
-        firstnameEn: '',
-        lastnameFa: '',
-        lastnameEn: '',
-        birthDate: '',
+        firstname_fa: '',
+        lastname_fa: '',
+        birth_date: '',
         university: '',
-        hideProfileInfo: '',
-        canSponsorsSee: '',
+        hide_profile_info: '',
+        can_sponsors_see: '',
         email: '',
         github: '',
         linkedin: '',
-        phoneNumber: '',
+        phone_number: '',
         major: '',
-        programmingLanguage: '',
+        programming_language: '',
         province: '',
         degree: '',
         term: '',
@@ -115,82 +80,36 @@ export default {
         skill: '',
         job: '',
       },
-      menu: false,
-      disable: true,
+      tabLabels: [
+        {
+          title: 'اطلاعات شخصی',
+          icon: 'mdi-account-circle',
+          iconOutline: 'mdi-account-circle-outline',
+        },
+        {
+          title: 'رزومه',
+          icon: 'mdi-badge-account-horizontal',
+          iconOutline: 'mdi-badge-account-horizontal-outline',
+        },
+        {
+          title: 'تغییر رمز عبور',
+          icon: 'mdi-form-textbox-password',
+          iconOutline: 'mdi-form-textbox-password',
+        },
+      ],
       loading: false,
-      formData: [],
-      resume: '',
-      image: '',
-      skills: [],
-      jobs: [],
     };
   },
   methods: {
-    edited() {
-      if (!this.profile) {
-        this.disable = true;
-      } else {
-        //append to formDate
-        this.formData.append('firstname_fa', this.information.firstnameFa);
-        this.formData.append('firstname_en', this.information.firstnameEn);
-        this.formData.append('lastname_fa', this.information.lastnameFa);
-        this.formData.append('lastname_en', this.information.lastnameEn);
-        this.formData.append('birth_date', this.information.birthDate);
-        this.formData.append('university', this.information.university);
-        this.formData.append('hide_profile_info', this.information.hideProfileInfo);
-        this.formData.append('hide_profile_info', this.information.hideProfileInfo);
-        this.formData.append('linkedin', this.information.linkedin);
-        this.formData.append('email', this.information.email);
-        this.formData.append('github', this.information.github);
-        this.formData.append('major', this.information.major);
-        this.formData.append('phone_number', this.information.phoneNumber);
-        this.formData.append('programming_language', this.information.programmingLanguage);
-        this.formData.append('university_term', this.information.term);
-        this.formData.append('university_degree', this.information.degree);
-        this.formData.append('province', this.information.province);
-        this.formData.append('skills', this.skills);
-        this.formData.append('jobs', this.jobs);
-        if (
-          this.information.firstnameFa !== this.profile.firstname_fa ||
-          this.information.firstnameEn !== this.profile.firstname_en ||
-          this.information.lastnameFa !== this.profile.lastname_fa ||
-          this.information.lastnameEn !== this.profile.lastname_en ||
-          this.information.birthDate !== this.profile.birth_date ||
-          this.information.university !== this.profile.university ||
-          this.information.hideProfileInfo !== this.profile.hide_profile_info ||
-          this.information.canSponsorsSee !== this.profile.can_sponsors_see ||
-          this.information.linkedin !== this.profile.linkedin ||
-          this.information.email !== this.profile.email ||
-          this.information.github !== this.profile.github ||
-          this.information.major !== this.profile.major ||
-          this.information.programmingLanguage !== this.profile.programming_language ||
-          this.information.term !== this.profile.university_term ||
-          this.information.degree !== this.profile.university_degree ||
-          this.information.province !== this.profile.province ||
-          JSON.stringify(this.skills) != JSON.stringify(this.profile.skills) ||
-          JSON.stringify(this.jobs) != JSON.stringify(this.profile.jobs)
-        ) {
-          this.disable = false;
-        } else if (this.information.resume !== this.profile.resume) {
-          this.formData.append('resume', this.information.resume);
-          this.disable = false;
-        } else if (this.information.image !== this.profile.image) {
-          this.formData.append('image', this.information.image);
-          this.disable = false;
-        } else {
-          if (this.information.resume == this.profile.resume) {
-            this.formData.delete('resume');
-          } else if (this.information.image == this.profile.image) {
-            this.formData.delete('image');
-          }
-          this.disable = true;
-        }
-      }
-    },
     async signUp() {
       this.loading = true;
-      await editProfile(this.$axios, this.formData).then(res => {
+      const formData = new FormData();
+      for (const key in this.information) {
+        if (this.information[key] !== this.profile[key]) formData.append(key, this.information[key]);
+      }
+      await editProfile(this.$axios, formData).then(res => {
         this.loading = false;
+        this.$store.commit('auth/setUser', res);
         // this.$store.dispatch(`auth/getUser`).then(res =>{
         //   console.log(res.data)
         //   console.log(this.profile)
@@ -201,93 +120,20 @@ export default {
         this.$toast.success('تغییرات با موفقیت دخیره شد.');
       });
     },
-    // save() {
-    //   this.$refs.dialog.save(date);
-    //   this.menu = false;
-    // },
     resetForm() {
-      if (!this.profile) return;
-      this.disable = true;
-      this.information.firstnameFa = this.profile.firstname_fa;
-      this.information.firstnameEn = this.profile.firstname_en;
-      this.information.lastnameFa = this.profile.lastname_fa;
-      this.information.lastnameEn = this.profile.lastname_en;
-      this.information.birthDate = this.profile.birth_date;
-      this.information.university = this.profile.university;
-      this.information.hideProfileInfo = this.profile.hide_profile_info;
-      this.information.canSponsorsSee = this.profile.can_sponsors_see;
-      this.information.linkedin = this.profile.linkedin;
-      this.information.email = this.profile.email;
-      this.information.github = this.profile.github;
-      this.resume = this.profile.resume;
-      this.information.resume = this.profile.resume;
-      this.information.phoneNumber = this.profile.phone_number;
-      this.information.major = this.profile.major;
-      this.information.programmingLanguage = this.profile.programming_language;
-      this.information.term = this.profile.university_term;
-      this.information.degree = this.profile.university_degree;
-      this.information.province = this.profile.province;
-      this.image = this.profile.image;
-      this.information.image = this.profile.image;
-      for (item in this.profile.skills) {
-        this.skills.push(item);
-      }
-      for (item in this.profile.jobs) {
-        this.jobs.push(item);
-      }
+      this.information = { ...this.profile };
     },
     deleteResume() {
-      this.resume = null;
-      if (this.formData.get('resume') == null) {
-        this.formData.append('resume', null);
-      } else {
-        this.formData.delete('resume');
-      }
-      this.disable = false;
+      this.information.resume = null;
     },
 
     deleteImage() {
-      this.image = null;
-      if (this.formData.get('image') == null) {
-        this.formData.append('image', null);
-      } else {
-        this.formData.delete('image');
-      }
-      this.disable = false;
-    },
-
-    addToArray(array) {
-      if (array === 'skills' && this.information.skill != '') {
-        this.skills.push(this.information.skill);
-        // console.log(this.skills);
-        this.information.skill = '';
-      } else if (array === 'jobs' && this.information.job != '') {
-        this.jobs.push(this.information.job);
-        // console.log(this.jobs);
-        this.information.job = '';
-      }
-      this.edited();
-    },
-    deleteChip(array, item) {
-      if (array == 'skills') {
-        if (this.skills.length == 1) {
-          this.skills = [];
-        } else {
-          this.skills.splice(item, 1);
-        }
-      } else if (array == 'jobs') {
-        if (this.jobs.length == 1) {
-          this.jobs = [];
-        } else {
-          this.jobs.splice(item, 1);
-        }
-      }
-      this.edited();
+      this.information.image = null;
     },
   },
   watch: {
-    menu(val) {
-      val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'));
+    profile(newProfile, oldProfile) {
+      this.information = { ...newProfile };
     },
   },
   computed: {
@@ -297,8 +143,6 @@ export default {
   },
   mounted() {
     this.formData = new FormData();
-    this.resetForm();
-    this.disable = true;
   },
 };
 </script>
@@ -308,22 +152,6 @@ export default {
 @import '../../assets/mixins.scss';
 
 .setting {
-  .v-text-field--outlined.v-input--dense.v-text-field--outlined > .v-input__control > .v-input__slot {
-    min-height: 50px;
-  }
-  .v-input--dense label {
-    top: 15px !important;
-  }
-  .v-input--is-focused label,
-  .v-input--is-dirty label {
-    top: 10px !important;
-  }
-  .v-input--checkbox label {
-    top: 0 !important;
-  }
-  .settingBtn button {
-    height: 50px !important;
-  }
   @include v-not-md {
     flex-wrap: wrap;
     flex-flow: column-reverse;
@@ -335,7 +163,12 @@ export default {
     background-color: var(--v-secondary-base) !important;
     color: white !important;
   }
-
+  .v-tab {
+    width: 150px;
+    height: 150px;
+    background: #141432;
+    color: white !important;
+  }
   hr {
     display: none;
   }
@@ -343,12 +176,7 @@ export default {
     display: none;
   }
   .settingWraper {
-    min-height: 100vh;
     background-color: #0e1224;
-    padding-top: 90px;
-    @include v-not-md {
-      padding: 50px 15px 0 30px;
-    }
   }
   .tabsW {
     min-height: 100vh;
