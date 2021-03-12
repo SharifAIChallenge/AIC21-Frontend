@@ -5,6 +5,7 @@
       <login v-if="form === 'login'" />
       <forgotPassword v-if="form === 'forgot'" />
       <signUp v-if="form === 'signUp'" />
+      <resetPassword v-if="form === 'reset'" />
     </div>
   </v-dialog>
 </template>
@@ -14,17 +15,15 @@ import { mapState } from 'vuex';
 import login from '../userForms/login';
 import forgotPassword from '../userForms/forgotPassword';
 import signUp from '../userForms/signUp';
+import resetPassword from '../userForms/resetPassword';
 
 export default {
-  components: { login, forgotPassword, signUp },
+  components: { login, forgotPassword, signUp, resetPassword },
   props: ['isPage'],
   methods: {
     toggleShow() {
       if (this.isPage) this.$router.push('/');
       this.$store.commit('formStatus/toggleShow');
-    },
-    changeStatus(form) {
-      this.$store.commit('formStatus/changeStatus', form);
     },
   },
   computed: {

@@ -20,6 +20,7 @@ export const actions = {
     if (res.token) {
       commit('setToken', res);
       dispatch('getUser');
+      this.$router.push('/dashboard');
       commit('formStatus/toggleShow', {}, { root: true });
     }
   },
@@ -28,7 +29,7 @@ export const actions = {
     dispatch('getUser');
   },
   async logout({ commit }) {
-    let res = await logout(this.$axios);
+    let res = await logout(this.$axios).catch(e => console.log(e));
     commit('removeToken');
     this.$router.push('/');
   },
