@@ -29,8 +29,10 @@
               @focus="clearError('email')"
             ></v-text-field>
 
-            <password-input v-model="form.password_1" style="height:36px" />
-            <password-input v-model="form.password_2" style="height:36px" label="form.passwordRepeat" />
+            <v-text-field label="شماره تلفن" v-model="form.phone_number" required outlined dir="ltr" height="36px"></v-text-field>
+
+            <password-input v-model="form.password_1" />
+            <password-input v-model="form.password_2" label="form.passwordRepeat" />
             <v-checkbox required outlined v-model="termsAndConditions" :label="$t('form.termsAndConditions')"></v-checkbox>
             <v-row>
               <v-col>
@@ -82,6 +84,7 @@ export default {
         email: '',
         password_1: '',
         password_2: '',
+        phone_number: '',
       },
       result: {
         value: false,
@@ -101,6 +104,15 @@ export default {
       this.$store.commit('formStatus/changeStatus', form);
     },
     async signUp() {
+      let isFormValid = true;
+      for (const key in this.form) {
+        if (!this.form[key]) isFormValid = false;
+      }
+      if (!isFormValid) return;
+      if (this.form.password_1 !== this.form.password_2) {
+        this.$toast.error('رمزهای عبور همخوانی ندارند');
+        return;
+      }
       this.loading = true;
       let data = await signup(this.$axios, this.form);
       this.loading = false;

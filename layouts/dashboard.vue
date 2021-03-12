@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app flat clipped-right :hide-on-scroll="mobile" style="left: unset; overflow: hidden" height="90" class="dashbordNav">
+    <v-app-bar app clipped-right :hide-on-scroll="mobile" style="left: unset; overflow: hidden" height="90" class="dashbordNav">
       <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
       <v-row class="justify-center logo">
         <nuxt-link to="/" class="white--text" style="width: 100%; height: 100%">

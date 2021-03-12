@@ -9,6 +9,7 @@
         hide-default-footer
         class="elevation-1"
         @page-count="pageCount = $event"
+        style="background: #141432"
       >
         <template v-slot:item.image="{ item }">
           <img :src="item.image" :alt="item.name" height="60px" />
@@ -29,9 +30,9 @@
         <v-card>
           <img :src="teamInfo.image" width="100%" :alt="teamInfo.name" />
           {{ teamInfo.name }}
-          <v-row v-for="(member, index) in teamInfo.members" :key="index" style=' width:100% '>
+          <v-row v-for="(member, index) in teamInfo.members" :key="index" style=" width:100% ">
             <v-col cols="2">
-              <img :src="member.profile.image" :alt="member.first_name" height="40px" style='max-width: 40px;' />
+              <img :src="member.profile.image" :alt="member.first_name" height="40px" style="max-width: 40px;" />
             </v-col>
             <v-col cols="10">
               <div class="d-flex align-center">

@@ -4,13 +4,13 @@
       <v-divider />
       <v-tabs-items v-model="tabs">
         <v-tab-item>
-          <v-card-text class="main-content">
+          <div class="main-content">
             <MyTeam :toggleHaveTeam="toggleHaveTeam" v-if="haveTeam" />
             <CreateTeam :toggleHaveTeam="toggleHaveTeam" v-else />
-          </v-card-text>
+          </div>
         </v-tab-item>
         <v-tab-item>
-          <v-card-text class="main-content">
+          <v-card-text class="main-content pa-0">
             <SearchUsersAndSendInvitation v-if="haveTeam" />
             <IncompleteTeams v-else />
           </v-card-text>
@@ -23,16 +23,18 @@
         </v-tab-item>
       </v-tabs-items>
     </v-col>
-    <v-col cols="12" :md="tabs === 1 ? 4 : 6" class="pa-0">
-      <div class="d-flex tabsW">
-        <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
-          <div v-for="(item, key) in haveTeam ? teamHeader : userHeader" :key="key" style="margin: 15px auto" class="d-flex flex-column">
-            <v-tab>
-              {{ item.title }}
-              <v-icon size="60" style="color: white">{{ tabs === key ? item.icon : `${item.icon}-outline` }}</v-icon>
-            </v-tab>
-          </div>
-        </v-tabs>
+    <v-col cols="12" :md="tabs === 1 ? 4 : 6" class="pa-0" style="background: #080a18;">
+      <div class="wrapper">
+        <div class="d-flex tabsW">
+          <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
+            <div v-for="(item, key) in haveTeam ? teamHeader : userHeader" :key="key" style="margin: 15px auto" class="d-flex flex-column">
+              <v-tab>
+                {{ item.title }}
+                <v-icon size="60" style="color: white">{{ tabs === key ? item.icon : `${item.icon}-outline` }}</v-icon>
+              </v-tab>
+            </div>
+          </v-tabs>
+        </div>
       </div>
     </v-col>
   </v-row>
@@ -138,14 +140,19 @@ export default {
     min-height: 100vh;
     background-color: #0e1224;
   }
-  .tabsW {
-    min-height: 100vh;
-    position: sticky;
-    left: 0;
-    @include v-not-md {
-      position: relative;
-      width: auto;
-      min-height: 150px;
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    .tabsW {
+      min-height: 100vh;
+      position: fixed;
+      // width: calc(50% - 136px);
+
+      @include v-not-md {
+        position: relative;
+        width: auto;
+        min-height: 150px;
+      }
     }
   }
   .tabsWraper .v-item-group {

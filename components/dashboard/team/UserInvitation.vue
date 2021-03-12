@@ -11,17 +11,21 @@
       <div v-else class="mb-10">
         <v-row v-for="(request, index) in pending" :key="index">
           <v-col cols="3">
-            <img :src="request.team.image" alt="" height="100" />
+            <div class="d-flex align-end" style="height: 100%">
+              <img :src="request.team.image" class="teamImg" />
+            </div>
           </v-col>
-          <v-col class="reqInfoAndButtons" cols="9" height="100%">
-            <h1 class='mr-5'>{{ request.team.name }}</h1>
+          <v-col class="reqInfoAndButtons" cols="9">
+            <div class="d-flex align-center mr-5" style="height: 100%">
+              <h1>{{ request.team.name }}</h1>
+            </div>
             <div class="buttons mr-5">
               <div>
                 <v-btn color="black" block @click="rejectRequest(request.id)" :loading="loading">رد کردن</v-btn>
               </div>
               <div>
                 <v-btn color="primary mr-5" block @click="acceptRequest(request.id)" :loading="loading">
-                  <v-icon>mdi-handshake</v-icon>
+                  <v-icon class="ml-3">mdi-handshake</v-icon>
                   پیوستن به تیم
                 </v-btn>
               </div>
@@ -39,33 +43,31 @@
         <v-alert icon="mdi-information" class="mb-8">
           در این قسمت وضعیت دعوتنامه هایی را که به تیم ها برای عضویت در آن ها فرستاده اید مشاهده میکنید.
         </v-alert>
-        <div v-for="(item, index) in reqHistory" :key="index" class='pb-4'>
-          <div class='history'>
+        <div v-for="(item, index) in reqHistory" :key="index" class="pb-4">
+          <div class="history">
             <div class="d-flex flex-row">
               {{ item.team.name }}
             </div>
-                <div
-                  v-bind:class="{
-                    blueFont: item.status === 'pending',
-                    orangeFont: item.status === 'rejected',
-                    greenFont: item.status === 'accepted',
-                  }"
-                >
-                  <v-icon
-                    v-bind:class="{
-                      blueFont: item.status === 'pending',
-                      orangeFont: item.status === 'rejected',
-                      greenFont: item.status === 'accepted',
-                    }"
-                    size="30px"
-                    class="pl-4 "
-                  >
-                    {{ requestStatusIcon(item.status) }}
-                  </v-icon>
-                  {{ statusMessage(item.status) }}
-                </div>
-
-
+            <div
+              v-bind:class="{
+                blueFont: item.status === 'pending',
+                orangeFont: item.status === 'rejected',
+                greenFont: item.status === 'accepted',
+              }"
+            >
+              <v-icon
+                v-bind:class="{
+                  blueFont: item.status === 'pending',
+                  orangeFont: item.status === 'rejected',
+                  greenFont: item.status === 'accepted',
+                }"
+                size="30px"
+                class="pl-4 "
+              >
+                {{ requestStatusIcon(item.status) }}
+              </v-icon>
+              {{ statusMessage(item.status) }}
+            </div>
           </div>
         </div>
       </div>
@@ -88,14 +90,14 @@ export default {
   },
   data() {
     return {
-      loading:false,
+      loading: false,
       pending: [],
       reqHistory: [],
     };
   },
   methods: {
     acceptRequest(id) {
-      this.loading=true;
+      this.loading = true;
       this.$axios.$put(`team/invitations/user_pending/${id}?answer=1`).then(res => {
         console.log(res);
         if (res.status_code === 200) {
@@ -105,11 +107,11 @@ export default {
           this.$toast.error('مشکلی در قبول درخواست رخ داد لطفا دوباره امتحان کنید.');
         }
       });
-      this.loading=false;
+      this.loading = false;
     },
     rejectRequest(id) {
-      this.loading=true;
-      this.$axios.$put(`team/invitations/user_pending/${id}?answer=0`).then(res =>{
+      this.loading = true;
+      this.$axios.$put(`team/invitations/user_pending/${id}?answer=0`).then(res => {
         if (res.status_code === 200) {
           this.$toast.success('دعوت با موفقیت رد شد.');
           this.toggleHaveTeam();
@@ -117,7 +119,7 @@ export default {
           this.$toast.error('مشکلی در رد کردن درخواست رخ داد لطفا دوباره امتحان کنید.');
         }
       });
-      this.loading=false;
+      this.loading = false;
     },
     requestStatusIcon(status) {
       if (status === 'pending') return 'mdi-progress-question';
@@ -143,12 +145,13 @@ export default {
   flex-direction: row;
 }
 
+.teamImg {
+  max-width: 100%;
+}
 .reqInfoAndButtons {
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
-  margin:auto;
-  align-content: space-between;
+  justify-content: flex-end;
 }
 
 .blueFont {
@@ -162,7 +165,7 @@ export default {
 .greenFont {
   color: green;
 }
-.history{
+.history {
   display: flex;
   justify-content: space-between;
 }

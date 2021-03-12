@@ -1,71 +1,70 @@
 <template>
   <v-app>
-    <div class="main">
-      <SectionHeader title="جستجوی افراد بدون تیم" icon="mdi-account-search-outline" />
-
-      <SectionContainer>
+    <div class="searchTable">
+      <div class="d-flex justify-space-between align-center pl-6 pl-md-12">
+        <SectionHeader title="جستجوی افراد بدون تیم" icon="mdi-account-search-outline" />
         <div class="input-top">
-          <div>
-            <v-btn color="secondary" height="60px" class="text-h7" @click="filtertoggle()" :loading="tableLoading" >
-              <v-icon color="white" size="30px" class="pl-2 pr-2">mdi-filter-variant</v-icon>
-              فیلتر ها
-            </v-btn>
+          <v-btn color="secondary" height="50px" class="text-h7" @click="filtertoggle()" :loading="tableLoading">
+            <v-icon color="white" size="30px" class="pl-2 pr-2">mdi-filter-variant</v-icon>
+            فیلتر ها
+          </v-btn>
+        </div>
+      </div>
+
+      <v-data-table
+        :loading="tableLoading"
+        hide-default-footer
+        center
+        :headers="headers"
+        :items="data"
+        class="elevation-1 table-cursor "
+        @click:row="handleClick($event)"
+        :page.sync="page"
+        :items-per-page="itemPerPage"
+        @page-count="pageCount = $event"
+        style="background: #141432"
+      >
+        <template v-slot:[`item.profile.firstname_fa`]="{ item }">
+          <div class="pr-6 pr-md-6" v-if="item.profile.image !== null">
+            <div class="profile">
+              <div>
+                <img :src="item.profile.image" :alt="item.email" height="60px" class="ma-2" />
+              </div>
+              <div>
+                <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
+              </div>
+            </div>
           </div>
-        </div>
-        <v-data-table
-          :loading="tableLoading"
-          hide-default-footer
-          center
-          :headers="headers"
-          :items="data"
-          class="elevation-1 table-cursor"
-          @click:row="handleClick($event)"
-          :page.sync="page"
-          :items-per-page="itemPerPage"
-          @page-count="pageCount = $event"
-        >
-          <template v-slot:[`item.profile.firstname_fa`]="{ item }">
-            <div v-if="item.profile.image !== null">
-              <div class="profile">
-                <div>
-                  <img :src="item.profile.image" :alt="item.email" height="60px" class="ma-2" />
-                </div>
-                <div>
-                  <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
-                </div>
+          <div v-else class="profile pr-6 pr-md-6">
+            <div class="profile">
+              <div>
+                <v-icon size="80px">
+                  mdi-alert-box
+                </v-icon>
+              </div>
+              <div>
+                <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
               </div>
             </div>
-            <div v-else class="profile">
-              <div class="profile">
-                <div>
-                  <v-icon size="80px">
-                    mdi-alert-box
-                  </v-icon>
-                </div>
-                <div>
-                  <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
-                </div>
-              </div>
-            </div>
-          </template>
-          <template v-slot:[`item.profile.university_degree`]="{ item }">{{ universityDegree(item.profile.university_degree) }}</template>
-          <template v-slot:[`item.profile.programming_language`]="{ item }">
-            {{ programmingLanguage(item.profile.programming_language) }}
-          </template>
-          <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
-          <template v-slot:[`item.profile`]="{ item }">
-            <v-icon size="30px" dark @click="setCurrentUser(item.profile, item.email, item.id, true)" class="icon-hover">
-              mdi-card-account-details-outline
-            </v-icon>
-          </template>
-          <template v-slot:[`item.send`]="{ item }">
-            <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover">mdi-plus-circle</v-icon>
-          </template>
-        </v-data-table>
-        <div class="text-center pt-2">
-          <v-pagination v-model="page" :length="pageCount"></v-pagination>
-        </div>
-      </SectionContainer>
+          </div>
+        </template>
+        <template v-slot:[`item.profile.university_degree`]="{ item }">{{ universityDegree(item.profile.university_degree) }}</template>
+        <template v-slot:[`item.profile.programming_language`]="{ item }">
+          {{ programmingLanguage(item.profile.programming_language) }}
+        </template>
+        <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
+        <template v-slot:[`item.profile`]="{ item }">
+          <v-icon size="30px" dark @click="setCurrentUser(item.profile, item.email, item.id, true)" class="icon-hover">
+            mdi-card-account-details-outline
+          </v-icon>
+        </template>
+        <template v-slot:[`item.send`]="{ item }">
+          <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover pl-5 pl-md-7">mdi-plus-circle</v-icon>
+        </template>
+      </v-data-table>
+      <div class="text-center pt-2">
+        <v-pagination v-model="page" :length="pageCount"></v-pagination>
+      </div>
 
       <v-dialog v-model="dialog" width="350">
         <UserProfileForTeam :userData="currentUser" />
@@ -231,33 +230,37 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.main {
-  text-align: center;
-}
-.table-cursor tbody tr:hover {
-  cursor: pointer;
-}
-.profile {
-  display: flex;
-  align-items: center;
-}
-.close-btn {
-  font-size: 20px;
-  right: 0px;
-  cursor: pointer;
-}
-.title {
-  display: flex;
-  justify-content: space-between;
-}
-.icon-hover {
-  &:hover {
-    color: var(--v-primary-base);
+<style lang="scss">
+.searchTable {
+  .main {
+    text-align: center;
   }
-}
-.input-top {
-  text-align: left;
-  margin-bottom: 5px;
+  .table-cursor tbody tr:hover {
+    cursor: pointer;
+  }
+  .profile {
+    display: flex;
+    align-items: center;
+  }
+  .close-btn {
+    font-size: 20px;
+    right: 0px;
+    cursor: pointer;
+  }
+  .title {
+    display: flex;
+    justify-content: space-between;
+  }
+  .icon-hover {
+    &:hover {
+      color: var(--v-primary-base);
+    }
+  }
+  .input-top {
+    text-align: left;
+  }
+  > th {
+    padding-right: 100px;
+  }
 }
 </style>
