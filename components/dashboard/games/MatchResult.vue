@@ -3,12 +3,7 @@
     <v-row justify="center" class="mx-0 px-2">
       <v-col>
         <v-row class="mx-0">
-          <v-col
-            v-for="(team, i) in gameSides[0].game_teams"
-            :key="team.team.name + i"
-            cols="12"
-            class="d-flex justify-start px-0"
-          >
+          <v-col v-for="(team, i) in gameSides[0].game_teams" :key="team.team.name + i" cols="12" class="d-flex justify-start px-0">
             <v-badge
               left
               bordered
@@ -18,7 +13,7 @@
               :value="team.score !== null"
             >
               <v-chip pill>
-                <team-avatar left :team="team.team" />
+                <!-- <team-avatar left :team="team.team" /> -->
                 <span class="d-inline-block text-truncate" style="max-width: 100px;">
                   {{ team.team.name }}
                 </span>
@@ -32,12 +27,7 @@
       </v-col>
       <v-col>
         <v-row class="mx-0">
-          <v-col
-            v-for="(team, i) in gameSides[1].game_teams"
-            :key="team.team.name + i"
-            cols="12"
-            class="d-flex justify-end px-0"
-          >
+          <v-col v-for="(team, i) in gameSides[1].game_teams" :key="team.team.name + i" cols="12" class="d-flex justify-end px-0">
             <v-badge
               bordered
               offset-y="26"
@@ -49,7 +39,7 @@
                 <span class="d-inline-block text-truncate" style="max-width: 100px;">
                   {{ team.team.name }}
                 </span>
-                <team-avatar right :team="team.team" />
+                <!-- <team-avatar right :team="team.team" /> -->
               </v-chip>
             </v-badge>
           </v-col>
@@ -60,12 +50,9 @@
 </template>
 
 <script>
-import TeamAvatar from '../team/TeamAvatar'
-
 export default {
-  components: { TeamAvatar },
   props: ['gameSides'],
-}
+};
 </script>
 
 <style scoped></style>

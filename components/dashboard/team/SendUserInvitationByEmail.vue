@@ -1,10 +1,8 @@
 <template>
   <div>
     <div v-if="this.invitationsList.status_code === 200">
-      <h1>
-        <v-icon color="primary" size="40px" class="pl-2 pr-2">mdi-account-plus-outline</v-icon>
-        دعوت دیگران به تیم
-      </h1>
+      <SectionHeader title="دعوت دیگران به تیم" icon="mdi-account-plus-outline" />
+
       <v-alert color="black" dark icon="mdi-information" width="50%" dense>
         اگر هم‌تیمی شما در سایت ثبت‌نلم کرده است، باوراد کردن ایمیل او را به تیمتان دعوت کنید.
       </v-alert>
@@ -32,8 +30,11 @@
 </template>
 
 <script>
+import SectionHeader from '~/components/SectionHeader';
+
 export default {
-  auth: false,
+  components: { SectionHeader },
+
   data() {
     return {
       email: '',
@@ -47,13 +48,16 @@ export default {
       }
       let user_email = this.email;
       this.$axios.$post('team/invitations/team_sent', user_email).then(res => {
-        console.log(res);
         if (res.status_code === 200) {
           this.$toast.success(this.translateResponseMessage(res.message));
         } else {
           this.$toast.error(this.translateResponseMessage(res.message));
         }
       });
+    },
+    translateResponseMessage(response) {
+      if (response === 'your invitation sent') return 'دعوت نامه ارسال شد!';
+      else return 'مشکلی در ارسال دعوت نامه رخ داد! لطفا ایمیل را چک کنید!';
     },
   },
 };
