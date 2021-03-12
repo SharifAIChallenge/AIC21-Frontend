@@ -56,12 +56,12 @@
 
         <v-row>
           <v-col class="py-0 mb-6 skill" cols="12">
-            <v-combobox v-model="information.skills" dense chips multiple outlined label="مهارت ها"></v-combobox>
+            <v-combobox v-model="information.skills" height="50px" dense chips multiple outlined label="مهارت ها"></v-combobox>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="py-0 mb-6 job" cols="12">
-            <v-combobox v-model="information.jobs" dense chips multiple outlined label="شغل"></v-combobox>
+            <v-combobox v-model="information.jobs" height="50px" dense chips multiple outlined label="شغل"></v-combobox>
           </v-col>
         </v-row>
         <v-row>

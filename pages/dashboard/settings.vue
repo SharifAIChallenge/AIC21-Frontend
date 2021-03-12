@@ -102,23 +102,25 @@ export default {
   },
   methods: {
     async signUp() {
-      this.loading = true;
       const formData = new FormData();
+      let isFormValid = false;
       for (const key in this.information) {
-        if (this.information[key] !== this.profile[key]) formData.append(key, this.information[key]);
+        if (this.information[key] !== this.profile[key]) {
+          formData.append(key, this.information[key]);
+          isFormValid = true;
+        }
       }
-      await editProfile(this.$axios, formData).then(res => {
-        this.loading = false;
-        this.$store.commit('auth/setUser', res);
-        // this.$store.dispatch(`auth/getUser`).then(res =>{
-        //   console.log(res.data)
-        //   console.log(this.profile)
-        // })
 
-        // this.profile = this.$store.dispatch(`auth/getUser`)
-        this.resetForm();
-        this.$toast.success('تغییرات با موفقیت دخیره شد.');
-      });
+      if (!isFormValid) {
+        return;
+      }
+      this.loading = true;
+      let res = await editProfile(this.$axios, formData);
+
+      this.loading = false;
+      this.$store.commit('auth/setUser', res);
+      this.resetForm();
+      this.$toast.success('تغییرات با موفقیت دخیره شد.');
     },
     resetForm() {
       this.information = { ...this.profile };
@@ -142,7 +144,7 @@ export default {
     }),
   },
   mounted() {
-    this.formData = new FormData();
+    if (this.profile) this.information = { ...this.profile };
   },
 };
 </script>

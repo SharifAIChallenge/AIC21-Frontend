@@ -151,10 +151,8 @@ export default {
     },
   },
   beforeMount() {
-    console.log(this.auth.token, this.auth.isAuthenticated);
     this.$axios.setToken(this.auth.token, 'token');
     this.$store.dispatch('auth/getUser');
-    console.log(this.auth.user);
   },
 };
 </script>
