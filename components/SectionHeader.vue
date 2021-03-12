@@ -1,0 +1,27 @@
+<template>
+  <h1 class="px-6 px-md-12 section-header">
+    <v-icon large color="primary" class="ml-4">
+      {{ icon }}
+    </v-icon>
+    {{ title }}
+    <slot></slot>
+  </h1>
+</template>
+
+<script>
+export default {
+  props: ['title', 'icon'],
+};
+</script>
+
+<style lang="scss" scoped>
+@import 'assets/mixins.scss';
+.section-header {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  @include v-not-md {
+    height: 60px;
+  }
+}
+</style>

@@ -1,13 +1,8 @@
 <template>
   <div>
-    <div>
-      <h1>
-        <v-icon color="primary" x-large>
-          mdi-script-text-outline
-        </v-icon>
-        دعوت نامه های من
-      </h1>
-      <v-alert color="black" dark icon="mdi-information" width="50%" dense>
+    <SectionHeader title="دعوت نامه های من" icon="mdi-script-text-outline" />
+    <SectionContainer>
+      <v-alert icon="mdi-information">
         ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
       </v-alert>
       <div v-if="this.pending.length === 0">
@@ -20,7 +15,7 @@
           <v-col>
             <div class="requestCol">
               <img class="team-Img" :src="request.team.image" height="100" />
-              <div class="requsetInfo">
+              <div class="requestInfo">
                 <h1>{{ request.team.name }}</h1>
                 <div class="requestBtn">
                   <v-btn color="black" elevation="2" tile @click="rejectRequest(request.id)">رد کردن</v-btn>
@@ -41,24 +36,29 @@
             تاریخچه دعوت ها
           </h1>
         </div>
-        <v-alert color="black" dark icon="mdi-information" width="50%" dense>
+        <v-alert icon="mdi-information">
           در این قسمت وضعیت دعوتنامه هایی را که به تیم ها برای عضویت در آن ها فرستاده اید مشاهده میکنید.
         </v-alert>
         <div v-for="(item, index) in reqHistory" :key="index">
           <div>
             <div>
-              {{ item.team }}
+              {{ item.team.name }}
               <v-icon :color="iconColor(item.status)" size="30px" class="pl-4 pr-2">{{ requestStatusIcon(item.status) }}</v-icon>
               {{ statusMessage(item.status) }}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </SectionContainer>
   </div>
 </template>
 <script>
+import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
+
 export default {
+  components: { SectionHeader, SectionContainer },
+
   async fetch() {
     let res1 = await this.$axios.$get('team/invitations/user_pending');
     let res2 = await this.$axios.$get('team/invitations/user_sent');

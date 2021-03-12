@@ -1,19 +1,8 @@
-export default function({ $axios, redirect, store, app, route }) {
-  // console.log('middle');
-  const token = app.$cookies.get('token');
-  // console.log(token, 'axios');
-  if (token && !store.state.auth.token) {
-    store.dispatch('auth/loadUser', { token });
-  }
-  // if (route.path.includes('dashboard') && !store.state.auth.isAuthenticated) {
-  //   console.log('auth 401');
-  //   return redirect('/login');
-  // }
-  console.log('axios plugin', store.state.auth.isAuthenticated);
+export default function({ $axios, redirect, store }) {
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status);
+    console.log(error);
     if (code === 401) {
-      console.log('axios 401');
       store.commit('auth/removeToken');
       app.$cookies.remove('token');
       redirect('/login');

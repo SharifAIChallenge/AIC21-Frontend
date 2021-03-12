@@ -47,12 +47,7 @@
           block
           color="info"
           class="my-1"
-          :href="
-            item.log.replace(
-              'http://172.17.0.1:8000/media/',
-              'https://aichallenge.sharif.edu/media/',
-            )
-          "
+          :href="item.log.replace('http://172.17.0.1:8000/media/', 'https://aichallenge.sharif.edu/media/')"
           target="_blank"
         >
           <v-icon left small>
@@ -70,9 +65,7 @@
             block
             color="amber"
             class="my-1"
-            :href="
-              log.replace('http://172.17.0.1:8000/media/', 'https://aichallenge.sharif.edu/media/')
-            "
+            :href="log.replace('http://172.17.0.1:8000/media/', 'https://aichallenge.sharif.edu/media/')"
           >
             <v-icon left small>
               mdi-download
@@ -87,13 +80,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import TeamAvatar from '../team/TeamAvatar'
-import DateTimeFormatter from '../../DateTimeFormatter'
-import MatchResult from './MatchResult'
+import { mapState } from 'vuex';
+import DateTimeFormatter from '../../DateTimeFormatter';
+import MatchResult from './MatchResult';
 
 export default {
-  components: { MatchResult, DateTimeFormatter, TeamAvatar },
+  components: { MatchResult, DateTimeFormatter },
   props: {
     games: {
       type: Array,
@@ -121,7 +113,7 @@ export default {
       //     ]
       //   }
       // ]
-    }
+    };
   },
   computed: {
     headers() {
@@ -137,10 +129,10 @@ export default {
           align: 'center',
           width: 70,
         },
-      ]
+      ];
     },
   },
-}
+};
 </script>
 
 <style scoped></style>
