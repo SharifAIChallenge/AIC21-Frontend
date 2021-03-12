@@ -27,7 +27,7 @@
           <li>شهر: {{ userData.profile.province }}</li>
           <li>دانشگاه: {{ userData.profile.university }}</li>
           <li>رشته تحصیلی: {{ userData.profile.major }}</li>
-          <li>مقطع: {{ userData.profile.university_degree }}</li>
+          <li>مقطع: {{universityDegree(userData.profile.university_degree)}}</li>
           <li>ترم: {{ userData.profile.university_term }}</li>
         </ul>
       </div>
@@ -68,6 +68,12 @@ export default {
       if (response === 'your invitation sent') return 'دعوت نامه ارسال شد!';
       else if (response === 'you have a sent an invitation already') return 'شما قبلا دعوت نامه ارسال کردید!';
       else return 'مشکلی در ارسال دعوت نامه رخ داد!';
+    },
+    universityDegree(response) {
+      if (response === 'ST') return 'دانش آموز';
+      else if (response === 'BA') return 'کارشناسی';
+      else if (response === 'MA') return 'کارشناسی ارشد';
+      else if (response === 'DO') return 'دکترا';
     },
   },
 };
