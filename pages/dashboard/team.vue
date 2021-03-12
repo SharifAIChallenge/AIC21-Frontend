@@ -1,6 +1,6 @@
 <template>
-  <div class="overflow-hidden d-flex team">
-    <v-col cols="12" md="6" class="pa-0">
+  <v-row class=" d-flex team">
+    <v-col cols="12" :md="tabs === 1 ? 8 : 6" class="pa-0">
       <v-divider />
       <v-tabs-items v-model="tabs">
         <v-tab-item>
@@ -23,21 +23,19 @@
         </v-tab-item>
       </v-tabs-items>
     </v-col>
-    <client-only>
-      <v-col cols="12" md="6" class="pa-0">
-        <div class="d-flex tabsW">
-          <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
-            <div v-for="(item, key) in haveTeam ? teamHeader : userHeader" :key="key" style="margin: 15px auto" class="d-flex flex-column">
-              <v-tab>
-                {{ item.title }}
-                <v-icon size="60" style="color: white">{{ tabs === key ? item.icon : `${item.icon}-outline` }}</v-icon>
-              </v-tab>
-            </div>
-          </v-tabs>
-        </div>
-      </v-col>
-    </client-only>
-  </div>
+    <v-col cols="12" :md="tabs === 1 ? 4 : 6" class="pa-0">
+      <div class="d-flex tabsW">
+        <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
+          <div v-for="(item, key) in haveTeam ? teamHeader : userHeader" :key="key" style="margin: 15px auto" class="d-flex flex-column">
+            <v-tab>
+              {{ item.title }}
+              <v-icon size="60" style="color: white">{{ tabs === key ? item.icon : `${item.icon}-outline` }}</v-icon>
+            </v-tab>
+          </div>
+        </v-tabs>
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -49,7 +47,14 @@ import TeamInvitationAndHistory from '~/components/dashboard/team/TeamInvitation
 import SearchUsersAndSendInvitation from '~/components/dashboard/team/SearchUsersAndSendInvitation';
 export default {
   layout: 'dashboard',
-  components: { CreateTeam, UserInvitation, IncompleteTeams, MyTeam, SearchUsersAndSendInvitation, TeamInvitationAndHistory },
+  components: {
+    CreateTeam,
+    UserInvitation,
+    IncompleteTeams,
+    MyTeam,
+    SearchUsersAndSendInvitation,
+    TeamInvitationAndHistory,
+  },
   data() {
     return {
       haveTeam: false,
@@ -86,7 +91,6 @@ export default {
   },
   async fetch() {
     let res = await this.$axios.$get('team');
-    console.log(res, 'aaaaaaaaaaaaaaaaaaaaaaaaa');
     if (res.status_code === 403) this.haveTeam = false;
     else {
       this.haveTeam = true;
@@ -136,9 +140,8 @@ export default {
   }
   .tabsW {
     min-height: 100vh;
-    position: fixed;
+    position: sticky;
     left: 0;
-    width: calc(50% - 136px);
     @include v-not-md {
       position: relative;
       width: auto;

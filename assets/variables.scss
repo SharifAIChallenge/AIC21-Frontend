@@ -41,6 +41,7 @@ $material-dark: (
     'hover': map-get($material-dark-elevation-colors, '16'),
     'group': map-get($material-dark-elevation-colors, '16'),
   ),
+  'alert': #7575b6,
   'chips': map-get($material-dark-elevation-colors, '24'),
 );
 $data-table-expanded-content-box-shadow: inset 0px 4px 8px -5px rgba(255, 255, 255, 0.1), inset 0px -4px 8px -5px rgba(255, 255, 255, 0.1) !default;

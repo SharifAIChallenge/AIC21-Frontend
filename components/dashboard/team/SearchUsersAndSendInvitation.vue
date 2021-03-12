@@ -13,57 +13,59 @@
           </div>
         </div>
       </div>
+      <SectionContainer>
+        <v-data-table
+          hide-default-footer
+          center
+          :headers="headers"
+          :items="data"
+          class="elevation-1 table-cursor"
+          @click:row="handleClick($event)"
+          :page.sync="page"
+          :items-per-page="itemPerPage"
+          @page-count="pageCount = $event"
+        >
+          <template v-slot:[`item.profile.firstname_fa`]="{ item }">
+            <div v-if="item.profile.image !== null">
+              <div class="profile">
+                <div>
+                  <img :src="item.profile.image" :alt="item.email" height="60px" class="ma-2" />
+                </div>
+                <div>
+                  <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
+                </div>
+              </div>
+            </div>
+            <div v-else class="profile">
+              <div class="profile">
+                <div>
+                  <v-icon size="80px">
+                    mdi-alert-box
+                  </v-icon>
+                </div>
+                <div>
+                  <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template v-slot:[`item.profile.birth_date`]="{ item }">{{ item.profile.university_degree }}</template>
+          <template v-slot:[`item.profile.programming_language`]="{ item }">{{ item.profile.programming_language }}</template>
+          <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
+          <template v-slot:[`item.profile`]="{ item }">
+            <v-icon size="30px" dark @click="setCurrentUser(item.profile, item.email, item.id, true)" class="icon-hover">
+              mdi-card-account-details-outline
+            </v-icon>
+          </template>
+          <template v-slot:[`item.send`]="{ item }">
+            <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover">mdi-plus-circle</v-icon>
+          </template>
+        </v-data-table>
+        <div class="text-center pt-2">
+          <v-pagination v-model="page" :length="pageCount"></v-pagination>
+        </div>
+      </SectionContainer>
 
-      <v-data-table
-        hide-default-footer
-        center
-        :headers="headers"
-        :items="data"
-        class="elevation-1 table-cursor"
-        @click:row="handleClick($event)"
-        :page.sync="page"
-        :items-per-page="itemPerPage"
-        @page-count="pageCount = $event"
-      >
-        <template v-slot:[`item.profile.firstname_fa`]="{ item }">
-          <div v-if="item.profile.image !== null">
-            <div class="profile">
-              <div>
-                <img :src="item.profile.image" :alt="item.email" height="60px" class="ma-2" />
-              </div>
-              <div>
-                <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
-              </div>
-            </div>
-          </div>
-          <div v-else class="profile">
-            <div class="profile">
-              <div>
-                <v-icon size="80px">
-                  mdi-alert-box
-                </v-icon>
-              </div>
-              <div>
-                <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
-              </div>
-            </div>
-          </div>
-        </template>
-        <template v-slot:[`item.profile.birth_date`]="{ item }">{{ item.profile.university_degree }}</template>
-        <template v-slot:[`item.profile.programming_language`]="{ item }">{{ item.profile.programming_language }}</template>
-        <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
-        <template v-slot:[`item.profile`]="{ item }">
-          <v-icon size="30px" dark @click="setCurrentUser(item.profile, item.email, item.id, true)" class="icon-hover">
-            mdi-card-account-details-outline
-          </v-icon>
-        </template>
-        <template v-slot:[`item.send`]="{ item }">
-          <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover">mdi-plus-circle</v-icon>
-        </template>
-      </v-data-table>
-      <div class="text-center pt-2">
-        <v-pagination v-model="page" :length="pageCount"></v-pagination>
-      </div>
       <v-dialog v-model="dialog" width="350">
         <UserProfileForTeam :userData="currentUser" />
       </v-dialog>
@@ -74,9 +76,10 @@
 <script>
 import UserProfileForTeam from './UserProfileForTeam';
 import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
 
 export default {
-  components: { UserProfileForTeam, SectionHeader },
+  components: { UserProfileForTeam, SectionHeader, SectionContainer },
   async fetch() {
     await this.$axios.$get('accounts/without_team').then(res => {
       this.data = res.data;

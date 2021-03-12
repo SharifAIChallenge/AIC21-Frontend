@@ -1,13 +1,10 @@
 <template>
   <div>
-    <div>
-      <div class="pa-10">
-        <SectionHeader title="دعوتنامه های من" icon="mdi-script-outline" />
-
-        <v-alert color="black" dark icon="mdi-information" width="80%" dense>
-          در صورتی که تیم شما قابل جستجو باشد،لیست درخواست هایی را که افراد برای عضویت به شما ارسال کرده انددر اینجا می بینید!
-        </v-alert>
-      </div>
+    <SectionHeader title="دعوتنامه های من" icon="mdi-script-outline" />
+    <SectionContainer>
+      <v-alert color="black" dark icon="mdi-information" width="80%" dense>
+        در صورتی که تیم شما قابل جستجو باشد،لیست درخواست هایی را که افراد برای عضویت به شما ارسال کرده انددر اینجا می بینید!
+      </v-alert>
       <div v-for="(list, index) in pendingList.data" :key="index">
         <div v-if="list.user.profile.image !== null">
           <div class="profile">
@@ -73,20 +70,22 @@
           </div>
         </div>
       </div>
+
       <v-dialog v-model="dialog" width="350">
         <div class="close-btn" @click="dialog = false">X</div>
         <UserProfileForTeam :userData="currentUser" />
       </v-dialog>
-    </div>
+    </SectionContainer>
   </div>
 </template>
 
 <script>
 import UserProfileForTeam from './UserProfileForTeam';
 import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
 
 export default {
-  components: { UserProfileForTeam, SectionHeader },
+  components: { UserProfileForTeam, SectionHeader, SectionContainer },
   async fetch() {
     await this.$axios.$get('team/invitations/team_sent').then(res => {
       this.invitationsList = res;

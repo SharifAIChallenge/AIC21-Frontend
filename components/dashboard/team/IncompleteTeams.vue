@@ -1,63 +1,58 @@
 <template>
   <div>
-    <v-container>
-      <v-row>
-        <v-col cols="12">
-          <v-data-table
-            :headers="header"
-            :items="team"
-            :page.sync="page"
-            :items-per-page="itemsPerPage"
-            hide-default-footer
-            class="elevation-1"
-            @page-count="pageCount = $event"
-          >
-            <template v-slot:item.image="{ item }">
-              <img :src="item.image" :alt="item.name" height="60px" />
-            </template>
-            <template v-slot:item.profile="{ item }">
-              <v-icon class="icon" @click="showTeam(item)">
-                mdi-card-account-details-outline
-              </v-icon>
-            </template>
-            <template v-slot:item.sendRequest="{ item }">
-              <v-icon class="icon" @click="sendRequest(item.id)">
-                mdi-plus-circle-outline
-              </v-icon>
-            </template>
-          </v-data-table>
-        </v-col>
-      </v-row>
+    <SectionContainer>
+      <v-data-table
+        :headers="header"
+        :items="team"
+        :page.sync="page"
+        :items-per-page="itemsPerPage"
+        hide-default-footer
+        class="elevation-1"
+        @page-count="pageCount = $event"
+      >
+        <template v-slot:item.image="{ item }">
+          <img :src="item.image" :alt="item.name" height="60px" />
+        </template>
+        <template v-slot:item.profile="{ item }">
+          <v-icon class="icon" @click="showTeam(item)">
+            mdi-card-account-details-outline
+          </v-icon>
+        </template>
+        <template v-slot:item.sendRequest="{ item }">
+          <v-icon class="icon" @click="sendRequest(item.id)">
+            mdi-plus-circle-outline
+          </v-icon>
+        </template>
+      </v-data-table>
+
       <v-dialog v-model="teamDetails" width="350px">
         <v-card>
           <img :src="teamInfo.image" width="350px" :alt="teamInfo.name" />
           {{ teamInfo.name }}
-          <v-container>
-            <v-row v-for="(member, index) in teamInfo.members" :key="index">
-              <v-col cols="2">
-                <img :src="member.profile.image" :alt="member.first_name" height="40px" />
-              </v-col>
-              <v-col cols="10">
-                <div class="d-flex align-center">
-                  <v-col cols="10">
-                    {{ member.first_name + '' + member.last_name }}
-                  </v-col>
-                  <v-col cols="2">
-                    <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">
-                      mdi-card-account-details-outline
-                    </v-icon>
-                  </v-col>
-                </div>
-              </v-col>
-            </v-row>
-          </v-container>
+          <v-row v-for="(member, index) in teamInfo.members" :key="index">
+            <v-col cols="2">
+              <img :src="member.profile.image" :alt="member.first_name" height="40px" />
+            </v-col>
+            <v-col cols="10">
+              <div class="d-flex align-center">
+                <v-col cols="10">
+                  {{ member.first_name + '' + member.last_name }}
+                </v-col>
+                <v-col cols="2">
+                  <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">
+                    mdi-card-account-details-outline
+                  </v-icon>
+                </v-col>
+              </div>
+            </v-col>
+          </v-row>
           <v-btn color="primary" class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال درخواست عضویت</v-btn>
         </v-card>
       </v-dialog>
       <div>
         <v-pagination v-model="page" :length="pageCount"></v-pagination>
       </div>
-    </v-container>
+    </SectionContainer>
     <v-dialog v-model="ProfileDialog" width="350">
       <div class="close-btn" @click="ProfileDialog = false">X</div>
       <UserProfileForTeam :userData="currentUser" />
@@ -66,10 +61,12 @@
 </template>
 <script>
 import UserProfileForTeam from '~/components/dashboard/team/UserProfileForTeam';
+import SectionContainer from '~/components/SectionContainer';
 
 export default {
   components: {
     UserProfileForTeam,
+    SectionContainer,
   },
   data() {
     return {

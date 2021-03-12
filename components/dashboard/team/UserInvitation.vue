@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div>
-      <SectionHeader title="دعوت نامه های من" icon="mdi-script-text-outline" />
-
-      <v-alert color="black" dark icon="mdi-information" width="50%" dense>
+    <SectionHeader title="دعوت نامه های من" icon="mdi-script-text-outline" />
+    <SectionContainer>
+      <v-alert icon="mdi-information">
         ایجا لیست دعوتنامه هایی را که از تیم ها برای عضویت در آن ها دریافت کرده اید، می بینید.
       </v-alert>
       <div v-if="this.pending.length === 0">
@@ -37,7 +36,7 @@
             تاریخچه دعوت ها
           </h1>
         </div>
-        <v-alert color="black" dark icon="mdi-information" width="50%" dense>
+        <v-alert icon="mdi-information">
           در این قسمت وضعیت دعوتنامه هایی را که به تیم ها برای عضویت در آن ها فرستاده اید مشاهده میکنید.
         </v-alert>
         <div v-for="(item, index) in reqHistory" :key="index">
@@ -50,14 +49,15 @@
           </div>
         </div>
       </div>
-    </div>
+    </SectionContainer>
   </div>
 </template>
 <script>
 import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
 
 export default {
-  components: { SectionHeader },
+  components: { SectionHeader, SectionContainer },
 
   async fetch() {
     let res1 = await this.$axios.$get('team/invitations/user_pending');
