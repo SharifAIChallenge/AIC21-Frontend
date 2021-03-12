@@ -238,6 +238,5 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.history-List {
-}
+
 </style>
