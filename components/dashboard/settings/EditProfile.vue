@@ -37,13 +37,7 @@
         />
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
-            <v-text-field
-              v-model="information.birth_date"
-              v-bind="filedProps"
-              required
-              :rules="requiredRules"
-              label="سال ورودی"
-            />
+            <v-text-field v-model="information.birth_date" v-bind="filedProps" required :rules="requiredRules" label="سال ورودی" />
           </v-col>
         </v-row>
         <v-row>
