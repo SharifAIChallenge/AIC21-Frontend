@@ -77,49 +77,49 @@ export default {
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
           link: '/dashboard/terms',
-          disabled: false,
+          disabled: true,
         },
         updates: {
           title: 'محتوای آموزشی',
           icon: 'mdi-school-outline',
           hover: 'mdi-school',
           link: '/dashboard/updates',
-          disabled: false,
+          disabled: true,
         },
         tournaments: {
           title: 'تورنومنت ها',
           icon: 'mdi-tournament',
           hover: 'mdi-tournament',
           link: '/dashboard/tournaments',
-          disabled: false,
+          disabled: true,
         },
         scoreboard: {
           title: 'جدول امتیازات',
           icon: 'mdi-scoreboard-outline',
           hover: 'mdi-scoreboard',
           link: '/dashboard/scoreboard',
-          disabled: false,
+          disabled: true,
         },
         team: {
           title: 'تیم',
           icon: 'mdi-account-group-outline',
           hover: 'mdi-account-group',
           link: '/dashboard/team',
-          disabled: false,
+          disabled: true,
         },
         submissions: {
           title: 'ارسال کد',
           icon: 'mdi-code-braces',
           hover: 'mdi-code-braces-box',
           link: '/dashboard/submissions',
-          disabled: false,
+          disabled: true,
         },
         games: {
           title: 'بازی ها',
           icon: 'mdi-sword',
           hover: 'mdi-sword-cross',
           link: '/dashboard/games',
-          disabled: false,
+          disabled: true,
         },
       },
       bottomRoute: {
@@ -142,8 +142,16 @@ export default {
       return this.$vuetify.breakpoint.smAndDown;
     },
     ...mapState({
-      auth: state => state.auth,
+      token: state => state.auth.token,
+      profile: state => state.auth.user,
     }),
+  },
+  watch: {
+    profile(now, old) {
+      if (now) {
+        this.routes.team.disabled = !this.profile.is_complete;
+      }
+    },
   },
   methods: {
     logout() {
@@ -151,7 +159,7 @@ export default {
     },
   },
   beforeMount() {
-    this.$axios.setToken(this.auth.token, 'token');
+    this.$axios.setToken(this.token, 'token');
     this.$store.dispatch('auth/getUser');
   },
 };

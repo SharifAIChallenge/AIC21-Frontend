@@ -19,7 +19,7 @@
         </v-row>
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
-            <v-text-field v-model="information.email" label="ایمیل" v-bind="filedProps" :rules="emailRules"></v-text-field>
+            <v-text-field v-model="information.email" label="ایمیل" readonly v-bind="filedProps" :rules="emailRules"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -27,6 +27,14 @@
             <v-text-field v-model="information.phone_number" label="شماره تماس" v-bind="filedProps"></v-text-field>
           </v-col>
         </v-row>
+        <v-text-field
+          v-model="information.university"
+          :label="$t('form.educationPlace')"
+          required
+          :rules="requiredRules"
+          v-bind="filedProps"
+          class="mb-3"
+        />
         <v-row>
           <v-col class="py-0 mb-6" cols="12">
             <v-text-field
@@ -39,15 +47,17 @@
             />
           </v-col>
         </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-bind="filedProps" v-model="information.major" label="رشته"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-bind="filedProps" v-model="information.university_degree" label="مدرک"></v-text-field>
+          </v-col>
+        </v-row>
 
-        <v-text-field
-          v-model="information.university"
-          :label="$t('form.educationPlace')"
-          required
-          :rules="requiredRules"
-          v-bind="filedProps"
-          class="mb-3"
-        />
         <v-row class="px-3">
           <v-checkbox v-model="information.hide_profile_info" label="اطلاعاتم برای سایر شرکت کننده ها قابل جستو باشد."></v-checkbox>
         </v-row>

@@ -71,6 +71,7 @@
 import { emailRules, requiredRules } from '../../mixins/formValidations';
 import PasswordInput from '../../components/PasswordInput';
 import { signup } from '../../api';
+import { sendGoogleAuthCode } from '~/api/auth';
 
 export default {
   components: { PasswordInput },
@@ -137,8 +138,17 @@ export default {
         }
       }
     },
-    loginWithGoogle() {
-      // this.$auth.loginWith('google');
+    async loginWithGoogle() {
+      const googleUser = await this.$gAuth.signIn();
+      const googleData = googleUser.getAuthResponse();
+      const { id_token, access_token, scope, expires_in, expires_at } = googleData;
+      let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
+      this.$store.commit('auth/setToken', res);
+      this.$router.push('/dashboard/settings');
+      this.$cookies.set('token', res.token, {
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      });
     },
     clearError(field) {
       if (this.result.errors[field]) {

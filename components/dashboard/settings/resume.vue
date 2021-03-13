@@ -74,21 +74,13 @@
             <v-text-field v-bind="filedProps" v-model="information.github" label="گیت هاب"></v-text-field>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col class="py-0 mb-3" cols="12">
-            <v-text-field v-bind="filedProps" v-model="information.major" label="رشته"></v-text-field>
-          </v-col>
-        </v-row>
+
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
             <v-text-field v-bind="filedProps" v-model="information.term" label="ترم"></v-text-field>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col class="py-0 mb-3" cols="12">
-            <v-text-field v-bind="filedProps" v-model="information.degree" label="مدرک"></v-text-field>
-          </v-col>
-        </v-row>
+
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
             <v-select v-model="information.programming_language" :items="languageSelectItem" label="زبان برنامه نویسی" outlined></v-select>

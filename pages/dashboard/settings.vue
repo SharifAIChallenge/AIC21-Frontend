@@ -127,10 +127,12 @@ export default {
     },
     deleteResume() {
       this.information.resume = null;
+      this.$axios.delete('/accounts/profile?file=resume').then(res => console.log(res));
     },
 
     deleteImage() {
       this.information.image = null;
+      this.$axios.delete('/accounts/profile?file=image').then(res => console.log(res));
     },
   },
   watch: {

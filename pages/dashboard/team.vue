@@ -143,6 +143,9 @@ export default {
   .wrapper {
     display: flex;
     justify-content: center;
+    @include v-not-md {
+      display: block;
+    }
     .tabsW {
       min-height: 100vh;
       position: fixed;
