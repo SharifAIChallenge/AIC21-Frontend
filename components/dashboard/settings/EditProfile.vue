@@ -43,7 +43,6 @@
               required
               :rules="requiredRules"
               label="سال ورودی"
-              dir="ltr"
             />
           </v-col>
         </v-row>
