@@ -10,8 +10,8 @@ export const logout = axios => {
   return axios.$post('/accounts/logout');
 };
 
-export const sendGoogleAuthCode = (axios, code) => {
-  return axios.$post('/social-login/google/', { code });
+export const sendGoogleAuthCode = (axios, data) => {
+  return axios.$post('/accounts/social-login', data);
 };
 
 export const activeAccount = (axios, eid, token) => {

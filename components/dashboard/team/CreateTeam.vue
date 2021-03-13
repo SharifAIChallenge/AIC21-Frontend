@@ -7,8 +7,15 @@
           پس ازاینکه همه ی اعضای تیم در سایت ثبت ‌نام کردند،کافی است یک نفر تیم بسازد و بقیه اعضا را به آن دعوت کند.
         </v-alert>
         <div class="d-flex justify-center my-8 my-md-16">
-          <div class="secondary fileInput">
-            <v-file-input hide-input v-model="image" :label="$t('form.file')" prepend-icon="mdi-image-plus" show-size></v-file-input>
+          <div class="secondary fileInput" @click="getImage">
+            <v-file-input
+              ref="file"
+              hide-input
+              v-model="image"
+              :label="$t('form.file')"
+              prepend-icon="mdi-image-plus"
+              show-size
+            ></v-file-input>
           </div>
         </div>
         <!-- <input type="file" id="file" @change="handleFileUpload" accept="image/*" /> -->
@@ -75,7 +82,11 @@ export default {
       this.name = '';
       this.image = null;
     },
+    getImage() {
+      console.log(this.$refs.file);
+    },
   },
+  mounted() {},
 };
 </script>
 <style lang="scss">
