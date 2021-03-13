@@ -156,6 +156,7 @@ export default {
 @import '../../assets/mixins.scss';
 
 .setting {
+  margin: 0 !important;
   @include v-not-md {
     flex-wrap: wrap;
     flex-flow: column-reverse;

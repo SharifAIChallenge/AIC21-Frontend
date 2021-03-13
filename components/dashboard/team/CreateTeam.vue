@@ -88,6 +88,9 @@ export default {
 };
 </script>
 <style lang="scss">
+.team{
+  margin: 0 !important;
+}
 .create-team {
   .v-input {
     width: 100%;
