@@ -28,11 +28,12 @@ export default {
       width: 0,
       height: 0,
       randomImage: [],
+      index: 11,
     };
   },
   methods: {
     generateRandomIndexForGrid() {
-      for (let index = 0; index < 7; index++) {
+      for (let index = 0; index < this.index; index++) {
         let randomRow = Math.floor(Math.random() * this.rows);
         let randomCol = Math.floor(Math.random() * this.cols) + 1;
         document
@@ -50,7 +51,7 @@ export default {
       }
     },
     sendRandomStaff() {
-      if (this.randomStaffs.length >= 7) return;
+      if (this.randomStaffs.length >= this.index) return;
       let staff = Math.floor(Math.random() * this.staffs.length);
       if (this.randomStaffs.indexOf(staff) < 0) {
         this.randomStaffs.push(staff);
@@ -70,12 +71,20 @@ export default {
       this.width = window.innerWidth;
       this.height = window.innerHeight;
       this.calcColAndRow();
+      this.preparePictures();
     },
 
     calcColAndRow() {
-      if (959 < this.width) this.rows = 4;
-      else if (599 < this.width && this.width < 960) this.rows = 5;
-      else this.rows = 6;
+      if (959 < this.width) {
+        this.rows = 4;
+        this.index = 11;
+      } else if (599 < this.width && this.width < 960) {
+        this.rows = 5;
+        this.index = 9;
+      } else {
+        this.rows = 6;
+        this.index = 7;
+      }
 
       this.cols = Math.floor(this.width / (this.height / this.rows)) + 1;
       document.getElementsByClassName('staffHeader')[0].style.width = this.cols * (100 / this.rows) + 'vh';
@@ -88,12 +97,9 @@ export default {
   },
   mounted() {
     this.reSize();
+    this.preparePictures();
     window.addEventListener('resize', this.reSize);
-    this.preparePictures();
     setInterval(this.preparePictures, 10000);
-  },
-  updated() {
-    this.preparePictures();
   },
 };
 </script>
@@ -116,6 +122,7 @@ export default {
         object-fit: cover;
         opacity: 0;
         visibility: hidden;
+        filter: grayscale(1);
       }
       .active {
         visibility: visible;
