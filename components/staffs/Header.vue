@@ -5,11 +5,11 @@
       <p>فلان</p>
     </div> -->
     <div class="staffHeader d-flex justify-center align-center flex-column">
-      <h1>تیم ما</h1>
+      <h1><img :src="title" alt="aichallenge" /></h1>
       <p>با تیم برگزارکننده AI Challenge 2021 بیشتر آشنا شو</p>
       <v-row v-for="(row, index) in rows" :key="index" :id="'headerRow-' + index">
         <div v-for="(col, i) in cols" :key="i" class="headerDiv">
-          <img class="staff_img" src="https://www.google.com" />
+          <img class="staff_img" src="https://www.aichallenge.ir" />
           <!-- {{ cols * index + i }} -->
         </div>
       </v-row>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import title from '~/assets/images/out-team.svg';
 export default {
   props: { staffs: Array },
   data() {
@@ -29,6 +30,7 @@ export default {
       height: 0,
       randomImage: [],
       index: 11,
+      title: title,
     };
   },
   methods: {
@@ -105,6 +107,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'assets/mixins.scss';
+
 #staff-header {
   width: 100%;
   overflow: hidden;
@@ -134,6 +138,15 @@ export default {
       position: absolute;
       font-size: 5rem;
       z-index: 1;
+      img {
+        width: 20vw;
+        @include v-not-md {
+          width: 30vw;
+        }
+        @include v-not-sm {
+          width: 50vw;
+        }
+      }
     }
     p {
       position: absolute;
