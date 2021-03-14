@@ -101,7 +101,7 @@ export default {
     };
   },
   methods: {
-    async signUp() {
+    signUp() {
       const formData = new FormData();
       let isFormValid = false;
       for (const key in this.information) {
@@ -115,12 +115,17 @@ export default {
         return;
       }
       this.loading = true;
-      let res = await editProfile(this.$axios, formData);
-
-      this.loading = false;
-      this.$store.commit('auth/setUser', res);
-      this.resetForm();
-      this.$toast.success('تغییرات با موفقیت دخیره شد.');
+      editProfile(this.$axios, formData)
+        .then(res => {
+          this.loading = false;
+          this.$store.commit('auth/setUser', res);
+          this.resetForm();
+          this.$toast.success('تغییرات با موفقیت دخیره شد.');
+        })
+        .catch(e => {
+          this.loading = false;
+          this.$toast.error('در روند ثبت اطلاعات مشکل بوجود آمده است');
+        });
     },
     resetForm() {
       this.information = { ...this.profile };

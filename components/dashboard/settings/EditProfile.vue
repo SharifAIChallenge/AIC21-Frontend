@@ -47,7 +47,7 @@
         </v-row>
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
-            <v-text-field v-bind="filedProps" v-model="information.university_degree" label="مدرک"></v-text-field>
+            <v-select v-model="information.university_degree" :items="degreeItem" label="مدرک" outlined></v-select>
           </v-col>
         </v-row>
 
@@ -80,12 +80,33 @@ import SectionContainer from '~/components/SectionContainer';
 export default {
   mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps],
   components: { SectionHeader, SectionContainer },
-
   props: {
     information: Object,
     loading: Boolean,
     signUp: Function,
     resetForm: Function,
+  },
+  data() {
+    return {
+      degreeItem: [
+        {
+          text: 'دانش آموز',
+          value: 'ST',
+        },
+        {
+          text: 'کارشناسی',
+          value: 'BA',
+        },
+        {
+          text: 'کارشناسی ارشد',
+          value: 'MA',
+        },
+        {
+          text: 'دکترا',
+          value: 'DO',
+        },
+      ],
+    };
   },
 };
 </script>

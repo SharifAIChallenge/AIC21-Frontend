@@ -59,7 +59,7 @@
           </v-icon>
         </template>
         <template v-slot:[`item.send`]="{ item }">
-          <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover pl-5 pl-md-7">mdi-plus-circle</v-icon>
+          <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover ml-5 ml-md-7">mdi-plus-circle</v-icon>
         </template>
       </v-data-table>
       <div class="text-center pt-2">

@@ -127,7 +127,7 @@ export default {
         },
         {
           text: 'python',
-          value: 'python',
+          value: 'py3',
         },
       ],
     };
