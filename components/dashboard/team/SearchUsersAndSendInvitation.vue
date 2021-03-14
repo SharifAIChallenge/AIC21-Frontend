@@ -17,7 +17,7 @@
         center
         :headers="headers"
         :items="data"
-        class="elevation-1 table-cursor "
+        class="elevation-1 table-cursor"
         @click:row="handleClick($event)"
         :page.sync="page"
         :items-per-page="itemPerPage"
@@ -25,22 +25,20 @@
         style="background: #141432"
       >
         <template v-slot:[`item.profile.firstname_fa`]="{ item }">
-          <div class="pr-6 pr-md-6" v-if="item.profile.image !== null">
+          <div v-if="item.profile.image !== null">
             <div class="profile">
               <div>
-                <img :src="item.profile.image" :alt="item.email" height="60px" class="ma-2" />
+                <img :src="item.profile.image" :alt="item.email" height="60px" class="ml-2 mt-2" />
               </div>
               <div>
                 <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
               </div>
             </div>
           </div>
-          <div v-else class="profile pr-6 pr-md-6">
+          <div v-else class="profile">
             <div class="profile">
               <div>
-                <v-icon size="80px">
-                  mdi-alert-box
-                </v-icon>
+                <v-icon size="80px" style="right: -8px">mdi-alert-box</v-icon>
               </div>
               <div>
                 <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
@@ -72,7 +70,7 @@
       <v-dialog v-model="filter" width="350">
         <v-card>
           <v-container>
-            <h2 style="text-align: center;" class="mb-4">
+            <h2 style="text-align: center" class="mb-4">
               <v-icon color="primary" size="30px">mdi-filter-variant</v-icon>
               فیلتر ها
             </h2>
@@ -87,9 +85,7 @@
                 <v-checkbox v-model="filterData.programming_language" label="Python3" value="python"></v-checkbox>
               </div>
               <div>
-                <v-btn width="100%" height="60px" class="text-h6" color="primary" @click="filterSend()" block>
-                  اعمال فیلتر
-                </v-btn>
+                <v-btn width="100%" height="60px" class="text-h6" color="primary" @click="filterSend()" block>اعمال فیلتر</v-btn>
               </div>
             </v-form>
           </v-container>

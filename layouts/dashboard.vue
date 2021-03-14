@@ -195,6 +195,7 @@ export default {
 }
 .dashboard {
   padding-top: 90px !important;
+  padding-right: 0;
   @include v-md {
     padding-right: 265px !important;
   }
