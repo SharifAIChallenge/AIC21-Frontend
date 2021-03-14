@@ -22,14 +22,12 @@
         <v-text-field label="نام تیم" outlined v-model="name"></v-text-field>
       </div>
       <div class="d-flex">
-        <div style="flex: 0 1 93px; margin-left: 24px;">
+        <div style="flex: 0 1 93px; margin-left: 24px">
           <v-btn block class="black" @click="forfiet()">لغو</v-btn>
         </div>
         <div style="flex: 1">
           <v-btn block :loading="loading" @click="submitTeam()" color="primary" class="">
-            <v-icon class="ml-3">
-              mdi-plus-circle-outline
-            </v-icon>
+            <v-icon class="ml-3">mdi-plus-circle-outline</v-icon>
             تیمم را بساز
           </v-btn>
         </div>
@@ -90,7 +88,29 @@ export default {
 };
 </script>
 <style lang="scss">
+.team{
+  margin: 0 !important;
+}
 .create-team {
+  .v-input {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    .v-input__prepend-outer {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      .v-input__icon {
+        width: 100%;
+        height: 100%;
+        button {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
   .fileInput {
     width: 15vh;
     height: 15vh;

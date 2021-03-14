@@ -13,6 +13,9 @@
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
           تاریخچه
         </v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/staff">
+          استف
+        </v-btn>
       </div>
     </v-dialog>
     <v-app-bar flat absolute :color="color">
@@ -42,6 +45,9 @@
         </v-btn>
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
           تاریخچه
+        </v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/staff">
+          استف
         </v-btn>
       </div>
       <v-spacer></v-spacer>

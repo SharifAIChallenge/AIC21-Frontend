@@ -47,7 +47,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-main style="padding: 0px">
-      <v-container class="dashboard px-0 pt-0 pb-12 pb-md-0" fluid>
+      <v-container class="dashboard pl-0 pt-md-0 pb-12 pb-md-0" fluid>
         <nuxt />
       </v-container>
     </v-main>
@@ -165,8 +165,11 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '~/assets/mixins.scss';
+#__nuxt {
+  overflow: hidden;
+}
 
 .v-navigation-drawer {
   width: 265px !important;
@@ -193,8 +196,7 @@ export default {
 .dashboard {
   padding-top: 90px !important;
   @include v-md {
-    padding-right: 250px !important;
-    padding-top: 0 !important;
+    padding-right: 265px !important;
   }
 }
 .nav_logo {

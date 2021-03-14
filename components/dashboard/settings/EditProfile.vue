@@ -23,7 +23,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col class="py-0 mb-3" cols="12">
+          <v-col class="py-0 mb-6" cols="12">
             <v-text-field v-model="information.phone_number" label="شماره تماس" v-bind="filedProps"></v-text-field>
           </v-col>
         </v-row>
@@ -33,18 +33,11 @@
           required
           :rules="requiredRules"
           v-bind="filedProps"
-          class="mb-3"
+          class="mb-6"
         />
         <v-row>
-          <v-col class="py-0 mb-6" cols="12">
-            <v-text-field
-              v-model="information.birth_date"
-              v-bind="filedProps"
-              required
-              :rules="requiredRules"
-              label="سال ورودی"
-              dir="ltr"
-            />
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-model="information.birth_date" v-bind="filedProps" required :rules="requiredRules" label="سال ورودی" />
           </v-col>
         </v-row>
         <v-row>
@@ -54,7 +47,7 @@
         </v-row>
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
-            <v-text-field v-bind="filedProps" v-model="information.university_degree" label="مدرک"></v-text-field>
+            <v-select v-model="information.university_degree" :items="degreeItem" label="مدرک" outlined></v-select>
           </v-col>
         </v-row>
 
@@ -62,7 +55,7 @@
           <v-checkbox v-model="information.hide_profile_info" label="اطلاعاتم برای سایر شرکت کننده ها قابل جستو باشد."></v-checkbox>
         </v-row>
         <div class="d-flex mt-8">
-          <div style="flex: 0 1 93px; margin-left: 24px;">
+          <div style="flex: 0 1 93px; margin-left: 24px">
             <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
           </div>
           <div style="flex: 1">
@@ -87,12 +80,33 @@ import SectionContainer from '~/components/SectionContainer';
 export default {
   mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps],
   components: { SectionHeader, SectionContainer },
-
   props: {
     information: Object,
     loading: Boolean,
     signUp: Function,
     resetForm: Function,
+  },
+  data() {
+    return {
+      degreeItem: [
+        {
+          text: 'دانش آموز',
+          value: 'ST',
+        },
+        {
+          text: 'کارشناسی',
+          value: 'BA',
+        },
+        {
+          text: 'کارشناسی ارشد',
+          value: 'MA',
+        },
+        {
+          text: 'دکترا',
+          value: 'DO',
+        },
+      ],
+    };
   },
 };
 </script>

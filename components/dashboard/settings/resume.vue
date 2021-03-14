@@ -55,12 +55,12 @@
         </v-row>
 
         <v-row>
-          <v-col class="py-0 mb-6 skill" cols="12">
+          <v-col class="py-0 mb-10 skill" cols="12">
             <v-combobox v-model="information.skills" height="50px" dense chips multiple outlined label="مهارت ها"></v-combobox>
           </v-col>
         </v-row>
         <v-row>
-          <v-col class="py-0 mb-6 job" cols="12">
+          <v-col class="py-0 mb-10 job" cols="12">
             <v-combobox v-model="information.jobs" height="50px" dense chips multiple outlined label="شغل"></v-combobox>
           </v-col>
         </v-row>
@@ -90,7 +90,7 @@
           <v-checkbox v-bind="filedProps" v-model="information.can_sponsors_see" label="اطلاعاتم برای اسپانسر قابل جستو باشد."></v-checkbox>
         </v-row>
         <div class="d-flex mt-8">
-          <div style="flex: 0 1 93px; margin-left: 24px;">
+          <div style="flex: 0 1 93px; margin-left: 24px">
             <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
           </div>
           <div style="flex: 1">
@@ -127,7 +127,7 @@ export default {
         },
         {
           text: 'python',
-          value: 'python',
+          value: 'py3',
         },
       ],
     };
@@ -147,6 +147,9 @@ export default {
 </script>
 <style lang="scss">
 .resume {
+  .v-text-field--outlined .v-input__prepend-outer {
+    margin-top: 10px !important;
+  }
   .v-input__prepend-outer {
     position: absolute;
     left: 3px;
