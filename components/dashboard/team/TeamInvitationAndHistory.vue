@@ -66,7 +66,7 @@
           <div v-for="(list, index) in invitationsList.data" :key="index" class="pb-4">
             <h3>
               <div class="history">
-                <div>{{ list.user.profile.firstname_fa }} {{ list.user.profile.firstname_fa }}</div>
+                <div>{{ list.user.profile.firstname_fa }} {{ list.user.profile.lastname_fa }}</div>
                 <div
                   v-bind:class="{
                     blueFont: list.status === 'pending',
@@ -238,5 +238,4 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-
 </style>

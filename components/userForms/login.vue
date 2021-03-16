@@ -16,7 +16,7 @@
               outlined
               dir="ltr"
               type="email"
-              :rules="requiredRules"
+              :rules="emailRules"
               required
               autofocus
               validate-on-blur
@@ -32,7 +32,7 @@
 
             <v-row>
               <v-col>
-                <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading" :loading="loading" type="submit">
+                <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading || !valid" :loading="loading" type="submit">
                   {{ $t('form.signIn') }}
                 </v-btn>
                 <div style="text-align: center; margin:10px;">

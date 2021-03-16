@@ -77,8 +77,8 @@ export default {
         term: '',
         resume: null,
         image: null,
-        skill: '',
-        job: '',
+        skills: [],
+        jobs: [],
       },
       tabLabels: [
         {
@@ -102,12 +102,15 @@ export default {
   },
   methods: {
     signUp() {
-      this.convertJobAndSkills();
       const formData = new FormData();
       let isFormValid = false;
       for (const key in this.information) {
         if (this.information[key] !== this.profile[key]) {
-          formData.append(key, this.information[key]);
+          if (key === 'jobs' || key === 'skills') {
+            formData.append(key + '_list', this.information[key]);
+          } else {
+            formData.append(key, this.information[key]);
+          }
           isFormValid = true;
         }
       }
@@ -128,13 +131,6 @@ export default {
           this.$toast.error('در روند ثبت اطلاعات مشکل بوجود آمده است');
         });
     },
-    convertJobAndSkills() {
-      try {
-        // this.information.jobs =
-
-        console.log(this.information.jobs);
-      } catch (error) {}
-    },
     resetForm() {
       this.information = { ...this.profile };
     },
@@ -150,7 +146,9 @@ export default {
   },
   watch: {
     profile(newProfile, oldProfile) {
-      this.information = { ...newProfile };
+      const skills = this.profile.skills.map(item => item.skill.split(','))[0];
+      const jobs = this.profile.jobs.map(item => item.position.split(','))[0];
+      this.information = { ...newProfile, skills, jobs };
     },
   },
   computed: {
@@ -159,7 +157,11 @@ export default {
     }),
   },
   mounted() {
-    if (this.profile) this.information = { ...this.profile };
+    if (this.profile) {
+      const skills = this.profile.skills.map(item => item.skill.split(','))[0];
+      const jobs = this.profile.jobs.map(item => item.position.split(','))[0];
+      this.information = { ...this.profile, skills, jobs };
+    }
   },
 };
 </script>

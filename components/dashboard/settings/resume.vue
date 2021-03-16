@@ -65,12 +65,24 @@
               outlined
               label="مهارت ها"
               append-icon=""
+              messages="با زدن Enter می‌توانید چند آیتم وارد کنید"
             ></v-combobox>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="py-0 mb-10 job" cols="12">
-            <v-combobox v-model="information.jobs" height="50px" dense chips multiple outlined label="شغل" append-icon=""></v-combobox>
+            <v-combobox
+              v-model="information.jobs"
+              height="50px"
+              dense
+              chips
+              multiple
+              outlined
+              label="شغل"
+              append-icon=""
+              :persistent-hint="true"
+              hint="با زدن Enter می‌توانید چند آیتم وارد کنید"
+            ></v-combobox>
           </v-col>
         </v-row>
         <v-row>
@@ -96,7 +108,11 @@
           </v-col>
         </v-row>
         <v-row class="px-3">
-          <v-checkbox v-bind="filedProps" v-model="information.can_sponsors_see" label="اطلاعاتم برای اسپانسر قابل جستو باشد."></v-checkbox>
+          <v-checkbox
+            v-bind="filedProps"
+            v-model="information.can_sponsors_see"
+            label="اطلاعاتم برای اسپانسر قابل جستجو باشد."
+          ></v-checkbox>
         </v-row>
         <div class="d-flex mt-8">
           <div style="flex: 0 1 93px; margin-left: 24px">

@@ -45,18 +45,19 @@
         </v-row>
       </div>
     </v-container>
-    <EmailCallToAction />
+    <CallToAction />
   </div>
 </template>
 
 <script>
 import Header from '~/components/landing/Header.vue';
 import { FAQ } from '~/api/index';
-import EmailCallToAction from '~/components/EmailCallToAction.vue';
+import CallToAction from '~/components/CallToAction.vue';
+
 export default {
   auth: false,
   layout: 'landing',
-  components: { Header, EmailCallToAction },
+  components: { Header, CallToAction },
   async asyncData({ $axios }) {
     let data = await FAQ($axios);
     const titles = data.data.map(item => item.title);

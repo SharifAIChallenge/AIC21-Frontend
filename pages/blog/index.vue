@@ -7,6 +7,8 @@
           <app-post :post="post"></app-post>
         </v-col>
       </v-row>
+      <!-- <EmailCallToAction /> -->
+      <CallToAction />
     </v-container>
   </v-app>
 </template>
@@ -14,8 +16,14 @@
 <script>
 import { getPosts } from '~/api/blog';
 import Post from '~/components/blog/Post';
+// import EmailCallToAction from '~/components/EmailCallToAction.vue';
+import CallToAction from '~/components/CallToAction.vue';
+
 export default {
-  auth: false,
+  components: {
+    'app-post': Post,
+    CallToAction,
+  },
   data() {
     return {
       posts: [],
@@ -24,9 +32,6 @@ export default {
   async asyncData({ $axios }) {
     let posts = await getPosts($axios);
     return { posts };
-  },
-  components: {
-    'app-post': Post,
   },
 };
 </script>
