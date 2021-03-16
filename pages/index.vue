@@ -19,8 +19,8 @@
     <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
     <Staff :onIntersecStaff="onIntersecStaff" />
     <Sponsor :onIntersecSponser="onIntersecSponser" />
-    <EmaliCallToAction />
-    <!-- <CallToAction /> -->
+    <!-- <EmaliCallToAction /> -->
+    <CallToAction />
   </div>
 </template>
 

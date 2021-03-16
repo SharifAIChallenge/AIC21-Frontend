@@ -14,7 +14,7 @@
           </v-alert>
         </v-col>
         <v-col cols="12">
-          <form ref="form" @submit.prevent="signUp">
+          <v-form ref="form" v-model="valid" @submit.prevent="signUp">
             <v-text-field
               :label="$t('form.email')"
               v-model="form.email"
@@ -38,7 +38,7 @@
               <v-col>
                 <v-btn
                   block
-                  :disabled="!termsAndConditions"
+                  :disabled="!valid"
                   :loading="loading"
                   type="submit"
                   color="primary"
@@ -56,7 +56,7 @@
                 </v-btn>
               </v-col>
             </v-row>
-          </form>
+          </v-form>
         </v-col>
       </v-row>
     </div>
@@ -154,6 +154,7 @@ export default {
         maxAge: 60 * 60 * 24 * 7,
         path: '/',
       });
+      this.$store.commit('formStatus/toggleShow');
     },
     clearError(field) {
       if (this.result.errors[field]) {

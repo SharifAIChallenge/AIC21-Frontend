@@ -2,7 +2,7 @@
   <div>
     <SectionHeader title="اطلاعات شخصی" icon="mdi-account-circle-outline" />
     <SectionContainer>
-      <v-form ref="editProfile" onSubmit="return false;" @submit="signUp">
+      <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
             <v-text-field v-model="information.firstname_fa" :label="$t('form.nameInPersian')" required :rules="requiredRules" outlined />
@@ -24,7 +24,13 @@
         </v-row>
         <v-row>
           <v-col class="py-0 mb-6" cols="12">
-            <v-text-field v-model="information.phone_number" label="شماره تماس" v-bind="filedProps"></v-text-field>
+            <v-text-field
+              v-model="information.phone_number"
+              :rules="requiredRules"
+              required
+              label="شماره تماس"
+              v-bind="filedProps"
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-text-field
@@ -42,24 +48,28 @@
         </v-row>
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
-            <v-text-field v-bind="filedProps" v-model="information.major" label="رشته"></v-text-field>
+            <v-text-field v-model="information.major" :rules="requiredRules" outlined required label="رشته"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
-            <v-select v-model="information.university_degree" :items="degreeItem" label="مقطع تحصیلی" outlined></v-select>
+            <v-select v-model="information.university_degree" :items="degreeItem" required label="مقطع تحصیلی" outlined></v-select>
           </v-col>
         </v-row>
 
         <v-row class="px-3">
-          <v-checkbox v-model="information.hide_profile_info" label="اطلاعاتم برای سایر شرکت کننده ها قابل جستو باشد."></v-checkbox>
+          <v-checkbox
+            v-model="information.hide_profile_info"
+            required
+            label="اطلاعاتم برای سایر شرکت کننده ها قابل جستجو باشد."
+          ></v-checkbox>
         </v-row>
         <div class="d-flex mt-8">
           <div style="flex: 0 1 93px; margin-left: 24px">
             <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
           </div>
           <div style="flex: 1">
-            <v-btn block :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
+            <v-btn block :loading="loading" type="submit" :disabled="!valid" color="primary" style="flex-basis: 75%">
               <v-icon left>mdi-content-save-outline</v-icon>
               ذخیره اطلاعات
             </v-btn>
@@ -88,6 +98,7 @@ export default {
   },
   data() {
     return {
+      valid: false,
       degreeItem: [
         {
           text: 'دانش آموز',
