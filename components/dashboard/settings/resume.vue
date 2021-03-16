@@ -3,7 +3,7 @@
     <SectionHeader title="رزومه" icon="mdi-badge-account-horizontal-outline" />
     <SectionContainer>
       <v-form ref="editProfile" onSubmit="return false;" @submit="signUp">
-        <v-row v-if="information.image !== null">
+        <v-row v-if="information.image_link">
           <v-col cols="12" class="d-flex mb-8" style="align-items: flex-end">
             <v-btn @click="deleteImage" class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
               <v-icon>mdi-trash-can-outline</v-icon>
@@ -25,7 +25,7 @@
           </v-col>
         </v-row>
 
-        <v-row v-if="information.resume !== null">
+        <v-row v-if="information.resume_link">
           <v-col cols="12" class="d-flex mb-8">
             <v-btn @click="deleteResume" class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
               <v-icon>mdi-trash-can-outline</v-icon>
@@ -56,12 +56,21 @@
 
         <v-row>
           <v-col class="py-0 mb-10 skill" cols="12">
-            <v-combobox v-model="information.skills" height="50px" dense chips multiple outlined label="مهارت ها"></v-combobox>
+            <v-combobox
+              v-model="information.skills"
+              height="50px"
+              dense
+              chips
+              multiple
+              outlined
+              label="مهارت ها"
+              append-icon=""
+            ></v-combobox>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="py-0 mb-10 job" cols="12">
-            <v-combobox v-model="information.jobs" height="50px" dense chips multiple outlined label="شغل"></v-combobox>
+            <v-combobox v-model="information.jobs" height="50px" dense chips multiple outlined label="شغل" append-icon=""></v-combobox>
           </v-col>
         </v-row>
         <v-row>
@@ -96,7 +105,7 @@
           <div style="flex: 1">
             <v-btn block :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
               <v-icon left>mdi-content-save-v-bind="filedProps"</v-icon>
-              {{ $t('dashboard.editProfile') }}
+              ذخیره اطلاعات
             </v-btn>
           </div>
         </div>

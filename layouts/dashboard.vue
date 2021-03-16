@@ -150,6 +150,10 @@ export default {
     profile(now, old) {
       if (now) {
         this.routes.team.disabled = !this.profile.is_complete;
+        if (!this.profile.is_complete) {
+          this.$router.push('/dashboard/settings');
+          this.$toast.error('لطفا ابتدا اطلاعات شخصی را کامل کنید');
+        }
       }
     },
   },

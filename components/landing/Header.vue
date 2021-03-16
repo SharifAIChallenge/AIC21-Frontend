@@ -7,14 +7,12 @@
         </v-icon>
       </v-btn>
       <div class="d-flex flex-column align-center justify-center" style="height: 85%">
+        <v-btn v-if="isAuthenticated" plain :ripple="false" text tile :class="getClass()" to="/dashboard">داشبورد</v-btn>
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/">خانه</v-btn>
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/faq">سوالات متداول</v-btn>
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn>
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
           تاریخچه
-        </v-btn>
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/staff">
-          استف
         </v-btn>
       </div>
     </v-dialog>
@@ -25,7 +23,7 @@
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only" id="menu">
-        <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
+        <v-btn v-if="!isAuthenticated" plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
           <v-icon left>
             mdi-shield-star
           </v-icon>
@@ -34,7 +32,7 @@
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/dashboard">
+        <v-btn v-if="isAuthenticated" plain text :ripple="false" tile :class="getClass()" to="/dashboard">
           داشبورد
         </v-btn>
         <v-btn plain text tile :class="getClass()" to="/blog">
@@ -46,12 +44,9 @@
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
           تاریخچه
         </v-btn>
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/staff">
-          استف
-        </v-btn>
       </div>
       <v-spacer></v-spacer>
-      <v-btn plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow()">
+      <v-btn v-if="!isAuthenticated" plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow()">
         <v-icon left>
           mdi-shield-star
         </v-icon>
@@ -81,6 +76,7 @@ export default {
   computed: {
     ...mapState({
       show: state => state.formStatus.show,
+      isAuthenticated: state => state.auth.isAuthenticated,
     }),
   },
   methods: {

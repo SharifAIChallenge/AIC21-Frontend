@@ -25,7 +25,7 @@
         style="background: #141432"
       >
         <template v-slot:[`item.profile.firstname_fa`]="{ item }">
-          <div v-if="item.profile.image !== null">
+          <div v-if="item.profile.image">
             <div class="profile">
               <div>
                 <img :src="item.profile.image" :alt="item.email" height="60px" class="ml-2 mt-2" />
@@ -158,9 +158,9 @@ export default {
       let user_email = email;
       this.$axios.$post('team/invitations/team_sent', { user_email }).then(res => {
         if (res.status_code === 200) {
-          this.$toast.success(this.translateResponseMessage(res.message));
+          this.$toast.success(this.translateResponseMessage(res));
         } else {
-          this.$toast.error(this.translateResponseMessage(res.message));
+          this.$toast.error(this.translateResponseMessage(res));
         }
       });
       this.tableLoading = false;
@@ -207,8 +207,8 @@ export default {
       this.filter = !this.filter;
     },
     translateResponseMessage(response) {
-      if (response === 'your invitation sent') return 'دعوت نامه ارسال شد!';
-      else if (response === 'you have a sent an invitation already') return 'شما قبلا دعوت نامه ارسال کردید!';
+      if (response.message === 'your invitation sent') return 'دعوت نامه ارسال شد!';
+      else if (response.detail.detail === 'you have a sent an invitation already') return 'شما قبلا به این کاربر دعوت‌نامه ارسال کردید! ';
       else return 'مشکلی در ارسال دعوت نامه رخ داد!';
     },
     universityDegree(response) {

@@ -10,16 +10,16 @@
           </div>
         </v-tab-item>
         <v-tab-item>
-          <v-card-text class="main-content pa-0">
+          <div class="main-content pa-0">
             <SearchUsersAndSendInvitation v-if="haveTeam" />
             <IncompleteTeams v-else />
-          </v-card-text>
+          </div>
         </v-tab-item>
         <v-tab-item>
-          <v-card-text class="main-content">
+          <div class="main-content">
             <TeamInvitationAndHistory v-if="haveTeam" />
             <UserInvitation :toggleHaveTeam="toggleHaveTeam" v-else />
-          </v-card-text>
+          </div>
         </v-tab-item>
       </v-tabs-items>
     </v-col>
@@ -150,7 +150,7 @@ export default {
   .v-tab {
     width: 150px;
     height: 150px;
-    background: #141432;
+    background: map-get($material-dark-elevation-colors, '16');
     color: white !important;
   }
 
@@ -162,7 +162,7 @@ export default {
   }
   .main-content {
     min-height: 100vh;
-    background-color: #0e1224;
+    background-color: map-get($material-dark-elevation-colors, '12');
   }
   .wrapper {
     display: flex;

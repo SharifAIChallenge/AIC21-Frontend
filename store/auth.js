@@ -21,7 +21,7 @@ export const actions = {
       commit('setToken', res);
       dispatch('getUser');
       commit('formStatus/toggleShow', {}, { root: true });
-      this.$router.push('/dashboard/settings');
+      this.$router.push('/dashboard');
       this.$cookies.set('token', res.token, {
         maxAge: 60 * 60 * 24 * 7,
         path: '/',
