@@ -4,19 +4,19 @@
       <v-divider />
       <v-tabs-items v-model="tabs">
         <v-tab-item>
-          <div class="main-content">
+          <div v-if="tabs === 0" class="main-content">
             <MyTeam :toggleHaveTeam="toggleHaveTeam" v-if="haveTeam" />
             <CreateTeam :toggleHaveTeam="toggleHaveTeam" v-else />
           </div>
         </v-tab-item>
         <v-tab-item>
-          <div class="main-content pa-0">
+          <div v-if="tabs === 1" class="main-content pa-0">
             <SearchUsersAndSendInvitation v-if="haveTeam" />
             <IncompleteTeams v-else />
           </div>
         </v-tab-item>
         <v-tab-item>
-          <div class="main-content">
+          <div v-if="tabs === 2" class="main-content">
             <TeamInvitationAndHistory v-if="haveTeam" />
             <UserInvitation :toggleHaveTeam="toggleHaveTeam" v-else />
           </div>
@@ -91,17 +91,26 @@ export default {
       ],
     };
   },
-  async fetch() {
+  async getData() {
     let res = await this.$axios.$get('team');
     if (res.status_code === 403) this.haveTeam = false;
     else {
       this.haveTeam = true;
     }
   },
+  async asyncData({ $axios }) {
+    let res = await $axios.$get('team');
+    let haveTeam = false;
+    if (res.status_code === 403) haveTeam = false;
+    else {
+      haveTeam = true;
+    }
+    return { haveTeam };
+  },
   methods: {
     toggleHaveTeam() {
       this.haveTeam = !this.haveTeam;
-      this.$fetch();
+      this.getData();
     },
   },
 };
