@@ -15,7 +15,7 @@
 
             <div class="pr-8 pr-md-14">
               <div class="text-h5 my-2" v-for="(member, index) in team.members" :key="index">
-                {{ member.first_name }} {{ member.last_name }}
+                {{ member.profile.firstname_fa }} {{ member.profile.lastname_fa }}
               </div>
             </div>
           </div>

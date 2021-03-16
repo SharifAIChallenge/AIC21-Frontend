@@ -11,19 +11,21 @@
       style="background: #141432"
     >
       <template v-slot:item.image="{ item }">
-        <img :src="item.image" :alt="item.name" height="60px" />
+        <img v-if="item.image" :src="item.image" :alt="item.name" height="60px" style="max-width: 60px" />
       </template>
       <template v-slot:item.profile="{ item }">
         <v-icon class="icon" @click="showTeam(item)">mdi-card-account-details-outline</v-icon>
       </template>
       <template v-slot:item.sendRequest="{ item }">
-        <v-icon class="icon" @click="sendRequest(item.id)">mdi-plus-circle-outline</v-icon>
+        <div class="d-flex justify-center">
+          <v-icon class="icon" @click="sendRequest(item.id)">mdi-plus-circle-outline</v-icon>
+        </div>
       </template>
     </v-data-table>
 
     <v-dialog v-model="teamDetails" width="350px">
       <v-card>
-        <img :src="teamInfo.image" width="100%" :alt="teamInfo.name" />
+        <img v-if="teamInfo.image" :src="teamInfo.image" width="100%" :alt="teamInfo.name" />
         {{ teamInfo.name }}
         <v-row v-for="(member, index) in teamInfo.members" :key="index" style="width: 100%">
           <v-col cols="2">
@@ -32,7 +34,7 @@
           <v-col cols="10">
             <div class="d-flex align-center">
               <v-col cols="10">
-                {{ member.first_name + '' + member.last_name }}
+                {{ member.profile.firstname_fa + '' + member.profile.lastname_fa }}
               </v-col>
               <v-col cols="2">
                 <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">mdi-card-account-details-outline</v-icon>
@@ -88,9 +90,9 @@ export default {
     sendRequest(team_id) {
       this.$axios.post('team/invitations/user_sent', { team_id }).then(res => {
         if (res.data.status_code === 200) {
-          this.$toast.success(this.translateResponseMessage(res.data.message));
+          this.$toast.success(this.translateResponseMessage(res.data));
         } else {
-          this.$toast.error(this.translateResponseMessage(res.data.message));
+          this.$toast.error(this.translateResponseMessage(res.data));
         }
       });
     },
@@ -107,14 +109,14 @@ export default {
       this.ProfileDialog = true;
     },
     translateResponseMessage(response) {
-      if (response === 'your invitation sent') return 'دعوت نامه ارسال شد!';
+      if (response.message === 'your invitation sent') return 'دعوت نامه ارسال شد!';
+      else if (response.detail.detail === 'you have a sent an invitation already') return 'شما قبلا به این کاربر دعوت‌نامه ارسال کردید! ';
       else return 'مشکلی در ارسال دعوت نامه رخ داد!';
     },
   },
   async fetch() {
     await this.$axios.$get('/team/incomplete').then(res => {
       // this.incompleteTeams = res.data;
-      console.log(res.results.data);
       this.team = res.results.data;
     });
   },
