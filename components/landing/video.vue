@@ -92,7 +92,7 @@ export default {
   align-items: center;
   position: relative;
   padding: 28vmin 0;
-  margin: 30px 0 30px;
+  margin: 120px 0 30px;
   @include not-md {
     padding: 13vmin 0;
   }

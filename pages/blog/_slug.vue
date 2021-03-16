@@ -114,8 +114,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.post-page {
-  margin-top: 150px;
-}
-</style>
+<style></style>

@@ -1,4 +1,4 @@
-import { login, getUser, logout } from '~/api/auth';
+import { login, getUser, logout, isAccountActivated } from '~/api/auth';
 
 export const state = () => ({
   token: null,
@@ -15,7 +15,16 @@ export const actions = {
   },
   async login({ commit, dispatch }, payload) {
     commit('loading');
-    let res = await login(this.$axios, payload).catch(e => this.$toast.error('ایمیل یا رمز اشتباه است'));
+    let res = await login(this.$axios, payload).catch(e => {
+      isAccountActivated(this.$axios, payload.username).then(res => {
+        if (res.status_code === 200) {
+          if (!res.is_active) this.$toast.error('قبل از ورود باید حساب‌کاربری خود را فعال کنید');
+          else this.$toast.error('رمز اشتباه است');
+        } else if (res.status_code === 404) {
+          this.$toast.error('ایمیل موردنظر یافت نشد');
+        }
+      });
+    });
     commit('loaded');
     if (res.token) {
       commit('setToken', res);

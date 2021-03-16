@@ -68,7 +68,7 @@
               <div class="history">
                 <div>{{ list.user.profile.firstname_fa }} {{ list.user.profile.lastname_fa }}</div>
                 <div
-                  v-bind:class="{
+                  :class="{
                     blueFont: list.status === 'pending',
                     orangeFont: list.status === 'rejected',
                     greenFont: list.status === 'accepted',

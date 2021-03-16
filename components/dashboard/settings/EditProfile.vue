@@ -23,27 +23,51 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col class="py-0 mb-6" cols="12">
+          <v-col class="py-0 mb-3" cols="12">
             <v-text-field
               v-model="information.phone_number"
-              :rules="requiredRules"
               required
               label="شماره تماس"
               v-bind="filedProps"
+              :rules="phoneRules"
+              validate-on-blur
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-text-field
+        <!-- <v-text-field
           v-model="information.university"
           :label="$t('form.educationPlace')"
           required
           :rules="requiredRules"
           v-bind="filedProps"
           class="mb-6"
-        />
+        /> -->
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
-            <v-text-field v-model="information.birth_date" v-bind="filedProps" required :rules="requiredRules" label="سال ورودی" />
+            <v-autocomplete
+              v-model="information.university"
+              :items="universityItems"
+              :loading="isLoading"
+              :search-input.sync="search"
+              hide-no-data
+              hide-selected
+              :label="$t('form.educationPlace')"
+              return-object
+              outlined
+              :rules="requiredRules"
+            ></v-autocomplete>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field
+              type="int"
+              v-model="information.birth_date"
+              v-bind="filedProps"
+              required
+              :rules="requiredRules"
+              label="سال ورودی"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -57,13 +81,26 @@
           </v-col>
         </v-row>
 
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-select
+              v-model="information.programming_language"
+              :rules="requiredRules"
+              :items="languageSelectItem"
+              label="زبان برنامه نویسی"
+              outlined
+            ></v-select>
+          </v-col>
+        </v-row>
+
         <v-row class="px-3">
           <v-checkbox
             v-model="information.hide_profile_info"
             required
-            label="اطلاعاتم برای سایر شرکت کننده ها قابل جستجو باشد."
+            label="اطلاعاتم برای سایر شرکت کننده ها قابل جستجو نباشد."
           ></v-checkbox>
         </v-row>
+
         <div class="d-flex mt-8">
           <div style="flex: 0 1 93px; margin-left: 24px">
             <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
@@ -81,14 +118,14 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../../../mixins/formValidations';
+import { emailRules, requiredRules, phoneRules } from '../../../mixins/formValidations';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
 
 export default {
-  mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps],
+  mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps, phoneRules],
   components: { SectionHeader, SectionContainer },
   props: {
     information: Object,
@@ -99,6 +136,22 @@ export default {
   data() {
     return {
       valid: false,
+      isLoading: false,
+      search: null,
+      languageSelectItem: [
+        {
+          text: 'java',
+          value: 'java',
+        },
+        {
+          text: '++C',
+          value: 'cpp',
+        },
+        {
+          text: 'python',
+          value: 'py3',
+        },
+      ],
       degreeItem: [
         {
           text: 'دانش آموز',
@@ -117,7 +170,48 @@ export default {
           value: 'DO',
         },
       ],
+      universityItems: [],
     };
+  },
+  // async fetch() {
+
+  // },
+  methods: {
+    async getUniversityItems() {
+      this.isLoading = true;
+      this.$axios.get(`/accounts/university-search?q=${this.information.university}`).then(res => {
+        console.log(res);
+        this.isLoading = false;
+      });
+    },
+
+    // getUniversityItems() {
+    //   this.$axios.get(`/accounts/university-search?q=${this.information.university}`).then(res => {
+    //     console.log(res)
+    //   });
+    // },
+  },
+  watch: {
+    search(val) {
+      // Items have already been loaded
+      if (this.universityItems.length > 0) return;
+
+      // Items have already been requested
+      if (this.isLoading) return;
+
+      this.isLoading = true;
+
+      // Lazily load input items
+      this.$axios
+        .get(`/accounts/university-search?q=${this.search}`)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => (this.isLoading = false));
+    },
   },
 };
 </script>
