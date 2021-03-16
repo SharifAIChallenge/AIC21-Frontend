@@ -17,3 +17,7 @@ export const sendGoogleAuthCode = (axios, data) => {
 export const activeAccount = (axios, eid, token) => {
   return axios.$get(`/accounts/activate/${eid}/${token}`);
 };
+
+export const isAccountActivated = (axios, email) => {
+  return axios.$post('/accounts/is-active', { email });
+};

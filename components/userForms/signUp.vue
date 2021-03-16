@@ -26,14 +26,31 @@
               dir="ltr"
               height="36px"
               validate-on-blur
+              class="autofill-bg"
               @focus="clearError('email')"
             ></v-text-field>
 
-            <v-text-field label="شماره تلفن" v-model="form.phone_number" required outlined dir="ltr" height="36px"></v-text-field>
+            <v-text-field
+              label="شماره تلفن"
+              v-model="form.phone_number"
+              required
+              outlined
+              dir="ltr"
+              class="autofill-bg"
+              height="36px"
+              :rules="phoneRules"
+              validate-on-blur
+            ></v-text-field>
 
             <password-input v-model="form.password_1" />
             <password-input v-model="form.password_2" label="form.passwordRepeat" />
-            <v-checkbox required outlined v-model="termsAndConditions" :label="$t('form.termsAndConditions')"></v-checkbox>
+            <v-checkbox
+              required
+              outlined
+              v-model="termsAndConditions"
+              :rules="requiredRules"
+              :label="$t('form.termsAndConditions')"
+            ></v-checkbox>
             <v-row>
               <v-col>
                 <v-btn
@@ -68,14 +85,14 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../../mixins/formValidations';
+import { emailRules, requiredRules, phoneRules } from '../../mixins/formValidations';
 import PasswordInput from '../../components/PasswordInput';
 import { signup } from '../../api';
 import { sendGoogleAuthCode } from '~/api/auth';
 
 export default {
   components: { PasswordInput },
-  mixins: [requiredRules, emailRules],
+  mixins: [requiredRules, emailRules, phoneRules],
 
   data() {
     return {

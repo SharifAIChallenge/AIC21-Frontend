@@ -22,6 +22,7 @@
               validate-on-blur
               height="36px"
               aria-autocomplete="email"
+              class="autofill-bg"
             ></v-text-field>
             <password-input v-model="password" />
             <v-row>

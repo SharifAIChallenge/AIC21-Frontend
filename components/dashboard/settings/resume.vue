@@ -102,11 +102,6 @@
           </v-col>
         </v-row>
 
-        <v-row>
-          <v-col class="py-0 mb-3" cols="12">
-            <v-select v-model="information.programming_language" :items="languageSelectItem" label="زبان برنامه نویسی" outlined></v-select>
-          </v-col>
-        </v-row>
         <v-row class="px-3">
           <v-checkbox
             v-bind="filedProps"
@@ -140,22 +135,7 @@ export default {
   mixins: [requiredRules, emailRules, fieldProps],
   components: { SectionHeader, SectionContainer },
   data() {
-    return {
-      languageSelectItem: [
-        {
-          text: 'java',
-          value: 'java',
-        },
-        {
-          text: '++C',
-          value: 'cpp',
-        },
-        {
-          text: 'python',
-          value: 'py3',
-        },
-      ],
-    };
+    return {};
   },
 
   props: {

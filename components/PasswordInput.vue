@@ -6,6 +6,7 @@
     :type="show ? 'text' : 'password'"
     :rules="requiredRules"
     required
+    class="autofill-bg"
     outlined
     :autofocus="autofocus"
     dir="ltr"
