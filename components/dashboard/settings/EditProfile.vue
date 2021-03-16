@@ -47,7 +47,7 @@
         </v-row>
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
-            <v-select v-model="information.university_degree" :items="degreeItem" label="مدرک" outlined></v-select>
+            <v-select v-model="information.university_degree" :items="degreeItem" label="مقطع تحصیلی" outlined></v-select>
           </v-col>
         </v-row>
 
@@ -61,7 +61,7 @@
           <div style="flex: 1">
             <v-btn block :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
               <v-icon left>mdi-content-save-outline</v-icon>
-              {{ $t('dashboard.editProfile') }}
+              ذخیره اطلاعات
             </v-btn>
           </div>
         </div>

@@ -32,7 +32,7 @@
               <v-btn class="green--text text--darken-3 px-3 py-5" tile outlined v-if="post.webinar_link" :href="post.webinar_link">
                 <v-icon class="white--text">mdi-link</v-icon>
                 <span class="mr-2">
-                  وبینار
+                  محل برگزاری وبینار
                 </span>
               </v-btn>
               <v-btn

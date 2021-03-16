@@ -4,17 +4,17 @@
     <div class="pa-2 pt-1 title-profile ">
       <div>{{ userData.profile.firstname_fa }} {{ userData.profile.lastname_fa }}</div>
       <div>
-        <v-btn :href="userData.profile.github" target="_blank">
+        <v-btn icon :href="userData.profile.github" target="_blank">
           <v-icon :disabled="userData.profile.linkedin === null">
             mdi-linkedin
           </v-icon>
         </v-btn>
-        <v-btn :href="userData.profile.github" target="_blank">
+        <v-btn icon :href="userData.profile.github" target="_blank">
           <v-icon :disabled="userData.profile.github === null">
             mdi-github
           </v-icon>
         </v-btn>
-        <v-btn :href="userData.profile.resume" target="_blank">
+        <v-btn icon :href="userData.profile.resume" target="_blank">
           <v-icon :disabled="userData.profile.resume === null">
             mdi-file-account
           </v-icon>
@@ -27,7 +27,7 @@
           <li>شهر: {{ userData.profile.province }}</li>
           <li>دانشگاه: {{ userData.profile.university }}</li>
           <li>رشته تحصیلی: {{ userData.profile.major }}</li>
-          <li>مقطع: {{universityDegree(userData.profile.university_degree)}}</li>
+          <li>مقطع: {{ universityDegree(userData.profile.university_degree) }}</li>
           <li>ترم: {{ userData.profile.university_term }}</li>
         </ul>
       </div>

@@ -131,8 +131,13 @@ export default {
             } else {
               this.$set(this.result.errors, x, true);
             }
+
+            if (x === 'email') {
+              if (data.detail[x][0] === 'This field must be unique.') this.result.message = 'ایمیل تکراری است';
+              else if (data.detail[x][0] === 'Enter a valid email address.') this.result.message = 'فرمت ایمیل معتبر نمی‌باشد';
+            }
           });
-          this.result.message = 'ثبت‌نام با خطا مواجه شد.';
+
           this.result.type = 'error';
           this.result.value = true;
         }
@@ -144,7 +149,7 @@ export default {
       const { id_token, access_token, scope, expires_in, expires_at } = googleData;
       let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
       this.$store.commit('auth/setToken', res);
-      this.$router.push('/dashboard/settings');
+      this.$router.push('/dashboard');
       this.$cookies.set('token', res.token, {
         maxAge: 60 * 60 * 24 * 7,
         path: '/',
@@ -163,7 +168,7 @@ export default {
 .main-sign-up-form {
   margin: auto;
   margin-bottom: 150px;
-  max-width: 700px;
+  max-width: 500px;
 }
 .sign-up-title {
   text-align: center;

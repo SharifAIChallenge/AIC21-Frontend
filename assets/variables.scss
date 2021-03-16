@@ -5,24 +5,27 @@ $body-font-family: 'Vazir', serif;
 $btn-letter-spacing: 0;
 $tabs-item-letter-spacing: 0;
 $material-dark-elevation-colors: (
-  '0': #020308,
-  '1': #04050e,
-  '2': #060711,
-  '3': #070915,
-  '4': #080a18,
-  '6': #2b124b,
-  '8': #2d134c,
-  '12': #301650,
-  '16': #321853,
-  '24': #321854,
+  '0': #090c18,
+  '1': #090c18,
+  '2': #090c18,
+  '3': #090c18,
+  '4': #090c18,
+  '6': #090c18,
+  '8': #090c18,
+  '12': #0e1224,
+  '16': #141432,
+  '24': #1a1940,
 );
 $material-dark: (
-  'background': #0e1224,
-  'surface': #160031,
-  'bg-color': #160031,
+  'background': #090c18,
+  'surface': #090c18,
+  'bg-color': #090c18,
+  'navigation-drawer': map-get($material-dark-elevation-colors, '16'),
   'toolbar': map-get($material-dark-elevation-colors, '4'),
+  'app-bar': map-get($material-dark-elevation-colors, '4'),
   'bottom-navigation': map-get($material-dark-elevation-colors, '8'),
-  'cards': map-get($material-dark-elevation-colors, '4'),
+  'cards': map-get($material-dark-elevation-colors, '24'),
+  'tabs': map-get($material-dark-elevation-colors, '8'),
   'calendar': (
     'background-color': map-get($material-dark-elevation-colors, '12'),
     'outside-background-color': map-get($material-dark-elevation-colors, '1'),
@@ -38,10 +41,9 @@ $material-dark: (
   ),
   'table': (
     'active': map-get($material-dark-elevation-colors, '12'),
-    'hover': map-get($material-dark-elevation-colors, '16'),
-    'group': map-get($material-dark-elevation-colors, '16'),
+    'hover': map-get($material-dark-elevation-colors, '24'),
+    'group': map-get($material-dark-elevation-colors, '24'),
   ),
-  'alert': #7575b6,
   'chips': map-get($material-dark-elevation-colors, '24'),
 );
 $data-table-expanded-content-box-shadow: inset 0px 4px 8px -5px rgba(255, 255, 255, 0.1), inset 0px -4px 8px -5px rgba(255, 255, 255, 0.1) !default;

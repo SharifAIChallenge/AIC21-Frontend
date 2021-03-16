@@ -102,6 +102,7 @@ export default {
   },
   methods: {
     signUp() {
+      this.convertJobAndSkills();
       const formData = new FormData();
       let isFormValid = false;
       for (const key in this.information) {
@@ -126,6 +127,13 @@ export default {
           this.loading = false;
           this.$toast.error('در روند ثبت اطلاعات مشکل بوجود آمده است');
         });
+    },
+    convertJobAndSkills() {
+      try {
+        // this.information.jobs =
+
+        console.log(this.information.jobs);
+      } catch (error) {}
     },
     resetForm() {
       this.information = { ...this.profile };

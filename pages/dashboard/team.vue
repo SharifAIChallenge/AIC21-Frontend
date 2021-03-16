@@ -1,5 +1,5 @@
 <template>
-  <v-row class=" d-flex team">
+  <v-row class="d-flex team">
     <v-col cols="12" :md="tabs === 1 ? 8 : 6" class="pa-0">
       <v-divider />
       <v-tabs-items v-model="tabs">
@@ -10,20 +10,20 @@
           </div>
         </v-tab-item>
         <v-tab-item>
-          <v-card-text class="main-content pa-0">
+          <div class="main-content pa-0">
             <SearchUsersAndSendInvitation v-if="haveTeam" />
             <IncompleteTeams v-else />
-          </v-card-text>
+          </div>
         </v-tab-item>
         <v-tab-item>
-          <v-card-text class="main-content">
+          <div class="main-content">
             <TeamInvitationAndHistory v-if="haveTeam" />
             <UserInvitation :toggleHaveTeam="toggleHaveTeam" v-else />
-          </v-card-text>
+          </div>
         </v-tab-item>
       </v-tabs-items>
     </v-col>
-    <v-col cols="12" :md="tabs === 1 ? 4 : 6" class="pa-0" style="background: #080a18;">
+    <v-col cols="12" :md="tabs === 1 ? 4 : 6" class="pa-0" style="background: #080a18">
       <div class="wrapper">
         <div class="d-flex tabsW">
           <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
@@ -111,6 +111,30 @@ export default {
 @import 'assets/variables.scss';
 @import 'assets/mixins.scss';
 
+.dashboard table {
+  th,
+  td {
+    &:nth-of-type(1) {
+      padding-right: 48px !important;
+      @include v-not-md {
+        padding-right: 24px !important;
+      }
+    }
+    &:nth-last-of-type(1) {
+      padding-left: 48px !important;
+      text-align: left;
+      @include v-not-md {
+        padding-left: 24px !important;
+      }
+    }
+  }
+  th .v-icon {
+    display: none;
+  }
+  td .mdi-plus-circle {
+    margin-left: 0 !important;
+  }
+}
 .team {
   @include v-not-md {
     flex-wrap: wrap;
@@ -126,7 +150,7 @@ export default {
   .v-tab {
     width: 150px;
     height: 150px;
-    background: #141432;
+    background: map-get($material-dark-elevation-colors, '16');
     color: white !important;
   }
 
@@ -138,7 +162,7 @@ export default {
   }
   .main-content {
     min-height: 100vh;
-    background-color: #0e1224;
+    background-color: map-get($material-dark-elevation-colors, '12');
   }
   .wrapper {
     display: flex;

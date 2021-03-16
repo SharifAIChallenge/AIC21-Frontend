@@ -1,19 +1,25 @@
 <template>
   <div>
-    <div class="head primary align-center  mb-16">
-      <h1 class="mr-7">
-      {{ team }}
-      </h1>
-      <v-card v-for="team in teams" :key="team" class="teams" color="primary"  outlined tile>
-        <p v-if="team!=='null'">
-        {{ team }}
-        </p>
-      </v-card>
+    <div class="head primary align-center mb-16">
+      <v-container>
+        <v-row class="align-center">
+          <h1 class="mr-7">
+            {{ team }}
+          </h1>
+          <div class="d-flex flex-wrap mr-7">
+            <v-card v-for="team in teams" :key="team" class="teams" color="primary" outlined tile>
+              <p v-if="team !== 'null'">
+                {{ team }}
+              </p>
+            </v-card>
+          </div>
+        </v-row>
+      </v-container>
     </div>
-    <div class="staff mt-7 mx-7 mb-10  py-5 " v-for="team in teams" :key="team">
-      <h1 class="primary--text" v-if="team!=='null'">{{ team }}</h1>
-      <v-row >
-        <v-col md="3" sm="6" v-for="(staff, index) in group[team]" :key="index" class="mt-5 ">
+    <div class="staff mt-7 mx-7 mb-10 py-5" v-for="team in teams" :key="team">
+      <h1 class="primary--text" v-if="team !== 'null'">{{ team }}</h1>
+      <v-row>
+        <v-col md="3" sm="6" v-for="(staff, index) in group[team]" :key="index" class="mt-5">
           <StaffCard class="" :staff="staff" />
         </v-col>
       </v-row>
@@ -41,15 +47,14 @@ export default {
   justify-content: flex-end;
   margin-left: 0px;
   margin-right: 0px;
-  height: 30vh;
-  width: 100vw;
-  
-  h1{
+  min-height: 30vh;
+
+  h1 {
     margin-left: auto;
     font-size: 4rem;
     font-weight: bold;
   }
-  .teams{
+  .teams {
     margin-left: 1vw;
     padding: 1vw;
   }

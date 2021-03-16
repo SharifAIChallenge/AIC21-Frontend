@@ -9,11 +9,11 @@ export default function({ $axios, redirect, store, app, route }) {
   //   console.log('auth 401');
   //   return redirect('/login');
   // }
-  console.log('axios plugin', store.state.auth.isAuthenticated);
+  // console.log('axios plugin', store.state.auth.isAuthenticated);
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status);
     if (code === 401) {
-      console.log('axios 401');
+      // console.log('axios 401');
       store.commit('auth/removeToken');
       app.$cookies.remove('token');
       redirect('/login');

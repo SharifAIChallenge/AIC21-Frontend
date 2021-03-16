@@ -5,7 +5,7 @@
         <v-col>
           <div class="login-title">
             <v-icon right size="55px" color="wihte">
-              mdi-shield-star
+              mdi-shield-star-outline
             </v-icon>
             {{ $t('form.signIn') }}
           </div>
@@ -88,17 +88,13 @@ export default {
       const googleData = googleUser.getAuthResponse();
       const { id_token, access_token, scope, expires_in, expires_at } = googleData;
       let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
-      console.log(res);
       this.$store.commit('auth/setToken', res);
-      this.$router.push('/dashboard/settings');
+      this.$router.push('/dashboard');
+      this.$store.commit('formStatus/toggleShow');
       this.$cookies.set('token', res.token, {
         maxAge: 60 * 60 * 24 * 7,
         path: '/',
       });
-      // const authCode = await this.$gAuth.getAuthCode();
-      // console.log(authCode);
-      // const backendRes = await sendGoogleAuthCode(this.$axios, authCode);
-      // console.log(backendRes);
     },
   },
   computed: {

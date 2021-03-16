@@ -150,6 +150,10 @@ export default {
     profile(now, old) {
       if (now) {
         this.routes.team.disabled = !this.profile.is_complete;
+        if (!this.profile.is_complete) {
+          this.$router.push('/dashboard/settings');
+          this.$toast.error('لطفا ابتدا اطلاعات شخصی را کامل کنید');
+        }
       }
     },
   },
@@ -195,6 +199,7 @@ export default {
 }
 .dashboard {
   padding-top: 90px !important;
+  padding-right: 0;
   @include v-md {
     padding-right: 265px !important;
   }

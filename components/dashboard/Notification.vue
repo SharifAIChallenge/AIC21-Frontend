@@ -1,5 +1,5 @@
 <template>
-  <v-card flat tile>
+  <div class="notif-wrapper">
     <v-card-text class="d-flex align-center">
       <v-icon large class="primary--text pl-3">mdi-bell-ring-outline</v-icon>
       <span class="white--text text-h5">اعلان ها</span>
@@ -16,7 +16,7 @@
         </v-card>
       </v-timeline-item>
     </v-timeline>
-  </v-card>
+  </div>
 </template>
 
 <script>
@@ -39,8 +39,9 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-card {
-  border-radius: 0px !important;
+<style lang="scss" scoped>
+@import 'assets/variables.scss';
+.notif-wrapper {
+  background: map-get($material-dark-elevation-colors, '12');
 }
 </style>
