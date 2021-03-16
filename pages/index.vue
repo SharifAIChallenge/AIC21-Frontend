@@ -170,4 +170,7 @@ export default {
 body {
   overflow-x: hidden;
 }
+.v-dialog--fullscreen {
+  background: #0e1224;
+}
 </style>
