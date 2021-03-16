@@ -30,7 +30,6 @@
               label="شماره تماس"
               v-bind="filedProps"
               :rules="phoneRules"
-              validate-on-blur
             ></v-text-field>
           </v-col>
         </v-row>
@@ -49,8 +48,6 @@
               :items="universityItems"
               :loading="isLoading"
               :search-input.sync="search"
-              hide-no-data
-              hide-selected
               :label="$t('form.educationPlace')"
               return-object
               outlined
@@ -123,6 +120,7 @@ import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
+import { mapState } from 'vuex';
 
 export default {
   mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps, phoneRules],
@@ -137,7 +135,7 @@ export default {
     return {
       valid: false,
       isLoading: false,
-      search: null,
+      search: '',
       languageSelectItem: [
         {
           text: 'java',
@@ -193,19 +191,17 @@ export default {
   },
   watch: {
     search(val) {
-      // Items have already been loaded
-      if (this.universityItems.length > 0) return;
-
-      // Items have already been requested
       if (this.isLoading) return;
 
       this.isLoading = true;
 
       // Lazily load input items
+
+      // if (!this.search) this.search = '';
       this.$axios
         .get(`/accounts/university-search?q=${this.search}`)
         .then(res => {
-          console.log(res);
+          this.universityItems = res.data.data.data.map(item => item.name);
         })
         .catch(err => {
           console.log(err);

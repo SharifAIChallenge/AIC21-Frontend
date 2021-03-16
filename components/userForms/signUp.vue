@@ -44,13 +44,13 @@
 
             <password-input v-model="form.password_1" />
             <password-input v-model="form.password_2" label="form.passwordRepeat" />
-            <v-checkbox
+            <!-- <v-checkbox
               required
               outlined
               v-model="termsAndConditions"
               :rules="requiredRules"
               :label="$t('form.termsAndConditions')"
-            ></v-checkbox>
+            ></v-checkbox> -->
             <v-row>
               <v-col>
                 <v-btn

@@ -117,7 +117,7 @@ export default {
     },
     translateResponseMessage(response) {
       if (response.message === 'your invitation sent') return 'دعوت نامه ارسال شد!';
-      else if (response.detail.detail === 'you have a sent an invitation already') return 'شما قبلا به این کاربر دعوت‌نامه ارسال کردید! ';
+      else if (response.detail.detail === 'you have a sent an invitation already') return 'شما قبلا به این تیم دعوت‌نامه ارسال کردید! ';
       else return 'مشکلی در ارسال دعوت نامه رخ داد!';
     },
   },
