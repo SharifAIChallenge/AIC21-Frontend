@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ma-16">
     <div class="header">
       <div>
         <h2>
@@ -10,7 +10,9 @@
       <div>
         <div class="select-filter">
           <v-combobox v-model="filterSelect" :items="filteIitems" label="تورنومنت" hide-selected outlined></v-combobox>
-          <v-btn height="50" color="primary" class="mr-2">اعمال فیلتر</v-btn>
+          <v-btn height="50" color="primary" class="mr-2" :loading="btnLoading" :disabled="this.filterStatus === this.filterSelect">
+            اعمال فیلتر
+          </v-btn>
         </div>
       </div>
     </div>
@@ -22,7 +24,6 @@
       :headers="headers"
       :items="data"
       class="elevation-1 table-cursor"
-      @click:row="handleClick($event)"
       :page.sync="page"
       :items-per-page="itemPerPage"
       @page-count="pageCount = $event"
@@ -39,29 +40,18 @@
             </div>
           </div>
         </div>
-        <div v-else class="profile">
-          <div class="profile">
-            <div>
-              <v-icon size="80px" style="right: -8px">mdi-alert-box</v-icon>
-            </div>
-            <div>
-              <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
-            </div>
-          </div>
-        </div>
       </template>
-      <template v-slot:[`item.profile.university_degree`]="{ item }">{{ universityDegree(item.profile.university_degree) }}</template>
+      <template v-slot:[`item.profile.university_degree`]="{ item }">{{ convertDateAndTime(item) }}</template>
       <template v-slot:[`item.profile.programming_language`]="{ item }">
-        {{ programmingLanguage(item.profile.programming_language) }}
-      </template>
-      <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
-      <template v-slot:[`item.profile`]="{ item }">
-        <v-icon size="30px" dark @click="setCurrentUser(item.profile, item.email, item.id, true)" class="icon-hover">
-          mdi-card-account-details-outline
+        <v-icon>
+          {{ resultIcon(item) }}
         </v-icon>
+        {{ resultTrasnlate(item) }}
       </template>
       <template v-slot:[`item.send`]="{ item }">
-        <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover ml-5 ml-md-7">mdi-plus-circle</v-icon>
+        <v-btn icon :loading="btnLoading" @click="getGameLog(item)">
+          <v-icon size="30px" class="icon-hover ml-5 ml-md-7">mdi-code-braces-box</v-icon>
+        </v-btn>
       </template>
     </v-data-table>
     <div class="text-center pt-2">
@@ -71,7 +61,7 @@
     <v-dialog v-model="dialog" width="350">
       <v-card>
         <v-container>
-          <div class="dialog-header">
+          <div class="dialog-header mb-4 mt-4">
             <div>
               <h4>
                 دریافت لاگ
@@ -83,13 +73,23 @@
               </h4>
             </div>
           </div>
-          <v-list-item class="header">
+          <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>سلام</v-list-item-title>
+              <v-list-item-title>لاگ سرور</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
-              <v-btn icon>
-                <v-icon color="grey lighten-1">mdi-information</v-icon>
+              <v-btn icon href="https://www.google.com/" target="_blank">
+                <v-icon color="primary">mdi-download</v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>لاگ گرافیک</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-btn icon href="https://www.google.com/" target="_blank">
+                <v-icon color="primary">mdi-download</v-icon>
               </v-btn>
             </v-list-item-action>
           </v-list-item>
@@ -116,9 +116,11 @@ export default {
   data() {
     return {
       filterSelect: 'همه',
+      filterStatus: 'همه',
       filteIitems: ['همه', 'دوستانه', 'رقابتی', 'آزمایشی'],
       tableLoading: false,
-      dialog: true,
+      btnLoading: false,
+      dialog: false,
       page: 1,
       pageCount: 0,
       itemPerPage: 20,
@@ -134,21 +136,25 @@ export default {
         { text: 'دریافت لاگ', align: 'center', value: '' },
       ],
       data: [],
-      currentGame: {},
+      currentGame: {
+        serverLog: '',
+        graphicLog: '',
+      },
       status_code: 200,
     };
   },
   methods: {
     filter(data) {
       this.tableLoading = true;
+      this.btnLoading = true;
 
       var lastApi = '********************';
 
       if (data === 'دوستانه') {
         lastApi = lastApi + '?' + '******************' + '=' + '******************';
-      } else if (data === '') {
+      } else if (data === 'رقابتی') {
         lastApi = lastApi + '?' + '******************' + '=' + '******************';
-      } else if (data === '') {
+      } else if (data === 'آزمایشی') {
         lastApi = lastApi + '?' + '******************' + '=' + '******************';
       }
 
@@ -160,6 +166,7 @@ export default {
           this.$toast.error('خطا در برقراری ارتباط!');
         }
       });
+      this.btnLoading = false;
       this.tableLoading = false;
     },
     convertDateAndTime() {},
@@ -178,6 +185,18 @@ export default {
     toggleDialog() {
       this.dialog = !this.dialog;
     },
+    getGameLog(id) {
+      this.btnLoading = true;
+      this.$axios.$get(`***********/${id}`).then(res => {
+        if (res.status_code === 200) {
+          this.data = res.data;
+          this.dialog = true;
+        } else {
+          this.$toast.error('خطا در برقراری ارتباط!');
+        }
+      });
+      this.btnLoading = false;
+    },
   },
 };
 </script>
@@ -189,10 +208,21 @@ export default {
 }
 .select-filter {
   display: flex;
-  
 }
 .dialog-header {
   display: flex;
   justify-content: space-between;
+}
+.profile {
+  display: flex;
+  align-items: center;
+}
+.table-cursor tbody tr:hover {
+  cursor: pointer;
+}
+.icon-hover {
+  &:hover {
+    color: var(--v-primary-base);
+  }
 }
 </style>
