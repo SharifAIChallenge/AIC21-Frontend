@@ -72,7 +72,6 @@ export default {
 
 #timeline {
   background-color: #0e1224;
-  position: relative;
 }
 .timelineTitle {
   font-size: 4.2rem;

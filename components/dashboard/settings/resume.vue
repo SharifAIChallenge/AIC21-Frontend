@@ -1,92 +1,164 @@
 <template>
-  <div class="pa-5">
-    <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
-      <v-row>
-        <div class="pa-3 d-flex align-center mb-12">
-          <v-icon class="ml-3" color="primary">mdi-account-circle-outline</v-icon>
-          <h2>رزومه</h2>
-        </div>
-      </v-row>
-      <v-row>
-        <v-col cols="12" class="d-flex mb-8" v-if="information.resume !== '' && resume !== null">
-          <div class="pa-2 bg"><v-icon @click="deleteResume" :disabled="resume == null">mdi-trash-can-outline</v-icon></div>
-          <div class="secondary pa-2 d-flex" style="width:100%;overflow: hidden;">
-            <v-icon>mdi-file-download-outline</v-icon>
+  <div>
+    <SectionHeader title="رزومه" icon="mdi-badge-account-horizontal-outline" />
+    <SectionContainer>
+      <v-form ref="editProfile" onSubmit="return false;" @submit="signUp">
+        <v-row v-if="information.image_link">
+          <v-col cols="12" class="d-flex mb-8" style="align-items: flex-end">
+            <v-btn @click="deleteImage" class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
+              <v-icon>mdi-trash-can-outline</v-icon>
+            </v-btn>
+            <div class="secondary pa-2 d-flex" style="width: 150px; height: 150px; overflow: hidden">
+              <img :src="information.image_link" alt="profile_picture" style="width: 100%; heght: 100%; object-fit: cover" />
+            </div>
+          </v-col>
+        </v-row>
+
+        <v-row class="resume">
+          <v-col class="py-0 mb-3" cols="12">
+            <v-file-input
+              v-model="information.image"
+              label="تغییر عکس"
+              v-bind="filedProps"
+              prepend-icon="mdi-file-upload-outline"
+            ></v-file-input>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="information.resume_link">
+          <v-col cols="12" class="d-flex mb-8">
+            <v-btn @click="deleteResume" class="pa-2 bg d-flex justify-center align-center" style="width: 50px; height: 50px">
+              <v-icon>mdi-trash-can-outline</v-icon>
+            </v-btn>
+
             <a
-              v-if="resume !== '' && information.resume !== ''"
-              :href="resume"
+              :href="information.resume_link"
               target="_blanck"
-              style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+              class="secondary pa-2 d-flex align-center"
+              style="width: 100%; overflow: hidden; height: 50px"
             >
-              <span>{{ resume }}</span>
+              <v-icon class="ml-3">mdi-file-download-outline</v-icon>
+              <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ information.resume_link }}</span>
             </a>
-          </div>
-        </v-col>
-      </v-row>
-      <v-row class="resume">
-        <v-col class="py-0 mb-3" cols="12">
-          <v-file-input
-            v-model="information.resume"
-            label="تغییر فایل"
-            outlined
-            dense
-            prepend-icon="mdi-file-upload-outline"
-            @change="edited"
-          ></v-file-input>
-          <!-- <v-text-field
-            v-if="$i18n.locale === 'fa'"
-            v-model="information.firstnameFa"
-            :label="$t('form.nameInPersian')"
-            required
-            :rules="requiredRules"
+          </v-col>
+        </v-row>
+
+        <v-row class="resume">
+          <v-col class="py-0 mb-3" cols="12">
+            <v-file-input
+              v-model="information.resume"
+              label="تغییر فایل رزومه"
+              v-bind="filedProps"
+              prepend-icon="mdi-file-upload-outline"
+            ></v-file-input>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col class="py-0 mb-10 skill" cols="12">
+            <v-combobox
+              v-model="information.skills"
+              height="50px"
+              dense
+              chips
+              multiple
+              outlined
+              label="مهارت ها"
+              append-icon=""
+              messages="با زدن Enter می‌توانید چند آیتم وارد کنید"
+            ></v-combobox>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-10 job" cols="12">
+            <v-combobox
+              v-model="information.jobs"
+              height="50px"
+              dense
+              chips
+              multiple
+              outlined
+              label="شغل"
+              append-icon=""
+              :persistent-hint="true"
+              hint="با زدن Enter می‌توانید چند آیتم وارد کنید"
+            ></v-combobox>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-bind="filedProps" v-model="information.linkedin" label="آدرس لینکدین"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-bind="filedProps" v-model="information.github" label="گیت هاب"></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-bind="filedProps" v-model="information.term" label="ترم"></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row class="px-3">
+          <v-checkbox
             v-bind="filedProps"
-            @keyup="edited"
-          /> -->
-        </v-col>
-      </v-row>
-      <v-row class="justify-space-between pa-3" v-bind:class="[information.resume == '' || resume == null ? 'marginTop' : '']">
-        <v-btn style="flex-basis: 20%;">لغو</v-btn>
-        <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%;">
-          <v-icon left>mdi-content-save-outline</v-icon>
-          {{ $t('dashboard.editProfile') }}
-        </v-btn>
-      </v-row>
-    </v-form>
+            v-model="information.can_sponsors_see"
+            label="اطلاعاتم برای اسپانسر قابل جستجو باشد."
+          ></v-checkbox>
+        </v-row>
+        <div class="d-flex mt-8">
+          <div style="flex: 0 1 93px; margin-left: 24px">
+            <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
+          </div>
+          <div style="flex: 1">
+            <v-btn block :loading="loading" type="submit" color="primary" style="flex-basis: 75%">
+              <v-icon left>mdi-content-save-v-bind="filedProps"</v-icon>
+              ذخیره اطلاعات
+            </v-btn>
+          </div>
+        </div>
+      </v-form>
+    </SectionContainer>
   </div>
 </template>
 
 <script>
 import { emailRules, requiredRules } from '../../../mixins/formValidations';
-import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
+import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
 
 export default {
-  mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps],
+  mixins: [requiredRules, emailRules, fieldProps],
+  components: { SectionHeader, SectionContainer },
   data() {
-    return {
-      valid: false,
-      loading: false,
-    };
+    return {};
   },
 
   props: {
     information: Object,
-    edited: Function,
     disable: Boolean,
     loading: Boolean,
     signUp: Function,
     deleteResume: Function,
-    resume: String,
+    deleteImage: Function,
+    resetForm: Function,
   },
   methods: {},
 };
 </script>
 <style lang="scss">
 .resume {
-  min-height: calc(100vh - 300px);
+  .v-text-field--outlined .v-input__prepend-outer {
+    margin-top: 10px !important;
+  }
   .v-input__prepend-outer {
     position: absolute;
     left: 3px;
+    top: 3px;
   }
   .v-input__append-inner {
     display: none;
@@ -94,5 +166,18 @@ export default {
 }
 .marginTop {
   margin-top: 100px !important;
+}
+.skill,
+.job {
+  position: relative;
+  .v-text-field__details {
+    display: none;
+  }
+  .mdi-check {
+    position: absolute !important;
+    left: 19px;
+    cursor: pointer;
+    top: 7px;
+  }
 }
 </style>

@@ -1,13 +1,9 @@
 export const signup = (axios, data) => {
-  return axios.$post(
-    '/accounts/signup',
-    { ...data, password_1: data.password, password_2: data.password },
-    {
-      headers: {
-        Authorization: false,
-      },
-    }
-  );
+  return axios.$post('/accounts/signup', data, {
+    headers: {
+      Authorization: false,
+    },
+  });
 };
 
 export const resetPassword = (axios, email) => {
@@ -299,10 +295,6 @@ export const gameStats = axios => {
   return axios.$get(config.url);
 };
 
-/*******************************/
-export const test = axios => {
-  return axios.$get('/ticket');
-};
 export const FAQ = axios => {
   return axios.$get('/faq/questions');
 };

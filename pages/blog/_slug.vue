@@ -32,7 +32,7 @@
               <v-btn class="green--text text--darken-3 px-3 py-5" tile outlined v-if="post.webinar_link" :href="post.webinar_link">
                 <v-icon class="white--text">mdi-link</v-icon>
                 <span class="mr-2">
-                  وبینار
+                  محل برگزاری وبینار
                 </span>
               </v-btn>
               <v-btn
@@ -66,7 +66,7 @@
         <app-post :post="post"></app-post>
       </v-col>
     </v-row>
-    <EmailCallToAction />
+    <CallToAction />
   </v-container>
 </template>
 
@@ -74,12 +74,13 @@
 import Buttons from '~/components/blog/Buttons';
 import Post from '~/components/blog/Post';
 import { getPost, getPosts } from '~/api/blog';
-import EmailCallToAction from '~/components/EmailCallToAction.vue';
+import CallToAction from '~/components/CallToAction.vue';
+
 export default {
   components: {
     'app-post-button': Buttons,
     'app-post': Post,
-    EmailCallToAction,
+    CallToAction,
   },
   data() {
     return {
@@ -113,8 +114,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.post-page {
-  margin-top: 150px;
-}
-</style>
+<style></style>

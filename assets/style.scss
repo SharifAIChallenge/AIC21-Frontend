@@ -102,6 +102,14 @@ p {
   font-family: LTZaridSans;
   font-size: 1.25rem;
 }
-a{
+a {
   text-decoration: none;
+}
+
+.v-alert {
+  background-color: #141432 !important;
+}
+
+.theme--dark.v-tabs > .v-tabs-bar {
+  background-color: rgb(8, 10, 24) !important;
 }

@@ -39,7 +39,7 @@ export default {
       { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/fav-icon/android-icon-96x96.png' },
       { rel: 'icon', type: 'image/png', sizes: '72x72', href: '/fav-icon/android-icon-72x72.png' },
       { rel: 'manifest', type: 'image/png', href: '/fav-icon/manifest.json' },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/icon.png' },
     ],
   },
   /*
@@ -151,12 +151,12 @@ export default {
           primary: '#eb3654',
           accent: colors.pink.base,
           secondary: '#42b3aa',
-          info: colors.blue.base,
           warning: colors.amber.base,
-          error: colors.red.accent3,
-          success: colors.green.accent4,
           bg: '#160031',
           shades: '#090c18',
+          error: '#ffb300',
+          success: '#00c853',
+          info: '#0091ea',
         },
       },
     },
@@ -173,51 +173,6 @@ export default {
   router: {
     middleware: ['auth'],
   },
-  // auth: {
-  //   plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
-  //   strategies: {
-  //     google: {
-  //       clientId: '864043474548-9is9rd8jbf3bbq4tdrhsfdjnivasj7l6.apps.googleusercontent.com',
-  //       codeChallengeMethod: '',
-  //       responseType: 'code',
-  //       endpoints: {
-  //         token: '/social-login/google/',
-  //         userInfo: '/auth/',
-  //       },
-  //     },
-  //     local: {
-  //       endpoints: {
-  //         login: {
-  //           url: '/accounts/login',
-  //           method: 'post',
-  //           propertyName: 'token',
-  //         },
-  //         logout: { url: '/accounts/logout', method: 'post' },
-  //         user: {
-  //           url: '/accounts/profile',
-  //           method: 'get',
-  //           propertyName: false,
-  //         },
-  //       },
-  //       token: {
-  //         required: true,
-  //         type: 'token',
-  //         maxAge: 10000000000,
-  //       },
-  //       user: {
-  //         property: 'data',
-  //       },
-  //     },
-  //   },
-  //   resetOnError: true,
-  //   redirect: {
-  //     login: '/login',
-  //     logout: '/',
-  //     callback: '/login',
-  //     home: '/dashboard',
-  //   },
-  //   watchLoggedIn: true,
-  // },
   toast: {
     position: 'bottom-center',
     theme: 'bubble',

@@ -5,11 +5,11 @@
       <p>فلان</p>
     </div> -->
     <div class="staffHeader d-flex justify-center align-center flex-column">
-      <h1>تیم ما</h1>
-      <p>با تیم برگزارکننده AI Challenge 2021 بیشتر اشنا شو</p>
+      <h1><img :src="title" alt="aichallenge" /></h1>
+      <p>با تیم برگزارکننده AI Challenge 2021 بیشتر آشنا شو</p>
       <v-row v-for="(row, index) in rows" :key="index" :id="'headerRow-' + index">
         <div v-for="(col, i) in cols" :key="i" class="headerDiv">
-          <img class="staff_img" src="https://www.google.com" />
+          <img class="staff_img" src="https://www.aichallenge.ir" />
           <!-- {{ cols * index + i }} -->
         </div>
       </v-row>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import title from '~/assets/images/out-team.svg';
 export default {
   props: { staffs: Array },
   data() {
@@ -28,11 +29,13 @@ export default {
       width: 0,
       height: 0,
       randomImage: [],
+      index: 11,
+      title: title,
     };
   },
   methods: {
     generateRandomIndexForGrid() {
-      for (let index = 0; index < 7; index++) {
+      for (let index = 0; index < this.index; index++) {
         let randomRow = Math.floor(Math.random() * this.rows);
         let randomCol = Math.floor(Math.random() * this.cols) + 1;
         document
@@ -50,7 +53,7 @@ export default {
       }
     },
     sendRandomStaff() {
-      if (this.randomStaffs.length >= 7) return;
+      if (this.randomStaffs.length >= this.index) return;
       let staff = Math.floor(Math.random() * this.staffs.length);
       if (this.randomStaffs.indexOf(staff) < 0) {
         this.randomStaffs.push(staff);
@@ -70,12 +73,20 @@ export default {
       this.width = window.innerWidth;
       this.height = window.innerHeight;
       this.calcColAndRow();
+      this.preparePictures();
     },
 
     calcColAndRow() {
-      if (959 < this.width) this.rows = 4;
-      else if (599 < this.width && this.width < 960) this.rows = 5;
-      else this.rows = 6;
+      if (959 < this.width) {
+        this.rows = 4;
+        this.index = 11;
+      } else if (599 < this.width && this.width < 960) {
+        this.rows = 5;
+        this.index = 9;
+      } else {
+        this.rows = 6;
+        this.index = 7;
+      }
 
       this.cols = Math.floor(this.width / (this.height / this.rows)) + 1;
       document.getElementsByClassName('staffHeader')[0].style.width = this.cols * (100 / this.rows) + 'vh';
@@ -88,17 +99,16 @@ export default {
   },
   mounted() {
     this.reSize();
+    this.preparePictures();
     window.addEventListener('resize', this.reSize);
-    this.preparePictures();
     setInterval(this.preparePictures, 10000);
-  },
-  updated() {
-    this.preparePictures();
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import 'assets/mixins.scss';
+
 #staff-header {
   width: 100%;
   overflow: hidden;
@@ -116,6 +126,7 @@ export default {
         object-fit: cover;
         opacity: 0;
         visibility: hidden;
+        filter: grayscale(1);
       }
       .active {
         visibility: visible;
@@ -127,6 +138,15 @@ export default {
       position: absolute;
       font-size: 5rem;
       z-index: 1;
+      img {
+        width: 20vw;
+        @include v-not-md {
+          width: 30vw;
+        }
+        @include v-not-sm {
+          width: 50vw;
+        }
+      }
     }
     p {
       position: absolute;

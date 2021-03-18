@@ -5,8 +5,10 @@
     <Header :staffs="allStaffs" />
 
     <div class="stickyBar">
-      <div class="item" v-for="group in groups" :key="group">
-        {{ group }}
+      <div class="stickyBarWraper">
+        <div class="item" v-for="group in groups" :key="group">
+          {{ group }}
+        </div>
       </div>
     </div>
     <StaffIntro v-for="(group, index) in groups" :key="group" :group="staffs[group]" :team="groups[index]" />
@@ -55,16 +57,29 @@ export default {
 
 <style lang="scss" scoped>
 @import 'assets/variables.scss';
+@import 'assets/mixins.scss';
+
 .stickyBar {
   position: sticky;
   top: 0;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
   z-index: 2;
   background-color: map-get($map: $material-dark, $key: 'background');
   width: 100vw;
-  overflow: hidden;
+  overflow-y: hidden;
+  @include v-not-sm {
+    overflow-x: scroll;
+  }
+  .stickyBarWraper {
+    min-width: 100vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    background-color: map-get($map: $material-dark, $key: 'background');
+    @include v-not-sm {
+      justify-content: space-between;
+      min-width: 150vw;
+    }
+  }
 }
 .item {
   margin: auto 5vw;

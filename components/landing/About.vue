@@ -60,8 +60,10 @@ div {
 }
 #about {
   max-width: 45%;
+  padding: 120px 30px;
   @include not-md {
     max-width: 90%;
+    padding: 50px 15px;
   }
 }
 </style>

@@ -5,7 +5,7 @@
         <v-col>
           <div class="login-title">
             <v-icon right size="55px" color="wihte">
-              mdi-shield-star
+              mdi-shield-star-outline
             </v-icon>
             {{ $t('form.signIn') }}
           </div>
@@ -16,12 +16,13 @@
               outlined
               dir="ltr"
               type="email"
-              :rules="requiredRules"
+              :rules="emailRules"
               required
               autofocus
               validate-on-blur
               height="36px"
               aria-autocomplete="email"
+              class="autofill-bg"
             ></v-text-field>
             <password-input v-model="password" />
             <v-row>
@@ -32,7 +33,7 @@
 
             <v-row>
               <v-col>
-                <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading" :loading="loading" type="submit">
+                <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading || !valid" :loading="loading" type="submit">
                   {{ $t('form.signIn') }}
                 </v-btn>
                 <div style="text-align: center; margin:10px;">
@@ -85,12 +86,16 @@ export default {
     },
     async loginWithGoogle() {
       const googleUser = await this.$gAuth.signIn();
-      console.log(googleUser.getAuthResponse());
-
-      // const authCode = await this.$gAuth.getAuthCode();
-      // console.log(authCode);
-      // const backendRes = await sendGoogleAuthCode(this.$axios, authCode);
-      // console.log(backendRes);
+      const googleData = googleUser.getAuthResponse();
+      const { id_token, access_token, scope, expires_in, expires_at } = googleData;
+      let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
+      this.$store.commit('auth/setToken', res);
+      this.$router.push('/dashboard');
+      this.$store.commit('formStatus/toggleShow');
+      this.$cookies.set('token', res.token, {
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      });
     },
   },
   computed: {

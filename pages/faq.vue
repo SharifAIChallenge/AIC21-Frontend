@@ -45,18 +45,19 @@
         </v-row>
       </div>
     </v-container>
-    <EmailCallToAction />
+    <CallToAction />
   </div>
 </template>
 
 <script>
 import Header from '~/components/landing/Header.vue';
 import { FAQ } from '~/api/index';
-import EmailCallToAction from '~/components/EmailCallToAction.vue';
+import CallToAction from '~/components/CallToAction.vue';
+
 export default {
   auth: false,
   layout: 'landing',
-  components: { Header, EmailCallToAction },
+  components: { Header, CallToAction },
   async asyncData({ $axios }) {
     let data = await FAQ($axios);
     const titles = data.data.map(item => item.title);
@@ -133,7 +134,6 @@ export default {
 .faq-card {
   border: 3px solid var(--v-primary-base);
   padding: 20px;
-  height: 100%;
 }
 .faq-card-title {
   display: flex;

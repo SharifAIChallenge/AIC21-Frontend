@@ -42,11 +42,11 @@
         <v-col cols="8" class="pr-0">
           <v-card-text>
             <span class="white--text font-weight-black text-body-1">
-              دو جایزه رندوم برای تیم‌های
+              دو جایزه برای تیم های
               <br />
               چهارم تا بیستم
               <br />
-              دو جایزه ویژه برای مینی‌گیم‌ها
+              دوجایزه ویژه برای مینی گیم ها
             </span>
           </v-card-text>
         </v-col>

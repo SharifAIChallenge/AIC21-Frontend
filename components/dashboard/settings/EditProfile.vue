@@ -1,131 +1,213 @@
 <template>
-  <div class="pa-5">
-    <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
-      <v-row>
-        <div class="pa-3 d-flex align-center mb-12">
-          <v-icon class="ml-3" color="primary">mdi-account-circle-outline</v-icon>
-          <h2>اطلاعات شخصی</h2>
+  <div>
+    <SectionHeader title="اطلاعات شخصی" icon="mdi-account-circle-outline" />
+    <SectionContainer>
+      <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-model="information.firstname_fa" :label="$t('form.nameInPersian')" required :rules="requiredRules" outlined />
+          </v-col>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field
+              v-model="information.lastname_fa"
+              :label="$t('form.lastNameInPersian')"
+              required
+              :rules="requiredRules"
+              v-bind="filedProps"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-model="information.email" label="ایمیل" readonly v-bind="filedProps" :rules="emailRules"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field
+              v-model="information.phone_number"
+              required
+              label="شماره تماس"
+              v-bind="filedProps"
+              :rules="phoneRules"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <!-- <v-text-field
+          v-model="information.university"
+          :label="$t('form.educationPlace')"
+          required
+          :rules="requiredRules"
+          v-bind="filedProps"
+          class="mb-6"
+        /> -->
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-autocomplete
+              v-model="information.university"
+              :items="universityItems"
+              :loading="isLoading"
+              :search-input.sync="search"
+              :label="$t('form.educationPlace')"
+              return-object
+              outlined
+              :rules="requiredRules"
+            ></v-autocomplete>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field
+              type="int"
+              v-model="information.birth_date"
+              v-bind="filedProps"
+              required
+              :rules="requiredRules"
+              label="سال ورودی"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-model="information.major" :rules="requiredRules" outlined required label="رشته"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-select v-model="information.university_degree" :items="degreeItem" required label="مقطع تحصیلی" outlined></v-select>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-select
+              v-model="information.programming_language"
+              :rules="requiredRules"
+              :items="languageSelectItem"
+              label="زبان برنامه نویسی"
+              outlined
+            ></v-select>
+          </v-col>
+        </v-row>
+
+        <v-row class="px-3">
+          <v-checkbox
+            v-model="information.hide_profile_info"
+            required
+            label="اطلاعاتم برای سایر شرکت کننده ها قابل جستجو نباشد."
+          ></v-checkbox>
+        </v-row>
+
+        <div class="d-flex mt-8">
+          <div style="flex: 0 1 93px; margin-left: 24px">
+            <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
+          </div>
+          <div style="flex: 1">
+            <v-btn block :loading="loading" type="submit" :disabled="!valid" color="primary" style="flex-basis: 75%">
+              <v-icon left>mdi-content-save-outline</v-icon>
+              ذخیره اطلاعات
+            </v-btn>
+          </div>
         </div>
-      </v-row>
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field
-            v-if="$i18n.locale === 'fa'"
-            v-model="information.firstnameFa"
-            :label="$t('form.nameInPersian')"
-            required
-            :rules="requiredRules"
-            v-bind="filedProps"
-            @keyup="edited"
-          />
-        </v-col>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field
-            v-if="$i18n.locale === 'fa'"
-            v-model="information.lastnameFa"
-            :label="$t('form.lastNameInPersian')"
-            required
-            :rules="requiredRules"
-            v-bind="filedProps"
-            @keyup="edited"
-          />
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col class="py-0 mb-3" cols="12">
-          <v-text-field
-            v-model="information.firstnameEn"
-            :label="$t('form.nameInEnglish')"
-            required
-            :rules="requiredRules"
-            v-bind="filedProps"
-            dir="ltr"
-            @keyup="edited"
-          />
-        </v-col>
-        <v-col class="py-0 mb-6" cols="12">
-          <v-text-field
-            v-model="information.lastnameEn"
-            :label="$t('form.lastNameInEnglish')"
-            required
-            :rules="requiredRules"
-            v-bind="filedProps"
-            dir="ltr"
-            @keyup="edited"
-          />
-        </v-col>
-      </v-row>
-
-      <v-dialog ref="dialog" v-model="menu" :return-value.sync="information.birthDate" width="290px">
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="information.birthDate"
-            v-bind="filedProps"
-            required
-            :rules="requiredRules"
-            :label="$t('form.birthday')"
-            readonly
-            v-on="on"
-            dir="ltr"
-            @focus="menu = true"
-            class="mb-3"
-          />
-        </template>
-        <v-date-picker
-          v-model="information.birthDate"
-          :max="new Date().toISOString().substr(0, 10)"
-          ref="picker"
-          min="1950-01-01"
-          locale="en-US"
-          scrollable
-          @change="edited"
-        />
-      </v-dialog>
-
-      <v-text-field
-        v-model="information.university"
-        :label="$t('form.educationPlace')"
-        required
-        :rules="requiredRules"
-        v-bind="filedProps"
-        class="mb-3"
-        @keyup="edited"
-      />
-
-      <v-row class="justify-space-between pa-3">
-        <v-btn style="flex-basis: 20%;">لغو</v-btn>
-        <v-btn :disabled="!valid || disable" :loading="loading" type="submit" color="primary" style="flex-basis: 75%;">
-          <v-icon left>mdi-content-save-outline</v-icon>
-          {{ $t('dashboard.editProfile') }}
-        </v-btn>
-      </v-row>
-    </v-form>
+      </v-form>
+    </SectionContainer>
   </div>
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../../../mixins/formValidations';
+import { emailRules, requiredRules, phoneRules } from '../../../mixins/formValidations';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
-import { editProfile } from '../../../api';
+import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
+import { mapState } from 'vuex';
 
 export default {
-  mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps],
+  mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps, phoneRules],
+  components: { SectionHeader, SectionContainer },
+  props: {
+    information: Object,
+    loading: Boolean,
+    signUp: Function,
+    resetForm: Function,
+  },
   data() {
     return {
       valid: false,
+      isLoading: false,
+      search: '',
+      languageSelectItem: [
+        {
+          text: 'java',
+          value: 'java',
+        },
+        {
+          text: '++C',
+          value: 'cpp',
+        },
+        {
+          text: 'python',
+          value: 'py3',
+        },
+      ],
+      degreeItem: [
+        {
+          text: 'دانش آموز',
+          value: 'ST',
+        },
+        {
+          text: 'کارشناسی',
+          value: 'BA',
+        },
+        {
+          text: 'کارشناسی ارشد',
+          value: 'MA',
+        },
+        {
+          text: 'دکترا',
+          value: 'DO',
+        },
+      ],
+      universityItems: [],
     };
   },
-  props: {
-    information: Object,
-    edited: Function,
-    menu: Boolean,
-    disable: Boolean,
-    loading: Boolean,
-    signUp: Function,
+  // async fetch() {
+
+  // },
+  methods: {
+    async getUniversityItems() {
+      this.isLoading = true;
+      this.$axios.get(`/accounts/university-search?q=${this.information.university}`).then(res => {
+        console.log(res);
+        this.isLoading = false;
+      });
+    },
+
+    // getUniversityItems() {
+    //   this.$axios.get(`/accounts/university-search?q=${this.information.university}`).then(res => {
+    //     console.log(res)
+    //   });
+    // },
   },
-  computed: {},
-  methods: {},
+  watch: {
+    search(val) {
+      if (this.isLoading) return;
+
+      this.isLoading = true;
+
+      // Lazily load input items
+
+      // if (!this.search) this.search = '';
+      this.$axios
+        .get(`/accounts/university-search?q=${this.search}`)
+        .then(res => {
+          this.universityItems = res.data.data.data.map(item => item.name);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => (this.isLoading = false));
+    },
+  },
 };
 </script>
