@@ -33,26 +33,16 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <!-- <v-text-field
-          v-model="information.university"
-          :label="$t('form.educationPlace')"
-          required
-          :rules="requiredRules"
-          v-bind="filedProps"
-          class="mb-6"
-        /> -->
+
         <v-row>
           <v-col class="py-0 mb-3" cols="12">
-            <v-autocomplete
+            <v-text-field
               v-model="information.university"
-              :items="universityItems"
-              :loading="isLoading"
-              :search-input.sync="search"
               :label="$t('form.educationPlace')"
-              return-object
-              outlined
+              required
               :rules="requiredRules"
-            ></v-autocomplete>
+              v-bind="filedProps"
+            />
           </v-col>
         </v-row>
         <v-row>
@@ -135,7 +125,6 @@ export default {
     return {
       valid: false,
       isLoading: false,
-      search: '',
       languageSelectItem: [
         {
           text: 'java',
@@ -174,40 +163,5 @@ export default {
   // async fetch() {
 
   // },
-  methods: {
-    async getUniversityItems() {
-      this.isLoading = true;
-      this.$axios.get(`/accounts/university-search?q=${this.information.university}`).then(res => {
-        console.log(res);
-        this.isLoading = false;
-      });
-    },
-
-    // getUniversityItems() {
-    //   this.$axios.get(`/accounts/university-search?q=${this.information.university}`).then(res => {
-    //     console.log(res)
-    //   });
-    // },
-  },
-  watch: {
-    search(val) {
-      if (this.isLoading) return;
-
-      this.isLoading = true;
-
-      // Lazily load input items
-
-      // if (!this.search) this.search = '';
-      this.$axios
-        .get(`/accounts/university-search?q=${this.search}`)
-        .then(res => {
-          this.universityItems = res.data.data.data.map(item => item.name);
-        })
-        .catch(err => {
-          console.log(err);
-        })
-        .finally(() => (this.isLoading = false));
-    },
-  },
 };
 </script>
