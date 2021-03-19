@@ -61,7 +61,7 @@ export default {
   },
   async fetch() {
     const res = await this.$axios.$get('/homepage/media');
-    this.url = res.data[0].file;
+    if (res.data[0]) this.url = res.data[0].file;
   },
   methods: {
     scrollToCallToAction() {

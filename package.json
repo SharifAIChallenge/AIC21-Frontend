@@ -18,7 +18,7 @@
     "@nuxtjs/markdownit": "^2.0.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/svg": "^0.1.12",
-    "@nuxtjs/toast": "^3.3.1",
+    "@nuxtjs/toast": "^3.3.0",
     "cookie-universal-nuxt": "^2.1.4",
     "front-matter": "^4.0.2",
     "linkify-it": "^3.0.2",
@@ -27,7 +27,7 @@
     "markdown-it-attrs": "^4.0.0",
     "markdown-it-div": "^1.1.0",
     "markdown-it-toc-done-right": "^4.2.0",
-    "nuxt": "^2.14.12",
+    "nuxt": "^v2.15.3",
     "vue-google-oauth2": "^1.5.8",
     "vue-i18n": "^8.24.0",
     "vue-quill-editor": "^3.0.6"
@@ -46,4 +46,3 @@
     "quill-image-extend-module": "^1.1.2"
   }
 }
-
