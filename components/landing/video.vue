@@ -26,12 +26,12 @@
             </div>
             <v-row>
               <v-col>
-                <!-- <v-btn block class="btn" @click="scrollToCallToAction()">
+                <v-btn block class="btn" @click="scrollToCallToAction()">
                   عضویت در خبرنامه
-                </v-btn> -->
-                <v-btn block class="btn" @click="changeStatus('signUp')">
-                  {{ $t('home.signUpNow') }}
                 </v-btn>
+                <!-- <v-btn block class="btn" @click="changeStatus('signUp')">
+                  {{ $t('home.signUpNow') }}
+                </v-btn> -->
               </v-col>
               <v-col>
                 <v-btn block color="black" class="btn" to="/faq">
@@ -61,7 +61,7 @@ export default {
   },
   async fetch() {
     const res = await this.$axios.$get('/homepage/media');
-    if (res.data[0]) this.url = res.data[0].file;
+    this.url = res.data[0].file;
   },
   methods: {
     scrollToCallToAction() {
@@ -74,7 +74,6 @@ export default {
     },
     changeStatus(form) {
       this.$store.commit('formStatus/changeStatus', form);
-      this.$store.commit('formStatus/toggleShow');
     },
   },
   props: {
@@ -92,7 +91,7 @@ export default {
   align-items: center;
   position: relative;
   padding: 28vmin 0;
-  margin: 120px 0 30px;
+  margin: 30px 0 30px;
   @include not-md {
     padding: 13vmin 0;
   }

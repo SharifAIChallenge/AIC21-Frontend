@@ -1,6 +1,6 @@
 <template>
   <v-card flat tile class="call_to_action transparent mx-auto">
-    <img src="logo__white.svg" class="background-logo" />
+    <img src="../assets/images/logo/logo__white.svg" class="background-logo" />
     <v-row class="mb-16" justify="space-between">
       <v-col cols="12" sm="5" class="align-start justify-center" style="z-index:1">
         <div class="d-flex flex-column align-center align-sm-end justify-center pl-5" style="height:100%">
