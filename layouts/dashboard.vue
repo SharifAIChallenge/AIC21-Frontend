@@ -205,9 +205,9 @@ export default {
   }
 }
 .nav_logo {
+  transform: scale(3.3) translateY(-1px);
   width: 100%;
   transition: 0.4s;
-  transform: scale(4);
 }
 .v-app-bar__nav-icon {
   position: relative;
