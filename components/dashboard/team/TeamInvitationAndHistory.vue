@@ -92,7 +92,16 @@
       </div>
 
       <v-dialog v-model="dialog" width="350">
-        <div class="close-btn" @click="dialog = false">X</div>
+        <v-btn
+          class='ma-3'
+          icon
+          large
+          @click="dialog = false"
+        >
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
         <UserProfileForTeam :userData="currentUser" />
       </v-dialog>
     </SectionContainer>

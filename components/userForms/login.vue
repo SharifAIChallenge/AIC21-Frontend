@@ -36,8 +36,8 @@
                 <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading || !valid" :loading="loading" type="submit">
                   {{ $t('form.signIn') }}
                 </v-btn>
-                <div style="text-align: center; margin:10px;">
-                  ————— یا —————
+                <div class='my-6'>
+                  <div class='or-separator'><span class='px-3'>یا</span></div>
                 </div>
                 <v-btn @click="loginWithGoogle" block color="primary" style="border-radius: 0; font-weight: normal;">
                   <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
@@ -107,6 +107,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.or-separator {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  &::after, &::before {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff;
+  }
+}
+
 .main-login-form {
   margin: auto;
   max-width: 500px;

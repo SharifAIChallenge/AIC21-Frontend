@@ -1,6 +1,16 @@
 <template>
   <v-dialog v-model="show" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <div class="close-btn" @click="toggleShow()">X</div>
+    <v-btn
+      class='ma-3'
+      icon
+      x-large
+      @click="toggleShow()"
+    >
+      <v-icon>
+        mdi-close
+      </v-icon>
+    </v-btn>
+
     <div class="form-wrapper">
       <login v-if="form === 'login'" />
       <forgotPassword v-if="form === 'forgot'" />

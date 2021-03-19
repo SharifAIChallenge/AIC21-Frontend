@@ -107,7 +107,9 @@ export default {
       for (const key in this.information) {
         if (this.information[key] !== this.profile[key]) {
           if (key === 'jobs' || key === 'skills') {
-            formData.append(key + '_list', this.information[key]);
+            if (this.information[key]) {
+              formData.append(key + '_list', this.information[key]);
+            }
           } else {
             formData.append(key, this.information[key]);
           }

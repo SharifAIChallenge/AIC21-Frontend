@@ -152,7 +152,7 @@ export default {
           accent: colors.pink.base,
           secondary: '#42b3aa',
           warning: colors.amber.base,
-          bg: '#160031',
+          bg: '#0e1224',
           shades: '#090c18',
           error: '#ffb300',
           success: '#00c853',
