@@ -1,39 +1,68 @@
 <template>
   <v-container>
-    <!-- {{ dataa }} -->
-    <!-- {{currentUserProfile}} -->
-    <!-- {{ profile }} -->
-    
-    <div>
-      <div class="tickets-countainer">
-        <div class="ticket-main-info">
-
-        <div class="ticket-main-info-title">{{ data.title }}</div>
-        <div class="ticket-main-info-date">در تاریخ: {{ fixDate(data.created) }} در ساعت: {{ fixTime(data.created) }}</div>
-        <div class="ticket-main-info-text">{{data.text}}</div>
-        <div class="ticket-main-info-status">{{data.status}}</div>
-        <div class="ticket-main-info-answer-status">{{lastStatusOfReply()}}</div>
-        <div class="ticket-main-info-public">{{data.is_public}}</div>
-        </div>
-        <div v-for="(reply, index) in data.replies" :key="index">
-          <div v-if="currentUserEmail === reply.user.email" class="user-reply">
-            {{ index }}.
-            <div class="user-reply-name">{{ reply.user.first_name }} {{ reply.user.last_name }}</div>
-            <div class="user-reply-date">در تاریخ: {{ fixDate(reply.created) }} در ساعت: {{ fixTime(reply.created) }}</div>
-            <div class="user-reply-text">
-              {{ reply.text }}
-            </div>
-          </div>
-          <div v-else class="admin-reply">
-            {{ index }}.
-            <div class="admin-reply-name">{{ reply.user.first_name }} {{ reply.user.last_name }}</div>
-            <div class="admin-reply-date">در تاریخ: {{ fixDate(reply.created) }} در ساعت: {{ fixTime(reply.created) }}</div>
-            <div class="admin-reply-text">
-              {{ reply.text }}
-            </div>
-          </div>
-        </div>
+    <div style="display: flex; justify-content:space-between ;">
+      <div class="mb-4">
+        <h2>
+          <v-icon color="primary" size="36">mdi-alert-circle-outline</v-icon>
+          {{ this.data.title }}
+        </h2>
       </div>
+      <div>
+        <v-chip>
+          بارگذاری کد
+        </v-chip>
+      </div>
+    </div>
+    <div>
+      <v-timeline dense>
+        <v-timeline-item>
+          <v-avatar slot="icon">
+            <img :src="this.data.author.image" />
+          </v-avatar>
+          <v-card>
+            <v-card-text>
+              {{ this.data.text }}
+            </v-card-text>
+          </v-card>
+        </v-timeline-item>
+
+        <v-timeline-item v-for="(reply, index) in this.data.replies" :key="index">
+          <template v-slot:icon>
+            <v-avatar>
+              <img :src="reply.user.image" />
+            </v-avatar>
+          </template>
+          <v-card class="elevation-2">
+            <v-card-text>
+              {{ reply.text }}
+            </v-card-text>
+          </v-card>
+        </v-timeline-item>
+
+        <v-timeline-item>
+          <v-avatar slot="icon">
+            <img :src="this.data.author.image" />
+          </v-avatar>
+          <v-card class="elevation-2">
+            <v-form ref="form" lazy-validation class="pa-2">
+              <v-textarea
+                :counter="500"
+                :rules="[v => !!v || 'شرح نمی تواند خالی باشد!']"
+                label="نظر"
+                required
+                outlined
+                class="pa-2"
+              ></v-textarea>
+
+              <div style="display: flex; justify-content: flex-end;">
+                <v-btn color="primary">
+                  ارسال نظر
+                </v-btn>
+              </div>
+            </v-form>
+          </v-card>
+        </v-timeline-item>
+      </v-timeline>
     </div>
   </v-container>
 </template>
@@ -57,6 +86,7 @@ export default {
           first_name: 'حسام',
           last_name: 'اثنی عشری',
           email: 'a@b.com',
+          image: 'https://i.pravatar.cc/64',
         },
         replies: [
           {
@@ -64,16 +94,19 @@ export default {
               first_name: 'حسام',
               last_name: 'اثنی عشری',
               email: 'a@b.com',
+              image: 'https://i.pravatar.cc/64',
             },
             text: 'qwsxszs',
             created: '2021-02-27T17:52:05.932809Z',
             status: 'pending',
             id: '9b3d1e96-fffd-492f-a39e-9ce9b65f2b32',
-          },          {
+          },
+          {
             user: {
               first_name: 'ادمین',
               last_name: 'ادمینی',
               email: 'a1@b1.com',
+              image: 'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/nun_sister_woman_avatar-512.png',
             },
             text: 'سلام عزیز چرت نوشتی',
             created: '2021-03-27T19:52:05.932809Z',
@@ -112,8 +145,8 @@ export default {
       var str = created;
       return str.substring(11, 19);
     },
-    lastStatusOfReply(){
-      let lastElementStatus = this.data.replies[this.data.replies.length-1];
+    lastStatusOfReply() {
+      let lastElementStatus = this.data.replies[this.data.replies.length - 1];
       return lastElementStatus.status;
     },
   },
