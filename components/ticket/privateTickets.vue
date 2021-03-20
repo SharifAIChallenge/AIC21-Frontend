@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <v-btn @click="toggleOpenStatus()">{{ filterStatus.open }}</v-btn>
-    <v-data-table center :headers="headers" :items="filter(data)" class="elevation-1 table-cursor" @click:row="handleClick($event)">
+    <v-data-table hide-default-footer hide-default-header center :headers="headers" :items="filter(data)" class="elevation-1 table-cursor" @click:row="handleClick($event)">
       <template v-slot:[`item.status`]="{ item }">
         <v-chip :color="getColor(item.status)" dark>
           {{ fixStatus(item.status) }}
