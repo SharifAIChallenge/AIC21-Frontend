@@ -23,11 +23,14 @@
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only" id="menu">
-        <v-btn v-if="!isAuthenticated" plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
+        <v-btn v-if="!isAuthenticated" plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow('login')">
           <v-icon left>
             mdi-shield-star
           </v-icon>
           <span class="font-weight-bold">ورود</span>
+        </v-btn>
+        <v-btn v-if="!isAuthenticated" plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow('signUp')">
+          ثبت‌نام
         </v-btn>
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
@@ -80,9 +83,9 @@ export default {
     }),
   },
   methods: {
-    toggleShow() {
+    toggleShow(mode) {
       this.$store.commit('formStatus/toggleShow');
-      this.$store.commit('formStatus/changeStatus', 'login');
+      this.$store.commit('formStatus/changeStatus', mode);
     },
     getClass() {
       return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent py-8 text-h5 text-sm-subtitle-2';

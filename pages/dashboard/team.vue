@@ -91,13 +91,7 @@ export default {
       ],
     };
   },
-  async getData() {
-    let res = await this.$axios.$get('team');
-    if (res.status_code === 403) this.haveTeam = false;
-    else {
-      this.haveTeam = true;
-    }
-  },
+
   async asyncData({ $axios }) {
     let res = await $axios.$get('team');
     let haveTeam = false;
@@ -111,6 +105,13 @@ export default {
     toggleHaveTeam() {
       this.haveTeam = !this.haveTeam;
       this.getData();
+    },
+    async getData() {
+      let res = await this.$axios.$get('team');
+      if (res.status_code === 403) this.haveTeam = false;
+      else {
+        this.haveTeam = true;
+      }
     },
   },
 };

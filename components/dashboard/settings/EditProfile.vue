@@ -127,7 +127,7 @@ export default {
       isLoading: false,
       languageSelectItem: [
         {
-          text: 'java',
+          text: 'Java',
           value: 'java',
         },
         {
@@ -135,7 +135,7 @@ export default {
           value: 'cpp',
         },
         {
-          text: 'python',
+          text: 'Python',
           value: 'py3',
         },
       ],

@@ -25,11 +25,11 @@
       <StaffCard v-for="(staff, index) in staffs" :staff="staff" class="ml-6 my-3" :key="index" />
       <!-- </v-col> -->
     </div>
-    <!-- <div style="max-width: 230px; margin: 70px auto">
-      <v-btn tile block>
+    <div style="max-width: 230px; margin: 70px auto">
+      <v-btn tile block to="/staff">
         مشاهده همه تیم ها
       </v-btn>
-    </div> -->
+    </div>
     <v-icon class="arrow" large>
       mdi-arrow-left
     </v-icon>

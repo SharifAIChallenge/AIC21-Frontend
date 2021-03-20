@@ -1,9 +1,12 @@
 <template>
   <div>
+    <SectionHeader title="جستجوی تیم‌ها" icon="mdi-badge-account-horizontal" />
+
     <v-data-table
       :headers="header"
       :items="team"
       :page.sync="page"
+      :loading="tableLoading"
       :items-per-page="itemsPerPage"
       hide-default-footer
       class="elevation-1"
@@ -37,7 +40,7 @@
           <v-col cols="10">
             <div class="d-flex align-center">
               <v-col cols="10">
-                {{ member.profile.firstname_fa + '' + member.profile.lastname_fa }}
+                {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}
               </v-col>
               <v-col cols="2">
                 <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">mdi-card-account-details-outline</v-icon>
@@ -64,11 +67,13 @@
 <script>
 import UserProfileForTeam from '~/components/dashboard/team/UserProfileForTeam';
 import SectionContainer from '~/components/SectionContainer';
+import SectionHeader from '~/components/SectionHeader';
 
 export default {
   components: {
     UserProfileForTeam,
     SectionContainer,
+    SectionHeader,
   },
   data() {
     return {
@@ -77,6 +82,7 @@ export default {
       itemsPerPage: 20,
       teamDetails: false,
       ProfileDialog: false,
+      tableLoading: true,
       teamInfo: {},
       header: [
         { text: 'تصویر', value: 'image' },
@@ -122,10 +128,12 @@ export default {
     },
   },
   async fetch() {
+    this.tableLoading = true;
     await this.$axios.$get('/team/incomplete').then(res => {
       // this.incompleteTeams = res.data;
       this.team = res.results.data;
     });
+    this.tableLoading = false;
   },
 };
 </script>

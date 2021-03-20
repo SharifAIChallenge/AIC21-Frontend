@@ -36,8 +36,8 @@
                 <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading || !valid" :loading="loading" type="submit">
                   {{ $t('form.signIn') }}
                 </v-btn>
-                <div class='my-6'>
-                  <div class='or-separator'><span class='px-3'>یا</span></div>
+                <div class="my-6">
+                  <div class="or-separator"><span class="px-3">یا</span></div>
                 </div>
                 <v-btn @click="loginWithGoogle" block color="primary" style="border-radius: 0; font-weight: normal;">
                   <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
@@ -89,13 +89,17 @@ export default {
       const googleData = googleUser.getAuthResponse();
       const { id_token, access_token, scope, expires_in, expires_at } = googleData;
       let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
-      this.$store.commit('auth/setToken', res);
-      this.$router.push('/dashboard');
-      this.$store.commit('formStatus/toggleShow');
-      this.$cookies.set('token', res.token, {
-        maxAge: 60 * 60 * 24 * 7,
-        path: '/',
-      });
+      if (res.status_code === 400) {
+        this.$toast.error('لاگین با خطا مواجه شد');
+      } else {
+        this.$store.commit('auth/setToken', res);
+        this.$router.push('/dashboard');
+        this.$store.commit('formStatus/toggleShow');
+        this.$cookies.set('token', res.token, {
+          maxAge: 60 * 60 * 24 * 7,
+          path: '/',
+        });
+      }
     },
   },
   computed: {
@@ -112,7 +116,8 @@ export default {
   display: flex;
   align-items: center;
 
-  &::after, &::before {
+  &::after,
+  &::before {
     content: '';
     width: 100%;
     height: 1px;

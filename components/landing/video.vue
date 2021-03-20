@@ -26,12 +26,12 @@
             </div>
             <v-row>
               <v-col>
-                <v-btn block class="btn" @click="scrollToCallToAction()">
+                <!-- <v-btn block class="btn" @click="scrollToCallToAction()">
                   عضویت در خبرنامه
-                </v-btn>
-                <!-- <v-btn block class="btn" @click="changeStatus('signUp')">
-                  {{ $t('home.signUpNow') }}
                 </v-btn> -->
+                <v-btn block class="btn" @click="changeStatus('signUp')">
+                  {{ $t('home.signUpNow') }}
+                </v-btn>
               </v-col>
               <v-col>
                 <v-btn block color="black" class="btn" to="/faq">
@@ -73,6 +73,7 @@ export default {
       });
     },
     changeStatus(form) {
+      this.$store.commit('formStatus/toggleShow');
       this.$store.commit('formStatus/changeStatus', form);
     },
   },

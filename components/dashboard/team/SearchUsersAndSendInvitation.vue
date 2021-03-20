@@ -37,9 +37,9 @@
           </div>
           <div v-else class="profile">
             <div class="profile">
-              <div>
+              <!-- <div>
                 <v-icon size="80px" style="right: -8px">mdi-alert-box</v-icon>
-              </div>
+              </div> -->
               <div>
                 <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
               </div>
