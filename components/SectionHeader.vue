@@ -17,11 +17,13 @@ export default {
 <style lang="scss" scoped>
 @import 'assets/mixins.scss';
 .section-header {
-  height: 100px;
+  height: 90px;
   display: flex;
   align-items: center;
   @include v-not-md {
-    height: 60px;
+    height: auto;
+    min-height: 60px;
+    padding: 20px;
   }
 }
 </style>

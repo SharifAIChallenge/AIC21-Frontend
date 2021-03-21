@@ -98,7 +98,7 @@ export default {
           icon: 'mdi-tournament',
           hover: 'mdi-tournament',
           link: '/dashboard/tournaments',
-          disabled: true,
+          disabled: false,
         },
         scoreboard: {
           title: 'جدول امتیازات',
