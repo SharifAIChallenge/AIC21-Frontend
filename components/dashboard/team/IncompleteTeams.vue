@@ -133,22 +133,38 @@ export default {
     search(name) {
       this.team = [];
       this.tableLoading = true;
+      this.page=1;
       this.$axios.get(`/team/incomplete?name=${name}`).then(res => {
+        console.log(res)
+        const count = res.data.results.data.length;
+        if (res.data.count % count === 0) {
+          this.pageCount = (res.data.count / count);
+        } else {
+          this.pageCount = Math.ceil((res.data.count / count));
+        }
         if (res.data.count === 0) {
           this.$toast.error('تیمی با این نام وجود ندارد.');
         }
         this.team = res.data.results.data;
         this.tableLoading = false;
       });
-      this.teamName = '';
+      // this.teamName = '';
     },
     changePage(page) {
       this.tableLoading = true;
       this.team = [];
-      this.$axios.get(`/team/incomplete?page=${page}`).then(res => {
-        this.team = res.data.results.data;
-        this.tableLoading = false;
-      });
+      if (this.teamName===''){
+        this.$axios.get(`/team/incomplete?page=${page}`).then(res => {
+          this.team = res.data.results.data;
+          this.tableLoading = false;
+        });
+      }else{
+        this.$axios.get(`/team/incomplete?name=${this.teamName}&page=${page}`).then(res => {
+          this.team = res.data.results.data;
+          this.tableLoading=false;
+        })
+      }
+
     },
     sendRequest(team_id) {
       this.$axios.post('team/invitations/user_sent', { team_id }).then(res => {
@@ -187,7 +203,6 @@ export default {
       } else {
         this.pageCount = Math.ceil((res.count / count));
       }
-      console.log(this.pageCount);
     });
     this.tableLoading = false;
   },
