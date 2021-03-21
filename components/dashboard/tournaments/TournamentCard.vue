@@ -20,13 +20,8 @@ export default {
 };
 </script>
 <style lang="scss">
-.tournaments {
-  background-color: #0e1224;
-  // border: 2px solid red;
-}
 .tournament {
   .tournamentCard {
-    // border: 1px solid blue;
     height: 170px;
     width: 100%;
     background-color: #141432;

@@ -4,9 +4,9 @@
       <div>
         <p>تورنومنت بعدی</p>
         <h2 class="mb-4 titleHeader">{{ header.title }}</h2>
-        <div>
+        <div class="mb-4 mb-sm-0">
           <span>{{ header.date }}</span>
-          - ساعت
+          <span>- ساعت</span>
           <span>{{ header.time }}</span>
         </div>
       </div>
