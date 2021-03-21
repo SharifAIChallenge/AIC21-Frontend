@@ -1,66 +1,95 @@
 <template>
   <div>
-    <SectionHeader title="جستجوی تیم‌ها" icon="mdi-badge-account-horizontal" />
+    <SectionHeader title='جستجوی تیم‌ها' icon='mdi-badge-account-horizontal' />
+
+    <div class='searchBar'>
+
+
+      <div style='width:70%;' class='mr-3'>
+        <v-text-field
+          label='اسم تیم'
+          outlined
+          dense
+          v-model='teamName'
+          height='50px'
+        ></v-text-field>
+      </div>
+
+      <div class='ml-3' style='width:20%; ' >
+        <v-btn block color='primary' @click='search(teamName)'>
+          <v-icon class='ml-3'>
+            mdi-magnify
+          </v-icon>
+          تیم را پیدا کن
+        </v-btn>
+      </div>
+
+
+    </div>
 
     <v-data-table
-      :headers="header"
-      :items="team"
-      :page.sync="page"
-      :loading="tableLoading"
-      :items-per-page="itemsPerPage"
+      :headers='header'
+      :items='team'
+      :page.sync='page'
+      :loading='tableLoading'
+      :items-per-page='itemsPerPage'
       hide-default-footer
-      class="elevation-1"
-      @page-count="pageCount = $event"
-      style="background: #141432"
+      class='elevation-1'
+      @page-count='pageCount = $event'
+      style='background: #141432'
     >
-      <template v-slot:item.image="{ item }">
-        <img v-if="item.image" :src="item.image" :alt="item.name" height="60px" style="max-width: 60px" />
+      <template v-slot:item.image='{ item }'>
+        <img v-if='item.image' :src='item.image' :alt='item.name' height='60px' style='max-width: 60px' />
       </template>
-      <template v-slot:item.profile="{ item }">
-        <v-icon class="icon" @click="showTeam(item)">mdi-card-account-details-outline</v-icon>
+      <template v-slot:item.profile='{ item }'>
+        <v-icon class='icon' @click='showTeam(item)'>mdi-card-account-details-outline</v-icon>
       </template>
-      <template v-slot:item.sendRequest="{ item }">
-        <div class="d-flex justify-center">
-          <v-icon class="icon" @click="sendRequest(item.id)">mdi-plus-circle-outline</v-icon>
+      <template v-slot:item.sendRequest='{ item }'>
+        <div class='d-flex justify-center'>
+          <v-icon class='icon' @click='sendRequest(item.id)'>mdi-plus-circle-outline</v-icon>
         </div>
       </template>
     </v-data-table>
 
-    <v-dialog v-model="teamDetails" width="350px">
+    <v-dialog v-model='teamDetails' width='350px'>
       <v-card>
-        <img v-if="teamInfo.image" :src="teamInfo.image" width="100%" :alt="teamInfo.name" />
-        <div class="pa-3">
+        <img v-if='teamInfo.image' :src='teamInfo.image' width='100%' :alt='teamInfo.name' />
+        <div class='pa-3'>
           {{ teamInfo.name }}
         </div>
 
-        <v-row v-for="(member, index) in teamInfo.members" :key="index" class="pa-3" style="width: 100%">
-          <v-col cols="2">
-            <img :src="member.profile.image" :alt="member.first_name" height="40px" style="max-width: 40px" />
+        <v-row v-for='(member, index) in teamInfo.members' :key='index' class='pa-3' style='width: 100%'>
+          <v-col cols='2'>
+            <img :src='member.profile.image' :alt='member.first_name' height='40px' style='max-width: 40px' />
           </v-col>
-          <v-col cols="10">
-            <div class="d-flex align-center">
-              <v-col cols="10">
+          <v-col cols='10'>
+            <div class='d-flex align-center'>
+              <v-col cols='10'>
                 {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}
               </v-col>
-              <v-col cols="2">
-                <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">mdi-card-account-details-outline</v-icon>
+              <v-col cols='2'>
+                <v-icon @click='setCurrentUser(member.profile, member.email, member.id, false)'>
+                  mdi-card-account-details-outline
+                </v-icon>
               </v-col>
             </div>
           </v-col>
         </v-row>
-        <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال درخواست عضویت</v-btn>
+        <v-btn color='primary' block class='mt-5' @click='sendRequest(teamInfo.id)' width='100%' height='55px'>ارسال
+          درخواست عضویت
+        </v-btn>
       </v-card>
     </v-dialog>
     <div>
-      <v-pagination v-model="page" :length="pageCount"></v-pagination>
+      <v-pagination v-model='page' :length='pageCount'></v-pagination>
     </div>
-    <v-dialog v-model="ProfileDialog" width="350">
-      <v-btn icon class="close-btn" @click="ProfileDialog = false">
+    <v-dialog v-model='ProfileDialog' width='350'>
+      <v-btn icon class='close-btn' @click='ProfileDialog = false'>
         <v-icon>
           mdi-close
         </v-icon>
       </v-btn>
-      <UserProfileForTeam :userData="currentUser" />
+      <UserProfileForTeam :userData='currentUser' />
     </v-dialog>
   </div>
 </template>
@@ -84,6 +113,7 @@ export default {
       ProfileDialog: false,
       tableLoading: true,
       teamInfo: {},
+      teamName: '',
       header: [
         { text: 'تصویر', value: 'image' },
         { text: 'نام تیم', value: 'name' },
@@ -100,6 +130,17 @@ export default {
     };
   },
   methods: {
+    search(name) {
+      this.team = [];
+      this.$axios.get(`/team/incomplete?name=${name}`).then(res => {
+        if (res.data.count === 0){
+          this.$toast.error('تیمی با این نام وجود ندارد.');
+        }
+        console.log(res);
+        this.team = res.data.results.data;
+      });
+      this.teamName = '';
+    },
     sendRequest(team_id) {
       this.$axios.post('team/invitations/user_sent', { team_id }).then(res => {
         if (res.data.status_code === 200) {
@@ -137,10 +178,15 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .icon {
   &:hover {
     color: var(--v-primary-base);
   }
+}
+
+.searchBar {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
