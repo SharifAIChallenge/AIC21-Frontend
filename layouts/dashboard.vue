@@ -73,6 +73,13 @@ export default {
           disabled: false,
         },
         terms: {
+          title: 'داک بازی',
+          icon: 'mdi-file-document-outline',
+          hover: 'mdi-file-document',
+          link: '/dashboard/doc/README',
+          disabled: false,
+        },
+        doc: {
           title: 'مستندات و منابع',
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',

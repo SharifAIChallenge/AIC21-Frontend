@@ -61,7 +61,7 @@ export const parseGithubData = res => {
     });
     items = newItems;
   }
-  items.push(parent);
+  // items.push(parent);
   return items;
 };
 
