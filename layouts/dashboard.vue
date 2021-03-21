@@ -84,7 +84,7 @@ export default {
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
           link: '/dashboard/terms',
-          disabled: true,
+          disabled: false,
         },
         updates: {
           title: 'محتوای آموزشی',
@@ -126,7 +126,7 @@ export default {
           icon: 'mdi-sword',
           hover: 'mdi-sword-cross',
           link: '/dashboard/games',
-          disabled: true,
+          disabled: false,
         },
       },
       bottomRoute: {

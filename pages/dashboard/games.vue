@@ -1,28 +1,28 @@
 <template>
-  <v-row class='d-flex game'>
-    <v-col cols='12' :md='tabs===8 ? 8 : 6' class='pa-0'>
+  <v-row class="d-flex game">
+    <v-col cols="12" md="8" class="pa-0">
       <v-divider />
-      <v-tabs-items v-model='tabs'>
+      <v-tabs-items v-model="tabs">
         <v-tab-item>
-          <div v-if='tabs===0' class='main-content'>
+          <div v-if="tabs === 0" class="main-content">
             <NewGame />
           </div>
         </v-tab-item>
         <v-tab-item>
-          <div v-if='tabs===1' class='main-content pa-0'>
+          <div v-if="tabs === 1" class="main-content pa-0">
             <HistoryOfGames />
           </div>
         </v-tab-item>
       </v-tabs-items>
     </v-col>
-    <v-col cols='12' :md='tabs=== 1 ? 4 : 6' class='pa-0' style='background: #080a18'>
-      <div class='wrapper'>
-        <div class='d-flex tabsW'>
-          <v-tabs v-model='tabs' icons-and-text grow class='tabsWraper'>
-            <div v-for='(item, key) in gamesHeader' :key='key' style='margin: 15px auto' class='d-flex flex-column'>
+    <v-col cols="12" md="4" class="pa-0" style="background: #080a18">
+      <div class="wrapper">
+        <div class="d-flex tabsW">
+          <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
+            <div v-for="(item, key) in gamesHeader" :key="key" style="margin: 15px auto" class="d-flex flex-column">
               <v-tab>
                 {{ item.title }}
-                <v-icon size='60' style='color: white'>{{ tabs === key ? item.icon : `${item.icon}-outline` }}</v-icon>
+                <v-icon size="60" style="color: white">{{ item.icon }}</v-icon>
               </v-tab>
             </div>
           </v-tabs>
@@ -44,7 +44,6 @@ export default {
   data() {
     return {
       tabs: null,
-
       gamesHeader: [
         {
           title: 'جستجو با تیم ',
@@ -57,40 +56,11 @@ export default {
       ],
     };
   },
-
 };
 </script>
-<style lang='scss' scoped>
+<style lang="scss">
 @import 'assets/variables.scss';
 @import 'assets/mixins.scss';
-
-.dashboard table {
-  th,
-  td {
-    &:nth-of-type(1) {
-      padding-right: 48px !important;
-      @include v-not-md {
-        padding-right: 24px !important;
-      }
-    }
-
-    &:nth-last-of-type(1) {
-      padding-left: 48px !important;
-      text-align: left;
-      @include v-not-md {
-        padding-left: 24px !important;
-      }
-    }
-  }
-
-  th .v-icon {
-    display: none;
-  }
-
-  td .mdi-plus-circle {
-    margin-left: 0 !important;
-  }
-}
 
 .game {
   @include v-not-md {
