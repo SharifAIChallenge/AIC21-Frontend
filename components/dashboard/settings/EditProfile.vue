@@ -1,171 +1,167 @@
 <template>
-  <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
-    <v-row>
-      <v-col class="py-0" cols="12" sm="6">
-        <v-text-field
-          v-if="$i18n.locale === 'fa'"
-          v-model="information.firstnameFa"
-          :label="$t('form.nameInPersian')"
-          required
-          :rules="requiredRules"
-          v-bind="filedProps"
-        />
-      </v-col>
-      <v-col class="py-0" cols="12" sm="6">
-        <v-text-field
-          v-if="$i18n.locale === 'fa'"
-          v-model="information.lastnameFa"
-          :label="$t('form.lastNameInPersian')"
-          required
-          :rules="requiredRules"
-          v-bind="filedProps"
-        />
-      </v-col>
-    </v-row>
+  <div>
+    <SectionHeader title="اطلاعات شخصی" icon="mdi-account-circle-outline" />
+    <SectionContainer>
+      <v-form ref="editProfile" v-model="valid" onSubmit="return false;" @submit="signUp">
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-model="information.firstname_fa" :label="$t('form.nameInPersian')" required :rules="requiredRules" outlined />
+          </v-col>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field
+              v-model="information.lastname_fa"
+              :label="$t('form.lastNameInPersian')"
+              required
+              :rules="requiredRules"
+              v-bind="filedProps"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-model="information.email" label="ایمیل" readonly v-bind="filedProps" :rules="emailRules"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field
+              v-model="information.phone_number"
+              required
+              label="شماره تماس"
+              v-bind="filedProps"
+              :rules="phoneRules"
+            ></v-text-field>
+          </v-col>
+        </v-row>
 
-    <v-row>
-      <v-col class="py-0" cols="12" sm="6">
-        <v-text-field
-          v-model="information.firstnameEn"
-          :label="$t('form.nameInEnglish')"
-          required
-          :rules="requiredRules"
-          v-bind="filedProps"
-          dir="ltr"
-        />
-      </v-col>
-      <v-col class="py-0" cols="12" sm="6">
-        <v-text-field
-          v-model="information.lastnameEn"
-          :label="$t('form.lastNameInEnglish')"
-          required
-          :rules="requiredRules"
-          v-bind="filedProps"
-          dir="ltr"
-        />
-      </v-col>
-    </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field
+              v-model="information.university"
+              :label="$t('form.educationPlace')"
+              required
+              :rules="requiredRules"
+              v-bind="filedProps"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field
+              type="int"
+              v-model="information.birth_date"
+              v-bind="filedProps"
+              required
+              :rules="requiredRules"
+              label="سال ورودی"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-text-field v-model="information.major" :rules="requiredRules" outlined required label="رشته"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-select v-model="information.university_degree" :items="degreeItem" required label="مقطع تحصیلی" outlined></v-select>
+          </v-col>
+        </v-row>
 
-    <v-dialog ref="dialog" v-model="menu" :return-value.sync="information.birthDate" width="290px">
-      <template v-slot:activator="{ on }">
-        <v-text-field
-          v-model="information.birthDate"
-          v-bind="filedProps"
-          required
-          :rules="requiredRules"
-          :label="$t('form.birthday')"
-          readonly
-          v-on="on"
-          dir="ltr"
-          @focus="menu = true"
-        />
-      </template>
-      <v-date-picker
-        v-model="information.birthDate"
-        :max="new Date().toISOString().substr(0, 10)"
-        ref="picker"
-        min="1950-01-01"
-        locale="en-US"
-        scrollable
-        @change="save"
-      />
-    </v-dialog>
+        <v-row>
+          <v-col class="py-0 mb-3" cols="12">
+            <v-select
+              v-model="information.programming_language"
+              :rules="requiredRules"
+              :items="languageSelectItem"
+              label="زبان برنامه نویسی"
+              outlined
+            ></v-select>
+          </v-col>
+        </v-row>
 
-    <v-text-field v-model="information.university" :label="$t('form.educationPlace')" required :rules="requiredRules" v-bind="filedProps" />
+        <v-row class="px-3">
+          <v-checkbox
+            v-model="information.hide_profile_info"
+            required
+            label="اطلاعاتم برای سایر شرکت کننده ها قابل جستجو نباشد."
+          ></v-checkbox>
+        </v-row>
 
-    <v-btn :disabled="!valid || !edited" :loading="loading" type="submit" v-bind="primaryButtonProps">
-      <v-icon left>mdi-account-edit-outline</v-icon>
-      {{ $t('dashboard.editProfile') }}
-    </v-btn>
-  </v-form>
+        <div class="d-flex mt-8">
+          <div style="flex: 0 1 93px; margin-left: 24px">
+            <v-btn block color="black" style="flex-basis: 20%" @click="resetForm">لغو</v-btn>
+          </div>
+          <div style="flex: 1">
+            <v-btn block :loading="loading" type="submit" :disabled="!valid" color="primary" style="flex-basis: 75%">
+              <v-icon left>mdi-content-save-outline</v-icon>
+              ذخیره اطلاعات
+            </v-btn>
+          </div>
+        </div>
+      </v-form>
+    </SectionContainer>
+  </div>
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../../../mixins/formValidations';
+import { emailRules, requiredRules, phoneRules } from '../../../mixins/formValidations';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
-import { editProfile } from '../../../api';
+import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
+import { mapState } from 'vuex';
 
 export default {
-  mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps],
+  mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps, phoneRules],
+  components: { SectionHeader, SectionContainer },
+  props: {
+    information: Object,
+    loading: Boolean,
+    signUp: Function,
+    resetForm: Function,
+  },
   data() {
     return {
       valid: false,
-      information: {
-        firstnameFa: '',
-        firstnameEn: '',
-        lastnameFa: '',
-        lastnameEn: '',
-        birthDate: '',
-        university: '',
-      },
-      menu: false,
-      loading: false,
+      isLoading: false,
+      languageSelectItem: [
+        {
+          text: 'Java',
+          value: 'java',
+        },
+        {
+          text: '++C',
+          value: 'cpp',
+        },
+        {
+          text: 'Python',
+          value: 'py3',
+        },
+      ],
+      degreeItem: [
+        {
+          text: 'دانش آموز',
+          value: 'ST',
+        },
+        {
+          text: 'کارشناسی',
+          value: 'BA',
+        },
+        {
+          text: 'کارشناسی ارشد',
+          value: 'MA',
+        },
+        {
+          text: 'دکترا',
+          value: 'DO',
+        },
+      ],
+      universityItems: [],
     };
   },
-  computed: {
-    edited() {
-      const profile = this.$auth.user.profile;
-      if (!profile) return false;
-      return (
-        this.information.firstnameFa !== profile.firstname_fa ||
-        this.information.firstnameEn !== profile.firstname_en ||
-        this.information.lastnameFa !== profile.lastname_fa ||
-        this.information.lastnameEn !== profile.lastname_en ||
-        this.information.birthDate !== profile.birth_date ||
-        this.information.university !== profile.university
-      );
-    },
-  },
-  watch: {
-    menu(val) {
-      val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'));
-    },
-  },
-  methods: {
-    save(date) {
-      this.$refs.dialog.save(date);
-      this.menu = false;
-    },
-    async signUp() {
-      // const config = {
-      //   url: EDIT_PROFILE.url,
-      //   method: EDIT_PROFILE.method,
-      //   [EDIT_PROFILE.payload]: {
-      //     firstname_fa: this.nameInPersian,
-      //     firstname_en: this.nameInEnglish,
-      //     lastname_fa: this.lastNameInPersian,
-      //     lastname_en: this.lastNameInEnglish,
-      //     birth_date: this.birthday,
-      //     university: this.university,
-      //   },
-      // };
-      
-      this.loading = true;
-      let { data } = await editProfile(this.$axios,this.information);
-      this.loading = false;
-      if (data.profile) {
-        this.$auth.fetchUser().then(() => {
-          this.resetForm();
-          this.$toast.success('پروفایل با موفقیت ویرایش شد.');
-        });
-      } else {
-        this.$toast.error('ویرایش با خطا مواجه شد.');
-      }
-    },
-    resetForm() {
-      const profile = this.$auth.user.profile;
-      if (!profile) return;
-      this.information.firstnameFa = profile.firstname_fa;
-      this.information.firstnameEn = profile.firstname_en;
-      this.information.lastnameFa = profile.lastname_fa;
-      this.information.lastnameEn = profile.lastname_en;
-      this.information.birthDate = profile.birth_date;
-      this.information.university = profile.university;
-    },
-  },
-  mounted() {
-    this.resetForm();
-  },
+  // async fetch() {
+
+  // },
 };
 </script>

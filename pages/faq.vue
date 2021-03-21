@@ -10,11 +10,11 @@
           <span class="text-h3 text-sm-h1" style="color: transparent; border: white; -webkit-text-stroke: 2px white;">و</span>
           <span class="font-weight-bold text-h3 text-sm-h1">قوانین</span>
         </div>
-        <div class="mt-10">
+        <p class="mt-10 text-h6">
           این مجموعه برای پاسخگویی به سوالات رایج در مورد نبرد هوش مصنوعی شریف
           <br />
           و قوانین آن طراحی شده است
-        </div>
+        </p>
       </div>
       <div class="vl"></div>
     </div>
@@ -28,14 +28,16 @@
         <div class="fag-title-for-show">{{ subject.title }}</div>
         <v-row class="mb-10">
           <v-col v-for="(question, index) in subject.faqs" :key="index" cols="12" sm="6" lg="4" xl="3">
-            <div class="faq-card">
+            <div class="faq-card pa-12">
               <div class="faq-card-title">
                 <v-icon right color="primary" class="faq-icon" size="55">
                   mdi-calendar
                 </v-icon>
-                {{ question.question_fa }}
+                <div>
+                  {{ question.question_fa }}
+                </div>
               </div>
-              <p class="faq-card-text">
+              <p class="faq-card-text py-8">
                 {{ question.answer_fa }}
               </p>
             </div>
@@ -43,18 +45,19 @@
         </v-row>
       </div>
     </v-container>
-    <EmailCallToAction />
+    <CallToAction />
   </div>
 </template>
 
 <script>
 import Header from '~/components/landing/Header.vue';
 import { FAQ } from '~/api/index';
-import EmailCallToAction from '~/components/EmailCallToAction.vue';
+import CallToAction from '~/components/CallToAction.vue';
+
 export default {
   auth: false,
   layout: 'landing',
-  components: { Header, EmailCallToAction },
+  components: { Header, CallToAction },
   async asyncData({ $axios }) {
     let data = await FAQ($axios);
     const titles = data.data.map(item => item.title);
@@ -75,6 +78,8 @@ export default {
 .first-slider {
   background-color: var(--v-primary-base);
   height: 100vh;
+  display: flex;
+  align-items: center;
 }
 .slider-text {
   margin-right: 50px;
@@ -129,10 +134,11 @@ export default {
 .faq-card {
   border: 3px solid var(--v-primary-base);
   padding: 20px;
+  height: 100%;
 }
 .faq-card-title {
-  display: inline-block;
-  font-size: 2rem;
+  display: flex;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 </style>

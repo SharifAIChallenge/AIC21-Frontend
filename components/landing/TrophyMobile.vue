@@ -42,11 +42,11 @@
         <v-col cols="8" class="pr-0">
           <v-card-text>
             <span class="white--text font-weight-black text-body-1">
-              دو جایزه برای تیم های
+              دو جایزه رندوم برای تیم‌های
               <br />
               چهارم تا بیستم
               <br />
-              دوجایزه ویژه برای مینی گیم ها
+              دو جایزه ویژه برای مینی‌گیم‌ها
             </span>
           </v-card-text>
         </v-col>
@@ -57,26 +57,26 @@
 
 <script>
 export default {
-  data() {
-    return {
-      data: [
+  computed: {
+    data() {
+      return [
         {
           ...this.trophies[0],
           icon: 'mdi-trophy',
           col: 6,
         },
         {
-          ...this.trophies[1],
+          ...this.trophies[2],
           icon: 'mdi-trophy-outline',
           col: 5,
         },
         {
-          ...this.trophies[2],
+          ...this.trophies[1],
           icon: 'mdi-trophy-variant-outline',
           col: 4,
         },
-      ],
-    };
+      ];
+    },
   },
   props: {
     onIntersecTrophy: Function,

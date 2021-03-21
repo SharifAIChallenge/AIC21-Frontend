@@ -94,7 +94,7 @@ export default {
       //   },
       // });
       const formData = new FormData();
-      formData.append('user_token', this.$auth.$storage.getCookie('_token.local').split(' ')[1]);
+      // formData.append('user_token', this.$auth.$storage.getCookie('_token.local').split(' ')[1]);
       formData.append('file', this.file);
       formData.append('language', this.language);
       // const config = {

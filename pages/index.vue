@@ -19,8 +19,8 @@
     <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
     <Staff :onIntersecStaff="onIntersecStaff" />
     <Sponsor :onIntersecSponser="onIntersecSponser" />
-    <EmaliCallToAction />
-    <!-- <CallToAction /> -->
+    <!-- <EmaliCallToAction /> -->
+    <CallToAction />
   </div>
 </template>
 
@@ -58,7 +58,6 @@ export default {
     EmaliCallToAction,
   },
   layout: 'landing',
-  auth: false,
   EmaliCallToActionh: false,
   data: () => ({
     isIntersec: {
@@ -170,5 +169,8 @@ export default {
 <style>
 body {
   overflow-x: hidden;
+}
+.v-dialog--fullscreen {
+  background: #0e1224;
 }
 </style>

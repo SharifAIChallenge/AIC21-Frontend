@@ -7,9 +7,10 @@
         </v-icon>
       </v-btn>
       <div class="d-flex flex-column align-center justify-center" style="height: 85%">
+        <v-btn v-if="isAuthenticated" plain :ripple="false" text tile :class="getClass()" to="/dashboard">داشبورد</v-btn>
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/">خانه</v-btn>
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/faq">سوالات متداول</v-btn>
-        <!-- <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn> -->
+        <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn>
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
           تاریخچه
         </v-btn>
@@ -22,21 +23,24 @@
         </v-icon>
       </v-btn>
       <div class="hidden-xs-only" id="menu">
-        <v-btn plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow()">
+        <v-btn v-if="!isAuthenticated" plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow('login')">
           <v-icon left>
             mdi-shield-star
           </v-icon>
           <span class="font-weight-bold">ورود</span>
         </v-btn>
+        <v-btn v-if="!isAuthenticated" plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow('signUp')">
+          ثبت‌نام
+        </v-btn>
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>
-        <!-- <v-btn plain text tile :class="getClass()" to="/blog">
+        <v-btn v-if="isAuthenticated" plain text :ripple="false" tile :class="getClass()" to="/dashboard">
+          داشبورد
+        </v-btn>
+        <v-btn plain text tile :class="getClass()" to="/blog">
           اخبار
         </v-btn>
-        <v-btn plain text tile :class="getClass()">
-          تاریخچه
-        </v-btn> -->
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/faq">
           سوالات متداول
         </v-btn>
@@ -45,12 +49,12 @@
         </v-btn>
       </div>
       <v-spacer></v-spacer>
-      <!-- <v-btn plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow()">
+      <v-btn v-if="!isAuthenticated" plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow()">
         <v-icon left>
           mdi-shield-star
         </v-icon>
         <span class="font-weight-bold">ورود</span>
-      </v-btn> -->
+      </v-btn>
       <v-spacer></v-spacer>
       <img src="logo__white.svg" class="logo" v-if="color === 'primary'" />
       <img src="../../assets/images/logo/logo__primary.svg" class="logo" v-else />
@@ -75,11 +79,13 @@ export default {
   computed: {
     ...mapState({
       show: state => state.formStatus.show,
+      isAuthenticated: state => state.auth.isAuthenticated,
     }),
   },
   methods: {
-    toggleShow() {
+    toggleShow(mode) {
       this.$store.commit('formStatus/toggleShow');
+      this.$store.commit('formStatus/changeStatus', mode);
     },
     getClass() {
       return (this.color === 'primary' ? 'hover_primary ' : 'hover_white ') + 'transparent py-8 text-h5 text-sm-subtitle-2';

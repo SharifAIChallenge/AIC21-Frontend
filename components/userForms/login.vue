@@ -5,7 +5,7 @@
         <v-col>
           <div class="login-title">
             <v-icon right size="55px" color="wihte">
-              mdi-shield-star
+              mdi-shield-star-outline
             </v-icon>
             {{ $t('form.signIn') }}
           </div>
@@ -16,11 +16,13 @@
               outlined
               dir="ltr"
               type="email"
-              :rules="requiredRules"
+              :rules="emailRules"
               required
               autofocus
               validate-on-blur
               height="36px"
+              aria-autocomplete="email"
+              class="autofill-bg"
             ></v-text-field>
             <password-input v-model="password" />
             <v-row>
@@ -31,11 +33,11 @@
 
             <v-row>
               <v-col>
-                <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading" :loading="loading" type="submit">
+                <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading || !valid" :loading="loading" type="submit">
                   {{ $t('form.signIn') }}
                 </v-btn>
-                <div style="text-align: center; margin:10px;">
-                  ————— یا —————
+                <div class="my-6">
+                  <div class="or-separator"><span class="px-3">یا</span></div>
                 </div>
                 <v-btn @click="loginWithGoogle" block color="primary" style="border-radius: 0; font-weight: normal;">
                   <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
@@ -57,6 +59,8 @@
 <script>
 import PasswordInput from '../PasswordInput';
 import { emailRules, requiredRules } from '../../mixins/formValidations';
+import { mapState } from 'vuex';
+import { sendGoogleAuthCode } from '~/api/auth';
 
 export default {
   mixins: [requiredRules, emailRules],
@@ -67,43 +71,60 @@ export default {
       valid: false,
       email: '',
       password: '',
-      loading: false,
     };
   },
   methods: {
-    toggleShow() {
-      this.$store.commit('formStatus/toggleShow');
-    },
     changeStatus(form) {
       this.$store.commit('formStatus/changeStatus', form);
     },
     login() {
-      this.loading = true;
-      this.$auth
-        .loginWith('local', {
-          data: {
-            username: this.email,
-            password: this.password,
-          },
-        })
-        .then(() => (this.loading = false))
-        .catch(() => {
-          this.loading = false;
-          if (!this.$auth.loggedIn) {
-            this.$toast.error('ایمیل وجود ندارد یا رمز عبور اشتباه است.');
-          } else {
-            this.$toast.success('با موفقیت وارد شدید!');
-          }
+      // this.loading = true;
+      this.$store.dispatch('auth/login', {
+        username: this.email,
+        password: this.password,
+      });
+    },
+    async loginWithGoogle() {
+      const googleUser = await this.$gAuth.signIn();
+      const googleData = googleUser.getAuthResponse();
+      const { id_token, access_token, scope, expires_in, expires_at } = googleData;
+      let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
+      if (res.status_code === 400) {
+        this.$toast.error('لاگین با خطا مواجه شد');
+      } else {
+        this.$store.commit('auth/setToken', res);
+        this.$router.push('/dashboard');
+        this.$store.commit('formStatus/toggleShow');
+        this.$cookies.set('token', res.token, {
+          maxAge: 60 * 60 * 24 * 7,
+          path: '/',
         });
+      }
     },
-    loginWithGoogle() {
-      this.$auth.loginWith('google', { params: { prompt: 'select_account' } });
-    },
+  },
+  computed: {
+    ...mapState({
+      loading: state => state.auth.isLoading,
+    }),
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.or-separator {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  &::after,
+  &::before {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff;
+  }
+}
+
 .main-login-form {
   margin: auto;
   max-width: 500px;

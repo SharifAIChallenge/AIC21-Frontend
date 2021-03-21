@@ -3,7 +3,6 @@ export const fieldProps = {
     return {
       filedProps: {
         outlined: true,
-        dense: true,
         class: 'autofill-bg',
       },
     };

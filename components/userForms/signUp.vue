@@ -14,61 +14,7 @@
           </v-alert>
         </v-col>
         <v-col cols="12">
-          <form ref="form" @submit.prevent="signUp">
-            <v-row>
-              <v-text-field
-                v-if="$i18n.locale === 'fa'"
-                :label="$t('form.nameInPersian')"
-                v-model="form.nameInPersian"
-                required
-                :rules="requiredRules"
-                outlined
-                height="36px"
-                style="margin: 10px;"
-                autofocus
-                :error="result.errors.firstname_fa"
-                @focus="clearError('firstname_fa')"
-              ></v-text-field>
-              <v-text-field
-                v-if="$i18n.locale === 'fa'"
-                :label="$t('form.lastNameInPersian')"
-                v-model="form.lastNameInPersian"
-                required
-                :rules="requiredRules"
-                outlined
-                height="36px"
-                style="margin: 10px;"
-                :error="result.errors.lastname_fa"
-                @focus="clearError('lastname_fa')"
-              ></v-text-field>
-            </v-row>
-            <v-row>
-              <v-text-field
-                :label="$t('form.nameInEnglish')"
-                v-model="form.nameInEnglish"
-                required
-                :rules="requiredRules"
-                outlined
-                dir="ltr"
-                height="36px"
-                style="margin: 10px;"
-                :error="result.errors.firstname_en"
-                @focus="clearError('firstname_en')"
-              ></v-text-field>
-              <v-text-field
-                :label="$t('form.lastNameInEnglish')"
-                v-model="form.lastNameInEnglish"
-                required
-                :rules="requiredRules"
-                outlined
-                dir="ltr"
-                height="36px"
-                style="margin: 10px;"
-                :error="result.errors.lastname_en"
-                @focus="clearError('lastname_en')"
-              ></v-text-field>
-            </v-row>
-
+          <v-form ref="form" v-model="valid" @submit.prevent="signUp">
             <v-text-field
               :label="$t('form.email')"
               v-model="form.email"
@@ -80,16 +26,36 @@
               dir="ltr"
               height="36px"
               validate-on-blur
+              class="autofill-bg"
               @focus="clearError('email')"
             ></v-text-field>
 
-            <password-input v-model="form.password" style="height:36px" />
-            <v-checkbox required outlined v-model="termsAndConditions" :label="$t('form.termsAndConditions')"></v-checkbox>
+            <v-text-field
+              label="شماره تلفن"
+              v-model="form.phone_number"
+              required
+              outlined
+              dir="ltr"
+              class="autofill-bg"
+              height="36px"
+              :rules="phoneRules"
+              validate-on-blur
+            ></v-text-field>
+
+            <password-input v-model="form.password_1" />
+            <password-input v-model="form.password_2" label="form.passwordRepeat" />
+            <!-- <v-checkbox
+              required
+              outlined
+              v-model="termsAndConditions"
+              :rules="requiredRules"
+              :label="$t('form.termsAndConditions')"
+            ></v-checkbox> -->
             <v-row>
               <v-col>
                 <v-btn
                   block
-                  :disabled="!termsAndConditions"
+                  :disabled="!valid"
                   :loading="loading"
                   type="submit"
                   color="primary"
@@ -98,8 +64,8 @@
                 >
                   {{ $t('form.signUp') }}
                 </v-btn>
-                <div style="text-align: center; margin:10px;">
-                  ————— یا —————
+                <div class="my-6">
+                  <div class="or-separator"><span class="px-3">یا</span></div>
                 </div>
                 <v-btn @click="loginWithGoogle" block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
                   <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
@@ -107,7 +73,7 @@
                 </v-btn>
               </v-col>
             </v-row>
-          </form>
+          </v-form>
         </v-col>
       </v-row>
     </div>
@@ -119,27 +85,24 @@
 </template>
 
 <script>
-import { emailRules, requiredRules } from '../../mixins/formValidations';
+import { emailRules, requiredRules, phoneRules } from '../../mixins/formValidations';
 import PasswordInput from '../../components/PasswordInput';
 import { signup } from '../../api';
+import { sendGoogleAuthCode } from '~/api/auth';
 
 export default {
   components: { PasswordInput },
-  mixins: [requiredRules, emailRules],
+  mixins: [requiredRules, emailRules, phoneRules],
 
   data() {
     return {
       showPassword: false,
       valid: false,
       form: {
-        nameInPersian: '',
-        lastNameInPersian: '',
-        nameInEnglish: '',
-        lastNameInEnglish: '',
-        birthday: '',
-        university: '',
         email: '',
-        password: '',
+        password_1: '',
+        password_2: '',
+        phone_number: '',
       },
       result: {
         value: false,
@@ -159,33 +122,61 @@ export default {
       this.$store.commit('formStatus/changeStatus', form);
     },
     async signUp() {
+      let isFormValid = true;
+      for (const key in this.form) {
+        if (!this.form[key]) isFormValid = false;
+      }
+      if (!isFormValid) return;
+      if (this.form.password_1 !== this.form.password_2) {
+        this.$toast.error('رمزهای عبور همخوانی ندارند');
+        return;
+      }
       this.loading = true;
-      await signup(this.$axios, this.form).then(data => {
-        this.loading = false;
-        if (data.status_code) {
-          if (data.status_code === 200) {
-            this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
-            this.result.type = 'success';
-            this.result.value = true;
-            this.$refs.form.reset();
-          } else {
-            this.errors = {};
-            this.errors = Object.keys(data.detail).forEach(x => {
-              if (x === 'profile') {
-                Object.keys(data.detail.profile).forEach(y => this.$set(this.result.errors, y, true));
-              } else {
-                this.$set(this.result.errors, x, true);
-              }
-            });
-            this.result.message = 'ثبت‌نام با خطا مواجه شد.';
-            this.result.type = 'error';
-            this.result.value = true;
-          }
+      let data = await signup(this.$axios, this.form);
+      this.loading = false;
+      if (data.status_code) {
+        if (data.status_code === 200) {
+          this.result.message = 'ثبت‌نام با موفقیت انجام شد، برای ادامه ایمیل خود را چک کنید.';
+          this.result.type = 'success';
+          this.result.value = true;
+          this.$refs.form.reset();
+        } else {
+          this.errors = {};
+          this.errors = Object.keys(data.detail).forEach(x => {
+            if (x === 'profile') {
+              Object.keys(data.detail.profile).forEach(y => this.$set(this.result.errors, y, true));
+            } else {
+              this.$set(this.result.errors, x, true);
+            }
+
+            if (x === 'email') {
+              if (data.detail[x][0] === 'This field must be unique.') this.result.message = 'ایمیل تکراری است';
+              else if (data.detail[x][0] === 'Enter a valid email address.') this.result.message = 'فرمت ایمیل معتبر نمی‌باشد';
+            }
+          });
+
+          this.result.type = 'error';
+          this.result.value = true;
         }
-      });
+      }
     },
-    loginWithGoogle() {
-      this.$auth.loginWith('google');
+    async loginWithGoogle() {
+      const googleUser = await this.$gAuth.signIn();
+      const googleData = googleUser.getAuthResponse();
+      const { id_token, access_token, scope, expires_in, expires_at } = googleData;
+      let res = await sendGoogleAuthCode(this.$axios, { access_token, id_token, scope, expires_in, expires_at });
+      if (res.status_code === 400) {
+        this.$toast.error('لاگین با خطا مواجه شد');
+      } else {
+        this.$store.commit('auth/setToken', res);
+        this.$router.push('/dashboard');
+        this.$store.commit('formStatus/toggleShow');
+        this.$cookies.set('token', res.token, {
+          maxAge: 60 * 60 * 24 * 7,
+          path: '/',
+        });
+      }
+      this.$store.commit('formStatus/toggleShow');
     },
     clearError(field) {
       if (this.result.errors[field]) {
@@ -197,10 +188,24 @@ export default {
 </script>
 
 <style lang="scss">
+.or-separator {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  &::after,
+  &::before {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff;
+  }
+}
+
 .main-sign-up-form {
   margin: auto;
   margin-bottom: 150px;
-  max-width: 700px;
+  max-width: 500px;
 }
 .sign-up-title {
   text-align: center;

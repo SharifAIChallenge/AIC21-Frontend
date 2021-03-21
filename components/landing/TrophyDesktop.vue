@@ -11,22 +11,20 @@
       },
     }"
   >
-    <v-row justify="end" align="center">
-      <v-col cols="3">
-        <div class="px-3 font-weight-bold trophyTitle" style="padding-bottom:22rem">
-          <h2 style="font-size: 5rem">جوایز</h2>
-        </div>
-      </v-col>
-      <v-col cols="3" v-for="(trophy, i) in data" :key="i" :style="`margin-top:${trophy.marg}rem`">
+    <div class="font-weight-bold trophyTitle">
+      <h2 class="font-weight-bold" style="font-size: 5rem">جوایز</h2>
+    </div>
+    <v-row>
+      <v-col cols="4" v-for="(trophy, i) in data" :key="i" :style="`margin-top:${trophy.marg}rem`">
         <v-card-text class="d-flex flex-column px-10 text-center white--text">
           <span class="font-weight-black price">{{ trophy.prize_fa }}</span>
           <span class="pt-3 text-h4" style="border-top:2px solid white">میلیون تومان</span>
         </v-card-text>
         <v-card-text class="secondary text-center darken-1 font-weight-black py-9">
-          <span class="font-weight-black text-h4">{{ data[2].title_fa }}</span>
+          <span class="font-weight-black text-h4">{{ trophy.title_fa }}</span>
         </v-card-text>
         <v-card-text class="secondary text-center pb-0 px-0 iconWraper">
-          <v-icon size="200px" class="black--text icon">{{ data[2].icon }}</v-icon>
+          <v-icon size="200px" class="black--text icon">{{ trophy.icon }}</v-icon>
         </v-card-text>
       </v-col>
     </v-row>
@@ -39,9 +37,11 @@
       <div class="pr-0">
         <v-card-text>
           <span class="white--text d-flex pr-8 plusText">
-            دو جایزه رندوم برای تیم های چهارم تا بیستم
+            دو جایزه رندوم برای تیم‌های
             <br />
-            دوجایزه ویژه برای مینی گیم ها
+            چهارم تا بیستم
+            <br />
+            دو جایزه ویژه برای مینی‌گیم‌ها
           </span>
         </v-card-text>
       </div>
@@ -51,26 +51,26 @@
 
 <script>
 export default {
-  data() {
-    return {
-      data: [
+  computed: {
+    data() {
+      return [
         {
           ...this.trophies[1],
           icon: 'mdi-trophy-variant-outline',
-          marg: 38,
+          marg: 17,
         },
         {
           ...this.trophies[0],
           icon: 'mdi-trophy',
-          marg: 10,
+          marg: 0,
         },
         {
           ...this.trophies[2],
           icon: 'mdi-trophy-outline',
-          marg: 24,
+          marg: 9,
         },
-      ],
-    };
+      ];
+    },
   },
   props: {
     onIntersecTrophy: Function,
@@ -81,13 +81,13 @@ export default {
 
 <style lang="scss" scoped>
 #trophy {
-  margin: 0 auto;
+  margin: 200px auto;
   .price {
     font-size: 9rem;
     margin-bottom: 65px;
   }
   .trophyTitle {
-    transform: translateY(-100px);
+    margin-bottom: 100px;
   }
   .iconWraper {
     padding-top: 100px;

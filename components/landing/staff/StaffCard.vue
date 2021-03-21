@@ -1,8 +1,10 @@
 <template>
   <div class="staff_card">
     <div class="staff_img grey darken-3" style="margin:24px 0;height:230px;width:230px;position:relative">
-      <img :src="staff.image" alt="staff image" width="100%" height="100%" style="object-fit: cover;" />
-      <div class="primary py-1 text-center white--text font-weight-black" style="position:absolute;width:30%;left:0;bottom:20px">
+      <a :href="staff.url" target="_blank">
+        <img :src="staff.image" alt="staff image" width="100%" height="100%" style="object-fit: cover; " />
+      </a>
+      <div class="primary py-1 text-center white--text font-weight-black" style="position:absolute;width:40%;left:0;bottom:20px">
         {{ staff.group_title }}
       </div>
     </div>
@@ -14,6 +16,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   props: ['staff'],
@@ -23,12 +26,17 @@ export default {
 .staff_card {
   max-width: 300px;
   width: 100%;
-  /* border: 2px solid var(--v-primary-base); */
 }
 .staff_intro,
 .staff_img {
   width: calc(100% - 40px);
   margin: 24px 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .staff_img img {
+    filter: none !important;
+  }
 }
 .staff_img img {
   filter: grayscale();

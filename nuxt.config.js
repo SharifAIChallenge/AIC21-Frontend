@@ -35,10 +35,11 @@ export default {
       { rel: 'apple-touch-icon', sizes: '152x152', href: '/fav-icon/apple-icon-152x152.png' },
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/fav-icon/apple-icon-180x180.png' },
       { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/fav-icon/android-icon-192x192.png' },
-      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/fav-icon/android-icon-32x32.png' },
+      { rel: 'icon', type: 'image/png', sizes: '36x36', href: '/fav-icon/android-icon-36x36.png' },
       { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/fav-icon/android-icon-96x96.png' },
-      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/fav-icon/android-icon-16x16.png' },
+      { rel: 'icon', type: 'image/png', sizes: '72x72', href: '/fav-icon/android-icon-72x72.png' },
       { rel: 'manifest', type: 'image/png', href: '/fav-icon/manifest.json' },
+      { rel: 'icon', type: 'image/x-icon', href: '/icon.png' },
     ],
   },
   /*
@@ -63,7 +64,13 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/i18n.js', '~/plugins/axios.js', { src: '~plugins/nuxt-quill-plugin', ssr: false }],
+  plugins: [
+    '~/plugins/i18n.js',
+    '~/plugins/axios.js',
+    { src: '~/plugins/vue-google-oauth2', ssr: false },
+    { src: '~plugins/nuxt-quill-plugin', ssr: false },
+    { src: '~plugins/crisp.js', mode: 'client' },
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -74,44 +81,15 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next',
+    // '@nuxtjs/auth-next',
+    'cookie-universal-nuxt',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     ['@nuxtjs/dotenv'],
     '@nuxtjs/toast',
     '@nuxtjs/markdownit',
     '@nuxtjs/svg',
-    '@nuxtjs/firebase',
   ],
-  firebase: {
-    config: {
-      apiKey: 'AIzaSyDtXWh4UP3nDBeDUudcqGyVjIJ4GLGh64M',
-      authDomain: 'aichallenge-304910.firebaseapp.com',
-      projectId: 'aichallenge-304910',
-      storageBucket: 'aichallenge-304910.appspot.com',
-      messagingSenderId: '939108343385',
-      appId: '1:939108343385:web:91529ac9fec89612569b48',
-      measurementId: 'G-RXW9NMM24B',
-    },
-    services: {
-      auth: true, // Just as example. Can be any other service.
-      messaging: {
-        createServiceWorker: true,
-        actions: [
-          {
-            action: 'goToLupasGithub',
-            url: 'https://github.com/lupas',
-          },
-          {
-            action: 'goToModuleGithub',
-            url: 'https://github.com/nuxt-community/firebase-module',
-          },
-        ],
-        fcmPublicVapidKey: 'BMYHV8jvmOJUQQWxVl0WrvkE6NNdQ-zZz37egrtRww6cLayU-ybLj-tZfbrScQ1hSFLCM6VWamR-KI13fiaUr3Q',
-      },
-    },
-  },
-
   markdownit: {
     preset: 'default',
     linkify: true,
@@ -174,12 +152,12 @@ export default {
           primary: '#eb3654',
           accent: colors.pink.base,
           secondary: '#42b3aa',
-          info: colors.blue.base,
           warning: colors.amber.base,
-          error: colors.red.accent3,
-          success: colors.green.accent4,
-          bg: '#160031',
+          bg: '#0e1224',
           shades: '#090c18',
+          error: '#ffb300',
+          success: '#00c853',
+          info: '#0091ea',
         },
       },
     },
@@ -195,48 +173,6 @@ export default {
   },
   router: {
     middleware: ['auth'],
-  },
-  auth: {
-    // plugins: [{ src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js'],
-    redirect: {
-      home: '/dashboard',
-    },
-    strategies: {
-      google: {
-        clientId: '864043474548-9is9rd8jbf3bbq4tdrhsfdjnivasj7l6.apps.googleusercontent.com',
-        codeChallengeMethod: '',
-        responseType: 'code',
-        endpoints: {
-          token: 'https://api-stg.aichallenge.ir/social-login/google/',
-          userInfo: 'https://api-stg.aichallenge.ir/auth/',
-        },
-      },
-      local: {
-        endpoints: {
-          login: {
-            url: '/accounts/login',
-            method: 'post',
-            propertyName: 'token',
-          },
-          logout: { url: '/accounts/logout', method: 'post' },
-          user: {
-            url: '/accounts/profile',
-            method: 'get',
-          },
-        },
-        token: {
-          required: true,
-          type: 'token',
-        },
-        user: {
-          property: 'data',
-        },
-      },
-    },
-    resetOnError: true,
-    token: {
-      prefix: 'token.',
-    },
   },
   toast: {
     position: 'bottom-center',

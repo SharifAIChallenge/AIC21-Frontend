@@ -2,8 +2,9 @@
   "form": {
     "email": "ایمیل",
     "password": "رمز عبور",
-    "nameInPersian": "نام به فارسی",
-    "lastNameInPersian": "نام خانوادگی به فارسی",
+    "passwordRepeat": "تکرار رمز عبور",
+    "nameInPersian": "نام",
+    "lastNameInPersian": "نام خانوادگی",
     "nameInEnglish": "نام به انگلیسی",
     "lastNameInEnglish": "نام خانوادگی به انگلیسی",
     "birthday": "تاریخ تولد",
@@ -44,6 +45,7 @@
   },
   "validation": {
     "email": "ایمیل معتبر نیست",
+    "phoneNumber": "شماره تفلن معتبر نیست. باید شامل ۱۱ عدد باشد",
     "required": "اجباری"
   },
   "time": {
@@ -83,7 +85,8 @@
     "updates": "اعلان‌ها",
     "recentUpdates": "آخرین اعلان‌ها",
     "gettingStarted": "راهنمای شروع",
-    "editProfile": "ویرایش پروفایل",
+    "editProfile": "اطلاعات شخصی",
+    "resume" : "رزومه",
     "seeAll": "دیدن همه",
     "gameStats": "آمار بازی‌ها",
     "performance": "عملکرد",

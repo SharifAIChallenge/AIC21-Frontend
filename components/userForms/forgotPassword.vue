@@ -62,7 +62,7 @@ export default {
     },
     async resetPassword() {
       this.loading = true;
-      let { data } = await resetPassword(this.$axios, this.email);
+      let data = await resetPassword(this.$axios, this.email);
       this.loading = false;
       if (data.status_code) {
         if (data.status_code === 200) {

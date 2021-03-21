@@ -1,79 +1,11 @@
-<template>
-  <div>
-    <v-row justify="end" align="center" style="height: 100px" class="mt-n3 px-3 px-sm-5">
-      <v-btn rounded text large to="/login" icon>
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-btn>
-    </v-row>
-    <v-row justify="center" align="center" class="my-3">
-      <v-col cols="12" sm="7" md="5" lg="3">
-        <v-row justify="center" align="baseline" class="mb-5 text-uppercase">
-          <glow>
-            <span class="display-2 white--text font-weight-black">
-              {{ $t('form.forgotPasswordH1') }}
-            </span>
-          </glow>
-          <glow>
-            <span class="secondary--text display-2 mx-1">
-              {{ $t('form.forgotPasswordH2') }}
-            </span>
-          </glow>
-        </v-row>
-
-        <v-form ref="form" v-model="valid" @submit.prevent="resetPassword">
-          <v-text-field
-            v-model="email"
-            :label="$t('form.email')"
-            type="email"
-            :rules="emailRules"
-            required
-            v-bind="filedProps"
-            dir="ltr"
-            autofocus
-          />
-
-          <v-btn :disabled="!valid" :loading="loading" type="submit" v-bind="primaryButtonProps">
-            {{ $t('form.sendResetInstructions') }}
-          </v-btn>
-        </v-form>
-      </v-col>
-    </v-row>
-  </div>
-</template>
+<template></template>
 
 <script>
-import { emailRules, requiredRules } from '../mixins/formValidations';
-import { primaryButtonProps } from '../mixins/buttonProps';
-import { fieldProps } from '../mixins/fieldProps';
-import Glow from '../components/Glow';
-import { resetPassword } from '../api';
-
 export default {
-  auth: 'guest',
   layout: 'form',
-  components: { Glow },
-  mixins: [requiredRules, emailRules, primaryButtonProps, fieldProps],
-  data() {
-    return {
-      valid: false,
-      email: '',
-      loading: false,
-    };
-  },
-  methods: {
-    async resetPassword() {
-      this.loading = true;
-      let { data } = await resetPassword(this.$axios, this.email);
-      this.loading = false;
-      if (data.status_code) {
-        if (data.status_code === 200) {
-          this.$toast.success('لینک تغییر رمز عبور به ایمیل شما ارسال شد.');
-          this.$refs.form.reset();
-        } else {
-          this.$toast.error('ایمیل پیدا نشد.');
-        }
-      }
-    },
+  mounted() {
+    this.$store.commit('formStatus/toggleShow');
+    this.$store.commit('formStatus/changeStatus', 'forgot');
   },
 };
 </script>
