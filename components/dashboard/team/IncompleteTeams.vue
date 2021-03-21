@@ -31,7 +31,6 @@
       :items-per-page='itemsPerPage'
       hide-default-footer
       class='elevation-1'
-      @page-count='pageCount = $event'
       style='background: #141432'
     >
       <template v-slot:item.image='{ item }'>
@@ -77,7 +76,7 @@
       </v-card>
     </v-dialog>
     <div>
-      <v-pagination v-model='page' :length='pageCount'></v-pagination>
+      <v-pagination v-model='page' :length='pageCount' v-on:next='page+1' @previous='page-1'></v-pagination>
     </div>
     <v-dialog v-model='ProfileDialog' width='350'>
       <v-btn icon class='close-btn' @click='ProfileDialog = false'>
@@ -103,7 +102,7 @@ export default {
   data() {
     return {
       page: 1,
-      pageCount: 3,
+      pageCount: 0,
       itemsPerPage: 20,
       teamDetails: false,
       ProfileDialog: false,
@@ -125,6 +124,11 @@ export default {
       },
     };
   },
+  watch: {
+    page: function() {
+      this.changePage(this.page);
+    },
+  },
   methods: {
     search(name) {
       this.team = [];
@@ -133,11 +137,18 @@ export default {
         if (res.data.count === 0) {
           this.$toast.error('تیمی با این نام وجود ندارد.');
         }
-        console.log(res);
         this.team = res.data.results.data;
         this.tableLoading = false;
       });
       this.teamName = '';
+    },
+    changePage(page) {
+      this.tableLoading = true;
+      this.team = [];
+      this.$axios.get(`/team/incomplete?page=${page}`).then(res => {
+        this.team = res.data.results.data;
+        this.tableLoading = false;
+      });
     },
     sendRequest(team_id) {
       this.$axios.post('team/invitations/user_sent', { team_id }).then(res => {
@@ -170,6 +181,13 @@ export default {
     this.tableLoading = true;
     await this.$axios.$get('/team/incomplete').then(res => {
       this.team = res.results.data;
+      const count = res.results.data.length;
+      if (res.count % count === 0) {
+        this.pageCount = (res.count / count);
+      } else {
+        this.pageCount = Math.ceil((res.count / count));
+      }
+      console.log(this.pageCount);
     });
     this.tableLoading = false;
   },
