@@ -21,7 +21,9 @@ export default {
   display: flex;
   align-items: center;
   @include v-not-md {
-    height: 60px;
+    height: auto;
+    min-height: 60px;
+    padding: 20px;
   }
 }
 </style>

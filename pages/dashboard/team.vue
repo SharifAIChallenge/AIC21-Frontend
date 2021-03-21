@@ -137,6 +137,10 @@ export default {
         padding-left: 24px !important;
       }
     }
+    @include v-not-sm {
+      padding-right: 24px !important;
+      padding-left: 24px !important;
+    }
   }
   th .v-icon {
     display: none;
