@@ -3,8 +3,6 @@
     <SectionHeader title='جستجوی تیم‌ها' icon='mdi-badge-account-horizontal' />
 
     <div class='searchBar'>
-
-
       <div style='width:70%;' class='mr-3'>
         <v-text-field
           label='اسم تیم'
@@ -12,10 +10,11 @@
           dense
           v-model='teamName'
           height='50px'
+          full-width
+          class='pr-6'
         ></v-text-field>
       </div>
-
-      <div class='ml-3' style='width:20%; ' >
+      <div class='ml-3' style='width:20%; '>
         <v-btn block color='primary' @click='search(teamName)'>
           <v-icon class='ml-3'>
             mdi-magnify
@@ -23,10 +22,7 @@
           تیم را پیدا کن
         </v-btn>
       </div>
-
-
     </div>
-
     <v-data-table
       :headers='header'
       :items='team'
@@ -107,7 +103,7 @@ export default {
   data() {
     return {
       page: 1,
-      pageCount: 0,
+      pageCount: 3,
       itemsPerPage: 20,
       teamDetails: false,
       ProfileDialog: false,
@@ -132,12 +128,14 @@ export default {
   methods: {
     search(name) {
       this.team = [];
+      this.tableLoading = true;
       this.$axios.get(`/team/incomplete?name=${name}`).then(res => {
-        if (res.data.count === 0){
+        if (res.data.count === 0) {
           this.$toast.error('تیمی با این نام وجود ندارد.');
         }
         console.log(res);
         this.team = res.data.results.data;
+        this.tableLoading = false;
       });
       this.teamName = '';
     },
@@ -171,7 +169,6 @@ export default {
   async fetch() {
     this.tableLoading = true;
     await this.$axios.$get('/team/incomplete').then(res => {
-      // this.incompleteTeams = res.data;
       this.team = res.results.data;
     });
     this.tableLoading = false;
