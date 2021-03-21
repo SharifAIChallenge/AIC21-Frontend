@@ -1,29 +1,32 @@
 <template>
-  <dashboard-page title="dashboard.termsAndConditions">
-    <v-col>
-      <v-card>
-        <v-card-text v-html="term" />
-      </v-card>
+  <div>
+    <SectionHeader :title="`منابع`" :icon="`mdi-file-document`"/>
+    <section-container>
+    <v-row class="mx-5">
+    <v-col cols="12" sm="6" lg="4" xl="3" class="px-2" v-for="(term,index) in terms" :key="index">
+      <Terms :term="term"/>
     </v-col>
-  </dashboard-page>
+    </v-row>
+    </section-container>
+  </div>
 </template>
 
 <script>
-import dashboardPageValidate from '../../mixins/dashboardPageValidate'
-import DashboardPage from '../../components/dashboard/DashboardPage'
-
+import Terms from "~/components/dashboard/Terms";
+import SectionHeader from "~/components/SectionHeader";
+import SectionContainer from "~/components/SectionContainer";
 export default {
-  components: { DashboardPage },
   layout: 'dashboard',
-  mixins: [dashboardPageValidate('terms')],
   transition: 'fade-transition',
-  async asyncData({ $axios }) {
-    return await $axios.$get('/terms')
+  components:{
+    Terms,SectionHeader,SectionContainer
   },
-  data() {
+  async asyncData({ $axios }) {
+    let data = await $axios.$get('/resources/')
+    console.log(data.data);
     return {
-      term: '',
-    }
+      terms:data.data,
+      }
   },
 }
 </script>
