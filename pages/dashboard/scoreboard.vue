@@ -1,125 +1,150 @@
 <template>
-  <dashboard-page title="dashboard.scoreboard">
-    <!--    <v-col>-->
-    <!--      <v-alert text type="info" class="my-0">-->
-    <!--        {{ $t("dashboard.codeScoreboardMessage") }}-->
-    <!--      </v-alert>-->
-    <!--    </v-col>-->
-    <v-col>
-      <v-card class="overflow-hidden">
-        <client-only>
-          <v-tabs v-model="tab" grow>
-            <v-tab v-for="tab in tabNames" :key="tab">
-              {{ $t(`dashboard.${tab}`) }}
-            </v-tab>
-            <v-tab>
-              {{ $t(`dashboard.final`) }}
-            </v-tab>
-          </v-tabs>
-        </client-only>
-        <v-divider />
-        <v-tabs-items v-model="tab" class="mt-4">
-          <v-tab-item>
-            <v-expansion-panels accordion mandatory>
-              <v-expansion-panel
-                v-for="scoreboard in [...seedingScoreboards].reverse()"
-                :key="scoreboard.challenge_type"
-              >
-                <v-expansion-panel-header class="title">
-                  {{ $t(`dashboard.${scoreboard.challenge_type}`) }}
-                </v-expansion-panel-header>
-                <v-expansion-panel-content class="px-0">
-                  <scoreboard :teams="scoreboard.rows" :items-per-page="48" class="mx-n6" />
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
-          </v-tab-item>
-          <v-tab-item>
-            <scoreboard :teams="friendlyTeams" />
-          </v-tab-item>
-          <v-tab-item>
-            <v-skeleton-loader v-if="!groupsScoreboards.length" type="list-item@7" />
-            <v-expansion-panels v-else accordion mandatory multiple>
-              <v-expansion-panel
-                v-for="scoreboard in groupsScoreboards"
-                :key="scoreboard.group_name"
-              >
-                <v-expansion-panel-header class="title">
-                  {{ `گروه ${scoreboard.group_name}` }}
-                </v-expansion-panel-header>
-                <v-expansion-panel-content class="px-0">
-                  <scoreboard
-                    :teams="scoreboard.rows"
-                    hide-search
-                    hide-pagination
-                    class="mx-n6 mb-6"
-                  />
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
-          </v-tab-item>
-          <v-tab-item>
-            <div>
-              <iframe
-                src="https://challonge.com/aic_2020_final/module"
-                width="100%"
-                height="2000"
-                frameborder="0"
-                scrolling="auto"
-                allowtransparency="true"
-                class="final_bracket"
-              />
+  <v-app>
+    <div class="scoreboard">
+      <div class="d-flex justify-space-between align-center pl-6 pl-md-12">
+        <SectionHeader title="جدول امتیازات" icon="mdi-scoreboard-outline" />
+        <div class="d-flex align-center">
+          <v-select
+            v-model="scoreboardSelect"
+            :items="scoreboardItems"
+            item-text="table"
+            item-value="src"
+            label="تورنومنت"
+            persistent-hint
+            :hint="`${scoreboardSelect.src}`"
+            @change="changeTable"
+            outlined
+          ></v-select>
+        </div>
+      </div>
+      <v-data-table
+        :loading="tableLoading"
+        hide-default-footer
+        center
+        :headers="headers"
+        :items="data"
+        :page.sync="page"
+        :items-per-page="itemPerPage"
+        @page-count="pageCount = $event"
+        style="background: #141432"
+      >
+        <template v-slot:[`item.profile.firstname_fa`]="{ item }">
+          <div v-if="item.profile.image">
+            <div class="profile">
+              <div>
+                <img :src="item.profile.image" :alt="item.email" height="60px" class="ml-2 mt-2" />
+              </div>
+              <div>
+                <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
+              </div>
             </div>
-          </v-tab-item>
-        </v-tabs-items>
-      </v-card>
-    </v-col>
-  </dashboard-page>
+          </div>
+          <div v-else class="profile">
+            <div class="profile">
+              <div>
+                <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template v-slot:[`item.profile.university_degree`]="{ item }">{{ universityDegree(item.profile.university_degree) }}</template>
+        <template v-slot:[`item.profile.programming_language`]="{ item }">
+          {{ programmingLanguage(item.profile.programming_language) }}
+        </template>
+        <template v-slot:[`item.created`]="{ item }">{{ item.profile.university }}</template>
+      </v-data-table>
+      <div class="text-center pt-2">
+        <v-pagination v-model="page" :length="pageCount"></v-pagination>
+      </div>
+    </div>
+  </v-app>
 </template>
 
 <script>
-import dashboardPageValidate from '../../mixins/dashboardPageValidate'
-import DashboardPage from '../../components/dashboard/DashboardPage'
-import { mapState } from 'vuex'
-import Scoreboard from '../../components/dashboard/scoreboard/Scoreboard'
+import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
+import axios from '~/plugins/axios';
 
 export default {
-  components: { DashboardPage, Scoreboard },
+  components: { SectionHeader, SectionContainer },
   layout: 'dashboard',
-  mixins: [dashboardPageValidate('scoreboard')],
   transition: 'fade-transition',
-  async fetch({ store }) {
-    if (store.state.scoreboard.tab === 3) return
-    await store.dispatch('scoreboard/get', {
-      tab:
-        store.state.scoreboard.tab === 0
-          ? 'seeding'
-          : store.state.scoreboard.tab === 1
-          ? 'friendly'
-          : 'groups',
-    })
+
+  // async asyncData({ $axios }) {
+  //   const data = await $axios.get('accounts/without_team')
+  //   return { data }
+  // },
+  async fetch() {
+    this.tableLoading = true;
+    await this.$axios.$get('accounts/without_team').then(res => {
+      if (res.status_code === 200) {
+        this.data = res.data;
+        this.status_code = res.status_code;
+      } else {
+        this.$toast.error('خطا در برقراری ارتباط!');
+      }
+    });
+    this.tableLoading = false;
   },
   data() {
     return {
-      tabNames: ['seeding', 'friendly', 'groups'],
-    }
+      tableLoading: false,
+      dialog: false,
+      filter: false,
+      page: 1,
+      pageCount: 0,
+      itemPerPage: 20,
+      scoreboardSelect: { table: 'تورنومنت ۱', src: '/tour1' },
+      scoreboardItems: [
+        { table: 'تورنومنت ۱', src: '/tour1' },
+        { table: 'تورنومنت ۲', src: '/tour2' },
+      ],
+      headers: [
+        {
+          text: 'نام و نام‌خانوادگی',
+          align: 'right',
+          value: 'profile.firstname_fa',
+        },
+        { text: 'مقطع تحصیلی', align: 'center', value: 'profile.university_degree' },
+        { text: 'زبان برنامه‌نویسی', align: 'center', value: 'profile.programming_language' },
+        { text: 'دانشگاه', align: 'center', value: 'profile.university' },
+      ],
+      data: [],
+
+      status_code: 200,
+    };
   },
-  computed: {
-    ...mapState({
-      friendlyTeams: state => state.scoreboard.friendlyScoreboard,
-      seedingScoreboards: state => state.scoreboard.seedingScoreboards,
-      groupsScoreboards: state => state.scoreboard.groupsScoreboards,
-      scoreboardTab: state => state.scoreboard.tab,
-    }),
-    tab: {
-      set(val) {
-        this.$store.commit('scoreboard/setTab', val)
-        this.$store.dispatch('scoreboard/get', { tab: this.tabNames[val] })
-      },
-      get() {
-        return this.scoreboardTab
-      },
+  methods: {
+    changeTable(url) {
+      console.log(this.scoreboardTable);
+      this.$router.push({ path: '/dashboard/scoreboard/' + url });
+      console.log(url);
+    },
+    universityDegree(response) {
+      if (response === 'ST') return 'دانش آموز';
+      else if (response === 'BA') return 'کارشناسی';
+      else if (response === 'MA') return 'کارشناسی ارشد';
+      else if (response === 'DO') return 'دکترا';
+    },
+    programmingLanguage(response) {
+      if (response === 'cpp') return 'C++';
+      else if (response === 'py3') return 'Python3';
+      else if (response === 'java') return 'Java';
     },
   },
-}
+};
 </script>
+
+<style lang="scss">
+.scoreboard {
+  .v-input__slot {
+    margin-bottom: 0;
+  }
+  .v-text-field__details {
+    display: none;
+  }
+}
+.v-data-table__empty-wrapper td {
+  text-align: center !important;
+}
+</style>

@@ -98,7 +98,7 @@ export default {
           icon: 'mdi-scoreboard-outline',
           hover: 'mdi-scoreboard',
           link: '/dashboard/scoreboard',
-          disabled: true,
+          disabled: false,
         },
         team: {
           title: 'تیم',
