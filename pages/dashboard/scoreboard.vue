@@ -63,28 +63,18 @@
 <script>
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
-import axios from '~/plugins/axios';
 
 export default {
   components: { SectionHeader, SectionContainer },
   layout: 'dashboard',
   transition: 'fade-transition',
 
-  // async asyncData({ $axios }) {
-  //   const data = await $axios.get('accounts/without_team')
-  //   return { data }
-  // },
-  async fetch() {
-    this.tableLoading = true;
-    await this.$axios.$get('accounts/without_team').then(res => {
-      if (res.status_code === 200) {
-        this.data = res.data;
-        this.status_code = res.status_code;
-      } else {
-        this.$toast.error('خطا در برقراری ارتباط!');
-      }
-    });
-    this.tableLoading = false;
+  async asyncData({ $axios, query }) {
+    const res = await $axios.$get('accounts/without_team');
+    console.log('change url', query);
+    const { data } = res;
+
+    return { data };
   },
   data() {
     return {
@@ -94,10 +84,10 @@ export default {
       page: 1,
       pageCount: 0,
       itemPerPage: 20,
-      scoreboardSelect: { table: 'تورنومنت ۱', src: '/tour1' },
+      scoreboardSelect: { table: 'تورنومنت ۱', src: 'tour1' },
       scoreboardItems: [
-        { table: 'تورنومنت ۱', src: '/tour1' },
-        { table: 'تورنومنت ۲', src: '/tour2' },
+        { table: 'تورنومنت ۱', src: 'tour1' },
+        { table: 'تورنومنت ۲', src: 'tour2' },
       ],
       headers: [
         {
@@ -117,8 +107,21 @@ export default {
   methods: {
     changeTable(url) {
       console.log(this.scoreboardTable);
-      this.$router.push({ path: '/dashboard/scoreboard/' + url });
+      this.$router.push({ path: '/dashboard/scoreboard?q=' + url });
+      this.getData(url);
       console.log(url);
+    },
+    getData(param) {
+      this.tableLoading = true;
+      this.$axios.$get('accounts/without_team').then(res => {
+        if (res.status_code === 200) {
+          this.data = res.data;
+          this.status_code = res.status_code;
+        } else {
+          this.$toast.error('خطا در برقراری ارتباط!');
+        }
+      });
+      this.tableLoading = false;
     },
     universityDegree(response) {
       if (response === 'ST') return 'دانش آموز';
