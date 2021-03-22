@@ -31,7 +31,7 @@
       </div>
     </div>
     <div v-if="this.showNewTicket">
-      <NewTicket  />
+      <NewTicket />
     </div>
     <div>
       <PrivateTickets :ticketStatus="amenities" />
@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import PrivateTickets from '../../components/ticket/PrivateTickets';
-import NewTicket from '../../components/ticket/NewTicket';
+import PrivateTickets from '~/components/ticket/privateTickets';
+import NewTicket from '~/components/ticket/NewTicket';
 
 export default {
-  auth: false,
+  layout: 'dashboard',
   components: { PrivateTickets, NewTicket },
   data() {
     return {

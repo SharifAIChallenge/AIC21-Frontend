@@ -73,7 +73,7 @@ export default {
       else if (status === 'closed') return 'بسته';
     },
     handleClick(row) {
-      this.$router.push(`/ticket/${row.id}`);
+      this.$router.push(`/dashboard/ticket/${row.id}`);
     },
   },
 };

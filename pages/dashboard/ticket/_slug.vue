@@ -4,12 +4,12 @@
       <div class="mb-4">
         <h2>
           <v-icon color="primary" size="36">mdi-alert-circle-outline</v-icon>
-          {{ this.data.title }}
+          {{ data.title }}
         </h2>
       </div>
       <div>
         <v-chip>
-          {{ this.data.tag.title }}
+          {{ data.tag.title }}
         </v-chip>
       </div>
     </div>
@@ -17,16 +17,16 @@
       <v-timeline dense>
         <v-timeline-item>
           <v-avatar slot="icon">
-            <img :src="this.data.author.profile.image_link" />
+            <img :src="data.author.profile.image_link" />
           </v-avatar>
           <v-card>
             <v-card-text>
-              {{ this.data.text }}
+              {{ data.text }}
             </v-card-text>
           </v-card>
         </v-timeline-item>
 
-        <v-timeline-item v-for="(reply, index) in this.data.replies" :key="index">
+        <v-timeline-item v-for="(reply, index) in data.replies" :key="index">
           <template v-slot:icon>
             <v-avatar>
               <img :src="reply.user.profile.image_link" />
@@ -41,7 +41,7 @@
 
         <v-timeline-item>
           <v-avatar slot="icon">
-            <img :src="this.data.author.profile.image_link" />
+            <img :src="data.author.profile.image_link" />
           </v-avatar>
           <v-card class="elevation-2">
             <v-form ref="form" lazy-validation class="pa-2">
@@ -70,13 +70,11 @@
 
 <script>
 export default {
-  // auth:false,
-  async fetch() {
-    var slug = this.$route.params.slug;
-    await this.$axios.$get(`ticket/${slug}`).then(res => {
-      this.data = res.data;
-      this.status_code = res.status_code;
-    });
+  async asyncData({ route, $axios }) {
+    var slug = route.params.slug;
+    let res = await $axios.$get(`ticket/${slug}`);
+    const { data, status_code } = res;
+    return { data, status_code };
   },
   data() {
     return {
@@ -89,7 +87,6 @@ export default {
     sendReplay(id, text) {
       this.$axios.$post(`ticket/${id}/replies`, { text }).then(res => {
         if (res.status_code === 200) {
-
           this.$toast.success('نظر ارسال شد!');
           this.$axios.$get(`ticket/${id}`);
         } else {

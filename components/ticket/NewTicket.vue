@@ -67,8 +67,8 @@ export default {
     async created(answer) {
       answer.html = answer.text;
       answer.tag = this.tagsId[answer.tag];
-      this.$axios.$post('api/ticket', { answer }).then(res => {
-        if (res.status_code === 201) {
+      this.$axios.$post('ticket/', answer).then(res => {
+        if (res.status_code === 200) {
           this.$toast.success('تیکت ثبت شد شما ثبت شد!');
         } else {
           this.$toast.error('خطایی در ثبت تیکیت به وجود آمد!');

@@ -29,7 +29,7 @@
 <script>
 export default {
   async fetch() {
-   await this.$axios.$get('/ticket').then(res => {
+    await this.$axios.$get('/ticket/').then(res => {
       this.data = res.data;
     });
   },
@@ -91,7 +91,7 @@ export default {
       else if (status === 'closed') return 'mdi-alert-circle-check-outline';
     },
     handleClick(row) {
-      this.$router.push(`/ticket/${row.id}`);
+      this.$router.push(`/dashboard/ticket/${row.id}`);
     },
     filter(data) {
       console.log(this.ticketStatus);

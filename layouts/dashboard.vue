@@ -107,6 +107,13 @@ export default {
           link: '/dashboard/team',
           disabled: true,
         },
+        team: {
+          title: 'تیکت',
+          icon: 'mdi-account-group-outline',
+          hover: 'mdi-account-group',
+          link: '/dashboard/ticket',
+          disabled: false,
+        },
         submissions: {
           title: 'ارسال کد',
           icon: 'mdi-code-braces',
