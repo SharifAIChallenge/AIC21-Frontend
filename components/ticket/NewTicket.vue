@@ -2,9 +2,8 @@
   <div>
     <div class="mb-4">
       <h2>
-
-      <v-icon color="primary" size="36">mdi-alert-circle-outline</v-icon>
-       ایجاد تیکت
+        <v-icon color="primary" size="36">mdi-alert-circle-outline</v-icon>
+        ایجاد تیکت
       </h2>
     </div>
     <v-form ref="form" v-model="valid" lazy-validation>
@@ -51,7 +50,7 @@ export default {
         tag: '',
         title: '',
         text: '',
-        html: 'ddd',
+        html: '',
       },
       tags: ['بارگذاری کد'],
       tagsId: ['12d94eab-ce91-4d31-8238-e575b013b4da'],
@@ -66,13 +65,17 @@ export default {
       this.$refs.form.resetValidation();
     },
     async created(answer) {
-      console.log(answer);
-      console.log('dddddddddddd');
-      console.log(this.tagsId[answer.tag]);
-      // const response = await this.$axios.$post('https://api-stg.aichallenge.ir/api/ticket/', answer);
-      // this.$refs.form.reset();
-      // this.$refs.form.resetValidation();
-      // console.log(response);
+      answer.html = answer.text;
+      answer.tag = this.tagsId[answer.tag];
+      this.$axios.$post('api/ticket', { answer }).then(res => {
+        if (res.status_code === 201) {
+          this.$toast.success('تیکت ثبت شد شما ثبت شد!');
+        } else {
+          this.$toast.error('خطایی در ثبت تیکیت به وجود آمد!');
+        }
+      });
+      this.$refs.form.reset();
+      this.$refs.form.resetValidation();
     },
   },
 };
