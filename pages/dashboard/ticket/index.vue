@@ -3,7 +3,7 @@
     <div style="display: flex; justify-content:space-between; align-items:center;">
       <div>
         <div style="display: flex;">
-          <v-chip-group v-model="amenities" column multiple active-class="secondary--text secondary">
+          <v-chip-group v-model="amenities" column multiple active-class="secondary--text secondary" v-if="generalTicket === 0">
             <v-chip filter outlined>
               حل شده
             </v-chip>
@@ -30,32 +30,70 @@
         </v-btn>
       </div>
     </div>
-    <div v-if="this.showNewTicket">
-      <NewTicket />
+
+    <v-dialog v-model="showNewTicket" width="600">
+      <v-card>
+        <div @click="toggleNewTicket()">
+          <v-btn icon>
+            <h2>
+              X
+            </h2>
+          </v-btn>
+        </div>
+        <NewTicket />
+      </v-card>
+    </v-dialog>
+    <div v-if="generalTicket === 0">
+      <PrivateTickets :ticketStatus="amenities" :data="filter(privateTicketData)" :loadingTable="loadingTable"/>
     </div>
-    <div>
-      <PrivateTickets :ticketStatus="amenities" />
+    <div v-else>
+      <PublicTikects :data="publicTicketData" />
     </div>
   </v-container>
 </template>
 
 <script>
 import PrivateTickets from '~/components/ticket/privateTickets';
+import PublicTikects from '~/components/ticket/PublicTikects';
 import NewTicket from '~/components/ticket/NewTicket';
 
 export default {
   layout: 'dashboard',
-  components: { PrivateTickets, NewTicket },
+  components: { PrivateTickets, NewTicket, PublicTikects },
+  async fetch() {
+    this.loadingTable = true;
+    await this.$axios.$get('/ticket').then(res => {
+      this.privateTicketData = res.data;
+    });
+    this.loadingTable = false;
+    this.$axios.$get('/ticket/publicTickets').then(res => {
+      this.publicTicketData = res.data;
+    });
+  },
   data() {
     return {
       amenities: [0, 1],
       generalTicket: 0,
       showNewTicket: false,
+      privateTicketData: [],
+      publicTicketData: [],
+      loadingTable: false,
     };
   },
   methods: {
     toggleNewTicket() {
       this.showNewTicket = !this.showNewTicket;
+    },
+    filter(data) {
+      if (this.amenities.length === 2 || this.amenities.length === 0) {
+        return data;
+      } else {
+        if (this.amenities[0] === 0) {
+          return data.filter(data => data.status === 'closed');
+        } else if (this.amenities[0] === 1) {
+          return data.filter(data => data.status === 'open');
+        }
+      }
     },
   },
 };
