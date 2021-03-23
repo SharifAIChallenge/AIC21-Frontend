@@ -40,21 +40,29 @@ export default {
       activeIds: [],
       metaData: {},
       content: '',
+      repo_name: '',
+      user_name: '',
     };
   },
   components: { MarkdownRenderer },
   async fetch() {
     let slug = this.$route.params.slug;
-    const url = 'https://api.github.com/repos/jamshidi799/markdownContent/git/trees/main?recursive=1';
-    await fetch(url)
+    await this.$axios
+      .get('gamedoc')
+      .then(res => {
+        const { repo_name, user_name } = res.data.data;
+        this.repo_name = repo_name;
+        this.user_name = user_name;
+        const url = `https://api.github.com/repos/${user_name}/${repo_name}/git/trees/main?recursive=1`;
+        return fetch(url);
+      })
       .then(res => res.json())
       .then(res => {
         this.items = parseGithubData(res);
         let activeNode = findActiveNode(res, slug);
         this.openIds = findOpenIds(activeNode);
         this.activeIds = findActiveIds(activeNode);
-
-        const url = `https://raw.githubusercontent.com/jamshidi799/markdownContent/main/${activeNode.path}`;
+        const url = `https://raw.githubusercontent.com/${this.user_name}/${this.repo_name}/main/${activeNode.path}`;
         return fetch(url);
       })
       .then(res => res.text())
@@ -69,7 +77,7 @@ export default {
       const fileName = splittedPath[splittedPath.length - 1];
       const slug = fileName.substring(0, fileName.length - 3);
       this.$router.push(`${slug}`);
-      const url = `https://raw.githubusercontent.com/jamshidi799/markdownContent/main/${name[0]}`;
+      const url = `https://raw.githubusercontent.com/${this.user_name}/${this.repo_name}/main/${name[0]}`;
       fetch(url)
         .then(res => res.text())
         .then(res => {

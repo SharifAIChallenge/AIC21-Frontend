@@ -73,11 +73,18 @@ export default {
           disabled: false,
         },
         terms: {
+          title: 'داک بازی',
+          icon: 'mdi-file-document-outline',
+          hover: 'mdi-file-document',
+          link: '/dashboard/doc/README',
+          disabled: false,
+        },
+        doc: {
           title: 'مستندات و منابع',
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
           link: '/dashboard/terms',
-          disabled: true,
+          disabled: false,
         },
         updates: {
           title: 'محتوای آموزشی',
@@ -91,7 +98,7 @@ export default {
           icon: 'mdi-tournament',
           hover: 'mdi-tournament',
           link: '/dashboard/tournaments',
-          disabled: true,
+          disabled: false,
         },
         scoreboard: {
           title: 'جدول امتیازات',
@@ -119,7 +126,7 @@ export default {
           icon: 'mdi-sword',
           hover: 'mdi-sword-cross',
           link: '/dashboard/games',
-          disabled: true,
+          disabled: false,
         },
       },
       bottomRoute: {

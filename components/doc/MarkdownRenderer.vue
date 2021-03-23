@@ -1,6 +1,6 @@
 <template>
   <div class="markdown">
-    <div v-html="$md.render(content)" dir="ltr"></div>
+    <div v-html="$md.render(content)"></div>
   </div>
 </template>
 
