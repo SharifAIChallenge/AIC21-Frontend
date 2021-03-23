@@ -1,7 +1,9 @@
 <template>
-  <div class="markdown">
-    <div v-html="$md.render(content)"></div>
-  </div>
+  <v-container>
+    <div class="markdown">
+      <div v-html="$md.render(content)"></div>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -12,18 +14,20 @@ export default {
 
 <style lang="scss">
 @import 'assets/mixins.scss';
+@import 'assets/variables.scss';
 
 .markdown {
-  padding: 40px 10px 100px;
+  padding: 100px 0px 100px;
   ol {
     counter-reset: list-item;
+    padding-right: 10px;
   }
   li {
     display: block;
     counter-increment: list-item;
   }
   li:before {
-    content: counters(list-item, '.') ' ';
+    // content: counters(list-item, '.') ' ';
   }
   img {
     max-width: 100%;
@@ -31,23 +35,40 @@ export default {
   .table-of-contents {
     position: fixed;
     left: 0;
-    top: 40px;
-    padding-top: 16px;
-    max-height: 95vh;
-    // overflow: auto;
+    top: 0px;
+    padding-top: 26px;
+    padding-right: 30px;
+    min-height: 100vh;
+    background: map-get($material-dark-elevation-colors, '12');
+    @include v-xl {
+      width: 20%;
+    }
+    @include v-lg {
+      width: 20%;
+    }
     @include not-lg {
       display: none;
     }
     &::before {
-      content: 'table of content';
+      content: 'فهرست موضوعات';
       position: relative;
       bottom: 10px;
       left: 10px;
       font-size: 1.4rem;
+      padding-right: 10px;
     }
     li {
-      max-width: 250px;
-      font-size: 0.8rem;
+      font-size: 1.1rem;
+      padding: 4px 0px;
+
+      @include v-lg {
+        font-size: 0.8rem;
+        padding: 4px 0px;
+      }
+      @include v-xl {
+        font-size: 1.3rem;
+        padding: 4px 0px;
+      }
       a {
         text-decoration: none;
       }

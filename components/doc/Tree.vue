@@ -1,37 +1,50 @@
 <template>
-  <v-row>
-    <v-col cols="4" lg="3">
-      <v-treeview
-        :items="items"
-        open-on-click
-        activatable
-        dense
-        :transition="true"
-        @update:open="open($event)"
-        :open="openIds"
-        @update:active="active($event)"
-        :active="activeIds"
-      >
-        <template v-slot:prepend="{ item, open }">
-          <v-icon v-if="!item.file">
-            {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
-          </v-icon>
-          <v-icon v-else>
-            mdi-file
-          </v-icon>
-        </template>
-      </v-treeview>
-    </v-col>
-    <v-col cols="12" sm="8" md="5" lg="6">
-      <markdown-renderer :content="content" />
-    </v-col>
-  </v-row>
+  <div>
+    <v-row>
+      <v-col cols="4" md="3" lg="2" xl="2" class="tree pl-0">
+        <v-app-bar clipped-right style="left: unset; overflow: hidden" height="90" class="dashbordNav">
+          <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" />
+          <v-row class="justify-center logo">
+            <nuxt-link to="/" class="white--text" style="width: 100%; height: 100%">
+              <img src="../../assets/images/logo/logo__primary.svg" alt="" height="80px" class="nav_logo mt-2" />
+            </nuxt-link>
+          </v-row>
+        </v-app-bar>
+        <v-treeview
+          :items="items"
+          open-on-click
+          activatable
+          dense
+          :transition="true"
+          @update:open="open($event)"
+          :open="openIds"
+          @update:active="active($event)"
+          :active="activeIds"
+          class="mt-8 treeview"
+        >
+          <template v-slot:prepend="{ item, open }">
+            <!-- <v-icon v-if="!item.file">
+                {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+              </v-icon>
+              <v-icon v-else>
+                mdi-file
+              </v-icon> -->
+          </template>
+        </v-treeview>
+      </v-col>
+      <v-col cols="12" sm="8" md="6" lg="7">
+        <Header />
+        <markdown-renderer :content="content" />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
 const fm = require('front-matter');
 import { parseGithubData, findActiveNode, findOpenIds, findActiveIds } from './parseGithubData';
 import MarkdownRenderer from './MarkdownRenderer.vue';
+import Header from './Header';
 export default {
   data() {
     return {
@@ -44,7 +57,7 @@ export default {
       user_name: '',
     };
   },
-  components: { MarkdownRenderer },
+  components: { MarkdownRenderer, Header },
   async fetch() {
     let slug = this.$route.params.slug;
     await this.$axios
@@ -91,3 +104,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import 'assets/mixins.scss';
+@import 'assets/variables.scss';
+
+.tree {
+  background: map-get($material-dark-elevation-colors, '12');
+  .treeview {
+    position: sticky;
+    top: 0;
+  }
+}
+</style>
