@@ -129,10 +129,6 @@ export default {
       this.tableLoading = true;
       this.page = 1;
       this.$axios.get(`/team/incomplete?name=${name}`).then(res => {
-<<<<<<< HEAD
-=======
-        console.log(res);
->>>>>>> panel
         const count = res.data.results.data.length;
         if (res.data.count % count === 0) {
           this.pageCount = res.data.count / count;
