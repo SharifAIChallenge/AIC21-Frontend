@@ -21,7 +21,6 @@
         @click:row="handleClick($event)"
         :page.sync="page"
         :items-per-page="itemPerPage"
-        @page-count="pageCount = $event"
         style="background: #141432"
       >
         <template v-slot:[`item.profile.firstname_fa`]="{ item }">
@@ -104,14 +103,14 @@ export default {
   components: { UserProfileForTeam, SectionHeader, SectionContainer },
   async fetch() {
     this.tableLoading = true;
-    await this.$axios.$get('accounts/without_team').then(res => {
-      if (res.status_code === 200) {
-        this.data = res.results.data;
-        this.status_code = res.status_code;
-      } else {
-        this.$toast.error('خطا در برقراری ارتباط!');
-      }
-    });
+    let res = await this.$axios.$get('accounts/without_team');
+    if (res.status_code === 200) {
+      this.data = res.results.data;
+      this.status_code = res.status_code;
+      this.pageCount = Math.ceil(res.count / res.results.data.length);
+    } else {
+      this.$toast.error('خطا در برقراری ارتباط!');
+    }
     this.tableLoading = false;
   },
   data() {
@@ -120,7 +119,7 @@ export default {
       dialog: false,
       filter: false,
       page: 1,
-      pageCount: 0,
+      pageCount: 1,
       itemPerPage: 20,
       headers: [
         {
@@ -150,6 +149,7 @@ export default {
         programming_language: '',
       },
       status_code: 200,
+      lastApi: '',
     };
   },
   methods: {
@@ -175,9 +175,11 @@ export default {
         }
       }
 
+      this.lastApi = lastApi;
+
       this.$axios.$get(lastApi).then(res => {
         if (res.status_code === 200) {
-          this.data = res.data;
+          this.data = res.results.data;
           this.status_code = res.status_code;
         } else {
           this.$toast.error('خطا در برقراری ارتباط!');
@@ -221,6 +223,18 @@ export default {
       if (response === 'cpp') return 'C++';
       else if (response === 'py3') return 'Python3';
       else if (response === 'java') return 'Java';
+    },
+    changePage(page) {
+      this.tableLoading = true;
+      this.$axios.get(`/accounts/without_team?page=${page}`).then(res => {
+        this.data = res.data.results.data;
+        this.tableLoading = false;
+      });
+    },
+  },
+  watch: {
+    page: function() {
+      this.changePage(this.page);
     },
   },
 };
