@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mb-4">
+    <div class="mb-2 mr-2">
       <h2>
         <v-icon color="primary" size="36">mdi-alert-circle-outline</v-icon>
         ایجاد تیکت
@@ -31,8 +31,8 @@
           {{ tag }}
         </v-chip>
       </v-chip-group>
-      <div style="display: flex; justify-content: flex-end;">
-        <v-btn color="primary" :disabled="!valid" class="" @click="created(ticket)">
+      <div style="display: flex; justify-content: flex-end;" class="ml-2">
+        <v-btn color="primary" :disabled="!valid" class="mb-2" @click="created(ticket)" width="25%">
           + ایجاد
         </v-btn>
       </div>
