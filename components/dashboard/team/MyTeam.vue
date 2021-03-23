@@ -20,6 +20,7 @@
             </div>
           </div>
         </div>
+        <Payment :payed="team.level_one_payed" />
         <div class="mt-4 mt-md-12">
           <v-btn block :loading="loading" color="black" class="text-h6" @click="getOutFromTeam()">
             <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-exit-run</v-icon>
@@ -33,10 +34,11 @@
 <script>
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
+import Payment from './Payment';
 
 export default {
   props: ['toggleHaveTeam'],
-  components: { SectionHeader, SectionContainer },
+  components: { SectionHeader, SectionContainer, Payment },
   async fetch() {
     let res = await this.$axios.$get('team');
     this.team = res;
@@ -50,7 +52,7 @@ export default {
   methods: {
     getOutFromTeam() {
       this.loading = true;
-      this.$axios.$delete('team').then(res => {
+      this.$axios.$delete('team/').then(res => {
         this.loading = false;
         if (res.status_code === 200) {
           this.$toast.success('شما با موفقیت از تیم خارج شدید!');

@@ -2,6 +2,19 @@
   <div>
     <SectionHeader title="جستجوی تیم‌ها" icon="mdi-badge-account-horizontal" />
 
+    <div class="searchBar">
+      <div style="width:70%;" class="mr-3">
+        <v-text-field label="اسم تیم" outlined dense v-model="teamName" height="50px" full-width class="pr-6"></v-text-field>
+      </div>
+      <div class="ml-3" style="width:20%; ">
+        <v-btn block color="primary" @click="search(teamName)">
+          <v-icon class="ml-3">
+            mdi-magnify
+          </v-icon>
+          تیم را پیدا کن
+        </v-btn>
+      </div>
+    </div>
     <v-data-table
       :headers="header"
       :items="team"
@@ -10,11 +23,15 @@
       :items-per-page="itemsPerPage"
       hide-default-footer
       class="elevation-1"
-      @page-count="pageCount = $event"
       style="background: #141432"
     >
-      <template v-slot:item.image="{ item }">
-        <img v-if="item.image" :src="item.image" :alt="item.name" height="60px" style="max-width: 60px" />
+      <template v-slot:item.name="{ item }">
+        <div class="d-flex align-center">
+          <img v-if="item.image" :src="item.image" :alt="item.name" height="60px" style="max-width: 60px" />
+          <div>
+            <span>{{ item.name }}</span>
+          </div>
+        </div>
       </template>
       <template v-slot:item.profile="{ item }">
         <v-icon class="icon" @click="showTeam(item)">mdi-card-account-details-outline</v-icon>
@@ -43,7 +60,9 @@
                 {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}
               </v-col>
               <v-col cols="2">
-                <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">mdi-card-account-details-outline</v-icon>
+                <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">
+                  mdi-card-account-details-outline
+                </v-icon>
               </v-col>
             </div>
           </v-col>
@@ -52,7 +71,7 @@
       </v-card>
     </v-dialog>
     <div>
-      <v-pagination v-model="page" :length="pageCount"></v-pagination>
+      <v-pagination v-model="page" :length="pageCount" v-on:next="page + 1" @previous="page - 1"></v-pagination>
     </div>
     <v-dialog v-model="ProfileDialog" width="350">
       <v-btn icon class="close-btn" @click="ProfileDialog = false">
@@ -84,8 +103,8 @@ export default {
       ProfileDialog: false,
       tableLoading: true,
       teamInfo: {},
+      teamName: '',
       header: [
-        { text: 'تصویر', value: 'image' },
         { text: 'نام تیم', value: 'name' },
         { text: 'پروفایل', value: 'profile' },
         { text: 'ارسال درخواست عضویت', value: 'sendRequest' },
@@ -99,7 +118,50 @@ export default {
       },
     };
   },
+  watch: {
+    page: function() {
+      this.changePage(this.page);
+    },
+  },
   methods: {
+    search(name) {
+      this.team = [];
+      this.tableLoading = true;
+      this.page = 1;
+      this.$axios.get(`/team/incomplete?name=${name}`).then(res => {
+<<<<<<< HEAD
+=======
+        console.log(res);
+>>>>>>> panel
+        const count = res.data.results.data.length;
+        if (res.data.count % count === 0) {
+          this.pageCount = res.data.count / count;
+        } else {
+          this.pageCount = Math.ceil(res.data.count / count);
+        }
+        if (res.data.count === 0) {
+          this.$toast.error('تیمی با این نام وجود ندارد.');
+        }
+        this.team = res.data.results.data;
+        this.tableLoading = false;
+      });
+      // this.teamName = '';
+    },
+    changePage(page) {
+      this.tableLoading = true;
+      this.team = [];
+      if (this.teamName === '') {
+        this.$axios.get(`/team/incomplete?page=${page}`).then(res => {
+          this.team = res.data.results.data;
+          this.tableLoading = false;
+        });
+      } else {
+        this.$axios.get(`/team/incomplete?name=${this.teamName}&page=${page}`).then(res => {
+          this.team = res.data.results.data;
+          this.tableLoading = false;
+        });
+      }
+    },
     sendRequest(team_id) {
       this.$axios.post('team/invitations/user_sent', { team_id }).then(res => {
         if (res.data.status_code === 200) {
@@ -130,8 +192,13 @@ export default {
   async fetch() {
     this.tableLoading = true;
     await this.$axios.$get('/team/incomplete').then(res => {
-      // this.incompleteTeams = res.data;
       this.team = res.results.data;
+      const count = res.results.data.length;
+      if (res.count % count === 0) {
+        this.pageCount = res.count / count;
+      } else {
+        this.pageCount = Math.ceil(res.count / count);
+      }
     });
     this.tableLoading = false;
   },
@@ -142,5 +209,10 @@ export default {
   &:hover {
     color: var(--v-primary-base);
   }
+}
+
+.searchBar {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
