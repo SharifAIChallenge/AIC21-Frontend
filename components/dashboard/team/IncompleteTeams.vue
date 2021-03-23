@@ -25,8 +25,13 @@
       class="elevation-1"
       style="background: #141432"
     >
-      <template v-slot:item.image="{ item }">
-        <img v-if="item.image" :src="item.image" :alt="item.name" height="60px" style="max-width: 60px" />
+      <template v-slot:item.name="{ item }">
+        <div class="d-flex align-center">
+          <img v-if="item.image" :src="item.image" :alt="item.name" height="60px" style="max-width: 60px" />
+          <div>
+            <span>{{ item.name }}</span>
+          </div>
+        </div>
       </template>
       <template v-slot:item.profile="{ item }">
         <v-icon class="icon" @click="showTeam(item)">mdi-card-account-details-outline</v-icon>
@@ -100,7 +105,6 @@ export default {
       teamInfo: {},
       teamName: '',
       header: [
-        { text: 'تصویر', value: 'image' },
         { text: 'نام تیم', value: 'name' },
         { text: 'پروفایل', value: 'profile' },
         { text: 'ارسال درخواست عضویت', value: 'sendRequest' },
@@ -125,6 +129,10 @@ export default {
       this.tableLoading = true;
       this.page = 1;
       this.$axios.get(`/team/incomplete?name=${name}`).then(res => {
+<<<<<<< HEAD
+=======
+        console.log(res);
+>>>>>>> panel
         const count = res.data.results.data.length;
         if (res.data.count % count === 0) {
           this.pageCount = res.data.count / count;
