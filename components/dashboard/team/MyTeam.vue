@@ -20,7 +20,7 @@
             </div>
           </div>
         </div>
-        <Payment :payed="team.level_one_payed" />
+        <!-- <Payment :payed="team.level_one_payed" /> -->
         <div class="mt-4 mt-md-12">
           <v-btn block :loading="loading" color="black" class="text-h6" @click="getOutFromTeam()">
             <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-exit-run</v-icon>
