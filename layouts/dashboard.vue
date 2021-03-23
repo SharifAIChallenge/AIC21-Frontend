@@ -77,14 +77,14 @@ export default {
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
           link: '/dashboard/doc/README',
-          disabled: false,
+          disabled: true,
         },
         doc: {
           title: 'مستندات و منابع',
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
           link: '/dashboard/terms',
-          disabled: false,
+          disabled: true,
         },
         updates: {
           title: 'محتوای آموزشی',
@@ -98,7 +98,7 @@ export default {
           icon: 'mdi-tournament',
           hover: 'mdi-tournament',
           link: '/dashboard/tournaments',
-          disabled: false,
+          disabled: true,
         },
         scoreboard: {
           title: 'جدول امتیازات',
@@ -126,7 +126,7 @@ export default {
           icon: 'mdi-sword',
           hover: 'mdi-sword-cross',
           link: '/dashboard/games',
-          disabled: false,
+          disabled: true,
         },
       },
       bottomRoute: {
