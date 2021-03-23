@@ -60,7 +60,7 @@
         </template>
       </v-data-table>
       <div class="text-center pt-2">
-        <v-pagination v-model="page" :length="pageCount"></v-pagination>
+        <v-pagination v-model="page" :length="pageCount" total-visible="6"></v-pagination>
       </div>
 
       <v-dialog v-model="dialog" width="350">
@@ -107,7 +107,7 @@ export default {
     if (res.status_code === 200) {
       this.data = res.results.data;
       this.status_code = res.status_code;
-      this.pageCount = Math.ceil(res.count / res.results.data.length);
+      this.setPageCount(res.count);
     } else {
       this.$toast.error('خطا در برقراری ارتباط!');
     }
@@ -153,6 +153,9 @@ export default {
     };
   },
   methods: {
+    setPageCount(count) {
+      this.pageCount = Math.ceil(count / 20);
+    },
     sendInvitation(email) {
       this.tableLoading = true;
       let user_email = email;
@@ -169,9 +172,12 @@ export default {
       this.tableLoading = true;
       var lastApi = 'accounts/without_team';
 
+      let index = 0;
       for (const property in this.filterData) {
         if (this.filterData[property]) {
-          lastApi = lastApi + '?' + property + '=' + this.filterData[property];
+          if (index === 0) lastApi = lastApi + '?' + property + '=' + this.filterData[property];
+          else lastApi = lastApi + '&' + property + '=' + this.filterData[property];
+          index++;
         }
       }
 
@@ -181,6 +187,7 @@ export default {
         if (res.status_code === 200) {
           this.data = res.results.data;
           this.status_code = res.status_code;
+          this.setPageCount(res.count);
         } else {
           this.$toast.error('خطا در برقراری ارتباط!');
         }
@@ -226,9 +233,13 @@ export default {
     },
     changePage(page) {
       this.tableLoading = true;
-      this.$axios.get(`/accounts/without_team?page=${page}`).then(res => {
+      let url = '';
+      if (this.lastApi) url = this.lastApi + '&page=' + page;
+      else url = `/accounts/without_team?page=${page}`;
+      this.$axios.get(url).then(res => {
         this.data = res.data.results.data;
         this.tableLoading = false;
+        this.setPageCount(res.data.count);
       });
     },
   },

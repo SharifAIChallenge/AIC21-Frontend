@@ -71,7 +71,7 @@
       </v-card>
     </v-dialog>
     <div>
-      <v-pagination v-model="page" :length="pageCount" v-on:next="page + 1" @previous="page - 1"></v-pagination>
+      <v-pagination v-model="page" :length="pageCount" total-visible="6" v-on:next="page + 1" @previous="page - 1"></v-pagination>
     </div>
     <v-dialog v-model="ProfileDialog" width="350">
       <v-btn icon class="close-btn" @click="ProfileDialog = false">
@@ -129,7 +129,7 @@ export default {
       this.tableLoading = true;
       this.page = 1;
       this.$axios.get(`/team/incomplete?name=${name}`).then(res => {
-        const count = res.data.results.data.length;
+        const count = 20;
         if (res.data.count % count === 0) {
           this.pageCount = res.data.count / count;
         } else {
@@ -189,7 +189,7 @@ export default {
     this.tableLoading = true;
     await this.$axios.$get('/team/incomplete').then(res => {
       this.team = res.results.data;
-      const count = res.results.data.length;
+      const count = 20;
       if (res.count % count === 0) {
         this.pageCount = res.count / count;
       } else {

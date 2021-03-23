@@ -86,13 +86,6 @@ export default {
           link: '/dashboard/terms',
           disabled: true,
         },
-        updates: {
-          title: 'محتوای آموزشی',
-          icon: 'mdi-school-outline',
-          hover: 'mdi-school',
-          link: '/dashboard/updates',
-          disabled: true,
-        },
         tournaments: {
           title: 'تورنومنت ها',
           icon: 'mdi-tournament',
