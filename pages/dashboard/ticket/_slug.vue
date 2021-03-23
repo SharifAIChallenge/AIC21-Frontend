@@ -70,6 +70,7 @@
 
 <script>
 export default {
+  layout: 'dashboard',
   async asyncData({ route, $axios }) {
     var slug = route.params.slug;
     let res = await $axios.$get(`ticket/${slug}`);
@@ -88,7 +89,12 @@ export default {
       this.$axios.$post(`ticket/${id}/replies`, { text }).then(res => {
         if (res.status_code === 200) {
           this.$toast.success('نظر ارسال شد!');
-          this.$axios.$get(`ticket/${id}`);
+          this.$refs.form.reset();
+          this.$refs.form.resetValidation();
+          this.$axios.$get(`ticket/${id}`).then(res => {
+            this.data = res.data;
+            this.status_code = res.status_code;
+          });
         } else {
           this.$toast.error('مشکلی در ارسال پیش آمده است!');
         }
