@@ -3,6 +3,7 @@
     <v-data-table
       hide-default-footer
       center
+      :loading="loadingTable"
       :headers="headers"
       :items="data"
       class="elevation-1 table-cursor"
@@ -17,10 +18,12 @@
         {{ item.title }}
       </template>
       <template v-slot:[`item.num_replies`]="{ item }">
-        {{ item.num_replies }}
-        <v-icon>
-          mdi-message-reply-outline
-        </v-icon>
+        <div style="display: flex; align-items:center;">
+          {{ item.num_replies }}
+          <v-icon class="mr-2">
+            mdi-message-reply-outline
+          </v-icon>
+        </div>
       </template>
     </v-data-table>
   </div>
@@ -28,41 +31,36 @@
 
 <script>
 export default {
-  async fetch() {
-    await this.$axios.$get('/ticket/').then(res => {
-      this.data = res.data;
-    });
-  },
-  props: ['ticketStatus'],
+  // async fetch() {
+  //   this.loadingTable = true;
+  //   await this.$axios.$get('/ticket/').then(res => {
+  //     if (res.status_code === 200) {
+  //       this.data = res.data;
+  //     } else {
+  //       this.$toast.error('مشکلی در لود دیتا به وجود آمده است!');
+  //     }
+  //   });
+  //   this.loadingTable = false;
+  // },
+  props: ['ticketStatus', 'data', 'loadingTable'],
   data() {
     return {
-      filterStatus: {
-        open: false,
-        closed: false,
-      },
+      // loadingTable: false,
       headers: [
         {
           text: 'وضعیت',
           align: 'center',
           value: 'status',
-          width: '10%',
+          width: '12%',
         },
-        { text: 'عنوان', align: 'right', value: 'title', width: '80%' },
-        { text: '', align: 'centerx``x', value: 'num_replies', width: '10%' },
-        // { text: 'زمان ساخت تیکت', align: 'center', value: 'created' },
-        // { text: 'عمومی ؟', align: 'center', value: 'is_public' },
+        { text: 'عنوان', align: 'right', value: 'title', width: '78%' },
+        { text: '', align: 'center', value: 'num_replies', width: '10%' },
       ],
-      data: [],
+      // data: [],
       status_code: 200,
     };
   },
   methods: {
-    toggleOpenStatus() {
-      this.filterStatus.open = !this.filterStatus.open;
-    },
-    toggleClosedStatus() {
-      this.filterStatus.closed = !this.filterStatus.closed;
-    },
     getColor(status) {
       if (status === 'answered') return 'green';
       else if (status === 'pending') return 'orange';
@@ -70,41 +68,12 @@ export default {
       else if (status === 'open') return 'orange';
       else return 'orange';
     },
-    getPublicStatus(is_public) {
-      if (is_public === true) return true;
-      else if (is_public === false) return false;
-    },
-    getPublicStatusColor(is_public) {
-      if (is_public === true) return 'green';
-      else if (is_public === false) return 'red';
-    },
-    fixDate(created) {
-      var str = created;
-      return str.substring(0, 10);
-    },
-    fixTime(created) {
-      var str = created;
-      return str.substring(11, 19);
-    },
     ticketStatusIcon(status) {
       if (status === 'open') return 'mdi-alert-circle-outline';
       else if (status === 'closed') return 'mdi-alert-circle-check-outline';
     },
     handleClick(row) {
       this.$router.push(`/dashboard/ticket/${row.id}`);
-    },
-    filter(data) {
-      console.log(this.ticketStatus);
-      if (this.ticketStatus.length === 2 || this.ticketStatus.length === 0) {
-        return data;
-        console.log('+++++++++++++++++++++');
-      } else {
-        if (this.ticketStatus[0] === 0) {
-          this.data = data.filter(data => data.status === 'closed');
-        } else if (this.ticketStatus[0] === 1) {
-          this.data = data.filter(data => data.status === 'open');
-        }
-      }
     },
   },
 };
