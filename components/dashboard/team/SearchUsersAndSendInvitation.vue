@@ -106,7 +106,7 @@ export default {
     this.tableLoading = true;
     await this.$axios.$get('accounts/without_team').then(res => {
       if (res.status_code === 200) {
-        this.data = res.data;
+        this.data = res.results.data;
         this.status_code = res.status_code;
       } else {
         this.$toast.error('خطا در برقراری ارتباط!');
