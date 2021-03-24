@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <div class="searchTable">
-      <div class="d-flex justify-space-between align-center pl-6 pl-md-12">
+      <div class="d-flex flex-wrap justify-space-between align-center pl-6 pl-md-12">
         <SectionHeader title="جستجوی افراد بدون تیم" icon="mdi-account-search-outline" />
-        <div class="input-top">
+        <div class="input-top mr-auto">
           <v-btn color="secondary" height="50px" class="text-h7" @click="filtertoggle()" :loading="tableLoading">
             <v-icon color="white" size="30px" class="pl-2 pr-2">mdi-filter-variant</v-icon>
             فیلتر ها
@@ -64,6 +64,11 @@
       </div>
 
       <v-dialog v-model="dialog" width="350">
+        <v-btn icon class="close-btn" @click="dialog = false">
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
         <UserProfileForTeam :userData="currentUser" />
       </v-dialog>
       <v-dialog v-model="filter" width="350">

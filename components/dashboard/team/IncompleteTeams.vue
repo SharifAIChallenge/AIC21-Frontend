@@ -2,16 +2,18 @@
   <div>
     <SectionHeader title="جستجوی تیم‌ها" icon="mdi-badge-account-horizontal" />
 
-    <div class="searchBar">
-      <div style="width:70%;" class="mr-3">
-        <v-text-field label="اسم تیم" outlined dense v-model="teamName" height="50px" full-width class="pr-6"></v-text-field>
+    <div class="searchBar px-6 px-md-12">
+      <div style="width:70%;">
+        <v-text-field label="اسم تیم" outlined dense v-model="teamName" height="50px" full-width></v-text-field>
       </div>
-      <div class="ml-3" style="width:20%; ">
+      <div style="width:20%; ">
         <v-btn block color="primary" @click="search(teamName)">
-          <v-icon class="ml-3">
+          <v-icon class="ml-0 ml-md-3">
             mdi-magnify
           </v-icon>
-          تیم را پیدا کن
+          <div class="hide-sm-and-down">
+            تیم را پیدا کن
+          </div>
         </v-btn>
       </div>
     </div>
@@ -44,8 +46,13 @@
     </v-data-table>
 
     <v-dialog v-model="teamDetails" width="350px">
+      <v-btn icon class="close-btn" @click="teamDetails = false">
+        <v-icon>
+          mdi-close
+        </v-icon>
+      </v-btn>
       <v-card>
-        <img v-if="teamInfo.image" :src="teamInfo.image" width="100%" :alt="teamInfo.name" />
+        <img v-if="teamInfo.image" :src="teamInfo.image" style="max-width: 100%" :alt="teamInfo.name" />
         <div class="pa-3">
           {{ teamInfo.name }}
         </div>
@@ -201,6 +208,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import 'assets/mixins.scss';
 .icon {
   &:hover {
     color: var(--v-primary-base);
@@ -210,5 +218,10 @@ export default {
 .searchBar {
   display: flex;
   justify-content: space-between;
+  .hide-sm-and-down {
+    @include v-not-sm {
+      display: none;
+    }
+  }
 }
 </style>

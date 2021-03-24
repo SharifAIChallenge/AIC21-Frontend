@@ -3,7 +3,9 @@
     <v-icon large color="primary" class="ml-4">
       {{ icon }}
     </v-icon>
-    {{ title }}
+    <div class="text-h5 text-md-h4 font-weight-bold">
+      {{ title }}
+    </div>
     <slot></slot>
   </h1>
 </template>

@@ -2,7 +2,7 @@
   <v-row class="d-flex team">
     <v-col cols="12" :md="tabs === 1 ? 8 : 6" class="pa-0">
       <v-divider />
-      <v-tabs-items v-model="tabs">
+      <v-tabs-items touchless v-model="tabs">
         <v-tab-item>
           <div v-if="tabs === 0" class="main-content">
             <MyTeam :toggleHaveTeam="toggleHaveTeam" v-if="haveTeam" />
@@ -220,5 +220,8 @@ export default {
   input {
     text-align: right;
   }
+}
+.v-slide-group__prev {
+  display: none !important;
 }
 </style>

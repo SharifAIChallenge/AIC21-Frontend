@@ -31,7 +31,7 @@
               </v-col>
             </v-row>
 
-            <v-row>
+            <v-row class="mb-14 mb-md-0">
               <v-col>
                 <v-btn block style="border-radius: 0; font-weight: normal;" :disabled="loading || !valid" :loading="loading" type="submit">
                   {{ $t('form.signIn') }}

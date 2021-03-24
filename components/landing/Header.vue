@@ -49,7 +49,7 @@
         </v-btn>
       </div>
       <v-spacer></v-spacer>
-      <v-btn v-if="!isAuthenticated" plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow()">
+      <v-btn v-if="!isAuthenticated" plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow('login')">
         <v-icon left>
           mdi-shield-star
         </v-icon>

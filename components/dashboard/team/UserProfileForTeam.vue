@@ -24,11 +24,10 @@
     <v-container class="pt-0 mt-0">
       <div class="pr-8 pb-4">
         <ul>
-          <li>شهر: {{ userData.profile.province }}</li>
           <li>دانشگاه: {{ userData.profile.university }}</li>
           <li>رشته تحصیلی: {{ userData.profile.major }}</li>
           <li>مقطع: {{ universityDegree(userData.profile.university_degree) }}</li>
-          <li>ترم: {{ userData.profile.university_term }}</li>
+          <li>سال ورود: {{ userData.profile.birth_date }}</li>
         </ul>
       </div>
     </v-container>
