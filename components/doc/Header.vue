@@ -1,23 +1,12 @@
 <template>
   <div id="header">
-    <v-dialog fullscreen v-model="showMenu" transition="fade-transition">
-      <v-btn icon @click="showMenu = !showMenu" class="ma-3">
-        <v-icon>
-          mdi-close
-        </v-icon>
-      </v-btn>
-      <div class="d-flex flex-column align-center justify-center" style="height: 85%">
-        <v-btn plain :ripple="false" text tile :class="getClass()" to="/dashboard">داشبورد</v-btn>
-        <v-btn plain :ripple="false" text tile :class="getClass()" to="/">خانه</v-btn>
-      </div>
-    </v-dialog>
     <v-app-bar flat absolute :color="color">
-      <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
+      <!-- <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
         <v-icon>
           mdi-menu
         </v-icon>
-      </v-btn>
-      <div class="hidden-xs-only" id="menu">
+      </v-btn> -->
+      <div id="menu">
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>

@@ -18,19 +18,43 @@ export default {
 
 .markdown {
   padding: 100px 0px 100px;
+  h1,
+  h2,
+  h3 {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    a.header-anchor {
+      opacity: 0;
+      transition: all 0.7s;
+    }
+    &:hover {
+      a.header-anchor {
+        opacity: 1;
+      }
+    }
+  }
   ol {
     counter-reset: list-item;
     padding-right: 10px;
   }
   li {
-    display: block;
     counter-increment: list-item;
+    font-weight: 300;
+    font-family: LTZaridSans;
+    font-size: 1.25rem;
+    margin-right: 25px;
   }
   li:before {
     // content: counters(list-item, '.') ' ';
   }
-  img {
-    max-width: 100%;
+  p {
+    display: flex;
+    img {
+      // max-width: 100%;
+      margin: 60px auto;
+      @include responsive(width, 300px, 350px, 400px, 450px, 500px, 650px);
+    }
   }
   .table-of-contents {
     position: fixed;
@@ -60,7 +84,9 @@ export default {
     li {
       font-size: 1.1rem;
       padding: 4px 0px;
-
+      margin: 0;
+      display: block;
+      font-family: 'Vazir', serif;
       @include v-lg {
         font-size: 0.8rem;
         padding: 4px 0px;
@@ -71,6 +97,11 @@ export default {
       }
       a {
         text-decoration: none;
+        width: 100%;
+        display: block;
+        &:hover {
+          color: var(--v-primary-darken1);
+        }
       }
     }
   }
