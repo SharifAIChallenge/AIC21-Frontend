@@ -2,7 +2,7 @@
   <div class="d-flex justify-center align-center" style="height: 100vh">
     <div>
       <div class="text-center">
-        <v-icon v-if="status === 100" size="70" color="primary">
+        <v-icon v-if="status == 100" size="70" color="primary">
           mdi-cash-check
         </v-icon>
         <v-icon v-else size="70" color="error">

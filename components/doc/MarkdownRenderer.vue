@@ -52,10 +52,16 @@ export default {
   pre {
     overflow-x: auto;
     margin: 30px 0;
+    display: flex;
+    justify-content: flex-end;
   }
   p {
     & img {
       display: flex;
+    }
+    & code {
+      display: flex;
+      justify-content: flex-end;
     }
     img {
       // max-width: 100%;
@@ -65,6 +71,11 @@ export default {
     a {
       margin: 0px 5px;
     }
+  }
+  code {
+    margin: 14px 0px;
+    text-align: left;
+    padding: 10px 14px;
   }
   .table-of-contents {
     position: fixed;

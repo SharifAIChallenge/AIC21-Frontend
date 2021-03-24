@@ -4,7 +4,15 @@
 
     <div class="searchBar px-6 px-md-12">
       <div style="width:70%;">
-        <v-text-field label="اسم تیم" outlined dense v-model="teamName" height="50px" full-width></v-text-field>
+        <v-text-field
+          label="اسم تیم"
+          outlined
+          dense
+          v-model="teamName"
+          @keydown.enter="search(teamName)"
+          height="50px"
+          full-width
+        ></v-text-field>
       </div>
       <div style="width:20%; ">
         <v-btn block color="primary" @click="search(teamName)">

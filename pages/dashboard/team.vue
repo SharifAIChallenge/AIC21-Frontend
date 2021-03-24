@@ -1,5 +1,5 @@
 <template>
-  <v-row class="d-flex team">
+  <v-row class="d-flex team" justify="space-between">
     <v-col cols="12" :md="tabs === 1 ? 8 : 6" class="pa-0">
       <v-divider />
       <v-tabs-items touchless v-model="tabs">
@@ -23,7 +23,7 @@
         </v-tab-item>
       </v-tabs-items>
     </v-col>
-    <v-col cols="12" :md="tabs === 1 ? 4 : 6" class="pa-0" style="background: #080a18">
+    <v-col cols="12" :md="4" class="pa-0" style="background: #080a18">
       <div class="wrapper">
         <div class="d-flex tabsW">
           <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
