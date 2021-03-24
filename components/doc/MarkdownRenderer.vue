@@ -54,7 +54,9 @@ export default {
     margin: 30px 0;
   }
   p {
-    display: flex;
+    & img {
+      display: flex;
+    }
     img {
       // max-width: 100%;
       margin: 60px auto;
