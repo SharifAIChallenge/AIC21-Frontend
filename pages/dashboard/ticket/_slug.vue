@@ -1,9 +1,9 @@
 <template>
-  <v-container class="mt-16">
+  <SectionContainer>
     <div style="display: flex; justify-content:space-between ;">
       <div class="mb-4">
         <h2>
-          <v-icon color="primary" size="36">mdi-alert-circle-outline</v-icon>
+          <v-icon color="primary" size="36" class="pr-8 pl-6">mdi-alert-circle-outline</v-icon>
           {{ data.title }}
         </h2>
       </div>
@@ -19,11 +19,9 @@
           <v-avatar slot="icon">
             <img :src="data.author.profile.image_link" />
           </v-avatar>
-          <v-card>
-            <v-card-text>
-              {{ data.text }}
-            </v-card-text>
-          </v-card>
+          <div class="repliy-bg-color pa-3">
+            <Preview :comment="data.text" />
+          </div>
         </v-timeline-item>
 
         <v-timeline-item v-for="(reply, index) in data.replies" :key="index">
@@ -32,45 +30,56 @@
               <img :src="reply.user.profile.image_link" />
             </v-avatar>
           </template>
-          <v-card class="elevation-2">
-            <v-card-text>
-              {{ reply.text }}
-            </v-card-text>
-          </v-card>
+          <div class="repliy-bg-color pa-3">
+            <Preview :comment="reply.text" />
+          </div>
         </v-timeline-item>
 
         <v-timeline-item>
           <v-avatar slot="icon">
             <img :src="data.author.profile.image_link" />
           </v-avatar>
-          <v-card class="elevation-2">
+          <div class="repliy-bg-color">
             <v-form ref="form" lazy-validation class="pa-2">
-              <v-textarea
+              <!-- <v-textarea
                 v-model="text"
                 :counter="500"
                 :rules="[v => !!v || 'شرح نمی تواند خالی باشد!']"
                 label="نظر"
                 required
                 outlined
-                class="pa-2"
-              ></v-textarea>
+              ></v-textarea> -->
+
+              <Editor @update="updateText" class="pt-2 pb-8" />
 
               <div style="display: flex; justify-content: flex-end;">
-                <v-btn color="primary" @click="sendReplay(data.id, text)">
-                  ارسال نظر
-                </v-btn>
+                <div style="max-width: 300px; width: 100%">
+                  <v-btn block color="primary" @click="sendReplay(data.id, text)">
+                    <v-icon class="ml-3">
+                      mdi-telegram
+                    </v-icon>
+
+                    <span>
+                      ارسال نظر
+                    </span>
+                  </v-btn>
+                </div>
               </div>
             </v-form>
-          </v-card>
+          </div>
         </v-timeline-item>
       </v-timeline>
     </div>
-  </v-container>
+  </SectionContainer>
 </template>
 
 <script>
+import Preview from '~/components/editor/Preview';
+import Editor from '~/components/editor/Editor';
+import SectionContainer from '~/components/SectionContainer';
 export default {
   layout: 'dashboard',
+  components: { Preview, Editor, SectionContainer },
   async asyncData({ route, $axios }) {
     var slug = route.params.slug;
     let res = await $axios.$get(`ticket/${slug}`);
@@ -85,6 +94,9 @@ export default {
     };
   },
   methods: {
+    updateText(val) {
+      this.text = val;
+    },
     sendReplay(id, text) {
       this.$axios.$post(`ticket/${id}/replies`, { text }).then(res => {
         if (res.status_code === 200) {
@@ -104,7 +116,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import 'assets/variables.scss';
 .user-reply {
   color: red;
 }
@@ -112,7 +125,9 @@ export default {
   color: green;
 }
 .tickets-countainer {
-  padding: 20px;
   margin-top: 80px;
+}
+.repliy-bg-color {
+  background: map-get($material-dark-elevation-colors, '12') !important;
 }
 </style>

@@ -17,7 +17,6 @@ export default {
     },
   },
   render(createElement, context) {
-    console.log(this.dynamicComponent);
     return createElement('div', [
       createElement(this.dynamicComponent, {
         props: {

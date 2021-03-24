@@ -6,7 +6,7 @@
         ایجاد تیکت
       </h2>
     </div>
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form" class="pa-2" v-model="valid" lazy-validation>
       <v-text-field
         v-model="ticket.title"
         :counter="30"
@@ -14,10 +14,9 @@
         label="عنوان"
         required
         outlined
-        class="pa-2"
       ></v-text-field>
 
-      <v-textarea
+      <!-- <v-textarea
         v-model="ticket.text"
         :counter="500"
         :rules="[v => !!v || 'شرح نمی تواند خالی باشد!']"
@@ -25,7 +24,10 @@
         required
         outlined
         class="pa-2"
-      ></v-textarea>
+      ></v-textarea> -->
+
+      <Editor @update="updateText" />
+
       <v-chip-group mandatory active-class="primary--text" v-model="ticket.tag">
         <v-chip v-for="tag in tags" :key="tag">
           {{ tag }}
@@ -41,8 +43,9 @@
 </template>
 
 <script>
+import Editor from '../editor/Editor';
 export default {
-  auth: false,
+  components: { Editor },
   data() {
     return {
       valid: true,
@@ -50,13 +53,15 @@ export default {
         tag: '',
         title: '',
         text: '',
-        html: '',
       },
       tags: ['بارگذاری کد'],
       tagsId: ['12d94eab-ce91-4d31-8238-e575b013b4da'],
     };
   },
   methods: {
+    updateText(val) {
+      this.ticket.text = val;
+    },
     validate() {
       this.$refs.form.validate();
     },
@@ -68,10 +73,10 @@ export default {
       answer.html = answer.text;
       answer.tag = this.tagsId[answer.tag];
       this.$axios.$post('ticket/', answer).then(res => {
-        if (res.status_code === 200) {
-          this.$toast.success('تیکت ثبت شد شما ثبت شد!');
+        if (res.status_code === 201) {
+          this.$toast.success('تیکت شما ثبت شد!');
         } else {
-          this.$toast.error('خطایی در ثبت تیکیت به وجود آمد!');
+          this.$toast.error('خطایی در ثبت تیکت به وجود آمد!');
         }
       });
       this.$refs.form.reset();
