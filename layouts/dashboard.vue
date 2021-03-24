@@ -51,19 +51,21 @@
         <nuxt />
       </v-container>
     </v-main>
+    <PaymentDialog :dialog="payDialog" @close="payDialog = false" />
   </v-app>
 </template>
 
 <script>
-import Logo from '../components/Logo';
+import PaymentDialog from '~/components/dashboard/PaymentDialog';
 import { mapState } from 'vuex';
 
 export default {
-  components: { Logo },
+  components: { PaymentDialog },
   data() {
     return {
       drawer: null,
       activeLink: 'خانه',
+      payDialog: false,
       routes: {
         home: {
           title: 'خانه',
@@ -161,12 +163,21 @@ export default {
           this.$router.push('/dashboard/settings');
           this.$toast.error('لطفا ابتدا اطلاعات شخصی را کامل کنید');
         }
+        if (this.profile.has_team) {
+          this.openDialog();
+        }
       }
     },
   },
   methods: {
     logout() {
       this.$store.dispatch('auth/logout');
+    },
+    openDialog() {
+      console.log(localStorage.getItem('isSawDialog'));
+      if (!localStorage.getItem('isSawDialog')) {
+        this.payDialog = true;
+      }
     },
   },
   beforeMount() {

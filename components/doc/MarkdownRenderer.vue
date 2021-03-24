@@ -61,7 +61,6 @@ export default {
     }
     & code {
       display: flex;
-      justify-content: flex-end;
     }
     img {
       // max-width: 100%;
@@ -76,6 +75,8 @@ export default {
     margin: 14px 0px;
     text-align: left;
     padding: 10px 14px;
+    direction: ltr;
+    width: 100%;
   }
   .table-of-contents {
     position: fixed;

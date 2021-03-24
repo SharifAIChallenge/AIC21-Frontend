@@ -14,7 +14,7 @@
           full-width
         ></v-text-field>
       </div>
-      <div style="width:20%; ">
+      <div style="width:20%;">
         <v-btn block color="primary" @click="search(teamName)">
           <v-icon class="ml-0 ml-md-3">
             mdi-magnify

@@ -5,7 +5,7 @@
       <v-tabs-items touchless v-model="tabs">
         <v-tab-item>
           <div v-if="tabs === 0" class="main-content">
-            <MyTeam :toggleHaveTeam="toggleHaveTeam" v-if="haveTeam" />
+            <MyTeam :toggleHaveTeam="toggleHaveTeam" :isPayed="isPayed" v-if="haveTeam" />
             <CreateTeam :toggleHaveTeam="toggleHaveTeam" v-else />
           </div>
         </v-tab-item>
@@ -95,11 +95,12 @@ export default {
   async asyncData({ $axios }) {
     let res = await $axios.$get('team');
     let haveTeam = false;
+    let isPayed = res.level_one_payed;
     if (res.status_code === 403) haveTeam = false;
     else {
       haveTeam = true;
     }
-    return { haveTeam };
+    return { haveTeam, isPayed };
   },
   methods: {
     toggleHaveTeam() {
