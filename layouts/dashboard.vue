@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="dashboardMenu">
     <v-app-bar app clipped-right :hide-on-scroll="mobile" style="left: unset; overflow: hidden" height="90" class="dashbordNav">
       <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
       <v-row class="justify-center logo">
@@ -182,8 +182,10 @@ export default {
   overflow: hidden;
 }
 
-.v-navigation-drawer {
-  width: 265px !important;
+.dashboardMenu {
+  .v-navigation-drawer {
+    width: 265px !important;
+  }
 }
 .v-list-item--link::before {
   background-color: transparent !important;
@@ -200,7 +202,7 @@ export default {
     .logo {
       position: absolute;
       left: 50%;
-      transform: translateX(-30%) scale(4);
+      transform: translateX(-40%) scale(4);
     }
   }
 }
