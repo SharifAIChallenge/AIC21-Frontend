@@ -6,7 +6,7 @@
           mdi-menu
         </v-icon>
       </v-btn> -->
-      <div class="hidden-xs-only" id="menu">
+      <div id="menu">
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>

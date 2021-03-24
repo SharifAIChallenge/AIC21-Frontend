@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="4" md="3" lg="2" xl="2" class="tree bg-color pl-0">
+    <v-row class="ma-0">
+      <v-col cols="12" md="3" lg="2" xl="2" class="tree bg-color pl-0 pa-0">
         <v-app-bar clipped-right style="left: unset; overflow: hidden" width="100%" height="90" class="dashbordNav">
           <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
           <v-row class="justify-center logo">
@@ -34,7 +34,7 @@
           </v-treeview>
         </v-navigation-drawer>
       </v-col>
-      <v-col cols="12" sm="8" md="6" lg="7">
+      <v-col cols="12" md="6" lg="7" class="docWraper">
         <Header />
         <markdown-renderer :content="content" />
       </v-col>
@@ -118,9 +118,27 @@ export default {
 @import 'assets/variables.scss';
 
 .tree {
-  .treeview {
-    // position: sticky;
-    // top: 0;
+  position: fixed;
+  z-index: 50;
+
+  .v-navigation-drawer {
+    position: relative;
+  }
+  @include v-not-md {
+    height: 90px;
+  }
+  @include v-md {
+    width: auto !important;
+  }
+}
+.docWraper {
+  margin-right: 16.6666% !important;
+  @include v-not-lg {
+    margin-right: 25% !important;
+  }
+  @include v-not-md {
+    margin-right: 0% !important;
+    margin-top: 90px;
   }
 }
 .bg-color {
