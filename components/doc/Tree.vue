@@ -1,36 +1,38 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="4" md="3" lg="2" xl="2" class="tree pl-0">
+      <v-col cols="4" md="3" lg="2" xl="2" class="tree bg-color pl-0">
         <v-app-bar clipped-right style="left: unset; overflow: hidden" width="100%" height="90" class="dashbordNav">
-          <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" />
+          <v-app-bar-nav-icon class="ms-1 hidden-md-and-up pa-0" @click.stop="drawer = !drawer" />
           <v-row class="justify-center logo">
             <nuxt-link to="/" class="white--text" style="width: 100%; height: 100%">
               <img src="../../assets/images/logo/logo__primary.svg" alt="" height="80px" class="nav_logo mt-2" />
             </nuxt-link>
           </v-row>
         </v-app-bar>
-        <v-treeview
-          :items="items"
-          open-on-click
-          activatable
-          dense
-          :transition="true"
-          @update:open="open($event)"
-          :open="openIds"
-          @update:active="active($event)"
-          :active="activeIds"
-          class="mt-8 treeview"
-        >
-          <template v-slot:prepend="{ item, open }">
-            <!-- <v-icon v-if="!item.file">
+        <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right clipped class="pt-6 bg-color">
+          <v-treeview
+            :items="items"
+            open-on-click
+            activatable
+            dense
+            :transition="true"
+            @update:open="open($event)"
+            :open="openIds"
+            @update:active="active($event)"
+            :active="activeIds"
+            class="mt-8 treeview"
+          >
+            <template v-slot:prepend="{ item, open }">
+              <!-- <v-icon v-if="!item.file">
                 {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
               </v-icon>
               <v-icon v-else>
                 mdi-file
               </v-icon> -->
-          </template>
-        </v-treeview>
+            </template>
+          </v-treeview>
+        </v-navigation-drawer>
       </v-col>
       <v-col cols="12" sm="8" md="6" lg="7">
         <Header />
@@ -55,6 +57,7 @@ export default {
       content: '',
       repo_name: '',
       user_name: '',
+      drawer: null,
     };
   },
   components: { MarkdownRenderer, Header },
@@ -102,6 +105,11 @@ export default {
       this.openIds = items;
     },
   },
+  computed: {
+    mobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+  },
 };
 </script>
 
@@ -110,10 +118,12 @@ export default {
 @import 'assets/variables.scss';
 
 .tree {
-  background: map-get($material-dark-elevation-colors, '12');
   .treeview {
     // position: sticky;
     // top: 0;
   }
+}
+.bg-color {
+  background: map-get($material-dark-elevation-colors, '12');
 }
 </style>

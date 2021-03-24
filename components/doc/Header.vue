@@ -1,11 +1,11 @@
 <template>
   <div id="header">
     <v-app-bar flat absolute :color="color">
-      <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
+      <!-- <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
         <v-icon>
           mdi-menu
         </v-icon>
-      </v-btn>
+      </v-btn> -->
       <div class="hidden-xs-only" id="menu">
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
