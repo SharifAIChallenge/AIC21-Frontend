@@ -142,6 +142,6 @@ export default {
   }
 }
 .bg-color {
-  background: map-get($material-dark-elevation-colors, '12');
+  background: map-get($material-dark-elevation-colors, '12') !important;
 }
 </style>

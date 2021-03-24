@@ -24,6 +24,7 @@ export default {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
+    margin-bottom: 15px;
     a.header-anchor {
       opacity: 0;
       transition: all 0.7s;
@@ -48,12 +49,19 @@ export default {
   li:before {
     // content: counters(list-item, '.') ' ';
   }
+  pre {
+    overflow-x: auto;
+    margin: 30px 0;
+  }
   p {
     display: flex;
     img {
       // max-width: 100%;
       margin: 60px auto;
       @include responsive(width, 300px, 350px, 400px, 450px, 500px, 650px);
+    }
+    a {
+      margin: 0px 5px;
     }
   }
   .table-of-contents {
