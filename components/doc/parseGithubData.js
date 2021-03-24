@@ -2,7 +2,7 @@ export const parseGithubData = res => {
   let items = [];
   let maxDepth = 0;
   res.tree.forEach(node => {
-    if (node.type === 'blob') {
+    if (node.type === 'blob' && node.path.includes('.md') && !node.path.toLowerCase().includes('readme')) {
       const nodePath = node.path;
       const splittedPath = nodePath.split('/');
       const fileName = splittedPath[splittedPath.length - 1];
