@@ -107,7 +107,7 @@ export default {
           permalink: true,
           // renderPermalink: (slug, opts, state, permalink) => {},
           permalinkClass: 'header-anchor',
-          permalinkSymbol: '¶',
+          permalinkSymbol: '🔗',
           permalinkBefore: true,
         },
       ],
