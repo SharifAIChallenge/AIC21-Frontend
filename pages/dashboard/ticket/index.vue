@@ -31,12 +31,14 @@
       </div>
     </div>
 
-    <v-dialog v-model="showNewTicket" width="600">
+    <v-dialog v-model="showNewTicket" width="600" @click:outside="toggleNewTicket()">
       <v-card>
         <div @click="toggleNewTicket()">
           <v-btn icon>
             <h2>
-              X
+              <v-icon>
+                mdi-close
+              </v-icon>
             </h2>
           </v-btn>
         </div>
@@ -44,7 +46,7 @@
       </v-card>
     </v-dialog>
     <div v-if="generalTicket === 0">
-      <PrivateTickets :ticketStatus="amenities" :data="filter(privateTicketData)" :loadingTable="loadingTable"/>
+      <PrivateTickets :ticketStatus="amenities" :data="filter(privateTicketData)" :loadingTable="loadingTable" />
     </div>
     <div v-else>
       <PublicTikects :data="publicTicketData" />
@@ -83,6 +85,7 @@ export default {
   methods: {
     toggleNewTicket() {
       this.showNewTicket = !this.showNewTicket;
+      this.$fetch();
     },
     filter(data) {
       if (this.amenities.length === 2 || this.amenities.length === 0) {

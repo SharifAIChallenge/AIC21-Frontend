@@ -28,13 +28,13 @@
 
       <Editor @update="updateText" />
 
-      <h5 class="mr-2">تگ مربوط به تیکت خود را انتخاب کنید!</h5>
-      <v-chip-group mandatory active-class="primary--text" v-model="ticket.tag">
+      <h5 class="mt-4">تگ مربوط به تیکت خود را انتخاب کنید!</h5>
+      <v-chip-group mandatory active-class="primary--text" class="d-flex flex-wrap" v-model="ticket.tag">
         <v-chip v-for="tag in tags" :key="tag">
           {{ tag }}
         </v-chip>
       </v-chip-group>
-      <div style="display: flex; justify-content: flex-end;" class="ml-2">
+      <div style="display: flex; justify-content: flex-end;" class="mt-6 ml-2">
         <v-btn color="primary" :disabled="!valid" class="mb-2" @click="created(ticket)" width="25%" :loading="loading">
           + ایجاد
         </v-btn>
@@ -98,12 +98,12 @@ export default {
       this.$axios.$post('ticket/', answer).then(res => {
         if (res.status_code === 201) {
           this.$toast.success('تیکت شما ثبت شد!');
+          this.$refs.form.reset();
+          this.$refs.form.resetValidation();
         } else {
           this.$toast.error('خطایی در ثبت تیکت به وجود آمد!');
         }
       });
-      this.$refs.form.reset();
-      this.$refs.form.resetValidation();
     },
   },
 };
