@@ -79,7 +79,7 @@ export default {
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
           link: '/dashboard/doc/Game-Doc',
-          disabled: false,
+          disabled: true,
         },
         doc: {
           title: 'مستندات و منابع',
@@ -114,7 +114,7 @@ export default {
           icon: 'mdi-filmstrip-box-multiple',
           hover: 'mdi-filmstrip-box-multiple',
           link: '/dashboard/ticket',
-          disabled: false,
+          disabled: true,
         },
         submissions: {
           title: 'ارسال کد',
