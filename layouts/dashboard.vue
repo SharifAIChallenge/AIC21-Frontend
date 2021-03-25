@@ -107,9 +107,9 @@ export default {
           icon: 'mdi-account-group-outline',
           hover: 'mdi-account-group',
           link: '/dashboard/team',
-          disabled: true,
+          disabled: false,
         },
-        team: {
+        ticket: {
           title: 'تیکت',
           icon: 'mdi-filmstrip-box-multiple',
           hover: 'mdi-filmstrip-box-multiple',
