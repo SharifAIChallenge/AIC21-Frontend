@@ -46,9 +46,7 @@
 <script>
 import Editor from '../editor/Editor';
 export default {
-<<<<<<< HEAD
   components: { Editor },
-=======
   async fetch() {
     this.loading = true;
     await this.$axios.$get('/ticket/tags').then(res => {
@@ -67,7 +65,6 @@ export default {
     });
     this.loading = false;
   },
->>>>>>> ticket
   data() {
     return {
       valid: true,
