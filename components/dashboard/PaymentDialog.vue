@@ -1,6 +1,6 @@
 <template>
-  <v-dialog v-model="dialog" width="350">
-    <div>
+  <v-dialog @click:outside="onClose" v-model="dialog" width="350">
+    <div class="bg-color-12">
       <v-btn icon class="close-btn" @click="onClose">
         <v-icon>
           mdi-close
@@ -40,7 +40,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .link {
   display: inline-block;
   color: var(--v-primary-base);

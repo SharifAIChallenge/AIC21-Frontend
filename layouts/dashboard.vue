@@ -78,7 +78,7 @@ export default {
           title: 'داک بازی',
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
-          link: '/dashboard/doc/game-doc',
+          link: '/dashboard/doc/Game-Doc',
           disabled: true,
         },
         doc: {

@@ -117,3 +117,7 @@ strong {
 .theme--dark.v-tabs > .v-tabs-bar {
   background-color: rgb(8, 10, 24) !important;
 }
+
+.bg-color-12 {
+  background: map-get($material-dark-elevation-colors, '12');
+}

@@ -77,6 +77,7 @@ export default {
     padding: 10px 14px;
     direction: ltr;
     width: 100%;
+    overflow-x: auto;
   }
   .table-of-contents {
     position: fixed;

@@ -1,7 +1,9 @@
 <template>
   <div v-if="!payed" class="mt-8">
     <v-alert icon="mdi-cash-multiple" class="mb-8">
-      {{ config.description }}
+      <p>
+        {{ config.description }}
+      </p>
       <div class="my-8">
         <span>
           مبلغ:
@@ -21,9 +23,9 @@
 
   <div v-else>
     <v-alert icon="mdi-emoticon-excited-outline" class="mb-8">
-      <div class="text-h6">
+      <p class="text-h6">
         پرداخت تیم شما با موفقیت انجام شد
-      </div>
+      </p>
     </v-alert>
   </div>
 </template>
