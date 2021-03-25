@@ -79,7 +79,7 @@ export default {
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
           link: '/dashboard/doc/Game-Doc',
-          disabled: true,
+          disabled: false,
         },
         doc: {
           title: 'مستندات و منابع',
