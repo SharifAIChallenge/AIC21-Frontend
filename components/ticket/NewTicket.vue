@@ -28,13 +28,14 @@
 
       <Editor @update="updateText" />
 
+      <h5 class="mr-2">تگ مربوط به تیکت خود را انتخاب کنید!</h5>
       <v-chip-group mandatory active-class="primary--text" v-model="ticket.tag">
         <v-chip v-for="tag in tags" :key="tag">
           {{ tag }}
         </v-chip>
       </v-chip-group>
       <div style="display: flex; justify-content: flex-end;" class="ml-2">
-        <v-btn color="primary" :disabled="!valid" class="mb-2" @click="created(ticket)" width="25%">
+        <v-btn color="primary" :disabled="!valid" class="mb-2" @click="created(ticket)" width="25%" :loading="loading">
           + ایجاد
         </v-btn>
       </div>
@@ -45,17 +46,42 @@
 <script>
 import Editor from '../editor/Editor';
 export default {
+<<<<<<< HEAD
   components: { Editor },
+=======
+  async fetch() {
+    this.loading = true;
+    await this.$axios.$get('/ticket/tags').then(res => {
+      if (res.status_code === 200) {
+        this.data = res.data;
+        this.status_code = res.status_code;
+        this.tags = [];
+        this.tagsId = [];
+        this.data.forEach(item => {
+          this.tags.push(item.title);
+          this.tagsId.push(item.id);
+        });
+      } else {
+        this.$toast.error('مشکلی در لود تگ ها به وجود آمده است!');
+      }
+    });
+    this.loading = false;
+  },
+>>>>>>> ticket
   data() {
     return {
       valid: true,
+      loading: false,
+
+      data: [],
+      status_code: 200,
       ticket: {
         tag: '',
         title: '',
         text: '',
       },
-      tags: ['بارگذاری کد'],
-      tagsId: ['12d94eab-ce91-4d31-8238-e575b013b4da'],
+      tags: [],
+      tagsId: [],
     };
   },
   methods: {
