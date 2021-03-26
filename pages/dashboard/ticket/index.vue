@@ -1,8 +1,8 @@
 <template>
-  <v-container class="mt-16">
-    <div style="display: flex; justify-content:space-between; align-items:center;">
-      <div>
-        <div style="display: flex;">
+  <v-container class="mt-10">
+    <v-row class="mb-2">
+      <v-col cols="12" sm="8">
+        <div style="display:  flex;">
           <v-chip-group v-model="amenities" column multiple active-class="secondary--text secondary" v-if="generalTicket === 0">
             <v-chip filter outlined>
               حل شده
@@ -20,17 +20,16 @@
             </v-chip>
           </v-chip-group>
         </div>
-      </div>
-      <div>
-        <v-btn color="primary" @click="toggleNewTicket()">
+      </v-col>
+      <v-col cols="12" sm="4">
+        <v-btn color="primary" @click="toggleNewTicket()" width="100%">
           ساخت تیکت جدید
           <v-icon>
             mdi-plus-thick
           </v-icon>
         </v-btn>
-      </div>
-    </div>
-
+      </v-col>
+    </v-row>
     <v-dialog v-model="showNewTicket" width="600">
       <v-card>
         <div @click="toggleNewTicket()">
@@ -44,7 +43,7 @@
       </v-card>
     </v-dialog>
     <div v-if="generalTicket === 0">
-      <PrivateTickets :ticketStatus="amenities" :data="filter(privateTicketData)" :loadingTable="loadingTable"/>
+      <PrivateTickets :ticketStatus="amenities" :data="filter(privateTicketData)" :loadingTable="loadingTable" />
     </div>
     <div v-else>
       <PublicTikects :data="publicTicketData" />

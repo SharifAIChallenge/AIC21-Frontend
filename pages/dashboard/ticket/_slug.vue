@@ -1,9 +1,9 @@
 <template>
-  <SectionContainer>
+  <SectionContainer  class="mr-0 pr-0">
     <div style="display: flex; justify-content:space-between ;">
       <div class="mb-4">
         <h2>
-          <v-icon color="primary" size="36" class="pr-8 pl-6">mdi-alert-circle-outline</v-icon>
+          <v-icon color="primary" size="36" class="pr-6 pl-2">mdi-alert-circle-outline</v-icon>
           {{ data.title }}
         </h2>
       </div>
@@ -14,8 +14,8 @@
       </div>
     </div>
     <div>
-      <v-timeline dense>
-        <v-timeline-item>
+      <v-timeline dense >
+        <v-timeline-item  >
           <v-avatar slot="icon">
             <img :src="data.author.profile.image_link" />
           </v-avatar>
