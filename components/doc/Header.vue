@@ -7,12 +7,8 @@
         </v-icon>
       </v-btn> -->
       <div id="menu">
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
-          خانه
-        </v-btn>
-        <v-btn plain text :ripple="false" tile :class="getClass()" to="/dashboard">
-          داشبورد
-        </v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/">خانه</v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/dashboard">داشبورد</v-btn>
       </div>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
@@ -35,4 +31,14 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+@import '../assets/mixins.scss';
+#header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  @include v-not-md {
+    top: 90px;
+  }
+}
+</style>
