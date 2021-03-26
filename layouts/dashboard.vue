@@ -75,14 +75,14 @@ export default {
           disabled: false,
         },
         terms: {
-          title: 'داک بازی',
+          title: 'مستندات',
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
           link: '/dashboard/doc/Game-Doc',
-          disabled: true,
+          disabled: false,
         },
         doc: {
-          title: 'مستندات و منابع',
+          title: 'منابع',
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
           link: '/dashboard/terms',
@@ -114,7 +114,7 @@ export default {
           icon: 'mdi-filmstrip-box-multiple',
           hover: 'mdi-filmstrip-box-multiple',
           link: '/dashboard/ticket',
-          disabled: true,
+          disabled: false,
         },
         submissions: {
           title: 'ارسال کد',
