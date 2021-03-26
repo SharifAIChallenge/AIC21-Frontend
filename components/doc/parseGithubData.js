@@ -6,7 +6,7 @@ export const parseGithubData = res => {
       const nodePath = node.path;
       const splittedPath = nodePath.split('/');
       const fileName = splittedPath[splittedPath.length - 1];
-      const slug = fileName.substring(0, fileName.length - 3);
+      const slug = fileName.substring(2, fileName.length - 3);
       // try {
       //   slug.replaceAll(/-/g, ' ');
       // } catch (e) {

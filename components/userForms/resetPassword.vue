@@ -10,8 +10,8 @@
             {{ $t('form.changePassword') }}
           </div>
           <form ref="form" @submit.prevent="resetPasswordConfirm">
-            <password-input v-model="passes.newPassword_1" label="form.newPassword" />
-            <password-input v-model="passes.newPassword_2" label="form.confirmNewPassword" />
+            <password-input v-model="passes.newPassword1" label="form.newPassword" />
+            <password-input v-model="passes.newPassword2" label="form.confirmNewPassword" />
 
             <v-row>
               <v-col>
@@ -46,8 +46,8 @@ export default {
     return {
       valid: false,
       passes: {
-        newPassword_1: '',
-        newPassword_2: '',
+        newPassword1: '',
+        newPassword2: '',
         uid: this.$route.query.uid,
         token: this.$route.query.token,
       },

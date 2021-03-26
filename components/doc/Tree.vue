@@ -13,6 +13,7 @@
         <v-navigation-drawer v-model="drawer" :permanent="$vuetify.breakpoint.mdAndUp" floating app right clipped class="pt-6 bg-color">
           <v-treeview
             :items="items"
+            :loading="loading"
             open-on-click
             activatable
             dense
@@ -39,6 +40,7 @@
         <markdown-renderer :content="content" />
       </v-col>
     </v-row>
+    <loading :active.sync="loading" color="#eb3654" background-color="black" :is-full-page="true"></loading>
   </div>
 </template>
 
@@ -47,12 +49,15 @@ const fm = require('front-matter');
 import { parseGithubData, findActiveNode, findOpenIds, findActiveIds } from './parseGithubData';
 import MarkdownRenderer from './MarkdownRenderer.vue';
 import Header from './Header';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 export default {
   data() {
     return {
       items: [],
       openIds: [],
       activeIds: [],
+      loading: false,
       metaData: {},
       content: '',
       repo_name: '',
@@ -60,7 +65,7 @@ export default {
       drawer: null,
     };
   },
-  components: { MarkdownRenderer, Header },
+  components: { MarkdownRenderer, Header, Loading },
   async fetch() {
     let slug = this.$route.params.slug;
     await this.$axios
@@ -89,17 +94,24 @@ export default {
   },
   methods: {
     active(name) {
-      const splittedPath = name[0].split('/');
-      const fileName = splittedPath[splittedPath.length - 1];
-      const slug = fileName.substring(0, fileName.length - 3);
-      this.$router.push(`${slug}`);
-      const url = `https://raw.githubusercontent.com/${this.user_name}/${this.repo_name}/main/${name[0]}`;
-      fetch(url)
-        .then(res => res.text())
-        .then(res => {
-          this.metaData = fm(res);
-          this.content = '${toc} \n' + this.metaData.body;
-        });
+      console.log(name);
+      try {
+        const splittedPath = name[0].split('/');
+        const fileName = splittedPath[splittedPath.length - 1];
+        const slug = fileName.substring(0, fileName.length - 3);
+        this.$router.push(`${slug}`);
+        this.loading = true;
+        const url = `https://raw.githubusercontent.com/${this.user_name}/${this.repo_name}/main/${name[0]}`;
+        fetch(url)
+          .then(res => res.text())
+          .then(res => {
+            this.metaData = fm(res);
+            this.content = '${toc} \n' + this.metaData.body;
+            this.loading = false;
+          });
+      } catch (e) {
+        console.log('error');
+      }
     },
     open(items) {
       this.openIds = items;

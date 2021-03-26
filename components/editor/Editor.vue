@@ -29,7 +29,7 @@ export default {
           ],
         },
         color: 'white',
-        placeholder: 'type something',
+        placeholder: 'متن موردنظر',
       },
     };
   },
@@ -66,6 +66,9 @@ export default {
   }
   .ql-editor {
     min-height: 200px;
+  }
+  .ql-blank {
+    text-align: right;
   }
 }
 </style>

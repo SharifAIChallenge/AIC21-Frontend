@@ -75,18 +75,18 @@ export default {
           disabled: false,
         },
         terms: {
-          title: 'داک بازی',
+          title: 'مستندات',
           icon: 'mdi-file-document-outline',
           hover: 'mdi-file-document',
           link: '/dashboard/doc/Game-Doc',
-          disabled: true,
+          disabled: false,
         },
         doc: {
-          title: 'مستندات و منابع',
-          icon: 'mdi-file-document-outline',
-          hover: 'mdi-file-document',
+          title: 'منابع',
+          icon: 'mdi-source-fork',
+          hover: 'mdi-source-repository',
           link: '/dashboard/terms',
-          disabled: true,
+          disabled: false,
         },
         tournaments: {
           title: 'تورنومنت ها',
@@ -107,9 +107,9 @@ export default {
           icon: 'mdi-account-group-outline',
           hover: 'mdi-account-group',
           link: '/dashboard/team',
-          disabled: true,
+          disabled: false,
         },
-        team: {
+        ticket: {
           title: 'تیکت',
           icon: 'mdi-filmstrip-box-multiple',
           hover: 'mdi-filmstrip-box-multiple',
@@ -121,7 +121,7 @@ export default {
           icon: 'mdi-code-braces',
           hover: 'mdi-code-braces-box',
           link: '/dashboard/submissions',
-          disabled: true,
+          disabled: false,
         },
         games: {
           title: 'بازی ها',
