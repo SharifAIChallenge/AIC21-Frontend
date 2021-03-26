@@ -40,7 +40,7 @@
       <nuxt-link to="/dashboard/terms">این قوانین</nuxt-link>
       را می‌پذیرید.
     </div>
-    <v-btn tile block :disabled="!valid || !canSubmit" :loading="loading" type="submit" v-bind="primaryButtonProps">
+    <v-btn tile block :disabled="!valid" :loading="loading" type="submit" v-bind="primaryButtonProps">
       <v-icon left>mdi-upload</v-icon>
       ارسال
     </v-btn>
@@ -94,7 +94,6 @@ export default {
       // let { data } = await inst(config);
       let { data } = await submitLargeCode(this.$axios, formData);
       this.loading = false;
-      this.$store.dispatch('team/getSubmissions');
       if (data.status_code) {
         if (data.status_code === 200) {
           this.$toast.success('فایل با موفقیت آپلود شد.');
