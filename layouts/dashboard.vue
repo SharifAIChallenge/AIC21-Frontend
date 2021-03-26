@@ -121,7 +121,7 @@ export default {
           icon: 'mdi-code-braces',
           hover: 'mdi-code-braces-box',
           link: '/dashboard/submissions',
-          disabled: false,
+          disabled: true,
         },
         games: {
           title: 'بازی ها',
