@@ -61,6 +61,7 @@ import NewTicket from '~/components/ticket/NewTicket';
 
 export default {
   layout: 'dashboard',
+  transition: 'fade-transition',
   components: { PrivateTickets, NewTicket, PublicTikects },
   async fetch() {
     this.loadingTable = true;

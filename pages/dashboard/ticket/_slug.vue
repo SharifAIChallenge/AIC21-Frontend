@@ -79,6 +79,7 @@ import Editor from '~/components/editor/Editor';
 import SectionContainer from '~/components/SectionContainer';
 export default {
   layout: 'dashboard',
+  transition: 'fade-transition',
   components: { Preview, Editor, SectionContainer },
   async asyncData({ route, $axios }) {
     var slug = route.params.slug;
