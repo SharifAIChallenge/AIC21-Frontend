@@ -4,9 +4,7 @@
       <v-row justify="center" align="center">
         <v-col cols="12">
           <div class="sign-up-title">
-            <v-icon right size="55px" color="wihte">
-              mdi-shield-plus-outline
-            </v-icon>
+            <v-icon right size="55px" color="wihte">mdi-shield-plus-outline</v-icon>
             {{ $t('form.signUp') }}
           </div>
           <v-alert :type="result.type" :value="result.value" text outlined>
@@ -60,15 +58,15 @@
                   type="submit"
                   color="primary"
                   height="50px"
-                  style="border-radius: 0; font-weight: normal;"
+                  style="border-radius: 0; font-weight: normal"
                 >
                   {{ $t('form.signUp') }}
                 </v-btn>
                 <div class="my-6">
                   <div class="or-separator"><span class="px-3">یا</span></div>
                 </div>
-                <v-btn @click="loginWithGoogle" block color="primary" height="50px" style="border-radius: 0; font-weight: normal;">
-                  <v-icon style="margin:5px" size="25px">mdi-google</v-icon>
+                <v-btn @click="loginWithGoogle" block color="primary" height="50px" style="border-radius: 0; font-weight: normal">
+                  <v-icon style="margin: 5px" size="25px">mdi-google</v-icon>
                   {{ $t('form.signUpWithGoogle') }}
                 </v-btn>
               </v-col>
@@ -77,8 +75,8 @@
         </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="secondary" class="login-btn" height="50px" @click="changeStatus('login')">
-      <v-icon style="margin:5px" size="25px">mdi-shield-star</v-icon>
+    <v-btn color="secondary" class="login-btn" height="50px" @click="changeStatus('login')">
+      <v-icon style="margin: 5px" size="25px">mdi-shield-star</v-icon>
       {{ $t('form.signIn') }}
     </v-btn>
   </div>
@@ -219,5 +217,6 @@ export default {
   font-weight: normal;
   bottom: 0;
   border-radius: 0;
+  width: calc(100% - 17px);
 }
 </style>
