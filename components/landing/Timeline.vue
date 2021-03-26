@@ -5,9 +5,6 @@
         id="timeline"
         v-intersect="{
           handler: onIntersecTimeline,
-          options: {
-            threshold: 0.3,
-          },
         }"
       >
         <img src="../../assets/images/logo/logo__white.svg" alt="Ai-challenge" class="timelineLogo d-none d-md-block" width="30%" />
@@ -94,6 +91,7 @@ export default {
     h3 {
       font-size: 9rem;
       line-height: 150px;
+      text-align: left;
       @include not-xl {
         font-size: 7rem;
       }

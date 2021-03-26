@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <div id="doc-header">
     <v-app-bar flat absolute :color="color">
       <!-- <v-btn icon class="transparent hidden-sm-and-up" @click="showMenu = !showMenu">
         <v-icon>
@@ -33,7 +33,7 @@ export default {
 </script>
 <style lang="scss">
 @import '~/assets/mixins.scss';
-#header {
+#doc-header {
   position: fixed;
   width: 100%;
   top: 0;
