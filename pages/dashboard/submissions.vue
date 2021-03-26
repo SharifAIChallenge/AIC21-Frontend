@@ -1,28 +1,41 @@
 <template>
-  <dashboard-page title="dashboard.submissions">
-    <v-col>
-      <v-card>
-        <v-card-text>
-          <code-submission />
+  
+    <v-row>
+    <v-col cols="4" class="pl-0">
+      <v-card flat class="transparent">
+        <SectionHeader :title="`ارسال کد`" :icon="`mdi-code-braces`"/>
+        <v-alert
+        class="mx-4 px-1"
+        type="info"
+        outlined
+        icon="mdi-information-outline"
+        >
+        محدودیت زمانی بین هر ارسال:‌ ۳۰ دقیقه
+        <br/>
+        </v-alert>
+        <v-card-text style="boder-radius:0px !important">
+          <code-submission/>
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col>
-      <v-card>
-        <v-card-title>
-          {{ $t('dashboard.submissionsHistory') }}
-          <v-btn icon class="ms-3" @click="$store.dispatch('team/getSubmissions')">
+    <v-col cols="8" class="pr-0 pl-">
+      <v-card flat class="transparent">
+        <v-card-text class="white--text text-h6">
+          <v-icon>mdi-history</v-icon>
+          تاریخچه ارسال ها
+          <!-- <v-btn icon class="ms-3" @click="$store.dispatch('team/getSubmissions')">
             <v-icon>mdi-autorenew</v-icon>
-          </v-btn>
-        </v-card-title>
-        <v-divider />
+          </v-btn> -->
+        </v-card-text>
         <submissions-list :submissions="submissions" />
       </v-card>
     </v-col>
-  </dashboard-page>
+    </v-row>
+  
 </template>
 
 <script>
+import SectionHeader from "~/components/SectionHeader";
 import dashboardPageValidate from '../../mixins/dashboardPageValidate'
 import DashboardPage from '../../components/dashboard/DashboardPage'
 import CodeSubmission from '../../components/dashboard/submission/CodeSubmission'
@@ -30,15 +43,12 @@ import SubmissionsList from '../../components/dashboard/submission/SubmissionsLi
 import { mapState } from 'vuex'
 
 export default {
-  components: { CodeSubmission, DashboardPage, SubmissionsList },
+  components: { CodeSubmission, DashboardPage, SubmissionsList,SectionHeader },
   layout: 'dashboard',
-  mixins: [dashboardPageValidate('submissions')],
+  // mixins: [dashboardPageValidate('submissions')],
   transition: 'fade-transition',
   fetch({ store }) {
-    return Promise.all([
-      store.dispatch('team/getSubmissions'),
-      store.dispatch('games/getChallenge'),
-    ])
+    return 
   },
   computed: {
     ...mapState({

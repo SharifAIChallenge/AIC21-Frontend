@@ -176,9 +176,11 @@ export const SUBMIT_CODE = {
 // };
 
 export const submitLargeCode = (axios, data) => {
-  return axios.$post('https://analysaur.ir/api/storage/file/', data, {
+  //old_url:"'https://analysaur.ir/api/storage/file/'"
+  return axios.$post('/team/submission', data, {
     headers: {
       Authorization: false,
+      'content-type': 'multipart/form-data'
     },
   });
 };
