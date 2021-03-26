@@ -49,7 +49,6 @@ import TeamInvitationAndHistory from '~/components/dashboard/team/TeamInvitation
 import SearchUsersAndSendInvitation from '~/components/dashboard/team/SearchUsersAndSendInvitation';
 export default {
   layout: 'dashboard',
-  transition: 'fade-transition',
   components: {
     CreateTeam,
     UserInvitation,

@@ -2,7 +2,7 @@
 
 <script>
 export default {
-  transition: 'fade-transition',
+  auth: false,
   layout: 'doc',
 };
 </script>
