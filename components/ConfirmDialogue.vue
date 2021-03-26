@@ -1,21 +1,24 @@
 <template>
   <div>
-    <v-dialog class='modal' v-model='show' width='400px'>
-      <div class='question '>
-        {{ this.text }}
-      </div>
-      <div class='buttons mt-7'>
-        <div>
-          <v-btn color='black' block @click='reject' style='width: 200px'>
-            خیر
-          </v-btn>
+    <v-dialog v-model='showModal' width='400px' @click:outside='reject'>
+      <div class='modal bg-color-12'>
+        <div class='question mt-7 mx-7 '>
+          {{ this.text }}
         </div>
-        <div>
-          <v-btn color='primary' block @click='confirm' style='width: 200px'>
-            بله
-          </v-btn>
+        <div class='buttons mt-7'>
+          <div>
+            <v-btn color='black' block @click='reject' style='width: 200px'>
+              خیر
+            </v-btn>
+          </div>
+          <div>
+            <v-btn color='primary' block @click='confirm' style='width: 200px'>
+              بله
+            </v-btn>
+          </div>
         </div>
       </div>
+
     </v-dialog>
   </div>
 </template>
@@ -23,7 +26,7 @@
 <script>
 export default {
   name: 'Confirm',
-  props: ['text'],
+  props: ['text', 'showModal'],
   data() {
     return {
       show: true,
@@ -32,10 +35,10 @@ export default {
   methods: {
     confirm() {
       this.$emit('confirmation');
-      this.show = false;
+      this.showModal = false;
     },
     reject() {
-      this.show = false;
+      this.$emit('close');
     },
   },
 };
@@ -49,7 +52,7 @@ export default {
 
 .question {
   text-align: center;
-  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .buttons {

@@ -28,8 +28,10 @@
           </v-btn>
         </div>
       </div>
+      <ConfirmDialogue :text=this.modalText :showModal='showModal'
+                       @confirmation='getOutFromTeam' @close='showModal=false' />
     </SectionContainer>
-    <ConfirmDialogue :text=this.modalText v-model='showModal' @confirmation='getOutFromTeam' />
+
   </div>
 </template>
 <script>
@@ -50,7 +52,7 @@ export default {
       team: {},
       loading: false,
       showModal:false,
-      modalText:'ترک تیم غیرفابل بازگشت است، آیا از این کار مطمئن هستید؟'
+      modalText:'ترک تیم غیرقابل بازگشت است، آیا از این کار مطمئن هستید؟'
     };
   },
   methods: {
