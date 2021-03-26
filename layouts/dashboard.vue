@@ -83,8 +83,8 @@ export default {
         },
         doc: {
           title: 'منابع',
-          icon: 'mdi-file-document-outline',
-          hover: 'mdi-file-document',
+          icon: 'mdi-source-fork',
+          hover: 'mdi-source-repository',
           link: '/dashboard/terms',
           disabled: true,
         },
