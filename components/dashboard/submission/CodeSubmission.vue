@@ -16,29 +16,23 @@
       </v-chip>
     </v-alert>
     <v-row>
-      <v-col cols="12" sm="8">
+      <v-col cols="12">
         <v-file-input
           v-model="file"
           v-bind="filedProps"
-          :label="$t('form.file')"
+          label="فایل"
           :rules="fileRules"
           :hint="fileHint"
           accept=".zip"
           show-size
           persistent-hint
+          append-icon="mdi-paperclip"
+          prepend-icon=""
           dir="ltr"
         />
       </v-col>
       <v-col>
-        <v-select
-          v-model="language"
-          v-bind="filedProps"
-          :items="languageOptions"
-          :label="$t('form.language')"
-          :rules="requiredRules"
-          required
-          dir="ltr"
-        />
+        <v-select v-model="language" v-bind="filedProps" :items="languageOptions" label="زبان" :rules="requiredRules" required dir="ltr" />
       </v-col>
     </v-row>
     <div class="mb-6">
@@ -46,9 +40,9 @@
       <nuxt-link to="/dashboard/terms">این قوانین</nuxt-link>
       را می‌پذیرید.
     </div>
-    <v-btn :disabled="!valid || !canSubmit" :loading="loading" type="submit" v-bind="primaryButtonProps">
+    <v-btn tile block :disabled="!valid" :loading="loading" type="submit" v-bind="primaryButtonProps">
       <v-icon left>mdi-upload</v-icon>
-      {{ $t('form.upload') }}
+      ارسال
     </v-btn>
   </v-form>
 </template>
@@ -57,7 +51,7 @@
 import { requiredRules } from '../../../mixins/formValidations';
 import { primaryButtonProps } from '../../../mixins/buttonProps';
 import { fieldProps } from '../../../mixins/fieldProps';
-import { submitLargeCode, SUBMIT_CODE, SUBMIT_LARGE_CODE } from '../../../api';
+import { submitLargeCode } from '../../../api';
 import { mapState } from 'vuex';
 
 export default {
@@ -71,20 +65,14 @@ export default {
         { text: 'Java', value: 'java' },
         { text: 'Python 3', value: 'py3' },
         { text: 'Cpp', value: 'cpp' },
-        { text: 'Go', value: 'go' },
+        //{ text: 'Go', value: 'go' },
       ],
       fileHint: 'zip',
       fileRules: [v => !!v || ''],
       loading: false,
     };
   },
-  computed: {
-    ...mapState({
-      codeSubmitDelay: state => state.games.challenge.code_submit_delay,
-      canSubmit: state => state.games.challenge.can_submit,
-      canChangeSubmission: state => state.games.challenge.can_change_submission,
-    }),
-  },
+  computed: {},
   methods: {
     async uploadCode() {
       // let api = SUBMIT_LARGE_CODE;
@@ -106,7 +94,6 @@ export default {
       // let { data } = await inst(config);
       let { data } = await submitLargeCode(this.$axios, formData);
       this.loading = false;
-      this.$store.dispatch('team/getSubmissions');
       if (data.status_code) {
         if (data.status_code === 200) {
           this.$toast.success('فایل با موفقیت آپلود شد.');
