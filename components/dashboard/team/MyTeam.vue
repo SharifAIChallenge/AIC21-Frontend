@@ -22,23 +22,25 @@
         </div>
         <Payment :payed="team.level_one_payed || isPayed" />
         <div class="mt-4 mt-md-12">
-          <v-btn block :loading="loading" color="black" class="text-h6" @click="getOutFromTeam()">
+          <v-btn block :loading="loading" color="black" class="text-h6" @click="showDialogue">
             <v-icon color="white" size="30px" class="pl-4 pr-2">mdi-exit-run</v-icon>
             ترک تیم
           </v-btn>
         </div>
       </div>
     </SectionContainer>
+    <ConfirmDialogue :text=this.modalText v-model='showModal' @confirmation='getOutFromTeam' />
   </div>
 </template>
 <script>
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
 import Payment from './Payment';
+import ConfirmDialogue from '~/components/ConfirmDialogue';
 
 export default {
   props: ['toggleHaveTeam', 'isPayed'],
-  components: { SectionHeader, SectionContainer, Payment },
+  components: { SectionHeader, SectionContainer, Payment, ConfirmDialogue },
   async fetch() {
     let res = await this.$axios.$get('team');
     this.team = res;
@@ -47,6 +49,8 @@ export default {
     return {
       team: {},
       loading: false,
+      showModal:false,
+      modalText:'ترک تیم غیرفابل بازگشت است، آیا از این کار مطمئن هستید؟'
     };
   },
   methods: {
@@ -62,6 +66,9 @@ export default {
         }
       });
     },
+    showDialogue(){
+      this.showModal = true;
+    }
   },
 };
 </script>
