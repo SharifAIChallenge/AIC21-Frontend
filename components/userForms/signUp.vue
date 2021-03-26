@@ -186,6 +186,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~/assets/mixins.scss';
 .or-separator {
   width: 100%;
   display: flex;
@@ -218,5 +219,8 @@ export default {
   bottom: 0;
   border-radius: 0;
   width: calc(100% - 17px);
+  @include v-not-md {
+    width: 100%;
+  }
 }
 </style>
