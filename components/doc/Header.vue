@@ -32,7 +32,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import '../assets/mixins.scss';
+@import '~/assets/mixins.scss';
 #header {
   position: fixed;
   width: 100%;
