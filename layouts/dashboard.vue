@@ -85,8 +85,8 @@ export default {
           title: 'منابع',
           icon: 'mdi-source-fork',
           hover: 'mdi-source-repository',
-          link: '/dashboard/terms',
-          disabled: true,
+          link: '/dashboard/resources',
+          disabled: false,
         },
         tournaments: {
           title: 'تورنومنت ها',
