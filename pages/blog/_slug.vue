@@ -53,10 +53,15 @@
       </v-col>
     </v-row>
 
-    <div class="my-10" v-for="(video, index) in post.aparats" :key="index">
+    <div class="my-10" v-for="(video, index) in post.aparats" :key="index" v-if='isAuthenticated'>
       <div :id="video.aparat_id">
         <script type="text/JavaScript" :src="video.aparat_src"></script>
       </div>
+    </div>
+    <div v-else style='max-width: 500px; margin: auto;'>
+      <v-btn  block color='primary' @click='goToLogin'  >
+          برای دیدن وبینار ابتدا باید وارد شوید
+      </v-btn>
     </div>
     <v-row class="mt-15 mb-6" v-if="posts.length">
       <v-col cols="12" class="headline font-weight-black">
@@ -75,6 +80,7 @@ import Buttons from '~/components/blog/Buttons';
 import Post from '~/components/blog/Post';
 import { getPost, getPosts } from '~/api/blog';
 import CallToAction from '~/components/CallToAction.vue';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -110,6 +116,15 @@ export default {
       document.body.removeChild(el);
       this.$toast.success('لینک پست در کلیپ‌بورد کپی شد');
     },
+    goToLogin(){
+      this.$store.commit('formStatus/toggleShow');
+      this.$store.commit('formStatus/changeStatus','login');
+    }
+  },
+  computed: {
+    ...mapState({
+      isAuthenticated: state => state.auth.isAuthenticated,
+    })
   },
 };
 </script>
