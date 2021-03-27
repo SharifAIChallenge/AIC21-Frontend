@@ -55,10 +55,10 @@ export default {
       activeLink: 'خانه',
       routes: {
         home: {
-          title: 'خانه',
+          title: 'تیکت',
           icon: 'mdi-home-variant-outline',
           hover: 'mdi-home-variant',
-          link: '/dashboard',
+          link: '/dashboard/admin/ticket',
           disabled: false,
         },
       },

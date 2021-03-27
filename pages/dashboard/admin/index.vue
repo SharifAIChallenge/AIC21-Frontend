@@ -2,8 +2,7 @@
 
 <script>
 export default {
-  auth: false,
-  layout: 'doc',
+  layout: 'admin',
 };
 </script>
 

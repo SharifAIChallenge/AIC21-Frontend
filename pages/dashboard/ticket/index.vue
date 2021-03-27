@@ -49,7 +49,7 @@
       <PrivateTickets :ticketStatus="amenities" :data="filter(privateTicketData)" :loadingTable="loadingTable" />
     </div>
     <div v-else>
-      <PublicTikects :data="publicTicketData" />
+      <PublicTikects :data="publicTicketData" :action="false" />
     </div>
   </v-container>
 </template>
@@ -64,13 +64,11 @@ export default {
   components: { PrivateTickets, NewTicket, PublicTikects },
   async fetch() {
     this.loadingTable = true;
-    await this.$axios.$get('/ticket').then(res => {
-      this.privateTicketData = res.data;
-    });
+    let res = await this.$axios.$get('/ticket');
+    this.privateTicketData = res.data;
+    res = await this.$axios.$get('/ticket/publicTickets');
+    this.publicTicketData = res.data;
     this.loadingTable = false;
-    this.$axios.$get('/ticket/publicTickets').then(res => {
-      this.publicTicketData = res.data;
-    });
   },
   data() {
     return {
