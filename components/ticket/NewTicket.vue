@@ -29,14 +29,21 @@
       <Editor @update="updateText" />
 
       <h5 class="mt-4">تگ مربوط به تیکت خود را انتخاب کنید!</h5>
-      <v-chip-group mandatory active-class="primary--text" class="d-flex flex-wrap" v-model="ticket.tag">
-        <v-chip v-for="tag in tags" :key="tag">
-          {{ tag }}
-        </v-chip>
-      </v-chip-group>
+      <div>
+        <v-chip-group column active-class="primary--text" class="" v-model="ticket.tag">
+          <v-chip v-for="tag in tags" :key="tag">
+            {{ tag }}
+          </v-chip>
+        </v-chip-group>
+      </div>
       <div style="display: flex; justify-content: flex-end;" class="mt-6 ml-2">
-        <v-btn color="primary" :disabled="!valid" class="mb-2" @click="created(ticket)" width="25%" :loading="loading">
-          + ایجاد
+        <v-btn color="primary" :disabled="!valid" class="mb-2" @click="created(ticket)" width="35%" :loading="loading">
+          <v-icon class="ml-2">
+            mdi-plus
+          </v-icon>
+          <span>
+            ایجاد
+          </span>
         </v-btn>
       </div>
     </v-form>
