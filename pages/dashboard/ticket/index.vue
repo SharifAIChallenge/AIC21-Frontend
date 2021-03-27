@@ -1,35 +1,44 @@
 <template>
-  <v-container class="mt-16">
-    <div style="display: flex; justify-content:space-between; align-items:center;">
-      <div>
-        <div style="display: flex;">
-          <v-chip-group v-model="amenities" column multiple active-class="secondary--text secondary" v-if="generalTicket === 0">
-            <v-chip filter outlined>
-              حل شده
-            </v-chip>
-            <v-chip filter outlined>
-              حل نشده
-            </v-chip>
-          </v-chip-group>
-          <v-chip-group v-model="generalTicket" column active-class="secondary--text secondary">
-            <v-chip filter outlined>
-              شخصی
-            </v-chip>
-            <v-chip filter outlined>
-              عمومی
-            </v-chip>
-          </v-chip-group>
-        </div>
-      </div>
-      <div>
-        <v-btn color="primary" @click="toggleNewTicket()">
+  <v-container class="mt-10">
+    <v-row class="mb-2">
+      <v-col cols="12" sm="5" class="pa-0">
+        <!-- <div style="display:  flex;"> -->
+        <v-chip-group
+          style="display:  flex;"
+          v-model="amenities"
+          column
+          multiple
+          active-class="secondary--text secondary"
+          v-if="generalTicket === 0"
+        >
+          <v-chip filter outlined>
+            حل شده
+          </v-chip>
+          <v-chip filter outlined>
+            حل نشده
+          </v-chip>
+        </v-chip-group>
+      </v-col>
+      <v-col cols="12" sm="4" class="pa-0">
+        <v-chip-group style="display:  flex;" v-model="generalTicket" column active-class="secondary--text secondary">
+          <v-chip filter outlined>
+            شخصی
+          </v-chip>
+          <v-chip filter outlined>
+            عمومی
+          </v-chip>
+        </v-chip-group>
+      </v-col>
+      <!-- </div> -->
+      <v-col cols="12" sm="3" class="pa-0 pl-4">
+        <v-btn color="primary mr-2" @click="toggleNewTicket()" width="100%">
           ساخت تیکت جدید
           <v-icon>
             mdi-plus-thick
           </v-icon>
         </v-btn>
-      </div>
-    </div>
+      </v-col>
+    </v-row>
 
     <v-dialog v-model="showNewTicket" width="600" @click:outside="toggleNewTicket()">
       <v-card>
