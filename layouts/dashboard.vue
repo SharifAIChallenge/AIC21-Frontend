@@ -17,7 +17,7 @@
             active-class="font-weight-bold"
             @click="activeLink = item.title"
             style="min-height:36px;height:36px;font-weight-bold"
-            :disabled="item.disabled"
+            :disabled="item.disabled || !profile || (item.gard && !profile.is_complete)"
             :to="item.link"
             exact
             nuxt
@@ -73,6 +73,7 @@ export default {
           hover: 'mdi-home-variant',
           link: '/dashboard',
           disabled: false,
+          gard: false,
         },
         terms: {
           title: 'مستندات',
@@ -80,6 +81,7 @@ export default {
           hover: 'mdi-file-document',
           link: '/dashboard/doc/Game-Doc',
           disabled: false,
+          gard: true,
         },
         doc: {
           title: 'منابع',
@@ -87,6 +89,7 @@ export default {
           hover: 'mdi-source-repository',
           link: '/dashboard/terms',
           disabled: false,
+          gard: true,
         },
         tournaments: {
           title: 'تورنومنت ها',
@@ -94,6 +97,7 @@ export default {
           hover: 'mdi-tournament',
           link: '/dashboard/tournaments',
           disabled: true,
+          gard: true,
         },
         scoreboard: {
           title: 'جدول امتیازات',
@@ -101,6 +105,7 @@ export default {
           hover: 'mdi-scoreboard',
           link: '/dashboard/scoreboard',
           disabled: true,
+          gard: true,
         },
         team: {
           title: 'تیم',
@@ -108,6 +113,7 @@ export default {
           hover: 'mdi-account-group',
           link: '/dashboard/team',
           disabled: false,
+          gard: true,
         },
         ticket: {
           title: 'تیکت',
@@ -115,6 +121,7 @@ export default {
           hover: 'mdi-filmstrip-box-multiple',
           link: '/dashboard/ticket',
           disabled: false,
+          gard: true,
         },
         submissions: {
           title: 'ارسال کد',
@@ -122,6 +129,7 @@ export default {
           hover: 'mdi-code-braces-box',
           link: '/dashboard/submissions',
           disabled: true,
+          gard: true,
         },
         games: {
           title: 'بازی ها',
@@ -129,6 +137,7 @@ export default {
           hover: 'mdi-sword-cross',
           link: '/dashboard/games',
           disabled: true,
+          gard: true,
         },
       },
       bottomRoute: {
@@ -174,7 +183,6 @@ export default {
       this.$store.dispatch('auth/logout');
     },
     openDialog() {
-      console.log(localStorage.getItem('isSawDialog'));
       if (!localStorage.getItem('isSawDialog')) {
         this.payDialog = true;
       }

@@ -217,6 +217,7 @@ export default {
   font-size: 25px !important;
   font-weight: normal;
   bottom: 0;
+  right: 0;
   border-radius: 0;
   width: calc(100% - 17px);
   @include v-not-md {

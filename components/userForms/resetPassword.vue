@@ -96,6 +96,7 @@ export default {
   font-size: 20px;
   font-weight: normal;
   bottom: 0;
+  right: 0;
   border-radius: 0;
 }
 </style>
