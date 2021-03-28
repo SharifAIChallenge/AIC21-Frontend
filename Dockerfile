@@ -1,4 +1,4 @@
-FROM reg.aichallenge.ir/aic/aic21-front:83-2c97f1c1
+FROM reg.aichallenge.ir/front:16.52.75
 
 ENV APP_ROOT /src
 
