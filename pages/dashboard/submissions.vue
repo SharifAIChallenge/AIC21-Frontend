@@ -43,7 +43,6 @@ export default {
 
     async fetch(){
     let data = await viewSubmissions(this.$axios)
-    console.log(data);
     this.submissions=data.submissions
   },
   data(){

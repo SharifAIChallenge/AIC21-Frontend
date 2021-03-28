@@ -90,7 +90,6 @@ export default {
       if (data.status_code === 200) {
         this.$store.dispatch('team/getSubmissions')
         this.$toast.success('ارسال نهایی با موفقیت تغییر کرد.')
-        console.log(this.submissions);
         this.submissions.map((el)=>{
           el.is_final=false;
         })
