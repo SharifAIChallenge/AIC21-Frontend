@@ -21,7 +21,7 @@
     <v-col cols="12" md="8" class="pr-md-0 pr-6 pl-5">
       <v-card flat class="transparent">
         <SectionHeader :title="`تاریخچه ارسال ها`" :icon="`mdi-history`"/>
-        <submissions-list/>
+        <submissions-list :submissions="submissions"/>
       </v-card>
     </v-col>
     </v-row>
@@ -32,6 +32,7 @@
 import SectionHeader from "~/components/SectionHeader";
 import CodeSubmission from '../../components/dashboard/submission/CodeSubmission'
 import SubmissionsList from '../../components/dashboard/submission/SubmissionsList'
+import {viewSubmissions} from "~/api/index";
 import { mapState } from 'vuex'
 
 export default {
@@ -39,9 +40,17 @@ export default {
   layout: 'dashboard',
   // mixins: [dashboardPageValidate('submissions')],
   transition: 'fade-transition',
-  fetch({ store }) {
-    return 
+
+    async fetch(){
+    let data = await viewSubmissions(this.$axios)
+    console.log(data);
+    this.submissions=data.submissions
   },
+  data(){
+    return{
+      submissions:[]
+    }
+  }
   // computed: {
   //   ...mapState({
   //     submissions: state => state.team.submissions,
