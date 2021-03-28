@@ -2,7 +2,6 @@
   <div class="main">
     <v-data-table
       center
-      hide-default-footer
       :headers="headers"
       :loading="loadingTable"
       :items="data"

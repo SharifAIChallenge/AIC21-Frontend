@@ -1,20 +1,10 @@
 <template>
   <v-form ref="createTeam" v-model="valid" onSubmit="return false;" @submit="uploadCode">
-    <v-alert text icon="mdi-information" class="mb-6" transition="scale-transition" :value="!!codeSubmitDelay">
-      <p>{{ $tc('dashboard.codeSubmissionMessage', codeSubmitDelay) }}</p>
+    <!-- <v-alert text icon="mdi-information" class="mb-6" transition="scale-transition">
       <v-chip>
-        <v-icon left :color="statusIcon(canSubmit).c">
-          {{ statusIcon(canSubmit).i }}
-        </v-icon>
         {{ $t('dashboard.submissions') }}
       </v-chip>
-      <v-chip>
-        <v-icon left :color="statusIcon(canChangeSubmission).c">
-          {{ statusIcon(canChangeSubmission).i }}
-        </v-icon>
-        {{ $t('dashboard.changeFinalSubmission') }}
-      </v-chip>
-    </v-alert>
+    </v-alert> -->
     <v-row>
       <v-col cols="12">
         <v-file-input
@@ -65,7 +55,6 @@ export default {
         { text: 'Java', value: 'java' },
         { text: 'Python 3', value: 'py3' },
         { text: 'Cpp', value: 'cpp' },
-        //{ text: 'Go', value: 'go' },
       ],
       fileHint: 'zip',
       fileRules: [v => !!v || ''],
@@ -104,14 +93,6 @@ export default {
           this.$toast.error('خطایی در آپلود فایل رخ داد.');
         }
       }
-    },
-    statusIcon(val) {
-      return val
-        ? { c: 'success', i: 'mdi-checkbox-marked-circle-outline' }
-        : {
-            c: 'error',
-            i: 'mdi-close-circle-outline',
-          };
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="publick-ticket">
-    <v-data-table center hide-default-footer :headers="headers" :loading="loading" :items="data" class="elevation-1 table-cursor">
+    <v-data-table center :headers="headers" :loading="loading" :items="data" class="elevation-1 table-cursor">
       <template v-slot:[`item.status`]="{ item }" class="ma-2">
         <v-icon :color="getColor(item.status)">
           {{ ticketStatusIcon(item.status) }}
