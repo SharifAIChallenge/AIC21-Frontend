@@ -62,7 +62,7 @@ export default {
         },
         {
           title: 'دعوت‌نامه‌ها',
-          icon: 'mdi-history',
+          icon: 'mdi-script-text',
         },
       ],
     };

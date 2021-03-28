@@ -14,7 +14,7 @@
         ></v-text-field>
       </div>
       <div style="width:20%;">
-        <v-btn block color="primary" @click="search(teamName)">
+        <v-btn block color="primary" :loading="tableLoading" @click="search(teamName)">
           <v-icon class="ml-0 ml-md-3">
             mdi-magnify
           </v-icon>
@@ -33,7 +33,7 @@
           </v-btn>
         </v-col>
         <v-col class="px-0" cols="6">
-          <v-btn color="primary" block width="100%" :disabled="this.randomData.length === 0" @click="randomMatch()">
+          <v-btn color="primary" block width="100%" :disabled="this.randomData.length === 1" @click="randomMatch()">
             <v-icon large class="pl-5">mdi-shuffle-variant</v-icon>
             انتخاب تیم رندوم
           </v-btn>
@@ -189,26 +189,34 @@ export default {
       this.ProfileDialog = true;
     },
     sendGameRequest(teamId) {
-      this.$axios.$post('/challenge/request', { type: 'friendly_match', target_team: `${teamId}` }).then(res => {});
+      this.$axios.$post('/challenge/request', { type: 'friendly_match', target_team: `${teamId}` }).then(res => {
+        if (res.status_code === 200) {
+          this.$toast.success('درخواست با موفقیت ارسال شد');
+        } else if (res.detail) {
+          const detail = res.detail.detail;
+          if (detail === 'you have a sent an request already') this.$toast.error('قبلا به این تیم دعوت داده‌اید. منتظر پاسخ بمانید');
+          //TODO: check other error
+        }
+      });
     },
     randomMatch() {
-      this.$axios.$post('/challenge/lobby', { game_type: 'friendly_match' }).then(res => {});
+      this.$axios.$post('/challenge/lobby', { game_type: 'friendly_match' }).then(res => {
+        this.randomData = [];
+      });
     },
   },
   async fetch() {
     this.tableLoading = true;
-    await this.$axios.$get('/team/all-teams').then(response => {
-      this.teams = response.results.data;
-      const count = 20;
-      if (response.count % count === 0) {
-        this.pageCount = response.count / count;
-      } else {
-        this.pageCount = Math.ceil(response.count / count);
-      }
-    });
-    this.$axios.$get('/challenge/lobby').then(response => {
-      this.randomData = response.data;
-    });
+    let res = await this.$axios.$get('/team/all-teams');
+    this.teams = res.results.data;
+    const count = 20;
+    if (res.count % count === 0) {
+      this.pageCount = res.count / count;
+    } else {
+      this.pageCount = Math.ceil(res.count / count);
+    }
+    res = await this.$axios.$get('/challenge/lobby');
+    this.randomData = res.data;
     this.tableLoading = false;
   },
 };

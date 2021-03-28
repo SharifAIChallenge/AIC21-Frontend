@@ -1,21 +1,15 @@
 <template>
-  <div class="ma-16">
-    <div class="header">
-      <div>
-        <h2>
-          <v-icon color="primary" size="50">mdi-history</v-icon>
-          تاریخچه بازی ها
-        </h2>
-      </div>
-      <div>
+  <div>
+    <SectionHeader title="تاریخچه بازی ها" icon="mdi-history" />
+
+    <!-- <div>
         <div class="select-filter">
           <v-combobox v-model="filterSelect" :items="filteIitems" label="تورنومنت" hide-selected outlined></v-combobox>
           <v-btn height="50" color="primary" class="mr-2" :loading="btnLoading" :disabled="this.filterStatus === this.filterSelect">
             اعمال فیلتر
           </v-btn>
         </div>
-      </div>
-    </div>
+      </div> -->
 
     <v-data-table
       :loading="tableLoading"
@@ -100,7 +94,11 @@
 </template>
 
 <script>
+import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
+
 export default {
+  components: { SectionHeader },
   async fetch() {
     this.tableLoading = true;
     await this.$axios.$get('***************************').then(res => {
