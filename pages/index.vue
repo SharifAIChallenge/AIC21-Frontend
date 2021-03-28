@@ -13,7 +13,7 @@
     />
     <About :onIntersecAbout="onIntersecAbout" />
     <Video :onIntersecVideo="onIntersecVideo" />
-    <!-- <Statistics /> -->
+    <Statistics />
     <TimeLine :onIntersecTimeline="onIntersecTimeline" />
     <TrophyDesktop :trophies="trophies" class="hidden-sm-and-down" :onIntersecTrophy="onIntersecTrophy" />
     <TrophyMobile :trophies="trophies" class="hidden-md-and-up" :onIntersecTrophy="onIntersecTrophy" />
