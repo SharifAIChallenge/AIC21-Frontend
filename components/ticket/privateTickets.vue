@@ -1,7 +1,6 @@
 <template>
   <div class="main">
     <v-data-table
-      hide-default-footer
       center
       :loading="loadingTable"
       :headers="headers"

@@ -121,3 +121,6 @@ strong {
 .bg-color-12 {
   background: map-get($material-dark-elevation-colors, '12');
 }
+.v-data-footer {
+  justify-content: flex-start !important;
+}
