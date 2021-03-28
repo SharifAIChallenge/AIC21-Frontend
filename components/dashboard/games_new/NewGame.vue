@@ -207,7 +207,7 @@ export default {
       }
     });
     this.$axios.$get('/challenge/lobby').then(response => {
-      this.randomData = res.data;
+      this.randomData = response.data;
     });
     this.tableLoading = false;
   },
