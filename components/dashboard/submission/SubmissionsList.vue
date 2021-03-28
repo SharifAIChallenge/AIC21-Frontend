@@ -47,19 +47,18 @@ import LanguageIcon from './LanguageIcon'
 import { CHANGE_FINAL_SUBMISSION } from '../../../api'
 import { mapState } from 'vuex'
 import DateTimeFormatter from '../../DateTimeFormatter'
-import {viewSubmissions} from "~/api/index";
 export default {
   components: { DateTimeFormatter, LanguageIcon, SubmissionStatus },
-  // props: {
-  //   submissions: {
-  //     type: Array,
-  //   },
-  // },
-  async fetch(){
-    let data = await viewSubmissions(this.$axios)
-    console.log(data);
-    this.submissions=data.submissions
+  props:{
+    submissions:{
+      type:Array
+    }
   },
+  // async fetch(){
+  //   let data = await viewSubmissions(this.$axios)
+  //   console.log(data);
+  //   this.submissions=data.submissions
+  // },
   computed: {
     headers() {
       return [
@@ -82,7 +81,6 @@ export default {
       page: 1,
       pageCount: 0,
       itemsPerPage: 5,
-      submissions:[]
     }
   },
   methods: {
@@ -92,6 +90,11 @@ export default {
       if (data.status_code === 200) {
         this.$store.dispatch('team/getSubmissions')
         this.$toast.success('ارسال نهایی با موفقیت تغییر کرد.')
+        this.submissions.map((el)=>{
+          el.is_final=false;
+        })
+        console.log(this.submissions);
+        item.is_final=true;
       } else if (data.status_code === 406) {
         this.$toast.error('کد هنوز کامپال نشده است.')
       }

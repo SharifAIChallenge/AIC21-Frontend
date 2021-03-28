@@ -25,11 +25,11 @@
         <v-select v-model="language" v-bind="filedProps" :items="languageOptions" label="زبان" :rules="requiredRules" required dir="ltr" />
       </v-col>
     </v-row>
-    <div class="mb-6">
+    <!-- <div class="mb-6">
       با ارسال کد
       <nuxt-link to="/dashboard/terms">این قوانین</nuxt-link>
       را می‌پذیرید.
-    </div>
+    </div> -->
     <v-btn tile block :disabled="!valid" :loading="loading" type="submit" v-bind="primaryButtonProps">
       <v-icon left>mdi-upload</v-icon>
       ارسال
@@ -81,15 +81,17 @@ export default {
       // };
       this.loading = true;
       // let { data } = await inst(config);
-      let  data  = await submitLargeCode(this.$axios, formData);
+      let data = await submitLargeCode(this.$axios, formData);
       this.loading = false;
-      console.log(data);
       if (data.status_code) {
         if (data.status_code === 200) {
           this.$toast.success('فایل با موفقیت آپلود شد.');
+          this.$emit("codeSub")
         } else if (data.detail.non_field_errors) {
           if (data.detail.non_field_errors[0].includes('wait'))
             this.$toast.error(this.$tc('dashboard.codeSubmissionMessage', this.codeSubmitDelay));
+        } else if (data.status_code == 403) {
+          this.$toast.error("ابتدا باید در تیمی عضو شوید")
         } else {
           this.$toast.error('خطایی در آپلود فایل رخ داد.');
         }
