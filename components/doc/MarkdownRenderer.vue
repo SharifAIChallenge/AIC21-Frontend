@@ -79,6 +79,16 @@ export default {
     width: 100%;
     overflow-x: auto;
   }
+  table {
+    margin: 20px auto;
+    th,
+    td {
+      padding: 8px;
+      @include not-md {
+        padding: 5px 0px;
+      }
+    }
+  }
   .table-of-contents {
     position: fixed;
     left: 0;
