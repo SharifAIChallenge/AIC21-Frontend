@@ -14,7 +14,7 @@
         <br/>
         </v-alert>
         <v-card-text style="boder-radius:0px !important">
-          <code-submission class="px-12 px-md-0"/>
+          <code-submission class="px-12 px-md-0" @codeSub="this.$fetch"/>
         </v-card-text>
       </v-card>
     </v-col>
@@ -50,7 +50,7 @@ export default {
     return{
       submissions:[]
     }
-  }
+  }, 
   // computed: {
   //   ...mapState({
   //     submissions: state => state.team.submissions,
