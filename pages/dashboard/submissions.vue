@@ -27,7 +27,7 @@
             <v-icon>mdi-autorenew</v-icon>
           </v-btn> -->
         </v-card-text>
-        <submissions-list :submissions="submissions" />
+        <submissions-list/>
       </v-card>
     </v-col>
     </v-row>
@@ -49,11 +49,11 @@ export default {
   fetch({ store }) {
     return 
   },
-  computed: {
-    ...mapState({
-      submissions: state => state.team.submissions,
-    }),
-  },
+  // computed: {
+  //   ...mapState({
+  //     submissions: state => state.team.submissions,
+  //   }),
+  // },
 }
 </script>
 

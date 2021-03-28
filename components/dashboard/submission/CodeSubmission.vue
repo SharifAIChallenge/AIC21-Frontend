@@ -81,7 +81,7 @@ export default {
       // };
       this.loading = true;
       // let { data } = await inst(config);
-      let  data  = await submitLargeCode(this.$axios, formData);
+      let data = await submitLargeCode(this.$axios, formData);
       this.loading = false;
       console.log(data);
       if (data.status_code) {
@@ -90,6 +90,8 @@ export default {
         } else if (data.detail.non_field_errors) {
           if (data.detail.non_field_errors[0].includes('wait'))
             this.$toast.error(this.$tc('dashboard.codeSubmissionMessage', this.codeSubmitDelay));
+        } else if (data.status_code == 403) {
+          this.$toast.error("ابتدا باید در تیمی عضو شوید")
         } else {
           this.$toast.error('خطایی در آپلود فایل رخ داد.');
         }

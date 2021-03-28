@@ -50,11 +50,6 @@ import DateTimeFormatter from '../../DateTimeFormatter'
 import {viewSubmissions} from "~/api/index";
 export default {
   components: { DateTimeFormatter, LanguageIcon, SubmissionStatus },
-  // props: {
-  //   submissions: {
-  //     type: Array,
-  //   },
-  // },
   async fetch(){
     let data = await viewSubmissions(this.$axios)
     console.log(data);
