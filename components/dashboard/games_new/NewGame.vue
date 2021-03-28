@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SectionHeader title="جستجو تیم‌" icon="mdi-magnify" />
     <div class='searchBar px-6 px-md-12'>
       <div style='width:70%;'>
         <v-text-field
@@ -26,13 +27,13 @@
     <div>
       <v-row>
         <v-col cols='6' class='px-0'>
-          <v-btn color='primary' width='100%' max-height='100%'>
+          <v-btn color='primary' block width='100%' max-height='100%' :disabled='true' >
             <v-icon large class='pl-5'>mdi-robot</v-icon>
             درخواست بازی با بات
           </v-btn>
         </v-col>
         <v-col class='px-0' cols='6'>
-          <v-btn color='primary' width='100%'>
+          <v-btn color='primary' block width='100%' :disabled='true'>
             <v-icon large class='pl-5'>mdi-shuffle-variant</v-icon>
             انتخاب تیم رندوم
           </v-btn>
@@ -52,11 +53,13 @@
           <v-icon @click='showTeam(item)' class='ProfileIcon'>mdi-card-account-details-outline</v-icon>
         </template>
         <template v-slot:item.play='{ item }'>
-          <v-btn color='primary' @click='sendGameRequest(item.id)'>درخواست بازی</v-btn>
+          <div style='max-width: 10px;'>
+            <v-btn color='primary' @click='sendGameRequest(item.id)' block>درخواست بازی</v-btn>
+          </div>
         </template>
       </v-data-table>
       <div>
-        <v-pagination v-model='page' :length='pageCount'></v-pagination>
+        <v-pagination v-model='page' total-visible='6' :length='pageCount'></v-pagination>
       </div>
       <v-dialog v-model="teamDetails" width="350px">
         <v-btn icon class="close-btn" @click="teamDetails = false">
@@ -103,9 +106,11 @@
 </template>
 <script>
 import UserProfileForTeam from '~/components/dashboard/team/UserProfileForTeam';
+import SectionContainer from '~/components/SectionContainer';
+import SectionHeader from '~/components/SectionHeader';
 
 export default {
-  components: { UserProfileForTeam },
+  components: { UserProfileForTeam, SectionHeader, SectionContainer },
   data() {
     return {
       page: 1,
@@ -138,10 +143,11 @@ export default {
   },
   methods: {
     search(name) {
-      this.team = [];
+      this.teams = [];
       this.tableLoading = true;
       this.page = 1;
       this.$axios.get(`/team/all-teams?name=${name}`).then(res => {
+        console.log(res)
         const count = 20;
         if (res.data.count % count === 0) {
           this.pageCount = res.data.count / count;
@@ -151,7 +157,7 @@ export default {
         if (res.data.count === 0) {
           this.$toast.error('تیمی با این نام وجود ندارد.');
         }
-        this.team = res.data.results.data;
+        this.teams = res.data.results.data;
         this.tableLoading = false;
       });
       // this.teamName = '';
@@ -184,7 +190,7 @@ export default {
       this.ProfileDialog = true;
     },
     sendGameRequest(teamId){
-      this.$axios.$post('/api/challenge/request',{type:'friendly_match',target_team:`${teamId}`}).then(res =>{
+      this.$axios.$post('/challenge/request',{type:'friendly_match',target_team:`${teamId}`}).then(res =>{
 
       })
     }
