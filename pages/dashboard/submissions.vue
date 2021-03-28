@@ -1,11 +1,11 @@
 <template>
   
     <v-row>
-    <v-col cols="4" class="pl-0">
+    <v-col cols="12" md="4" class="pl-0">
       <v-card flat class="transparent">
         <SectionHeader :title="`ارسال کد`" :icon="`mdi-code-braces`"/>
         <v-alert
-        class="mx-4 px-1"
+        class="mx-md-4 mx-15 px-1"
         type="info"
         outlined
         icon="mdi-information-outline"
@@ -14,19 +14,13 @@
         <br/>
         </v-alert>
         <v-card-text style="boder-radius:0px !important">
-          <code-submission/>
+          <code-submission class="px-12 px-md-0"/>
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col cols="8" class="pr-0 pl-">
+    <v-col cols="12" md="8" class="pr-md-0 pr-6 pl-5">
       <v-card flat class="transparent">
-        <v-card-text class="white--text text-h6">
-          <v-icon>mdi-history</v-icon>
-          تاریخچه ارسال ها
-          <!-- <v-btn icon class="ms-3" @click="$store.dispatch('team/getSubmissions')">
-            <v-icon>mdi-autorenew</v-icon>
-          </v-btn> -->
-        </v-card-text>
+        <SectionHeader :title="`تاریخچه ارسال ها`" :icon="`mdi-history`"/>
         <submissions-list/>
       </v-card>
     </v-col>
@@ -36,7 +30,6 @@
 
 <script>
 import SectionHeader from "~/components/SectionHeader";
-import dashboardPageValidate from '../../mixins/dashboardPageValidate'
 import CodeSubmission from '../../components/dashboard/submission/CodeSubmission'
 import SubmissionsList from '../../components/dashboard/submission/SubmissionsList'
 import { mapState } from 'vuex'
