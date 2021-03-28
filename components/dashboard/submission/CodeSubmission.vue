@@ -81,8 +81,9 @@ export default {
       // };
       this.loading = true;
       // let { data } = await inst(config);
-      let { data } = await submitLargeCode(this.$axios, formData);
+      let  data  = await submitLargeCode(this.$axios, formData);
       this.loading = false;
+      console.log(data);
       if (data.status_code) {
         if (data.status_code === 200) {
           this.$toast.success('فایل با موفقیت آپلود شد.');

@@ -176,10 +176,9 @@ export const SUBMIT_CODE = {
 // };
 
 export const submitLargeCode = (axios, data) => {
-  //old_url:"'https://analysaur.ir/api/storage/file/'"
   return axios.$post('/team/submission', data, {
     headers: {
-      'content-type': 'multipart/form-data',
+      'content-type': 'multipart/form-data'
     },
   });
 };
@@ -194,14 +193,14 @@ export const submitLargeCode = (axios, data) => {
 //todo Check in code !
 //Change Hesam
 export const viewSubmissions = axios => {
-  return axios.$get('/challenge/submission/submissions');
+  return axios.$get('/team/submissions');
 };
 
 export const CHANGE_FINAL_SUBMISSION = {
   name: 'CHANGE_FINAL_SUBMISSION',
   method: 'put',
   slug: 'id',
-  url: '/challenge/submission/change_final',
+  url: '/team/submission',
 };
 
 //games
