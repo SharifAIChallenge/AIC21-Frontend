@@ -37,13 +37,12 @@
 <script>
 import SectionHeader from "~/components/SectionHeader";
 import dashboardPageValidate from '../../mixins/dashboardPageValidate'
-import DashboardPage from '../../components/dashboard/DashboardPage'
 import CodeSubmission from '../../components/dashboard/submission/CodeSubmission'
 import SubmissionsList from '../../components/dashboard/submission/SubmissionsList'
 import { mapState } from 'vuex'
 
 export default {
-  components: { CodeSubmission, DashboardPage, SubmissionsList,SectionHeader },
+  components: { CodeSubmission,SubmissionsList,SectionHeader },
   layout: 'dashboard',
   // mixins: [dashboardPageValidate('submissions')],
   transition: 'fade-transition',

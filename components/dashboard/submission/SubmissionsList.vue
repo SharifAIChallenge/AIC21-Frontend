@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-data-table
-      :value="selected"
       :headers="headers"
       :items="submissions"
       :page.sync="page"
@@ -14,7 +13,7 @@
       @page-count="pageCount = $event"
     >
       <template v-slot:item.is_final="{ item }">
-        <v-btn icon :disabled="!canChangeSubmission" @click="changeFinal(item)">
+        <v-btn icon  @click="changeFinal(item)">
           <v-icon>
             {{ item.is_final ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline' }}
           </v-icon>
@@ -27,7 +26,7 @@
         <language-icon :language="item.language" />
       </template>
       <template v-slot:item.user="{ item }">
-        {{ item.user.profile.firstname_fa + ' ' + item.user.profile.lastname_fa }}
+        <!-- {{ item.user.profile.firstname_fa + ' ' + item.user.profile.lastname_fa }} -->
       </template>
       <template v-slot:item.submit_time="{ item }">
         <date-time-formatter :date="item.submit_time" />
@@ -48,19 +47,20 @@ import LanguageIcon from './LanguageIcon'
 import { CHANGE_FINAL_SUBMISSION } from '../../../api'
 import { mapState } from 'vuex'
 import DateTimeFormatter from '../../DateTimeFormatter'
-
+import {viewSubmissions} from "~/api/index";
 export default {
   components: { DateTimeFormatter, LanguageIcon, SubmissionStatus },
-  props: {
-    submissions: {
-      type: Array,
-    },
+  // props: {
+  //   submissions: {
+  //     type: Array,
+  //   },
+  // },
+  async fetch(){
+    let data = await viewSubmissions(this.$axios)
+    console.log(data);
+    this.submissions=data.submissions
   },
   computed: {
-    ...mapState({
-      selected: state => state.team.finalSubmission,
-      canChangeSubmission: state => state.games.challenge.can_change_submission,
-    }),
     headers() {
       return [
         {
@@ -82,6 +82,7 @@ export default {
       page: 1,
       pageCount: 0,
       itemsPerPage: 5,
+      submissions:[]
     }
   },
   methods: {
