@@ -1,24 +1,24 @@
 <template>
   <div>
     <SectionHeader title="جستجو تیم‌" icon="mdi-magnify" />
-    <div class='searchBar px-6 px-md-12'>
-      <div style='width:70%;'>
+    <div class="searchBar px-6 px-md-12">
+      <div style="width:70%;">
         <v-text-field
-          label='اسم تیم'
+          label="اسم تیم"
           outlined
           dense
-          v-model='teamName'
-          @keydown.enter='search(teamName)'
-          height='50px'
+          v-model="teamName"
+          @keydown.enter="search(teamName)"
+          height="50px"
           full-width
         ></v-text-field>
       </div>
-      <div style='width:20%;'>
-        <v-btn block color='primary' @click='search(teamName)'>
-          <v-icon class='ml-0 ml-md-3'>
+      <div style="width:20%;">
+        <v-btn block color="primary" @click="search(teamName)">
+          <v-icon class="ml-0 ml-md-3">
             mdi-magnify
           </v-icon>
-          <div class='hide-sm-and-down'>
+          <div class="hide-sm-and-down">
             تیم را پیدا کن
           </div>
         </v-btn>
@@ -26,15 +26,15 @@
     </div>
     <div>
       <v-row>
-        <v-col cols='6' class='px-0'>
-          <v-btn color='primary' block width='100%' max-height='100%' :disabled='true' >
-            <v-icon large class='pl-5'>mdi-robot</v-icon>
+        <v-col cols="6" class="px-0">
+          <v-btn color="primary" block width="100%" max-height="100%" :disabled="true">
+            <v-icon large class="pl-5">mdi-robot</v-icon>
             درخواست بازی با بات
           </v-btn>
         </v-col>
-        <v-col class='px-0' cols='6'>
-          <v-btn color='primary' block width='100%' :disabled='true'>
-            <v-icon large class='pl-5'>mdi-shuffle-variant</v-icon>
+        <v-col class="px-0" cols="6">
+          <v-btn color="primary" block width="100%" :disabled="this.randomData.length === 0" @click="randomMatch()">
+            <v-icon large class="pl-5">mdi-shuffle-variant</v-icon>
             انتخاب تیم رندوم
           </v-btn>
         </v-col>
@@ -42,24 +42,24 @@
     </div>
     <div>
       <v-data-table
-        :headers='headers'
-        :items='teams'
-        :page.sync='page'
-        :items-per-page='itemsPerPage'
+        :headers="headers"
+        :items="teams"
+        :page.sync="page"
+        :items-per-page="itemsPerPage"
         hide-default-footer
-        :loading='tableLoading'
+        :loading="tableLoading"
       >
-        <template v-slot:item.profile='{ item }'>
-          <v-icon @click='showTeam(item)' class='ProfileIcon'>mdi-card-account-details-outline</v-icon>
+        <template v-slot:item.profile="{ item }">
+          <v-icon @click="showTeam(item)" class="ProfileIcon">mdi-card-account-details-outline</v-icon>
         </template>
-        <template v-slot:item.play='{ item }'>
-          <div style='max-width: 10px;'>
-            <v-btn color='primary' @click='sendGameRequest(item.id)' block>درخواست بازی</v-btn>
+        <template v-slot:item.play="{ item }">
+          <div style="max-width: 10px;">
+            <v-btn color="primary" @click="sendGameRequest(item.id)" block>درخواست بازی</v-btn>
           </div>
         </template>
       </v-data-table>
       <div>
-        <v-pagination v-model='page' total-visible='6' :length='pageCount'></v-pagination>
+        <v-pagination v-model="page" total-visible="6" :length="pageCount"></v-pagination>
       </div>
       <v-dialog v-model="teamDetails" width="350px">
         <v-btn icon class="close-btn" @click="teamDetails = false">
@@ -90,16 +90,16 @@
               </div>
             </v-col>
           </v-row>
-<!--          <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال درخواست عضویت</v-btn>-->
+          <!--          <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال درخواست عضویت</v-btn>-->
         </v-card>
       </v-dialog>
-      <v-dialog v-model='ProfileDialog' width='350'>
-        <v-btn icon class='close-btn' @click='ProfileDialog = false'>
+      <v-dialog v-model="ProfileDialog" width="350">
+        <v-btn icon class="close-btn" @click="ProfileDialog = false">
           <v-icon>
             mdi-close
           </v-icon>
         </v-btn>
-        <UserProfileForTeam :userData='currentUser' />
+        <UserProfileForTeam :userData="currentUser" />
       </v-dialog>
     </div>
   </div>
@@ -118,9 +118,10 @@ export default {
       itemsPerPage: 20,
       tableLoading: false,
       teamName: '',
-      teamInfo:{},
-      ProfileDialog:false,
-      teamDetails:false,
+      teamInfo: {},
+      ProfileDialog: false,
+      teamDetails: false,
+      randomData: [],
       teams: [],
       headers: [
         { text: 'نام تیم', value: 'name' },
@@ -133,7 +134,6 @@ export default {
         id: 0,
         show: true,
       },
-
     };
   },
   watch: {
@@ -147,7 +147,6 @@ export default {
       this.tableLoading = true;
       this.page = 1;
       this.$axios.get(`/team/all-teams?name=${name}`).then(res => {
-        console.log(res)
         const count = 20;
         if (res.data.count % count === 0) {
           this.pageCount = res.data.count / count;
@@ -164,7 +163,7 @@ export default {
     },
     showTeam(team) {
       this.teamDetails = true;
-      this.teamInfo=team;
+      this.teamInfo = team;
     },
     changePage(page) {
       this.tableLoading = true;
@@ -189,18 +188,17 @@ export default {
       this.currentUser.show = show;
       this.ProfileDialog = true;
     },
-    sendGameRequest(teamId){
-      this.$axios.$post('/challenge/request',{type:'friendly_match',target_team:`${teamId}`}).then(res =>{
-
-      })
-    }
+    sendGameRequest(teamId) {
+      this.$axios.$post('/challenge/request', { type: 'friendly_match', target_team: `${teamId}` }).then(res => {});
+    },
+    randomMatch() {
+      this.$axios.$post('/challenge/lobby', { game_type: 'friendly_match' }).then(res => {});
+    },
   },
   async fetch() {
     this.tableLoading = true;
     await this.$axios.$get('/team/all-teams').then(response => {
-      console.log(response);
       this.teams = response.results.data;
-      console.log(this.teams);
       const count = 20;
       if (response.count % count === 0) {
         this.pageCount = response.count / count;
@@ -208,11 +206,14 @@ export default {
         this.pageCount = Math.ceil(response.count / count);
       }
     });
+    this.$axios.$get('/challenge/lobby').then(response => {
+      this.randomData = response.data;
+    });
     this.tableLoading = false;
   },
 };
 </script>
-<style scoped lang='scss'>
+<style scoped lang="scss">
 @import 'assets/mixins.scss';
 
 .searchBar {
