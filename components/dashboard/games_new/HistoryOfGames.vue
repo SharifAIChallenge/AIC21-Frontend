@@ -12,10 +12,9 @@
       </div> -->
     <div class="px-5 px-md-12">
       <v-chip-group style="display: flex;" @change="handleFilterChip" v-model="filterChip" column active-class="secondary--text secondary">
-        <v-chip filter outlined></v-chip>
-        <!-- <v-chip filter outlined>
-          حل نشده
-        </v-chip> -->
+        <v-chip filter outlined>
+          تمام شده
+        </v-chip>
       </v-chip-group>
     </div>
     <v-data-table
@@ -50,7 +49,7 @@
       </template>
       <template v-slot:[`item.log`]="{ item }">
         <v-btn icon :loading="btnLoading">
-          <v-icon size="30px" :disabled="!item.log" class="icon-hover">mdi-download</v-icon>
+          <v-icon size="30px" :disabled="item.status !== 'successful'" class="icon-hover">mdi-download</v-icon>
         </v-btn>
       </template>
     </v-data-table>
@@ -109,7 +108,8 @@ export default {
   components: { SectionHeader, SectionContainer },
   async fetch() {
     this.tableLoading = true;
-    await this.$axios.$get(`challenge/match?page=${this.page}`).then(res => {
+    let filter = this.filterChip === 0 ? '&status=successful' : '';
+    await this.$axios.$get(`challenge/match?page=${this.page}${filter}`).then(res => {
       if (res.status_code === 200) {
         this.data = res.results.data;
         this.pageCount = res.count;
@@ -161,7 +161,6 @@ export default {
   },
   methods: {
     gameStatus(status) {
-      console.log(status);
       switch (status) {
         case 'freeze':
           return 'ثبت شده';
@@ -171,6 +170,8 @@ export default {
           return 'در حال اجرا';
         case 'failed':
           return 'اجرا با خطا';
+        case 'successful':
+          return 'تمام ‌شده';
       }
     },
     filter(data) {
@@ -199,7 +200,7 @@ export default {
       this.tableLoading = false;
     },
     handleFilterChip() {
-      this.console.log(this.filterChip);
+      this.$fetch();
     },
     resultTrasnlate(res) {
       if (res === '') return 'برد';
