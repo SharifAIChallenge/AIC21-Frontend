@@ -5,10 +5,20 @@
         <SectionHeader :title="`ارسال کد`" :icon="`mdi-code-braces`" />
         <SectionContainer>
           <v-alert class=" px-1" type="info" outlined icon="mdi-information-outline">
-            محدودیت زمانی بین هر ارسال:‌ ۱۰ دقیقه
-            <br />
+            <p v-if="canSubmitAnotherCode">
+              محدودیت زمانی بین هر ارسال:‌ ۱۰ دقیقه
+            </p>
+            <p v-else>
+              <span>
+                زمان گذشته از آخرین ارسال:
+              </span>
+              <span>
+                {{ Math.floor(remainTime) }}
+                دقیقه
+              </span>
+            </p>
           </v-alert>
-          <code-submission class="mt-10" @codeSub="this.$fetch" />
+          <code-submission class="mt-10" @codeSub="this.$fetch" :canSubmitAnotherCode="canSubmitAnotherCode" />
         </SectionContainer>
       </v-card>
     </v-col>
@@ -39,11 +49,33 @@ export default {
   async fetch() {
     let data = await viewSubmissions(this.$axios);
     this.submissions = data.submissions;
+    this.calculateTimeInterval();
   },
   data() {
     return {
       submissions: [],
+      canSubmitAnotherCode: false,
+      interval: null,
+      remainTime: 0,
     };
+  },
+  methods: {
+    calculateTimeInterval() {
+      if (!this.submissions.length) this.canSubmitAnotherCode = true;
+      else {
+        const lastSubmitTime = new Date(this.submissions[this.submissions.length - 1].submit_time);
+        const interval = new Date() - lastSubmitTime;
+        this.remainTime = interval / (60 * 1000);
+        this.canSubmitAnotherCode = this.remainTime > 10;
+        console.log(this.remainTime);
+      }
+    },
+  },
+  mounted() {
+    this.interval = setInterval(this.calculateTimeInterval, 1000 * 60);
+  },
+  destroyed() {
+    clearInterval(this.interval);
   },
 };
 </script>

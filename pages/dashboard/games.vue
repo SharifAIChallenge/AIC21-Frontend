@@ -25,7 +25,7 @@
         <div class="d-flex tabsW">
           <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
             <div v-for="(item, key) in gamesHeader" :key="key" style="margin: 15px auto" class="d-flex flex-column">
-              <v-tab>
+              <v-tab :disabled="item.gard && !haveFinalSubmit">
                 {{ item.title }}
                 <v-icon size="60" style="color: white">{{ item.icon }}</v-icon>
               </v-tab>
@@ -48,6 +48,15 @@ export default {
     NewGame,
     GameInvites,
   },
+  async asyncData({ $axios }) {
+    let res = await $axios.$get('/challenge/lobby');
+    let haveFinalSubmit = true;
+    if (res.status_code === 403) {
+      haveFinalSubmit = false;
+    }
+
+    return { haveFinalSubmit };
+  },
   data() {
     return {
       tabs: null,
@@ -55,16 +64,20 @@ export default {
         {
           title: 'جستجو با تیم ',
           icon: 'mdi-magnify',
+          gard: false,
         },
         {
           title: 'تاریخچه بازی ها',
           icon: 'mdi-history',
+          gard: false,
         },
         {
           title: 'دعوت‌نامه‌ها',
           icon: 'mdi-script-text',
+          gard: true,
         },
       ],
+      haveFinalSubmit: true,
     };
   },
 };

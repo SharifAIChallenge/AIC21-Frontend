@@ -30,7 +30,7 @@
       <nuxt-link to="/dashboard/terms">این قوانین</nuxt-link>
       را می‌پذیرید.
     </div> -->
-    <v-btn tile block :disabled="!valid" :loading="loading" type="submit" v-bind="primaryButtonProps">
+    <v-btn tile block :disabled="!valid || !canSubmitAnotherCode" :loading="loading" type="submit" v-bind="primaryButtonProps">
       <v-icon left>mdi-upload</v-icon>
       ارسال
     </v-btn>
@@ -46,6 +46,7 @@ import { mapState } from 'vuex';
 
 export default {
   mixins: [requiredRules, primaryButtonProps, fieldProps],
+  props: ['canSubmitAnotherCode'],
   data() {
     return {
       valid: false,
