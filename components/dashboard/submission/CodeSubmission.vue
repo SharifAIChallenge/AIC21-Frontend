@@ -52,7 +52,7 @@ export default {
       file: null,
       language: 'java',
       languageOptions: [
-        { text: 'Java', value: 'java' },
+        { text: 'Java', value: 'jar' },
         { text: 'Python 3', value: 'py3' },
         { text: 'Cpp', value: 'cpp' },
       ],
