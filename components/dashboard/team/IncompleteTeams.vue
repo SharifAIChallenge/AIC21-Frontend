@@ -35,7 +35,7 @@
       class="elevation-1"
       style="background: #141432"
     >
-      <template v-slot:item.name="{ item }">
+      <template v-slot:[`item.name`]="{ item }">
         <div class="d-flex align-center">
           <img v-if="item.image" :src="item.image" :alt="item.name" height="60px" style="max-width: 60px" />
           <div>
@@ -43,10 +43,10 @@
           </div>
         </div>
       </template>
-      <template v-slot:item.profile="{ item }">
+      <template v-slot:[`item.profile`]="{ item }">
         <v-icon class="icon" @click="showTeam(item)">mdi-card-account-details-outline</v-icon>
       </template>
-      <template v-slot:item.sendRequest="{ item }">
+      <template v-slot:[`item.sendRequest`]="{ item }">
         <div class="d-flex justify-center">
           <v-icon class="icon" @click="sendRequest(item.id)">mdi-plus-circle-outline</v-icon>
         </div>
