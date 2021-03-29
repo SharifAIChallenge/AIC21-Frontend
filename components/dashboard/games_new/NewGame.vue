@@ -68,14 +68,14 @@
           </v-icon>
         </v-btn>
         <v-card>
-          <img v-if="teamInfo.image" :src="teamInfo.image" style="max-width: 100%" :alt="teamInfo.name" />
+          <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%" />
           <div class="pa-3">
             {{ teamInfo.name }}
           </div>
 
           <v-row v-for="(member, index) in teamInfo.members" :key="index" class="pa-3" style="width: 100%">
             <v-col cols="2">
-              <img :src="member.profile.image" :alt="member.first_name" height="40px" style="max-width: 40px" />
+              <img :src="member.profile.image_link" :alt="member.first_name" height="40px" style="max-width: 40px" />
             </v-col>
             <v-col cols="10">
               <div class="d-flex align-center">

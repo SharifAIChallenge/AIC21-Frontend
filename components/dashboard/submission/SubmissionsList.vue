@@ -2,6 +2,7 @@
   <div>
     <v-data-table
       :headers="headers"
+      center
       :items="submissions"
       :page.sync="page"
       :items-per-page="itemsPerPage"
@@ -32,7 +33,7 @@
         <date-time-formatter :date="item.submit_time" />
       </template>
       <template v-slot:item.file="{ item }">
-        <v-btn v-if="item.file || item.download_link" icon :href="item.file || item.download_link">
+        <v-btn v-if="item.download_link" icon :href="item.download_link">
           <v-icon>mdi-download</v-icon>
         </v-btn>
       </template>
@@ -63,8 +64,7 @@ export default {
           value: 'is_final',
           align: 'right',
         },
-        { text: this.$t('dashboard.user'), sortable: false, value: 'user' },
-        { text: this.$t('dashboard.submitTime'), sortable: true, value: 'submit_time' },
+        { text: this.$t('dashboard.submitTime'), sortable: true, value: 'submit_time', align: 'center' },
         { text: this.$t('form.language'), sortable: false, value: 'language', align: 'center' },
         { text: this.$t('dashboard.status'), sortable: false, value: 'status', align: 'center' },
         { text: this.$t('form.file'), sortable: false, value: 'file', align: 'center', width: 70 },

@@ -24,10 +24,10 @@
         style="background: #141432"
       >
         <template v-slot:[`item.profile.firstname_fa`]="{ item }">
-          <div v-if="item.profile.image">
+          <div v-if="item.profile.image_link">
             <div class="profile">
               <div>
-                <img :src="item.profile.image" :alt="item.email" height="60px" class="ml-2 mt-2" />
+                <img :src="item.profile.image_link" height="60px" class="ml-2 mt-2" />
               </div>
               <div>
                 <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
