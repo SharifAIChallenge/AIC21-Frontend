@@ -5,7 +5,7 @@
         <SectionHeader :title="`ارسال کد`" :icon="`mdi-code-braces`" />
         <SectionContainer>
           <v-alert class=" px-1" type="info" outlined icon="mdi-information-outline">
-            محدودیت زمانی بین هر ارسال:‌ ۳۰ دقیقه
+            محدودیت زمانی بین هر ارسال:‌ ۱۰ دقیقه
             <br />
           </v-alert>
           <code-submission class="mt-10" @codeSub="this.$fetch" />
