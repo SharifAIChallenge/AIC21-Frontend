@@ -13,6 +13,11 @@
             <HistoryOfGames />
           </div>
         </v-tab-item>
+        <v-tab-item>
+          <div v-if="tabs === 2" class="main-content pa-0">
+            <GameInvites />
+          </div>
+        </v-tab-item>
       </v-tabs-items>
     </v-col>
     <v-col cols="12" md="4" class="pa-0" style="background: #080a18">
@@ -34,12 +39,14 @@
 <script>
 import HistoryOfGames from '~/components/dashboard/games_new/HistoryOfGames';
 import NewGame from '~/components/dashboard/games_new/NewGame';
+import GameInvites from '~/components/dashboard/games_new/GameInvites';
 
 export default {
   layout: 'dashboard',
   components: {
     HistoryOfGames,
     NewGame,
+    GameInvites,
   },
   data() {
     return {
@@ -52,6 +59,10 @@ export default {
         {
           title: 'تاریخچه بازی ها',
           icon: 'mdi-history',
+        },
+        {
+          title: 'دعوت‌نامه‌ها',
+          icon: 'mdi-script-text',
         },
       ],
     };

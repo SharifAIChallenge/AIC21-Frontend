@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <img v-if="userData.profile.image !== null" :src="userData.profile.image" width="100%" :alt="userData.profile.name" />
+    <img v-if="userData.profile.image_link !== null" :src="userData.profile.image_link" width="100%" />
     <div class="pa-2 pt-1 title-profile ">
       <div>{{ userData.profile.firstname_fa }} {{ userData.profile.lastname_fa }}</div>
       <div>

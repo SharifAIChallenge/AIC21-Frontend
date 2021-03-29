@@ -1,21 +1,15 @@
 <template>
-  <div class="ma-16">
-    <div class="header">
-      <div>
-        <h2>
-          <v-icon color="primary" size="50">mdi-history</v-icon>
-          تاریخچه بازی ها
-        </h2>
-      </div>
-      <div>
+  <div>
+    <SectionHeader title="تاریخچه بازی ها" icon="mdi-history" />
+
+    <!-- <div>
         <div class="select-filter">
           <v-combobox v-model="filterSelect" :items="filteIitems" label="تورنومنت" hide-selected outlined></v-combobox>
           <v-btn height="50" color="primary" class="mr-2" :loading="btnLoading" :disabled="this.filterStatus === this.filterSelect">
             اعمال فیلتر
           </v-btn>
         </div>
-      </div>
-    </div>
+      </div> -->
 
     <v-data-table
       :loading="tableLoading"
@@ -23,14 +17,14 @@
       center
       :headers="headers"
       :items="data"
-      class="elevation-1 table-cursor"
+      class="elevation-1 "
       :page.sync="page"
       :items-per-page="itemPerPage"
       @page-count="pageCount = $event"
       style="background: #141432"
     >
-      <template v-slot:[`item.profile.firstname_fa`]="{ item }">
-        <div v-if="item.profile.image">
+      <template v-slot:[`item.x`]="{ item }">
+        <!-- <div v-if="item.profile.image">
           <div class="profile">
             <div>
               <img :src="item.profile.image" :alt="item.email" height="60px" class="ml-2 mt-2" />
@@ -39,18 +33,15 @@
               <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
             </div>
           </div>
-        </div>
+        </div> -->
+        {{ item.team1.name }} - {{ item.team2.name }}
       </template>
-      <template v-slot:[`item.profile.university_degree`]="{ item }">{{ convertDateAndTime(item) }}</template>
-      <template v-slot:[`item.profile.programming_language`]="{ item }">
-        <v-icon>
-          {{ resultIcon(item) }}
-        </v-icon>
-        {{ resultTrasnlate(item) }}
+      <template v-slot:[`item.winner.name`]="{ item }">
+        {{ item.winner.name }}
       </template>
-      <template v-slot:[`item.send`]="{ item }">
-        <v-btn icon :loading="btnLoading" @click="getGameLog(item)">
-          <v-icon size="30px" class="icon-hover ml-5 ml-md-7">mdi-code-braces-box</v-icon>
+      <template v-slot:[`item.log`]="{ item }">
+        <v-btn icon :loading="btnLoading">
+          <v-icon size="30px" :disabled="!item.log" class="icon-hover">mdi-download</v-icon>
         </v-btn>
       </template>
     </v-data-table>
@@ -78,7 +69,7 @@
               <v-list-item-title>لاگ سرور</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
-              <v-btn icon href="https://www.google.com/" target="_blank">
+              <v-btn href="https://www.google.com/" target="_blank">
                 <v-icon color="primary">mdi-download</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -100,10 +91,14 @@
 </template>
 
 <script>
+import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
+
 export default {
+  components: { SectionHeader },
   async fetch() {
     this.tableLoading = true;
-    await this.$axios.$get('***************************').then(res => {
+    await this.$axios.$get('challenge/match').then(res => {
       if (res.status_code === 200) {
         this.data = res.data;
         this.status_code = res.status_code;
@@ -126,14 +121,14 @@ export default {
       itemPerPage: 20,
       headers: [
         {
-          text: 'تیم حریف',
+          text: 'بازی',
           align: 'right',
           sortable: false,
-          value: '',
+          value: 'x',
         },
-        { text: 'زمان', align: 'center', value: '' },
-        { text: 'نتیجه', align: 'center', value: '' },
-        { text: 'دریافت لاگ', align: 'center', value: '' },
+        // { text: 'زمان', align: 'center', value: '' },
+        { text: 'تیم برنده', align: 'center', value: 'winner.name' },
+        { text: 'دریافت لاگ', align: 'center', value: 'log' },
       ],
       data: [],
       currentGame: {
@@ -187,7 +182,7 @@ export default {
     },
     getGameLog(id) {
       this.btnLoading = true;
-      this.$axios.$get(`***********/${id}`).then(res => {
+      this.$axios.$get(`challenge/match/${id}`).then(res => {
         if (res.status_code === 200) {
           this.data = res.data;
           this.dialog = true;
@@ -217,9 +212,7 @@ export default {
   display: flex;
   align-items: center;
 }
-.table-cursor tbody tr:hover {
-  cursor: pointer;
-}
+
 .icon-hover {
   &:hover {
     color: var(--v-primary-base);
