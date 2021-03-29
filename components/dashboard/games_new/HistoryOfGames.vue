@@ -17,7 +17,7 @@
       center
       :headers="headers"
       :items="data"
-      class="elevation-1 table-cursor"
+      class="elevation-1 "
       :page.sync="page"
       :items-per-page="itemPerPage"
       @page-count="pageCount = $event"
@@ -34,13 +34,13 @@
             </div>
           </div>
         </div> -->
-        {{item.team1.name}} - {{item.team2.name}}
+        {{ item.team1.name }} - {{ item.team2.name }}
       </template>
       <template v-slot:[`item.winner.name`]="{ item }">
-        {{item.winner.name}}
+        {{ item.winner.name }}
       </template>
       <template v-slot:[`item.log`]="{ item }">
-        <v-btn icon :loading="btnLoading" >
+        <v-btn icon :loading="btnLoading">
           <v-icon size="30px" :disabled="!item.log" class="icon-hover">mdi-download</v-icon>
         </v-btn>
       </template>
@@ -69,7 +69,7 @@
               <v-list-item-title>لاگ سرور</v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
-              <v-btn  href="https://www.google.com/" target="_blank">
+              <v-btn href="https://www.google.com/" target="_blank">
                 <v-icon color="primary">mdi-download</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -212,9 +212,7 @@ export default {
   display: flex;
   align-items: center;
 }
-.table-cursor tbody tr:hover {
-  cursor: pointer;
-}
+
 .icon-hover {
   &:hover {
     color: var(--v-primary-base);

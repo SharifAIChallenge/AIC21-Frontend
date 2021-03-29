@@ -143,10 +143,8 @@ export default {
   },
   methods: {
     changeTable(url) {
-      console.log(this.scoreboardTable);
       this.$router.push({ path: '/dashboard/scoreboard?q=' + url });
       this.getData(url);
-      console.log(url);
     },
     getData(param) {
       this.tableLoading = true;
@@ -161,7 +159,6 @@ export default {
       this.tableLoading = false;
     },
     showTeam(team) {
-      console.log(team);
       this.teamDetails = true;
       this.teamInfo = team;
     },

@@ -54,11 +54,6 @@ export default {
       type: Array,
     },
   },
-  // async fetch(){
-  //   let data = await viewSubmissions(this.$axios)
-  //   console.log(data);
-  //   this.submissions=data.submissions
-  // },
   computed: {
     headers() {
       return [

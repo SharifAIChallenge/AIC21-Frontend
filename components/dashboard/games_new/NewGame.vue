@@ -33,7 +33,7 @@
           </v-btn>
         </v-col>
         <v-col class="px-0" cols="6">
-          <v-btn color="primary" block width="100%" :disabled="this.randomData.length === 1" @click="randomMatch()">
+          <v-btn color="primary" block width="100%" :disabled="!this.randomData || this.randomData.length === 1" @click="randomMatch()">
             <v-icon large class="pl-5">mdi-shuffle-variant</v-icon>
             انتخاب تیم رندوم
           </v-btn>
@@ -136,6 +136,20 @@ export default {
       },
     };
   },
+  async fetch() {
+    this.tableLoading = true;
+    let res = await this.$axios.$get('/team/all-teams');
+    this.teams = res.results.data;
+    const count = 20;
+    if (res.count % count === 0) {
+      this.pageCount = res.count / count;
+    } else {
+      this.pageCount = Math.ceil(res.count / count);
+    }
+    res = await this.$axios.$get('/challenge/lobby');
+    this.randomData = res.data;
+    this.tableLoading = false;
+  },
   watch: {
     page: function() {
       this.changePage(this.page);
@@ -204,20 +218,6 @@ export default {
         this.randomData = [];
       });
     },
-  },
-  async fetch() {
-    this.tableLoading = true;
-    let res = await this.$axios.$get('/team/all-teams');
-    this.teams = res.results.data;
-    const count = 20;
-    if (res.count % count === 0) {
-      this.pageCount = res.count / count;
-    } else {
-      this.pageCount = Math.ceil(res.count / count);
-    }
-    res = await this.$axios.$get('/challenge/lobby');
-    this.randomData = res.data;
-    this.tableLoading = false;
   },
 };
 </script>
