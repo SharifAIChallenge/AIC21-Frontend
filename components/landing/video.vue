@@ -43,7 +43,7 @@
           </div>
         </v-col>
         <v-col cols="12" sm="12" md="6">
-          <video width="80% " controls autoplay class="video">
+          <video width="80% " controls class="video">
             <source :src="url" type="video/mp4" />
           </video>
         </v-col>

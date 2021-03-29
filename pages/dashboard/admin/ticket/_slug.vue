@@ -83,7 +83,8 @@ export default {
   async asyncData({ route, $axios }) {
     var slug = route.params.slug;
     let res = await $axios.$get(`ticket/${slug}`);
-    const { data, status_code } = res;
+    let { data, status_code } = res;
+
     return { data, status_code };
   },
   data() {

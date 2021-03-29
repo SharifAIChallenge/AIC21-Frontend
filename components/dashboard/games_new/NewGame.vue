@@ -24,6 +24,9 @@
         </v-btn>
       </div>
     </div>
+    <v-alert dark icon="mdi-information" dense class="mx-6 mx-md-12" v-if="msg">
+      <p>{{ msg }}</p>
+    </v-alert>
     <div>
       <v-row>
         <v-col cols="6" class="px-0">
@@ -123,6 +126,7 @@ export default {
       teamDetails: false,
       randomData: [],
       teams: [],
+      msg: '',
       headers: [
         { text: 'نام تیم', value: 'name' },
         { text: 'پروفایل', value: 'profile' },
@@ -147,6 +151,9 @@ export default {
       this.pageCount = Math.ceil(res.count / count);
     }
     res = await this.$axios.$get('/challenge/lobby');
+    if (res.status_code === 403) {
+      this.msg = 'برای انجام بازی با تیم تصادفی ابتدا باید در قسمت ارسال کد, کد خود را ارسال کنید';
+    }
     this.randomData = res.data;
     this.tableLoading = false;
   },
@@ -215,7 +222,10 @@ export default {
     },
     randomMatch() {
       this.$axios.$post('/challenge/lobby', { game_type: 'friendly_match' }).then(res => {
-        this.randomData = [];
+        if (res.status) {
+          this.$toast.success('به لابی بازی‌های دوستانه اضافه شدید');
+          this.randomData = [1];
+        }
       });
     },
   },

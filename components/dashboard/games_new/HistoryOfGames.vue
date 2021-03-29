@@ -10,14 +10,19 @@
           </v-btn>
         </div>
       </div> -->
-
+    <div class="px-5 px-md-12">
+      <v-chip-group style="display: flex;" @change="handleFilterChip" v-model="filterChip" column active-class="secondary--text secondary">
+        <v-chip filter outlined>
+          تمام شده
+        </v-chip>
+      </v-chip-group>
+    </div>
     <v-data-table
       :loading="tableLoading"
       hide-default-footer
       center
       :headers="headers"
       :items="data"
-      class="elevation-1 "
       :page.sync="page"
       :items-per-page="itemPerPage"
       @page-count="pageCount = $event"
@@ -36,17 +41,20 @@
         </div> -->
         {{ item.team1.name }} - {{ item.team2.name }}
       </template>
+      <template v-slot:[`item.status`]="{ item }">
+        {{ gameStatus(item.status) }}
+      </template>
       <template v-slot:[`item.winner.name`]="{ item }">
-        {{ item.winner.name }}
+        {{ item.winner ? item.winner.name : '' }}
       </template>
       <template v-slot:[`item.log`]="{ item }">
         <v-btn icon :loading="btnLoading">
-          <v-icon size="30px" :disabled="!item.log" class="icon-hover">mdi-download</v-icon>
+          <v-icon size="30px" :disabled="item.status !== 'successful'" class="icon-hover">mdi-download</v-icon>
         </v-btn>
       </template>
     </v-data-table>
     <div class="text-center pt-2">
-      <v-pagination v-model="page" :length="pageCount"></v-pagination>
+      <v-pagination v-model="page" :length="pageCount" total-visible="5" class="my-3" />
     </div>
 
     <v-dialog v-model="dialog" width="350">
@@ -60,7 +68,9 @@
             </div>
             <div @click="toggleDialog()" style="cursor: pointer;">
               <h4>
-                X
+                <v-icon>
+                  mdi-close
+                </v-icon>
               </h4>
             </div>
           </div>
@@ -95,13 +105,17 @@ import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
 
 export default {
-  components: { SectionHeader },
+  components: { SectionHeader, SectionContainer },
   async fetch() {
     this.tableLoading = true;
-    await this.$axios.$get('challenge/match').then(res => {
+    let filter = this.filterChip === 0 ? '&status=successful' : '';
+    await this.$axios.$get(`challenge/match?page=${this.page}${filter}`).then(res => {
       if (res.status_code === 200) {
-        this.data = res.data;
+        this.data = res.results.data;
+        this.pageCount = res.count;
         this.status_code = res.status_code;
+      } else if (res.status_code === 403) {
+        this.$toast.error('برای مشاهده این صفحه باید تیم داشته باشید');
       } else {
         this.$toast.error('خطا در برقراری ارتباط!');
       }
@@ -113,6 +127,7 @@ export default {
       filterSelect: 'همه',
       filterStatus: 'همه',
       filteIitems: ['همه', 'دوستانه', 'رقابتی', 'آزمایشی'],
+      filterChip: null,
       tableLoading: false,
       btnLoading: false,
       dialog: false,
@@ -127,6 +142,7 @@ export default {
           value: 'x',
         },
         // { text: 'زمان', align: 'center', value: '' },
+        { text: 'وضعیت بازی', align: 'center', value: 'status' },
         { text: 'تیم برنده', align: 'center', value: 'winner.name' },
         { text: 'دریافت لاگ', align: 'center', value: 'log' },
       ],
@@ -138,7 +154,26 @@ export default {
       status_code: 200,
     };
   },
+  watch: {
+    page() {
+      this.$fetch();
+    },
+  },
   methods: {
+    gameStatus(status) {
+      switch (status) {
+        case 'freeze':
+          return 'ثبت شده';
+        case 'pending':
+          return 'در صف اجرا';
+        case 'running':
+          return 'در حال اجرا';
+        case 'failed':
+          return 'اجرا با خطا';
+        case 'successful':
+          return 'تمام ‌شده';
+      }
+    },
     filter(data) {
       this.tableLoading = true;
       this.btnLoading = true;
@@ -164,7 +199,9 @@ export default {
       this.btnLoading = false;
       this.tableLoading = false;
     },
-    convertDateAndTime() {},
+    handleFilterChip() {
+      this.$fetch();
+    },
     resultTrasnlate(res) {
       if (res === '') return 'برد';
       else if (res === '') return 'باخت';
