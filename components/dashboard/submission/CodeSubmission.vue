@@ -50,7 +50,7 @@ export default {
     return {
       valid: false,
       file: null,
-      language: 'java',
+      language: 'jar',
       languageOptions: [
         { text: 'jar', value: 'jar' },
         { text: 'Python 3', value: 'py3' },
