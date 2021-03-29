@@ -222,7 +222,10 @@ export default {
     },
     randomMatch() {
       this.$axios.$post('/challenge/lobby', { game_type: 'friendly_match' }).then(res => {
-        this.randomData = [];
+        if (res.status) {
+          this.$toast.success('به لابی بازی‌های دوستانه اضافه شدید');
+          this.randomData = [1];
+        }
       });
     },
   },

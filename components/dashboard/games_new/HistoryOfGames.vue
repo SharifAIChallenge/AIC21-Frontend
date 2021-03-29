@@ -10,14 +10,20 @@
           </v-btn>
         </div>
       </div> -->
-
+    <div class="px-5 px-md-12">
+      <v-chip-group style="display: flex;" @change="handleFilterChip" v-model="filterChip" column active-class="secondary--text secondary">
+        <v-chip filter outlined></v-chip>
+        <!-- <v-chip filter outlined>
+          حل نشده
+        </v-chip> -->
+      </v-chip-group>
+    </div>
     <v-data-table
       :loading="tableLoading"
       hide-default-footer
       center
       :headers="headers"
       :items="data"
-      class="elevation-1 "
       :page.sync="page"
       :items-per-page="itemPerPage"
       @page-count="pageCount = $event"
@@ -94,9 +100,10 @@
 
 <script>
 import SectionHeader from '~/components/SectionHeader';
+import SectionContainer from '~/components/SectionContainer';
 
 export default {
-  components: { SectionHeader },
+  components: { SectionHeader, SectionContainer },
   async fetch() {
     this.tableLoading = true;
     await this.$axios.$get('challenge/match').then(res => {
@@ -116,6 +123,7 @@ export default {
       filterSelect: 'همه',
       filterStatus: 'همه',
       filteIitems: ['همه', 'دوستانه', 'رقابتی', 'آزمایشی'],
+      filterChip: null,
       tableLoading: false,
       btnLoading: false,
       dialog: false,
@@ -167,7 +175,9 @@ export default {
       this.btnLoading = false;
       this.tableLoading = false;
     },
-    convertDateAndTime() {},
+    handleFilterChip() {
+      this.console.log(this.filterChip);
+    },
     resultTrasnlate(res) {
       if (res === '') return 'برد';
       else if (res === '') return 'باخت';
