@@ -27,7 +27,7 @@
           <div v-if="item.profile.image_link">
             <div class="profile">
               <div>
-                <img :src="item.profile.image_link" height="60px" class="ml-2 mt-2" />
+                <img :src="item.profile.image_link" height="60px" class="ml-2 mt-2" style="border-radius: 50%" />
               </div>
               <div>
                 <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>

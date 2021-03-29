@@ -37,7 +37,14 @@
     >
       <template v-slot:item.name="{ item }">
         <div class="d-flex align-center">
-          <img v-if="item.image_url" :src="item.image_url" :alt="item.name" height="60px" style="max-width: 60px" />
+          <img
+            v-if="item.image_url"
+            :src="item.image_url"
+            :alt="item.name"
+            height="60px"
+            class="ml-2 mt-2"
+            style="max-width: 60px; border-radius: 50%"
+          />
           <div class="mr-2">
             <span>{{ item.name }}</span>
           </div>
