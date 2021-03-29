@@ -104,7 +104,7 @@ export default {
           icon: 'mdi-scoreboard-outline',
           hover: 'mdi-scoreboard',
           link: '/dashboard/scoreboard',
-          disabled: true,
+          disabled: false,
           gard: true,
         },
         team: {
@@ -128,7 +128,7 @@ export default {
           icon: 'mdi-code-braces',
           hover: 'mdi-code-braces-box',
           link: '/dashboard/submissions',
-          disabled: true,
+          disabled: false,
           gard: true,
         },
         games: {
@@ -136,7 +136,7 @@ export default {
           icon: 'mdi-sword',
           hover: 'mdi-sword-cross',
           link: '/dashboard/games',
-          disabled: true,
+          disabled: false,
           gard: true,
         },
       },
