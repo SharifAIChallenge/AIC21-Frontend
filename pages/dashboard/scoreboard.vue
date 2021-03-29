@@ -25,13 +25,18 @@
         :items="data"
         :page.sync="page"
         :items-per-page="itemPerPage"
-        @page-count="pageCount = $event"
         style="background: #141432"
       >
         <template v-slot:item.name="{ item }">
           <div class="d-flex align-center">
-            <img v-if="item.team.image" :src="item.team.image" height="60px" style="max-width: 60px; border-radius: 50%" />
-            <div>
+            <img
+              v-if="item.team.image_url"
+              :src="item.team.image_url"
+              height="60px"
+              class="my-2"
+              style="max-width: 60px; border-radius: 50%"
+            />
+            <div class="mr-3">
               <span>{{ item.team.name }}</span>
             </div>
           </div>
@@ -104,7 +109,6 @@ export default {
     const data = res.results.data;
     const count = 20;
     const pageCount = Math.ceil(res.count / count);
-
     return { data, pageCount };
   },
   data() {
@@ -156,6 +160,8 @@ export default {
         if (res.status_code === 200) {
           this.data = res.results.data;
           this.status_code = res.status_code;
+          const count = 20;
+          this.pageCount = Math.ceil(res.count / count);
         } else {
           this.$toast.error('خطا در برقراری ارتباط!');
         }
