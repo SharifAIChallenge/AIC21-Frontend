@@ -29,8 +29,11 @@
         style="background: #141432"
       >
         <template v-slot:item.name="{ item }">
-          <div>
-            {{ item.team.name }}
+          <div class="d-flex align-center">
+            <img v-if="item.team.image" :src="item.team.image" height="60px" style="max-width: 60px; border-radius: 50%" />
+            <div>
+              <span>{{ item.team.name }}</span>
+            </div>
           </div>
         </template>
         <template v-slot:item.profile="{ item }">
@@ -99,9 +102,10 @@ export default {
   async asyncData({ $axios, query }) {
     const res = await $axios.$get('challenge/friendly_scoreboard');
     const data = res.results.data;
-    // console.log(res);
+    const count = 20;
+    const pageCount = Math.ceil(res.count / count);
 
-    return { data };
+    return { data, pageCount };
   },
   data() {
     return {

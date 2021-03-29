@@ -37,7 +37,7 @@
         {{ item.team1.name }} - {{ item.team2.name }}
       </template>
       <template v-slot:[`item.winner.name`]="{ item }">
-        {{ item.winner.name }}
+        {{ item.winner ? item.winner.name : '' }}
       </template>
       <template v-slot:[`item.log`]="{ item }">
         <v-btn icon :loading="btnLoading">
@@ -60,7 +60,9 @@
             </div>
             <div @click="toggleDialog()" style="cursor: pointer;">
               <h4>
-                X
+                <v-icon>
+                  mdi-close
+                </v-icon>
               </h4>
             </div>
           </div>
@@ -92,7 +94,6 @@
 
 <script>
 import SectionHeader from '~/components/SectionHeader';
-import SectionContainer from '~/components/SectionContainer';
 
 export default {
   components: { SectionHeader },
@@ -102,6 +103,8 @@ export default {
       if (res.status_code === 200) {
         this.data = res.data;
         this.status_code = res.status_code;
+      } else if (res.status_code === 403) {
+        this.$toast.error('برای مشاهده این صفحه باید تیم داشته باشید');
       } else {
         this.$toast.error('خطا در برقراری ارتباط!');
       }
