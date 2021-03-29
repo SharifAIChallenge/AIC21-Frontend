@@ -36,6 +36,9 @@
         </div> -->
         {{ item.team1.name }} - {{ item.team2.name }}
       </template>
+      <template v-slot:[`item.status`]="{item}">
+        {{gameStatus(item.status)}}
+      </template>
       <template v-slot:[`item.winner.name`]="{ item }">
         {{ item.winner ? item.winner.name : '' }}
       </template>
@@ -47,6 +50,7 @@
     </v-data-table>
     <div class="text-center pt-2">
       <v-pagination v-model="page" :length="pageCount"></v-pagination>
+      <v-pagination v-model="page" :length="pageCount" :total-visible="5" class="my-3" />
     </div>
 
     <v-dialog v-model="dialog" width="350">
@@ -102,6 +106,7 @@ export default {
     await this.$axios.$get('challenge/match').then(res => {
       if (res.status_code === 200) {
         this.data = res.data;
+        console.log(this.data);
         this.status_code = res.status_code;
       } else if (res.status_code === 403) {
         this.$toast.error('برای مشاهده این صفحه باید تیم داشته باشید');
@@ -130,6 +135,7 @@ export default {
           value: 'x',
         },
         // { text: 'زمان', align: 'center', value: '' },
+        {text: 'وضعیت بازی',align:'center', value:'status'},
         { text: 'تیم برنده', align: 'center', value: 'winner.name' },
         { text: 'دریافت لاگ', align: 'center', value: 'log' },
       ],
@@ -142,6 +148,19 @@ export default {
     };
   },
   methods: {
+    gameStatus(status){
+      console.log(status);
+      switch(status){
+        case 'freeze':
+          return "ثبت شده";
+        case 'pending':
+          return "در صف اجرا";
+        case 'running':
+          return "در حال اجرا";
+        case 'failed':
+          return "اجرا با خطا";
+      }
+    },
     filter(data) {
       this.tableLoading = true;
       this.btnLoading = true;

@@ -13,26 +13,27 @@
       sort-desc
       @page-count="pageCount = $event"
     >
-      <template v-slot:item.is_final="{ item }">
+      <template v-slot:[`item.is_final`]="{ item }">
         <v-btn icon @click="changeFinal(item)">
           <v-icon>
             {{ item.is_final ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline' }}
           </v-icon>
         </v-btn>
       </template>
-      <template v-slot:item.status="{ item }">
+      <template v-slot:[`item.status`]="{ item }">
         <submission-status :status="item.status" />
       </template>
-      <template v-slot:item.language="{ item }">
+      <template v-slot:[`item.language`]="{ item }">
         <language-icon :language="item.language" />
       </template>
-      <template v-slot:item.user="{ item }">
+      <template v-slot:[`item.user`]="{ item }">
         <!-- {{ item.user.profile.firstname_fa + ' ' + item.user.profile.lastname_fa }} -->
+        {{item.user}}
       </template>
-      <template v-slot:item.submit_time="{ item }">
+      <template v-slot:[`item.submit_time`]="{ item }">
         <date-time-formatter :date="item.submit_time" />
       </template>
-      <template v-slot:item.file="{ item }">
+      <template v-slot:[`item.file`]="{ item }">
         <v-btn v-if="item.download_link" icon :href="item.download_link">
           <v-icon>mdi-download</v-icon>
         </v-btn>
