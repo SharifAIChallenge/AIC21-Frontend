@@ -31,7 +31,7 @@
         <template v-slot:item.name="{ item }">
           <div class="d-flex align-center">
             <img v-if="item.team.image" :src="item.team.image" height="60px" class="ml-1" style="max-width: 60px; border-radius: 50%" />
-            <span v-else class="emtyImage ml-1"></span>
+            <span v-else class="emtyImage ml-1 my-2"></span>
             <div>
               <span>{{ item.team.name }}</span>
             </div>
