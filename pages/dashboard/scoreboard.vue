@@ -30,7 +30,8 @@
       >
         <template v-slot:item.name="{ item }">
           <div class="d-flex align-center">
-            <img v-if="item.team.image" :src="item.team.image" height="60px" style="max-width: 60px; border-radius: 50%" />
+            <img v-if="item.team.image" :src="item.team.image" height="60px" class="ml-1" style="max-width: 60px; border-radius: 50%" />
+            <span v-else class="emtyImage ml-1"></span>
             <div>
               <span>{{ item.team.name }}</span>
             </div>
@@ -45,9 +46,7 @@
       </div>
       <v-dialog v-model="teamDetails" width="350px">
         <v-btn icon class="close-btn" @click="teamDetails = false">
-          <v-icon>
-            mdi-close
-          </v-icon>
+          <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-card>
           <img v-if="teamInfo.image" :src="teamInfo.image" style="max-width: 100%" :alt="teamInfo.name" />
@@ -65,23 +64,17 @@
                   {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}
                 </v-col>
                 <v-col cols="2">
-                  <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">
-                    mdi-card-account-details-outline
-                  </v-icon>
+                  <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">mdi-card-account-details-outline</v-icon>
                 </v-col>
               </div>
             </v-col>
           </v-row>
-          <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">
-            ارسال درخواست عضویت
-          </v-btn>
+          <v-btn color="primary" block class="mt-5" @click="sendRequest(teamInfo.id)" width="100%" height="55px">ارسال درخواست عضویت</v-btn>
         </v-card>
       </v-dialog>
       <v-dialog v-model="ProfileDialog" width="350">
         <v-btn icon class="close-btn" @click="ProfileDialog = false">
-          <v-icon>
-            mdi-close
-          </v-icon>
+          <v-icon>mdi-close</v-icon>
         </v-btn>
         <UserProfileForTeam :userData="currentUser" />
       </v-dialog>
@@ -176,7 +169,7 @@ export default {
     },
   },
   watch: {
-    page: function() {
+    page: function () {
       this.getData(this.page);
     },
   },
@@ -185,6 +178,12 @@ export default {
 
 <style lang="scss">
 .scoreboard {
+  .emtyImage {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.493);
+    border-radius: 50%;
+  }
   .v-input__slot {
     margin-bottom: 0;
   }
