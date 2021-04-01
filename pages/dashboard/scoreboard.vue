@@ -34,10 +34,10 @@
               :src="item.team.image_url"
               height="60px"
               class="my-2"
-              style="max-width: 60px; border-radius: 50%"
+              style="max-width: 60px; width: 60px; border-radius: 50%"
             />
             <span v-else class="emtyImage ml-1 my-2 d-none d-sm-block"></span>
-            <div>
+            <div class="mr-3">
               <span>{{ item.team.name }}</span>
             </div>
           </div>
