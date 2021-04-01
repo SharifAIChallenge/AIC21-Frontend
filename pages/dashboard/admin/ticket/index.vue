@@ -18,7 +18,7 @@ export default {
   async fetch() {
     this.loading = true;
     let res = await this.$axios.$get('ai-admin/ticket');
-    this.tickets = res.data;
+    this.tickets = res.data.reverse();
     this.loading = false;
   },
 };
