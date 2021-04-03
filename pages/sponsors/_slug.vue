@@ -51,12 +51,12 @@
         </div>
       </div>
       <div class="job-offer mt-8">
-        <div class=" mb-4">
-          <h2>
+        <div class="mb-8">
+          <h1>
             فرصت های شغلی
-          </h2>
+          </h1>
         </div>
-        <div class="job-card pr-8">
+        <div class="job-card ">
           <v-row class="mb-10">
             <v-col cols="12" sm="6" lg="4" xl="3">
               <div class="faq-card pa-12">
