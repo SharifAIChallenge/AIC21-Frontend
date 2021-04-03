@@ -37,4 +37,9 @@ export default {
     right: 30px !important;
   }
 }
+.tickets .dk_logo {
+  top: calc(100% - 60px) !important;
+  width: 55px !important;
+  right: calc(100% - 90px) !important;
+}
 </style>
