@@ -2,7 +2,7 @@
   <div>
     <SectionHeader title="جستجو تیم‌" icon="mdi-magnify" />
     <div class="searchBar px-6 px-md-12">
-      <div style="width:70%;">
+      <div style="width: 70%">
         <v-text-field
           label="اسم تیم"
           outlined
@@ -13,14 +13,10 @@
           full-width
         ></v-text-field>
       </div>
-      <div style="width:20%;">
+      <div style="width: 20%">
         <v-btn block color="primary" :loading="tableLoading" @click="search(teamName)">
-          <v-icon class="ml-0 ml-md-3">
-            mdi-magnify
-          </v-icon>
-          <div class="hide-sm-and-down">
-            تیم را پیدا کن
-          </div>
+          <v-icon class="ml-0 ml-md-3">mdi-magnify</v-icon>
+          <div class="hide-sm-and-down">تیم را پیدا کن</div>
         </v-btn>
       </div>
     </div>
@@ -56,19 +52,18 @@
           <v-icon @click="showTeam(item)" class="ProfileIcon">mdi-card-account-details-outline</v-icon>
         </template>
         <template v-slot:item.play="{ item }">
-          <div style="max-width: 10px;">
+          <div style="max-width: 10px">
             <v-btn color="primary" @click="sendGameRequest(item.id)" block>درخواست بازی</v-btn>
           </div>
         </template>
       </v-data-table>
-      <div>
+      <div class="pt-4 pb-10" style="position: relative">
         <v-pagination v-model="page" total-visible="6" :length="pageCount"></v-pagination>
+        <Logo />
       </div>
       <v-dialog v-model="teamDetails" width="350px">
         <v-btn icon class="close-btn" @click="teamDetails = false">
-          <v-icon>
-            mdi-close
-          </v-icon>
+          <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-card>
           <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%" />
@@ -86,9 +81,7 @@
                   {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}
                 </v-col>
                 <v-col cols="2">
-                  <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">
-                    mdi-card-account-details-outline
-                  </v-icon>
+                  <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">mdi-card-account-details-outline</v-icon>
                 </v-col>
               </div>
             </v-col>
@@ -98,9 +91,7 @@
       </v-dialog>
       <v-dialog v-model="ProfileDialog" width="350">
         <v-btn icon class="close-btn" @click="ProfileDialog = false">
-          <v-icon>
-            mdi-close
-          </v-icon>
+          <v-icon>mdi-close</v-icon>
         </v-btn>
         <UserProfileForTeam :userData="currentUser" />
       </v-dialog>
@@ -111,9 +102,10 @@
 import UserProfileForTeam from '~/components/dashboard/team/UserProfileForTeam';
 import SectionContainer from '~/components/SectionContainer';
 import SectionHeader from '~/components/SectionHeader';
+import Logo from '~/components/dashboard/Logo';
 
 export default {
-  components: { UserProfileForTeam, SectionHeader, SectionContainer },
+  components: { UserProfileForTeam, SectionHeader, SectionContainer, Logo },
   data() {
     return {
       page: 1,
@@ -158,7 +150,7 @@ export default {
     this.tableLoading = false;
   },
   watch: {
-    page: function() {
+    page: function () {
       this.changePage(this.page);
     },
   },

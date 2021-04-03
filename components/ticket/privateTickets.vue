@@ -17,11 +17,9 @@
         {{ item.title }}
       </template>
       <template v-slot:[`item.num_replies`]="{ item }">
-        <div style="display: flex; align-items:center;">
+        <div style="display: flex; align-items: center">
           {{ item.num_replies }}
-          <v-icon class="mr-2">
-            mdi-message-reply-outline
-          </v-icon>
+          <v-icon class="mr-2">mdi-message-reply-outline</v-icon>
         </div>
       </template>
     </v-data-table>

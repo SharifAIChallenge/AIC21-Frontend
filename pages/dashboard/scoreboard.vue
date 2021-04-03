@@ -46,8 +46,9 @@
           <v-icon class="icon" @click="showTeam(item.team)">mdi-card-account-details-outline</v-icon>
         </template>
       </v-data-table>
-      <div class="text-center pt-2">
+      <div class="text-center pt-4 pb-10" style="position: relative">
         <v-pagination v-model="page" :length="pageCount" total-visible="6"></v-pagination>
+        <Logo />
       </div>
       <v-dialog v-model="teamDetails" width="350px">
         <v-btn icon class="close-btn" @click="teamDetails = false">
@@ -91,9 +92,10 @@
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
 import UserProfileForTeam from '~/components/dashboard/team/UserProfileForTeam';
+import Logo from '~/components/dashboard/Logo';
 
 export default {
-  components: { SectionHeader, SectionContainer, UserProfileForTeam },
+  components: { SectionHeader, SectionContainer, UserProfileForTeam, Logo },
   layout: 'dashboard',
   transition: 'fade-transition',
 
@@ -175,7 +177,7 @@ export default {
     },
   },
   watch: {
-    page: function() {
+    page: function () {
       this.getData(this.page);
     },
   },

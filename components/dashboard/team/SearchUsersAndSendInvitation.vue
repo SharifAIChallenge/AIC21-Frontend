@@ -59,15 +59,14 @@
           <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover ml-5 ml-md-7">mdi-plus-circle</v-icon>
         </template>
       </v-data-table>
-      <div class="text-center pt-2">
+      <div class="text-center pt-4 pb-10" style="position: relative">
         <v-pagination v-model="page" :length="pageCount" total-visible="6"></v-pagination>
+        <Logo />
       </div>
 
       <v-dialog v-model="dialog" width="350">
         <v-btn icon class="close-btn" @click="dialog = false">
-          <v-icon>
-            mdi-close
-          </v-icon>
+          <v-icon>mdi-close</v-icon>
         </v-btn>
         <UserProfileForTeam :userData="currentUser" />
       </v-dialog>
@@ -103,9 +102,10 @@
 import UserProfileForTeam from './UserProfileForTeam';
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
+import Logo from '~/components/dashboard/Logo';
 
 export default {
-  components: { UserProfileForTeam, SectionHeader, SectionContainer },
+  components: { UserProfileForTeam, SectionHeader, SectionContainer, Logo },
   async fetch() {
     this.tableLoading = true;
     let res = await this.$axios.$get('accounts/without_team');
@@ -120,6 +120,7 @@ export default {
   },
   data() {
     return {
+      logo: Logo,
       tableLoading: false,
       dialog: false,
       filter: false,
@@ -249,7 +250,7 @@ export default {
     },
   },
   watch: {
-    page: function() {
+    page: function () {
       this.changePage(this.page);
     },
   },
@@ -257,6 +258,7 @@ export default {
 </script>
 
 <style lang="scss">
+// @import '~/assets/mixins.scss';
 .searchTable {
   .main {
     text-align: center;

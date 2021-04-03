@@ -1,41 +1,31 @@
 <template>
-  <v-container class="mt-10">
-    <v-row class="mb-2">
+  <v-container class="mt-10 tickets mb-13" style="position: relative">
+    <v-row class="mb-2 px-1">
       <v-col cols="12" sm="5" class="pa-0">
         <!-- <div style="display:  flex;"> -->
         <v-chip-group
-          style="display:  flex;"
+          style="display: flex"
           v-model="amenities"
           column
           multiple
           active-class="secondary--text secondary"
           v-if="generalTicket === 0"
         >
-          <v-chip filter outlined>
-            حل شده
-          </v-chip>
-          <v-chip filter outlined>
-            حل نشده
-          </v-chip>
+          <v-chip filter outlined>حل شده</v-chip>
+          <v-chip filter outlined>حل نشده</v-chip>
         </v-chip-group>
       </v-col>
       <v-col cols="12" sm="4" class="pa-0">
-        <v-chip-group style="display:  flex;" v-model="generalTicket" column active-class="secondary--text secondary">
-          <v-chip filter outlined>
-            شخصی
-          </v-chip>
-          <v-chip filter outlined>
-            عمومی
-          </v-chip>
+        <v-chip-group style="display: flex" v-model="generalTicket" column active-class="secondary--text secondary">
+          <v-chip filter outlined>شخصی</v-chip>
+          <v-chip filter outlined>عمومی</v-chip>
         </v-chip-group>
       </v-col>
       <!-- </div> -->
       <v-col cols="12" sm="3" class="pa-0 pl-4">
         <v-btn color="primary mr-2" @click="toggleNewTicket()" width="100%">
           ساخت تیکت جدید
-          <v-icon>
-            mdi-plus-thick
-          </v-icon>
+          <v-icon>mdi-plus-thick</v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -45,9 +35,7 @@
         <div @click="toggleNewTicket()">
           <v-btn icon>
             <h2>
-              <v-icon>
-                mdi-close
-              </v-icon>
+              <v-icon>mdi-close</v-icon>
             </h2>
           </v-btn>
         </div>
@@ -60,6 +48,7 @@
     <div v-else>
       <PublicTikects :data="publicTicketData" :action="false" />
     </div>
+    <Logo />
   </v-container>
 </template>
 
@@ -67,10 +56,11 @@
 import PrivateTickets from '~/components/ticket/privateTickets';
 import PublicTikects from '~/components/ticket/PublicTikects';
 import NewTicket from '~/components/ticket/NewTicket';
+import Logo from '~/components/dashboard/Logo';
 
 export default {
   layout: 'dashboard',
-  components: { PrivateTickets, NewTicket, PublicTikects },
+  components: { PrivateTickets, NewTicket, PublicTikects, Logo },
   async fetch() {
     this.loadingTable = true;
     let res = await this.$axios.$get('/ticket');
