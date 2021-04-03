@@ -47,7 +47,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-main style="padding: 0px">
-      <v-container class="dashboard pl-0 pt-md-0 pb-6" fluid>
+      <v-container class="dashboard pl-0 pt-md-0 pb-0" fluid>
         <nuxt />
       </v-container>
     </v-main>

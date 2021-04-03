@@ -59,7 +59,7 @@
           <v-icon @click="sendInvitation(item.email)" size="30px" class="icon-hover ml-5 ml-md-7">mdi-plus-circle</v-icon>
         </template>
       </v-data-table>
-      <div class="text-center py-4" style="position: relative">
+      <div class="text-center pt-4 pb-10" style="position: relative">
         <v-pagination v-model="page" :length="pageCount" total-visible="6"></v-pagination>
         <Logo />
       </div>

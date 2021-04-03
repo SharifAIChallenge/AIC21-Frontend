@@ -51,7 +51,7 @@
         </v-btn>
       </template>
     </v-data-table>
-    <div class="text-center py-4" style="position: relative">
+    <div class="text-center pt-4 pb-10" style="position: relative">
       <v-pagination v-model="page" :length="pageCount" total-visible="5" class="my-3" />
       <Logo />
     </div>

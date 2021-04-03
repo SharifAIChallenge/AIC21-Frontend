@@ -57,7 +57,7 @@
           </div>
         </template>
       </v-data-table>
-      <div class="py-4" style="position: relative">
+      <div class="pt-4 pb-10" style="position: relative">
         <v-pagination v-model="page" total-visible="6" :length="pageCount"></v-pagination>
         <Logo />
       </div>

@@ -46,7 +46,7 @@
           <v-icon class="icon" @click="showTeam(item.team)">mdi-card-account-details-outline</v-icon>
         </template>
       </v-data-table>
-      <div class="text-center py-4" style="position: relative">
+      <div class="text-center pt-4 pb-10" style="position: relative">
         <v-pagination v-model="page" :length="pageCount" total-visible="6"></v-pagination>
         <Logo />
       </div>
