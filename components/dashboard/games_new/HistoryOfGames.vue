@@ -11,10 +11,8 @@
         </div>
       </div> -->
     <div class="px-5 px-md-12">
-      <v-chip-group style="display: flex;" @change="handleFilterChip" v-model="filterChip" column active-class="secondary--text secondary">
-        <v-chip filter outlined>
-          تمام شده
-        </v-chip>
+      <v-chip-group style="display: flex" @change="handleFilterChip" v-model="filterChip" column active-class="secondary--text secondary">
+        <v-chip filter outlined>تمام شده</v-chip>
       </v-chip-group>
     </div>
     <v-data-table
@@ -53,8 +51,9 @@
         </v-btn>
       </template>
     </v-data-table>
-    <div class="text-center pt-2">
+    <div class="text-center py-4" style="position: relative">
       <v-pagination v-model="page" :length="pageCount" total-visible="5" class="my-3" />
+      <Logo />
     </div>
 
     <v-dialog v-model="dialog" width="350">
@@ -62,15 +61,11 @@
         <v-container>
           <div class="dialog-header mb-4 mt-4">
             <div>
-              <h4>
-                دریافت لاگ
-              </h4>
+              <h4>دریافت لاگ</h4>
             </div>
-            <div @click="toggleDialog()" style="cursor: pointer;">
+            <div @click="toggleDialog()" style="cursor: pointer">
               <h4>
-                <v-icon>
-                  mdi-close
-                </v-icon>
+                <v-icon>mdi-close</v-icon>
               </h4>
             </div>
           </div>
@@ -103,9 +98,10 @@
 <script>
 import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
+import Logo from '~/components/dashboard/Logo';
 
 export default {
-  components: { SectionHeader, SectionContainer },
+  components: { SectionHeader, SectionContainer, Logo },
   async fetch() {
     this.tableLoading = true;
     let filter = this.filterChip === 0 ? '&status=successful' : '';

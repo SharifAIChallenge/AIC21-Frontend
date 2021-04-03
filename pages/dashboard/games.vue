@@ -1,5 +1,5 @@
 <template>
-  <v-row class="d-flex game">
+  <v-row class="d-flex game ma-0">
     <v-col cols="12" md="8" class="pa-0">
       <v-divider />
       <v-tabs-items v-model="tabs">
