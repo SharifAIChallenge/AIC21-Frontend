@@ -1,18 +1,18 @@
 <template>
   <div>
     <Header class="pb-4" />
-    <v-container class="pt-16 ">
+    <v-container style="margin-top: 100px; margin-bottom: 200px">
       <div class="header">
         <div class="name">
           <h1>
-            {{ data.title }}
+            {{ data.title_fa }}
           </h1>
         </div>
         <div class="social">
           <div dir="ltr">
             <v-icon>mdi-web</v-icon>
             <a :href="data.url" class="link" target="_blank">
-              Digikala.com
+              {{ data.url }}
             </a>
           </div>
           <div>
@@ -32,15 +32,15 @@
         </div>
         <div class="mt-8" v-if="data.video !== null">
           <video width="80%" controls class="video">
-            <source src="data.video" type="video/mp4" />
+            <source :src="data.video" type="video/mp4" />
           </video>
         </div>
       </div>
-      <div class="job-offer mt-8">
-        <div class="mb-8">
-          <h1>
+      <div class="job-offer mt-16">
+        <div class="mb-6">
+          <h2>
             فرصت های شغلی
-          </h1>
+          </h2>
         </div>
         <div class="job-card ">
           <!-- <v-row class="mb-10">
@@ -73,6 +73,7 @@ export default {
     var slug = route.params.slug;
     let res = await $axios.$get(`/homepage/sponsors/${slug}`);
     const { data, status_code } = res;
+    console.log(res);
     return { data, status_code };
   },
   data() {
