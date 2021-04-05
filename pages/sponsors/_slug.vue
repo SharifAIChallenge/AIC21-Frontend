@@ -5,26 +5,19 @@
       <div class="header">
         <div class="name">
           <h1>
-            دیجیکالا
+            {{ data.title }}
           </h1>
         </div>
         <div class="social">
           <div dir="ltr">
             <v-icon>mdi-web</v-icon>
-            Digikala.com
+            <a :href="data.url" class="link" target="_blank">
+              Digikala.com
+            </a>
           </div>
           <div>
-            <v-btn icon>
-              <v-icon>mdi-instagram</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>mdi-linkedin</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>mdi-twitter</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>mdi-github</v-icon>
+            <v-btn icon v-for="(social, index) in data.socials" :key="index" :href="social.url" target="_blank">
+              <v-icon>{{ social.icon }}</v-icon>
             </v-btn>
           </div>
         </div>
@@ -34,19 +27,12 @@
       <div class="info-main mt-16">
         <div class="text">
           <span>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam error ducimus tenetur, quisquam ex debitis inventore,
-            perspiciatis nobis ad minus sit, deleniti cupiditate eaque assumenda doloremque facere quasi sapiente tempora! Lorem ipsum
-            dolor, sit amet consectetur adipisicing elit. Distinctio aliquid voluptate dolore temporibus corrupti dignissimos, iste libero
-            officiis est! Voluptates quis ex corrupti commodi magnam animi voluptas, eaque perferendis quae Lorem, ipsum dolor sit amet
-            consectetur adipisicing elit. Suscipit distinctio quam quae repudiandae, cupiditate eum aliquid, cumque eveniet recusandae
-            tenetur perspiciatis aperiam corrupti quos reprehenderit itaque laborum esse, totam laudantium!Lorem Lorem ipsum dolor, sit amet
-            consectetur adipisicing elit. Aliquam sed iusto ipsum sint? Architecto, eligendi at eaque sequi consequuntur quas ipsum odit
-            consectetur dolores doloremque animi maiores explicabo sit accusantium!
+            {{ data.description }}
           </span>
         </div>
-        <div class="mt-8">
+        <div class="mt-8" v-if="data.video !== null">
           <video width="80%" controls class="video">
-            <source src="landing.mp4" type="video/mp4" />
+            <source src="data.video" type="video/mp4" />
           </video>
         </div>
       </div>
@@ -57,7 +43,7 @@
           </h1>
         </div>
         <div class="job-card ">
-          <v-row class="mb-10">
+          <!-- <v-row class="mb-10">
             <v-col cols="12" sm="6" lg="4" xl="3">
               <div class="faq-card pa-12">
                 <div class="faq-card-title">
@@ -69,7 +55,8 @@
                 </p>
               </div>
             </v-col>
-          </v-row>
+          </v-row> -->
+          <v-chip v-for="(job, index) in data.jobs" :key="index" :href="job.job_url" target="_blank" class="ma-4">{{ job.title }}</v-chip>
         </div>
       </div>
     </v-container>
@@ -82,13 +69,12 @@ import Header from '~/components/landing/Header.vue';
 export default {
   layout: 'landing',
   components: { Header },
-
-  // async asyncData({ route, $axios }) {
-  //   var slug = route.params.slug;
-  //   let res = await $axios.$get(`************/${slug}`);
-  //   const { data, status_code } = res;
-  //   return { data, status_code };
-  // },
+  async asyncData({ route, $axios }) {
+    var slug = route.params.slug;
+    let res = await $axios.$get(`/homepage/sponsors/${slug}`);
+    const { data, status_code } = res;
+    return { data, status_code };
+  },
   data() {
     return {
       data: {},
@@ -121,5 +107,11 @@ export default {
   display: flex;
   font-size: 1.5rem;
   font-weight: bold;
+}
+.link {
+  color: white;
+}
+.link:hover {
+  color: var(--v-primary-base);
 }
 </style>
