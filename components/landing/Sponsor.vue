@@ -29,12 +29,16 @@
           با حمایت
         </h1>
         <h2>
-          دیجیکالا
+          <nuxt-link to="/sponsors/digikala">
+            دیجیکالا
+          </nuxt-link>
         </h2>
       </v-col>
       <v-col cols="6" class="digikalaLogoCol">
         <div>
-          <img src="~assets/images/logo/digikala-logo.svg" class="digikalaLogo" />
+          <nuxt-link to="/sponsors/digikala">
+            <img src="~assets/images/logo/digikala-logo.svg" class="digikalaLogo" />
+          </nuxt-link>
         </div>
       </v-col>
     </v-row>
