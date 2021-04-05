@@ -3,7 +3,7 @@
     <SectionHeader title="جستجوی تیم‌ها" icon="mdi-badge-account-horizontal" />
 
     <div class="searchBar px-6 px-md-12">
-      <div style="width:70%;">
+      <div style="width: 70%">
         <v-text-field
           label="اسم تیم"
           outlined
@@ -14,14 +14,10 @@
           full-width
         ></v-text-field>
       </div>
-      <div style="width:20%;">
+      <div style="width: 20%">
         <v-btn block color="primary" @click="search(teamName)">
-          <v-icon class="ml-0 ml-md-3">
-            mdi-magnify
-          </v-icon>
-          <div class="hide-sm-and-down">
-            تیم را پیدا کن
-          </div>
+          <v-icon class="ml-0 ml-md-3">mdi-magnify</v-icon>
+          <div class="hide-sm-and-down">تیم را پیدا کن</div>
         </v-btn>
       </div>
     </div>
@@ -45,6 +41,8 @@
             class="ml-2 mt-2"
             style="max-width: 60px; border-radius: 50%"
           />
+
+          <span v-else class="emtyImage ml-1 my-2 d-none d-sm-block"></span>
           <div class="mr-2">
             <span>{{ item.name }}</span>
           </div>
@@ -62,9 +60,7 @@
 
     <v-dialog v-model="teamDetails" width="350px">
       <v-btn icon class="close-btn" @click="teamDetails = false">
-        <v-icon>
-          mdi-close
-        </v-icon>
+        <v-icon>mdi-close</v-icon>
       </v-btn>
       <v-card>
         <img v-if="teamInfo.image_url" :src="teamInfo.image_url" style="max-width: 100%" />
@@ -82,9 +78,7 @@
                 {{ member.profile.firstname_fa + ' ' + member.profile.lastname_fa }}
               </v-col>
               <v-col cols="2">
-                <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">
-                  mdi-card-account-details-outline
-                </v-icon>
+                <v-icon @click="setCurrentUser(member.profile, member.email, member.id, false)">mdi-card-account-details-outline</v-icon>
               </v-col>
             </div>
           </v-col>
@@ -97,9 +91,7 @@
     </div>
     <v-dialog v-model="ProfileDialog" width="350">
       <v-btn icon class="close-btn" @click="ProfileDialog = false">
-        <v-icon>
-          mdi-close
-        </v-icon>
+        <v-icon>mdi-close</v-icon>
       </v-btn>
       <UserProfileForTeam :userData="currentUser" />
     </v-dialog>
@@ -141,7 +133,7 @@ export default {
     };
   },
   watch: {
-    page: function() {
+    page: function () {
       this.changePage(this.page);
     },
   },
@@ -223,6 +215,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.emtyImage {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.493);
+  border-radius: 50%;
+}
 @import 'assets/mixins.scss';
 .icon {
   &:hover {
