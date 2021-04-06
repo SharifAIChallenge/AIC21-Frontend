@@ -35,11 +35,11 @@
         </h2>
       </v-col>
       <v-col cols='6' class='digikalaLogoCol'>
-        <div>
-          <nuxt-link to='/sponsors/digikala'>
+        <nuxt-link to='/sponsors/digikala'>
+          <div>
             <img src='~assets/images/logo/digikala-logo.svg' class='digikalaLogo' />
-          </nuxt-link>
-        </div>
+          </div>
+        </nuxt-link>
       </v-col>
     </v-row>
     <div style='text-align: center;' class='mt-10'>
@@ -84,8 +84,9 @@ $image-width: 30vmin;
     }
   }
 }
+
 .digikalaLogoCol:hover {
-  background-color:var(--v-secondary-base);
+  background-color: var(--v-secondary-base);
 }
 
 .digikala {
