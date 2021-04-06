@@ -31,7 +31,7 @@
           </span>
         </div>
         <div class="mt-8" v-if="data.video !== null">
-          <video width="80%" controls class="video">
+          <video width="90%" controls class="video">
             <source :src="data.video" type="video/mp4" />
           </video>
         </div>
@@ -95,7 +95,7 @@ export default {
   direction: ltr;
 }
 .info-main {
-  max-width: 70%;
+  max-width: 900px;
   margin: auto;
   text-align: center;
 }

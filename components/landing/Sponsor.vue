@@ -35,13 +35,23 @@
         </h2>
       </v-col>
       <v-col cols="6" class="digikalaLogoCol">
-        <div>
-          <nuxt-link to="/sponsors/digikala">
+        <nuxt-link to="/sponsors/digikala">
+          <div>
             <img src="~assets/images/logo/digikala-logo.svg" class="digikalaLogo" />
-          </nuxt-link>
-        </div>
+          </div>
+        </nuxt-link>
       </v-col>
     </v-row>
+    <div style="text-align: center;" class="mt-10">
+      <h3>
+        حامی ویدیویی
+      </h3>
+      <nuxt-link to="/sponsors/aparat">
+        <span style="font-size: 3rem">
+          آپارات
+        </span>
+      </nuxt-link>
+    </div>
   </div>
 </template>
 
@@ -58,42 +68,58 @@ $image-width: 30vmin;
 .padding-y {
   padding: 20vmin 0px;
 }
+
 .digikalaLogoCol {
   background-color: var(--v-primary-base);
+
   div {
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
+
     img {
       width: $image-width;
     }
   }
+  transition: all 0.6s;
+  &:hover {
+    background-color: var(--v-secondary-base);
+    transition: all 0.6s;
+  }
 }
+
 .digikala {
   text-align: center;
+
   h2 {
     padding: 5px;
     color: var(--v-primary-base);
   }
 }
+
 .sscIntro {
   text-align: center;
+
   h4 {
     color: var(--v-primary-base);
   }
+
   h3 {
     opacity: 0.8;
   }
 }
+
 .ssc {
   padding: 0px;
+
   div {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
+
     img {
       width: $image-width;
       filter: invert(0%) sepia(0%) saturate(7500%) hue-rotate(327deg) brightness(0%) contrast(104%);
