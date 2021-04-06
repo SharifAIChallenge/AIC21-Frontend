@@ -39,7 +39,7 @@
             </h2>
           </v-btn>
         </div>
-        <NewTicket />
+        <NewTicket :toggleNewTicket="toggleNewTicket" />
       </v-card>
     </v-dialog>
     <div v-if="generalTicket === 0">

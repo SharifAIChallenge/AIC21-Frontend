@@ -18,7 +18,7 @@ export default {
   async fetch() {
     this.loading = true;
     let res = await this.$axios.$get('ai-admin/ticket');
-    this.tickets = res.data.reverse();
+    this.tickets = res.data.sort((a, b) => new Date(a.created) - new Date(b.created)).reverse();
     this.loading = false;
   },
 };

@@ -54,6 +54,7 @@
 import Editor from '../editor/Editor';
 export default {
   components: { Editor },
+  props: ['toggleNewTicket'],
   async fetch() {
     this.loading = true;
     await this.$axios.$get('/ticket/tags').then(res => {
@@ -107,6 +108,7 @@ export default {
           this.$toast.success('تیکت شما ثبت شد!');
           this.$refs.form.reset();
           this.$refs.form.resetValidation();
+          this.toggleNewTicket();
         } else {
           this.$toast.error('خطایی در ثبت تیکت به وجود آمد!');
         }
