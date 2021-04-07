@@ -47,9 +47,9 @@
         حامی رسانه‌ای
       </h3>
       <nuxt-link to="/sponsors/aparat">
-        <span style="font-size: 2rem">
+        <h1 class="mt-3" style="font-size: 2.2rem">
           آپارات
-        </span>
+        </h1>
       </nuxt-link>
     </div>
   </div>
