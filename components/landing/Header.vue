@@ -29,9 +29,9 @@
           </v-icon>
           <span class="font-weight-bold">ورود</span>
         </v-btn>
-        <v-btn v-if="!isAuthenticated" plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow('signUp')">
+        <!-- <v-btn v-if="!isAuthenticated" plain text :ripple="false" tile :class="`${getClass()}`" @click="toggleShow('signUp')">
           ثبت‌نام
-        </v-btn>
+        </v-btn> -->
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/">
           خانه
         </v-btn>
