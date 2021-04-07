@@ -2,13 +2,13 @@
   <div>
     <Header class="pb-4" />
     <v-container style="margin-top: 100px; margin-bottom: 200px">
-      <div class="header">
+      <div class="sponsor-header">
         <div class="name">
           <h1>
             {{ data.title_fa }}
           </h1>
         </div>
-        <div class="social">
+        <div class="sponsor-social">
           <div dir="ltr">
             <v-icon>mdi-web</v-icon>
             <a :href="data.url" class="link" target="_blank">
@@ -87,11 +87,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.header {
+.sponsor-header {
   display: flex;
   justify-content: space-between;
 }
-.social {
+.sponsor-social {
   direction: ltr;
 }
 .info-main {
