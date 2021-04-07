@@ -25,14 +25,14 @@
     </v-row>
     <v-row>
       <v-col cols="6" class="digikala padding-y" align-self="center">
-        <h1>
-          با حمایت
-        </h1>
         <h2>
+          با حمایت
+        </h2>
+        <h1 style="font-size: 3.5rem" class="mt-3">
           <nuxt-link to="/sponsors/digikala">
             دیجیکالا
           </nuxt-link>
-        </h2>
+        </h1>
       </v-col>
       <v-col cols="6" class="digikalaLogoCol">
         <nuxt-link to="/sponsors/digikala">
@@ -44,10 +44,10 @@
     </v-row>
     <div style="text-align: center;" class="mt-10">
       <h3>
-        حامی ویدیویی
+        حامی رسانه‌ای
       </h3>
       <nuxt-link to="/sponsors/aparat">
-        <span style="font-size: 3rem">
+        <span style="font-size: 2rem">
           آپارات
         </span>
       </nuxt-link>
@@ -93,10 +93,10 @@ $image-width: 30vmin;
 .digikala {
   text-align: center;
 
-  h2 {
-    padding: 5px;
-    color: var(--v-primary-base);
-  }
+  // h2 {
+  //   padding: 5px;
+  //   color: var(--v-primary-base);
+  // }
 }
 
 .sscIntro {
