@@ -36,7 +36,7 @@
           </video>
         </div>
       </div>
-      <div class="job-offer mt-16">
+      <div class="job-offer mt-16" v-if="data.jobs && data.jobs.length">
         <div class="mb-6">
           <h2>
             فرصت های شغلی
