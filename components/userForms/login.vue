@@ -49,7 +49,7 @@
         </v-col>
       </v-row>
     </div>
-    <v-btn width="100%" color="secondary" class="sigin-up-btn" height="50px" @click="changeStatus('signUp')">
+    <v-btn width="100%" disabled color="secondary" class="sigin-up-btn" height="50px" @click="changeStatus('signUp')">
       <v-icon style="margin:5px" size="25px">mdi-shield-plus-outline</v-icon>
       {{ $t('form.signUp') }}
     </v-btn>
