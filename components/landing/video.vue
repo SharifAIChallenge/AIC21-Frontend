@@ -29,7 +29,7 @@
                 <!-- <v-btn block class="btn" @click="scrollToCallToAction()">
                   عضویت در خبرنامه
                 </v-btn> -->
-                <v-btn block class="btn" @click="changeStatus('signUp')" disabled="true">
+                <v-btn block class="btn" @click="changeStatus('signUp')" :disabled="true">
                   {{ $t('home.signUpNow') }}
                 </v-btn>
               </v-col>
