@@ -47,6 +47,8 @@
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
           تاریخچه
         </v-btn>
+        <sponsers-dropdown>
+        </sponsers-dropdown>
       </div>
       <v-spacer></v-spacer>
       <v-btn v-if="!isAuthenticated" plain text tile :class="`${getClass()} hidden-sm-and-up`" @click="toggleShow('login')">
@@ -64,6 +66,7 @@
 </template>
 <script>
 import formManager from '~/components/userForms/formManager';
+import SponsersDropdown from "./SponserDropdown";
 import { mapState } from 'vuex';
 
 export default {
@@ -75,6 +78,7 @@ export default {
   },
   components: {
     formManager,
+    "sponsers-dropdown":SponsersDropdown,
   },
   computed: {
     ...mapState({
