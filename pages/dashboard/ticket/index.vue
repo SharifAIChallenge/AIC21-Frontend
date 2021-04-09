@@ -48,7 +48,7 @@
     <div v-else>
       <PublicTikects :data="publicTicketData" :action="false" />
     </div>
-    <Logo />
+    <!-- <Logo /> -->
   </v-container>
 </template>
 

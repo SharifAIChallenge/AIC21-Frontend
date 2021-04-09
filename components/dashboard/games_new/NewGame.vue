@@ -59,7 +59,7 @@
       </v-data-table>
       <div class="pt-4 pb-10" style="position: relative">
         <v-pagination v-model="page" total-visible="6" :length="pageCount"></v-pagination>
-        <Logo />
+        <!-- <Logo /> -->
       </div>
       <v-dialog v-model="teamDetails" width="350px">
         <v-btn icon class="close-btn" @click="teamDetails = false">
@@ -150,7 +150,7 @@ export default {
     this.tableLoading = false;
   },
   watch: {
-    page: function () {
+    page: function() {
       this.changePage(this.page);
     },
   },

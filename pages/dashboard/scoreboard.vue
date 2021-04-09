@@ -27,6 +27,9 @@
         :items-per-page="itemPerPage"
         style="background: #141432"
       >
+        <template v-slot:item.rank="{ item, index }">
+          <span>{{ index + 1 }}</span>
+        </template>
         <template v-slot:item.name="{ item }">
           <div class="d-flex align-center">
             <img
@@ -121,6 +124,11 @@ export default {
       ],
       headers: [
         {
+          text: 'رتبه',
+          align: 'right',
+          value: 'rank',
+        },
+        {
           text: 'نام',
           align: 'right',
           value: 'name',
@@ -177,7 +185,7 @@ export default {
     },
   },
   watch: {
-    page: function () {
+    page: function() {
       this.getData(this.page);
     },
   },

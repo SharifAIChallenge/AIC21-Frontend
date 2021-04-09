@@ -61,7 +61,7 @@
       </v-data-table>
       <div class="text-center pt-4 pb-10" style="position: relative">
         <v-pagination v-model="page" :length="pageCount" total-visible="6"></v-pagination>
-        <Logo />
+        <!-- <Logo /> -->
       </div>
 
       <v-dialog v-model="dialog" width="350">
@@ -250,7 +250,7 @@ export default {
     },
   },
   watch: {
-    page: function () {
+    page: function() {
       this.changePage(this.page);
     },
   },

@@ -26,19 +26,7 @@
       @page-count="pageCount = $event"
       style="background: #141432"
     >
-      <template v-slot:[`item.x`]="{ item }">
-        <!-- <div v-if="item.profile.image">
-          <div class="profile">
-            <div>
-              <img :src="item.profile.image" :alt="item.email" height="60px" class="ml-2 mt-2" />
-            </div>
-            <div>
-              <span>{{ item.profile.firstname_fa }} {{ item.profile.lastname_fa }}</span>
-            </div>
-          </div>
-        </div> -->
-        {{ item.team1.name }} - {{ item.team2.name }}
-      </template>
+      <template v-slot:[`item.x`]="{ item }">{{ item.team1.name }} - {{ item.team2.name }}</template>
       <template v-slot:[`item.status`]="{ item }">
         {{ gameStatus(item.status) }}
       </template>
@@ -58,7 +46,7 @@
     </v-data-table>
     <div class="text-center pt-4 pb-10" style="position: relative">
       <v-pagination v-model="page" :length="pageCount" total-visible="5" class="my-3" />
-      <Logo />
+      <!-- <Logo /> -->
     </div>
   </div>
 </template>
