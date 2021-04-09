@@ -11,8 +11,10 @@
   >
     <v-row>
       <v-col md="6" class="white ssc">
-        <div class="white sscLogo">
-          <img src="~assets/images/logo/ssc-logo.svg" />
+        <div class="sscLogo">
+          <a href="https://ssc.ce.sharif.edu" target="_blank" class="d-flex justify-center" style="width: 100%; height: 100%">
+            <img src="~assets/images/logo/ssc-logo.svg" />
+          </a>
         </div>
       </v-col>
       <v-col md="6" align-self="center" class="padding-y">
@@ -25,13 +27,9 @@
     </v-row>
     <v-row>
       <v-col cols="6" class="digikala padding-y" align-self="center">
-        <h2>
-          با حمایت
-        </h2>
+        <h2>با حمایت</h2>
         <h1 style="font-size: 3.5rem" class="mt-3">
-          <nuxt-link to="/sponsors/digikala">
-            دیجیکالا
-          </nuxt-link>
+          <nuxt-link to="/sponsors/digikala">دیجیکالا</nuxt-link>
         </h1>
       </v-col>
       <v-col cols="6" class="digikalaLogoCol">
@@ -42,14 +40,10 @@
         </nuxt-link>
       </v-col>
     </v-row>
-    <div style="text-align: center;" class="mt-10">
-      <h3>
-        حامی رسانه‌ای
-      </h3>
+    <div style="text-align: center" class="mt-10">
+      <h3>حامی رسانه‌ای</h3>
       <nuxt-link to="/sponsors/aparat">
-        <h1 class="mt-3" style="font-size: 2.2rem">
-          آپارات
-        </h1>
+        <h1 class="mt-3" style="font-size: 2.2rem">آپارات</h1>
       </nuxt-link>
     </div>
   </div>
@@ -67,6 +61,13 @@ export default {
 $image-width: 30vmin;
 .padding-y {
   padding: 20vmin 0px;
+}
+
+.sscLogo {
+  transition: all 0.6s;
+  &:hover {
+    background-color: var(--v-secondary-base);
+  }
 }
 
 .digikalaLogoCol {
