@@ -8,7 +8,7 @@
     @mouseleave="cardEval = 0"
     :to="`/blog/${post.id}`"
   >
-    <v-img class="white--text align-end" height="200px" style="max-height:80vh" :src="`https://aichallenge.ir${post.image}`"></v-img>
+    <v-img class="white--text align-end" height="200px" style="max-height: 80vh" :src="`https://aichallenge.ir${post.image}`"></v-img>
     <v-card-subtitle class="primary--text pb-1 pt-2 pr-3">
       {{ new Intl.DateTimeFormat($i18n.locale).format(new Date(post.date)) }}
     </v-card-subtitle>
@@ -28,4 +28,8 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style>
+.v-dialog--fullscreen {
+  background: #0e1224;
+}
+</style>
