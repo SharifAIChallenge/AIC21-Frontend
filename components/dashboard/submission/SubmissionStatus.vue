@@ -23,8 +23,9 @@ export default {
         compiling: { i: 'mdi-progress-wrench', color: 'info' },
         uploaded: { i: 'mdi-progress-check', color: 'info' },
         uploading: { i: 'mdi-progress-upload', color: 'info' },
+        infra_compile_message: { i: 'mdi-gitlab', color: 'info' },
       },
-    }
+    };
   },
-}
+};
 </script>

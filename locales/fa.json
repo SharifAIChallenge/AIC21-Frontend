@@ -167,7 +167,8 @@
     "groups": "انتخابی",
     "final": "مرحله نهایی",
     "primary": "مرحله مقدماتی",
-    "closing": "مراسم اختتامیه"
+    "closing": "مراسم اختتامیه",
+    "infra_compile_message": "کامپایل‌ زیرساخت"
   },
   "staff": {
     "technicalTeam": "تیم فنی",

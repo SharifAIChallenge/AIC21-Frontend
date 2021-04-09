@@ -28,7 +28,7 @@
       </template>
       <template v-slot:[`item.user`]="{ item }">
         <!-- {{ item.user.profile.firstname_fa + ' ' + item.user.profile.lastname_fa }} -->
-        {{item.user}}
+        {{ item.user }}
       </template>
       <template v-slot:[`item.submit_time`]="{ item }">
         <date-time-formatter :date="item.submit_time" />
@@ -38,8 +38,20 @@
           <v-icon>mdi-download</v-icon>
         </v-btn>
       </template>
+      <template v-slot:[`item.log`]="{ item }">
+        <v-btn icon @click="onDetailClick(item.infra_compile_message)" :disabled="!item.infra_compile_message">
+          <v-icon>mdi-transit-connection</v-icon>
+        </v-btn>
+      </template>
     </v-data-table>
     <v-pagination v-model="page" :length="pageCount" :total-visible="5" class="my-3" />
+    <v-dialog v-model="dialog" hide-overlay transition="dialog-bottom-transition" width="500">
+      <div class="pa-4 bg-color-12">
+        <p dir="ltr">
+          {{ detail }}
+        </p>
+      </div>
+    </v-dialog>
   </div>
 </template>
 
@@ -69,6 +81,7 @@ export default {
         { text: this.$t('form.language'), sortable: false, value: 'language', align: 'center' },
         { text: this.$t('dashboard.status'), sortable: false, value: 'status', align: 'center' },
         { text: this.$t('form.file'), sortable: false, value: 'file', align: 'center', width: 70 },
+        { text: 'جزییات', sortable: false, value: 'log', align: 'center' },
       ];
     },
   },
@@ -77,6 +90,8 @@ export default {
       page: 1,
       pageCount: 0,
       itemsPerPage: 5,
+      dialog: false,
+      detail: '',
     };
   },
   methods: {
@@ -94,6 +109,10 @@ export default {
       } else if (data.status_code === 406) {
         this.$toast.error('کد هنوز کامپال نشده است.');
       }
+    },
+    onDetailClick(text) {
+      this.dialog = true;
+      this.detail = text;
     },
   },
 };
