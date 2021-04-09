@@ -1,20 +1,13 @@
 <template>
   <v-dialog v-model="show" fullscreen hide-overlay transition="dialog-bottom-transition">
-    <v-btn
-      class='ma-3'
-      icon
-      x-large
-      @click="toggleShow()"
-    >
-      <v-icon>
-        mdi-close
-      </v-icon>
+    <v-btn class="ma-3" icon x-large @click="toggleShow()">
+      <v-icon>mdi-close</v-icon>
     </v-btn>
 
     <div class="form-wrapper">
       <login v-if="form === 'login'" />
       <forgotPassword v-if="form === 'forgot'" />
-      <signUp v-if="form === 'signUp'" />
+      <!-- <signUp v-if="form === 'signUp'" /> -->
       <resetPassword v-if="form === 'reset'" />
     </div>
   </v-dialog>
@@ -24,11 +17,11 @@
 import { mapState } from 'vuex';
 import login from '../userForms/login';
 import forgotPassword from '../userForms/forgotPassword';
-import signUp from '../userForms/signUp';
+// import signUp from '../userForms/signUp';
 import resetPassword from '../userForms/resetPassword';
 
 export default {
-  components: { login, forgotPassword, signUp, resetPassword },
+  components: { login, forgotPassword, resetPassword },
   props: ['isPage'],
   methods: {
     toggleShow() {
