@@ -46,8 +46,8 @@
         {{ item.winner ? item.winner.name : '' }}
       </template>
       <template v-slot:[`item.log`]="{ item }">
-        <v-btn icon :loading="btnLoading">
-          <v-icon size="30px" :disabled="item.status !== 'successful'" class="icon-hover">mdi-download</v-icon>
+        <v-btn icon :loading="btnLoading" :ripple="false" :disabled="item.status !== 'successful'">
+          <v-icon size="30px" class="icon-hover">mdi-download</v-icon>
         </v-btn>
       </template>
     </v-data-table>
