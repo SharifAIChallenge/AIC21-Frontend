@@ -46,7 +46,12 @@
         {{ item.winner ? item.winner.name : '' }}
       </template>
       <template v-slot:[`item.log`]="{ item }">
-        <v-btn icon :loading="btnLoading" :ripple="false" :disabled="item.status !== 'successful'">
+        <v-btn icon :loading="btnLoading" :ripple="false" :disabled="item.status !== 'successful'" :href="item.log">
+          <v-icon size="30px" class="icon-hover">mdi-download</v-icon>
+        </v-btn>
+      </template>
+      <template v-slot:[`item.serverLog`]="{ item }">
+        <v-btn icon :loading="btnLoading" :ripple="false" :disabled="item.status !== 'successful'" :href="item.server_log">
           <v-icon size="30px" class="icon-hover">mdi-download</v-icon>
         </v-btn>
       </template>
@@ -55,43 +60,6 @@
       <v-pagination v-model="page" :length="pageCount" total-visible="5" class="my-3" />
       <Logo />
     </div>
-
-    <v-dialog v-model="dialog" width="350">
-      <v-card>
-        <v-container>
-          <div class="dialog-header mb-4 mt-4">
-            <div>
-              <h4>دریافت لاگ</h4>
-            </div>
-            <div @click="toggleDialog()" style="cursor: pointer">
-              <h4>
-                <v-icon>mdi-close</v-icon>
-              </h4>
-            </div>
-          </div>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>لاگ سرور</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn href="https://www.google.com/" target="_blank">
-                <v-icon color="primary">mdi-download</v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>لاگ گرافیک</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn icon href="https://www.google.com/" target="_blank">
-                <v-icon color="primary">mdi-download</v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-container>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
@@ -140,7 +108,8 @@ export default {
         // { text: 'زمان', align: 'center', value: '' },
         { text: 'وضعیت بازی', align: 'center', value: 'status' },
         { text: 'تیم برنده', align: 'center', value: 'winner.name' },
-        { text: 'دریافت لاگ', align: 'center', value: 'log' },
+        { text: 'لاگ', align: 'center', value: 'log' },
+        { text: 'لاگ سرور', align: 'center', value: 'serverLog' },
       ],
       data: [],
       currentGame: {
@@ -148,6 +117,7 @@ export default {
         graphicLog: '',
       },
       status_code: 200,
+      item: null,
     };
   },
   watch: {
@@ -209,21 +179,6 @@ export default {
       else if (res === '') return 'mdi-emoticon-cry-outline';
       else if (res === '') return 'mdi-emoticon-happy-outline';
       else if (res === '') return 'mdi-progress-clock';
-    },
-    toggleDialog() {
-      this.dialog = !this.dialog;
-    },
-    getGameLog(id) {
-      this.btnLoading = true;
-      this.$axios.$get(`challenge/match/${id}`).then(res => {
-        if (res.status_code === 200) {
-          this.data = res.data;
-          this.dialog = true;
-        } else {
-          this.$toast.error('خطا در برقراری ارتباط!');
-        }
-      });
-      this.btnLoading = false;
     },
   },
 };
