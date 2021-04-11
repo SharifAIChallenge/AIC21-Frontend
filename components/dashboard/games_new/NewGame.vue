@@ -26,10 +26,29 @@
     <div>
       <v-row>
         <v-col cols="6" class="px-0">
-          <v-btn color="primary" block width="100%" max-height="100%" :disabled="true">
+          <!-- <v-btn color="primary" block width="100%" max-height="100%" :disabled="!botLevel" @click="playWithBot()">
             <v-icon large class="pl-5">mdi-robot</v-icon>
             درخواست بازی با بات
-          </v-btn>
+            <span class="mr-1">
+              مرحله
+              {{ botLevel }}
+            </span>
+          </v-btn> -->
+
+          <v-menu offset-y class="transparent">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="primary" block width="100%" max-height="100%" v-bind="attrs" v-on="on">
+                <v-icon large class="pl-5">mdi-robot</v-icon>
+                درخواست بازی با بات
+                <v-icon>mdi-menu-down</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item v-for="item in bots" :key="item.number" @click="playWithBot(item.number, item.name)">
+                <v-list-item-title style="text-align: center">{{ item.name }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-col>
         <v-col class="px-0" cols="6">
           <v-btn color="primary" block width="100%" :disabled="!this.randomData || this.randomData.length === 1" @click="randomMatch()">
@@ -130,6 +149,7 @@ export default {
         id: 0,
         show: true,
       },
+      bots: [],
     };
   },
   async fetch() {
@@ -148,6 +168,9 @@ export default {
     }
     this.randomData = res.data;
     this.tableLoading = false;
+
+    res = await this.$axios.$get('/challenge/bot');
+    this.bots = res.data;
   },
   watch: {
     page: function() {
@@ -177,6 +200,17 @@ export default {
     showTeam(team) {
       this.teamDetails = true;
       this.teamInfo = team;
+    },
+    playWithBot(level, name) {
+      this.$axios
+        .post(`challenge/bot/${level}`, {})
+        .then(res => {
+          this.$toast.success(`بازی با بات ${name} ساخته شد.`);
+          this.$toast.success('برای مشاهده نتیجه و جزییات به تب تاریخچه رجوع کنید');
+        })
+        .catch(err => {
+          this.$toast.error('در روند ساخت بازی مشکل ایجاد شده است!');
+        });
     },
     changePage(page) {
       this.tableLoading = true;

@@ -23,7 +23,6 @@
       :items="data"
       :page.sync="page"
       :items-per-page="itemPerPage"
-      @page-count="pageCount = $event"
       style="background: #141432"
     >
       <template v-slot:[`item.x`]="{ item }">{{ item.team1.name }} - {{ item.team2.name }}</template>
@@ -34,13 +33,25 @@
         {{ item.winner ? item.winner.name : '' }}
       </template>
       <template v-slot:[`item.log`]="{ item }">
-        <v-btn icon :loading="btnLoading" :ripple="false" :disabled="item.status !== 'successful'" :href="item.log">
+        <v-btn icon :loading="btnLoading" :ripple="false" :disabled="!item.log" :href="item.log">
           <v-icon size="30px" class="icon-hover">mdi-download</v-icon>
         </v-btn>
       </template>
       <template v-slot:[`item.serverLog`]="{ item }">
-        <v-btn icon :loading="btnLoading" :ripple="false" :disabled="item.status !== 'successful'" :href="item.server_log">
+        <v-btn icon :loading="btnLoading" :ripple="false" :disabled="!item.server_log" :href="item.server_log">
           <v-icon size="30px" class="icon-hover">mdi-download</v-icon>
+        </v-btn>
+      </template>
+      <template v-slot:[`item.graphic`]="{ item }">
+        <v-btn
+          icon
+          :loading="btnLoading"
+          :ripple="false"
+          target="blank"
+          :disabled="item.status !== 'successful'"
+          :href="`https://aichallenge.ir/visualizer?log=${item.log}`"
+        >
+          <v-icon size="30px" class="icon-hover">mdi-filmstrip-box-multiple</v-icon>
         </v-btn>
       </template>
     </v-data-table>
@@ -61,17 +72,17 @@ export default {
   async fetch() {
     this.tableLoading = true;
     let filter = this.filterChip === 0 ? '&status=successful' : '';
-    await this.$axios.$get(`challenge/match?page=${this.page}${filter}`).then(res => {
-      if (res.status_code === 200) {
-        this.data = res.results.data;
-        this.pageCount = res.count;
-        this.status_code = res.status_code;
-      } else if (res.status_code === 403) {
-        this.$toast.error('برای مشاهده این صفحه باید تیم داشته باشید');
-      } else {
-        this.$toast.error('خطا در برقراری ارتباط!');
-      }
-    });
+    let res = await this.$axios.$get(`challenge/match?page=${this.page}${filter}`);
+    if (res.status_code === 200) {
+      this.data = res.results.data;
+      const count = 20;
+      this.pageCount = Math.ceil(res.count / count);
+      this.status_code = res.status_code;
+    } else if (res.status_code === 403) {
+      this.$toast.error('برای مشاهده این صفحه باید تیم داشته باشید');
+    } else {
+      this.$toast.error('خطا در برقراری ارتباط!');
+    }
     this.tableLoading = false;
   },
   data() {
@@ -98,6 +109,7 @@ export default {
         { text: 'تیم برنده', align: 'center', value: 'winner.name' },
         { text: 'لاگ', align: 'center', value: 'log' },
         { text: 'لاگ سرور', align: 'center', value: 'serverLog' },
+        { text: 'پخش بازی', align: 'center', value: 'graphic' },
       ],
       data: [],
       currentGame: {
