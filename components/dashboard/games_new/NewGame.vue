@@ -173,7 +173,7 @@ export default {
     this.bots = res.data;
   },
   watch: {
-    page: function() {
+    page: function () {
       this.changePage(this.page);
     },
   },

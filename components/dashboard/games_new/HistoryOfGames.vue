@@ -34,7 +34,7 @@
         {{ gameStatus(item.status) }}
       </template>
       <template v-slot:[`item.winner.name`]="{ item }">
-        <span :style="item.winner && item.winner.name.indexOf('Bot-') === 0 ? ' color: #42b3aa' : ''">
+        <span :class="item.winner && myteam === item.winner.name ? 'myteam' : ''">
           {{ item.winner ? item.winner.name : '' }}
         </span>
       </template>
@@ -79,6 +79,10 @@ export default {
     this.tableLoading = true;
     let filter = this.filterChip === 0 ? '&status=successful' : '';
     let res = await this.$axios.$get(`challenge/match?page=${this.page}${filter}`);
+
+    let team = await this.$axios.$get('team');
+    this.myteam = team.name;
+
     if (res.status_code === 200) {
       this.data = res.results.data;
       const count = 20;
@@ -124,6 +128,7 @@ export default {
       },
       status_code: 200,
       item: null,
+      myteam: {},
     };
   },
   watch: {
@@ -191,6 +196,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.myteam {
+  color: var(--v-success-lighten1);
+}
 .header {
   display: flex;
   justify-content: space-between;
