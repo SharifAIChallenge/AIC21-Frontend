@@ -20,7 +20,7 @@
         </v-tab-item>
       </v-tabs-items>
     </v-col>
-    <v-col cols="12" md="4" class="pa-0" style="background: #080a18">
+    <v-col cols="12" md="4" class="pa-0 gameTabs" style="background: #080a18">
       <div class="wrapper">
         <div class="d-flex tabsW">
           <v-tabs v-model="tabs" icons-and-text grow class="tabsWraper">
@@ -120,6 +120,15 @@ export default {
     background-color: map-get($material-dark-elevation-colors, '12');
   }
 
+  .gameTabs {
+    @include md {
+      position: fixed;
+      left: 0;
+      width: 28%;
+      z-index: 10;
+    }
+  }
+
   .wrapper {
     display: flex;
     justify-content: center;
@@ -129,7 +138,7 @@ export default {
 
     .tabsW {
       min-height: 100vh;
-      position: fixed;
+      // position: fixed;
       // width: calc(50% - 136px);
 
       @include v-not-md {
