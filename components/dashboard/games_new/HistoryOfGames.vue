@@ -25,12 +25,18 @@
       :items-per-page="itemPerPage"
       style="background: #141432"
     >
-      <template v-slot:[`item.x`]="{ item }">{{ item.team1.name }} - {{ item.team2.name }}</template>
+      <template v-slot:[`item.x`]="{ item }">
+        <span :style="item.team1.name.indexOf('Bot-') === 0 ? ' color: #42b3aa' : ''">{{ item.team1.name }}</span>
+        -
+        <span>{{ item.team2.name }}</span>
+      </template>
       <template v-slot:[`item.status`]="{ item }">
         {{ gameStatus(item.status) }}
       </template>
       <template v-slot:[`item.winner.name`]="{ item }">
-        {{ item.winner ? item.winner.name : '' }}
+        <span :style="item.winner && item.winner.name.indexOf('Bot-') === 0 ? ' color: #42b3aa' : ''">
+          {{ item.winner ? item.winner.name : '' }}
+        </span>
       </template>
       <template v-slot:[`item.log`]="{ item }">
         <v-btn icon :loading="btnLoading" :ripple="false" :disabled="!item.log" :href="item.log">
