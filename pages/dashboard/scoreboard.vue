@@ -26,9 +26,10 @@
         :page.sync="page"
         :items-per-page="itemPerPage"
         style="background: #141432"
+        :class="'page-' + page"
       >
         <template v-slot:item.rank="{ item, index }">
-          <span>{{ index + 1 }}</span>
+          <span>{{ (page - 1) * 20 + (index + 1) }}</span>
         </template>
         <template v-slot:item.name="{ item }">
           <div class="d-flex align-center">
@@ -185,7 +186,7 @@ export default {
     },
   },
   watch: {
-    page: function() {
+    page: function () {
       this.getData(this.page);
     },
   },
@@ -193,7 +194,27 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~/assets/variables.scss';
+@import '~/assets/mixins.scss';
 .scoreboard {
+  @include v-sm {
+    .page-1 {
+      table tbody tr {
+        &:nth-of-type(1),
+        &:nth-of-type(2),
+        &:nth-of-type(3) {
+          color: var(--v-bg-base);
+          background-color: var(--v-secondary-darken2);
+          button {
+            color: var(--v-bg-base);
+          }
+          &:hover {
+            background-color: var(--v-secondary-darken3) !important;
+          }
+        }
+      }
+    }
+  }
   .emtyImage {
     width: 60px;
     height: 60px;

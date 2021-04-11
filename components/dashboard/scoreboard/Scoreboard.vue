@@ -85,12 +85,12 @@ export default {
     headers() {
       return [
         { text: this.$t('dashboard.team'), sortable: false, value: 'team' },
-        { text: this.$t('dashboard.rank'), sortable: true, value: 'rank' },
-        { text: this.$t('dashboard.score'), sortable: true, value: 'score' },
-        { text: this.$t('dashboard.winRatio'), sortable: true, value: 'ratio' },
-        { text: this.$t('dashboard.wins'), sortable: true, value: 'wins' },
-        { text: this.$t('dashboard.draws'), sortable: true, value: 'draws' },
-        { text: this.$t('dashboard.loss'), sortable: true, value: 'loss' },
+        { text: this.$t('dashboard.rank'), sortable: false, value: 'rank' },
+        { text: this.$t('dashboard.score'), sortable: false, value: 'score' },
+        { text: this.$t('dashboard.winRatio'), sortable: false, value: 'ratio' },
+        { text: this.$t('dashboard.wins'), sortable: false, value: 'wins' },
+        { text: this.$t('dashboard.draws'), sortable: false, value: 'draws' },
+        { text: this.$t('dashboard.loss'), sortable: false, value: 'loss' },
       ];
     },
   },
