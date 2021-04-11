@@ -24,7 +24,7 @@
       <p>{{ msg }}</p>
     </v-alert>
     <div>
-      <v-row>
+      <v-row class="mx-0">
         <v-col cols="6" class="px-0">
           <!-- <v-btn color="primary" block width="100%" max-height="100%" :disabled="!botLevel" @click="playWithBot()">
             <v-icon large class="pl-5">mdi-robot</v-icon>
@@ -44,8 +44,11 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item v-for="item in bots" :key="item.number" @click="playWithBot(item.number, item.name)">
-                <v-list-item-title style="text-align: center">{{ item.name }}</v-list-item-title>
+              <v-list-item v-for="(item, index) in bots" :key="item.number" @click="playWithBot(item.number, item.name)">
+                <v-list-item-title style="text-align: center" class="d-flex align-end justify-center">
+                  <v-icon class="ml-3" size="30">{{ bot_icon[index] }}</v-icon>
+                  <span>{{ item.name }}</span>
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -150,6 +153,7 @@ export default {
         show: true,
       },
       bots: [],
+      bot_icon: ['mdi-baby-face', 'mdi-robot', 'mdi-robber', 'mdi-emoticon-devil', 'mdi-virus'],
     };
   },
   async fetch() {
@@ -259,7 +263,11 @@ export default {
 </script>
 <style scoped lang="scss">
 @import 'assets/mixins.scss';
+@import 'assets/variables.scss';
 
+.v-list-item:hover {
+  background-color: var(--v-shades-lighten4);
+}
 .searchBar {
   display: flex;
   justify-content: space-between;
