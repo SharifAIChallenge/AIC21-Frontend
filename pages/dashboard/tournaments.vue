@@ -3,13 +3,13 @@
     <SectionHeader title="تورنومنت ها" icon="mdi-tournament" />
     <div class="px-6 px-md-12">
       <TournamentHeader :header="header"></TournamentHeader>
-      <div class="py-8 d-flex flex-wrap justify-space-between">
-        <div class="tournament pa-0 my-4" v-for="tournament in tournaments" :key="tournament.date">
+      <v-row>
+        <v-col cols="12" sm="6" md="4" xl="3" class="tournament my-4" v-for="tournament in tournaments" :key="tournament.id">
           <div>
             <TournamentCard :tournament="tournament"></TournamentCard>
           </div>
-        </div>
-      </div>
+        </v-col>
+      </v-row>
     </div>
   </div>
 </template>
@@ -24,44 +24,18 @@ export default {
   components: { SectionHeader, SectionContainer, TournamentHeader, TournamentCard },
   layout: 'dashboard',
   transition: 'fade-transition',
+  async asyncData({ $axios }) {
+    let res = await $axios.get('challenge/tournament');
+    let tournaments = res.data.data;
+    res = await $axios.get('challenge/tournament/next');
+    let header = res.data.data;
+    console.log(res.data.data);
+    return { tournaments, header };
+  },
   data() {
     return {
-      header: {
-        title: 'سیدبندی مقدماتی',
-        date: '1400/01/10',
-        time: '23:00:00',
-        deadline: '2021-03-22T20:00:00',
-      },
-      tournaments: [
-        {
-          title: 'تورنومنتی که تمام شده',
-          date: '1400/01/10',
-          time: '23:00:00',
-          deadline: '2021-03-22T20:00:00',
-          finished: true,
-        },
-        {
-          title: 'تورنومنتی که تمام شده',
-          date: '1400/01/10',
-          time: '23:00:00',
-          deadline: '2021-03-22T20:00:00',
-          finished: true,
-        },
-        {
-          title: 'تورنومنتی که شروع نشده',
-          date: '1400/01/10',
-          time: '23:00:00',
-          deadline: '2021-03-22T20:00:00',
-          finished: false,
-        },
-        {
-          title: 'تورنومنتی که شروع نشده',
-          date: '1400/01/10',
-          time: '23:00:00',
-          deadline: '2021-03-22T20:00:00',
-          finished: false,
-        },
-      ],
+      header: {},
+      tournaments: [],
     };
   },
 };

@@ -96,7 +96,7 @@ export default {
           icon: 'mdi-tournament',
           hover: 'mdi-tournament',
           link: '/dashboard/tournaments',
-          disabled: true,
+          disabled: false,
           gard: true,
         },
         scoreboard: {
@@ -112,7 +112,7 @@ export default {
           icon: 'mdi-account-group-outline',
           hover: 'mdi-account-group',
           link: '/dashboard/team',
-          disabled: false,
+          disabled: true,
           gard: true,
         },
         ticket: {
@@ -167,7 +167,7 @@ export default {
   watch: {
     profile(now, old) {
       if (now) {
-        this.routes.team.disabled = !this.profile.is_complete;
+        // this.routes.team.disabled = !this.profile.is_complete;
         if (!this.profile.is_complete && this.$route.path !== '/dashboard/settings') {
           this.$router.push('/dashboard/settings');
           this.$toast.error('لطفا ابتدا اطلاعات شخصی را کامل کنید');

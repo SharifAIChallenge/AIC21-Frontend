@@ -1,19 +1,27 @@
 <template>
-  <div :class="[tournament.finished ? 'active' : '' , 'tournamentCard d-flex flex-column pa-4']">
-    <h3 class="mb-4">{{tournament.title}}</h3>
+  <div :class="['tournamentCard active d-flex flex-column pa-4']">
+    <h3 class="mb-4">{{ tournament.name }}</h3>
     <div class="mb-4">
-      <span>{{tournament.date}}</span>
-      <span> - ساعت</span>
-      <span>{{tournament.time}}</span>
+      <div class="d-flex mb-2">
+        <span class="ml-2">شروع:</span>
+        <date-time-formatter :date="tournament.start_time" />
+      </div>
+      <div class="d-flex mb-2">
+        <span class="ml-2">پایان:</span>
+        <date-time-formatter :date="tournament.end_time" />
+      </div>
     </div>
-    <v-btn class="py-5" style="border:2px solid" v-if="tournament.finished" to=/dashboard/scoreboard >
-    مشاهده جدول امتیازات
+    <v-btn class="py-5" style="border:2px solid" :to="`/dashboard/scoreboard?id=${tournament.id}`">
+      مشاهده جدول امتیازات
     </v-btn>
   </div>
 </template>
 
 <script>
+import DateTimeFormatter from '../../DateTimeFormatter';
+
 export default {
+  components: { DateTimeFormatter },
   props: {
     tournament: Object,
   },

@@ -104,7 +104,8 @@ export default {
   transition: 'fade-transition',
 
   async asyncData({ $axios, query }) {
-    const res = await $axios.$get('challenge/friendly_scoreboard');
+    let url = query.id ? `challenge/scoreboard/${query.id}` : 'challenge/friendly_scoreboard';
+    const res = await $axios.$get(url);
     const data = res.results.data;
     const count = 20;
     const pageCount = Math.ceil(res.count / count);
@@ -186,7 +187,7 @@ export default {
     },
   },
   watch: {
-    page: function () {
+    page: function() {
       this.getData(this.page);
     },
   },
