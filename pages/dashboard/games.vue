@@ -48,14 +48,15 @@ export default {
     NewGame,
     GameInvites,
   },
-  async asyncData({ $axios }) {
+  async asyncData({ $axios, query }) {
+    let tabs = query.id ? 1 : 0;
     let res = await $axios.$get('/challenge/lobby');
     let haveFinalSubmit = true;
     if (res.status_code === 403) {
       haveFinalSubmit = false;
     }
 
-    return { haveFinalSubmit };
+    return { haveFinalSubmit, tabs };
   },
   data() {
     return {

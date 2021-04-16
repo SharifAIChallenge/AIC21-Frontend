@@ -76,9 +76,11 @@ import Logo from '~/components/dashboard/Logo';
 export default {
   components: { SectionHeader, SectionContainer, Logo },
   async fetch() {
+    let tournomentId = this.$route.query.id;
+    this.url = tournomentId ? `challenge/match?tournament_id=${tournomentId}&` : 'challenge/match?';
     this.tableLoading = true;
     let filter = this.filterChip === 0 ? '&status=successful' : '';
-    let res = await this.$axios.$get(`challenge/match?page=${this.page}${filter}`);
+    let res = await this.$axios.$get(`${this.url}page=${this.page}${filter}`);
 
     let team = await this.$axios.$get('team');
     this.myteam = team.name;
@@ -107,6 +109,7 @@ export default {
       page: 1,
       pageCount: 0,
       itemPerPage: 20,
+      url: '',
       headers: [
         {
           text: 'بازی',

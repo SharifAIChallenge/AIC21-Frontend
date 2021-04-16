@@ -15,6 +15,9 @@
     <v-btn class="py-5" style="border:2px solid" :to="`/dashboard/scoreboard?id=${tournament.id}`">
       مشاهده جدول امتیازات
     </v-btn>
+    <v-btn class="py-5 mt-3" style="border:2px solid" :to="`/dashboard/games?id=${tournament.id}`">
+      مشاهده بازی‌ها
+    </v-btn>
   </div>
 </template>
 
@@ -31,7 +34,6 @@ export default {
 <style lang="scss">
 .tournament {
   .tournamentCard {
-    height: 170px;
     width: 100%;
     background-color: #141432;
     a {
