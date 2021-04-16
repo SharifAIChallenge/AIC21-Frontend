@@ -109,7 +109,7 @@ export default {
     const data = res.results.data;
     const count = 20;
     const pageCount = Math.ceil(res.count / count);
-    return { data, pageCount };
+    return { data, pageCount, url };
   },
   data() {
     return {
@@ -117,6 +117,7 @@ export default {
       dialog: false,
       filter: false,
       page: 1,
+      url: '',
       pageCount: 0,
       itemPerPage: 20,
       scoreboardSelect: { table: 'تورنومنت ۱', src: 'tour1' },
@@ -161,7 +162,7 @@ export default {
     },
     getData(param) {
       this.tableLoading = true;
-      this.$axios.$get(`challenge/friendly_scoreboard?page=${this.page}`).then(res => {
+      this.$axios.$get(`${this.url}?page=${this.page}`).then(res => {
         if (res.status_code === 200) {
           this.data = res.results.data;
           this.status_code = res.status_code;

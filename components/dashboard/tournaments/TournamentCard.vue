@@ -3,13 +3,14 @@
     <h3 class="mb-4">{{ tournament.name }}</h3>
     <div class="mb-4">
       <div class="d-flex mb-2">
+        <v-icon class="ml-2">mdi-calendar-clock</v-icon>
         <span class="ml-2">شروع:</span>
         <date-time-formatter :date="tournament.start_time" />
       </div>
-      <div class="d-flex mb-2">
+      <!-- <div class="d-flex mb-2">
         <span class="ml-2">پایان:</span>
         <date-time-formatter :date="tournament.end_time" />
-      </div>
+      </div> -->
     </div>
     <v-btn class="py-5" style="border:2px solid" :to="`/dashboard/scoreboard?id=${tournament.id}`">
       مشاهده جدول امتیازات
