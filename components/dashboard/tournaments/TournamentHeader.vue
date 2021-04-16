@@ -11,7 +11,7 @@
           </div>
         </div>
       </div>
-      <Timer v-if="header.end_time" :deadline="header.end_time"></Timer>
+      <Timer v-if="header.start_time" :deadline="header.start_time"></Timer>
     </v-row>
   </v-container>
 </template>
