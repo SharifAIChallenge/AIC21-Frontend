@@ -25,11 +25,11 @@
         <v-select v-model="language" v-bind="filedProps" :items="languageOptions" label="زبان" :rules="requiredRules" required dir="ltr" />
       </v-col>
     </v-row>
-    <!-- <div class="mb-6">
-      با ارسال کد
-      <nuxt-link to="/dashboard/terms">این قوانین</nuxt-link>
-      را می‌پذیرید.
-    </div> -->
+    <div class="mb-6">
+      ارسال کد به‌منزله قبول تمامی
+      <nuxt-link to="/dashboard/doc/6-rules">قوانین و شرایط مسابقه</nuxt-link>
+      است
+    </div>
     <v-btn tile block :disabled="!valid || !canSubmitAnotherCode" :loading="loading" type="submit" v-bind="primaryButtonProps">
       <v-icon left>mdi-upload</v-icon>
       ارسال

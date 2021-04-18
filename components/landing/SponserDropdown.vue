@@ -19,7 +19,7 @@ export default {
   data: () => ({
     items: [
       { title: ' دیجی کالا', to: '/sponsors/digikala' },
-      { title: 'آپارات', to: '/sponsors/aparat' },
+      { title: 'آپارات (حامی رسانه‌ای) ', to: '/sponsors/aparat' },
     ],
   }),
   methods: {
