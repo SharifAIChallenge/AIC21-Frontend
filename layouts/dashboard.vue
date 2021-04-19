@@ -174,6 +174,10 @@ export default {
         }
         if (this.profile.has_team) {
           this.openDialog();
+        } else {
+          this.routes.games.disabled = true;
+          this.routes.tournaments.disabled = true;
+          this.routes.submissions.disabled = true;
         }
       }
     },
