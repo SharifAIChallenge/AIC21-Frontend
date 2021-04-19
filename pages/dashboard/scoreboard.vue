@@ -138,7 +138,6 @@ export default {
         },
         { text: 'امتیاز', align: 'center', value: 'score' },
         { text: 'برد', align: 'center', value: 'wins' },
-        { text: 'مساوی', align: 'center', value: 'draws' },
         { text: 'باخت', align: 'center', value: 'losses' },
         { text: 'پروفایل', align: 'center', value: 'profile' },
       ],
