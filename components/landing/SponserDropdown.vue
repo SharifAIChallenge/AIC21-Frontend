@@ -6,9 +6,15 @@
         <span>اسپانسر</span>
       </v-btn>
     </template>
-    <v-list>
-      <v-list-item link :to="item.to" v-for="(item, index) in items" :key="index">
-        <v-list-item-title>{{ item.title }}</v-list-item-title>
+    <v-list class="sponsor-dropdown">
+      <v-list-item link :to="items[0].to">
+        <v-list-item-title>{{ items[0].title }}</v-list-item-title>
+      </v-list-item>
+      <v-list-item link :to="items[1].to" class="aparat">
+        <v-list-item-title>
+          {{ items[1].title }}
+          <span>(حامی رسانه‌ای)</span>
+        </v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>
@@ -19,7 +25,7 @@ export default {
   data: () => ({
     items: [
       { title: ' دیجی کالا', to: '/sponsors/digikala' },
-      { title: 'آپارات (حامی رسانه‌ای) ', to: '/sponsors/aparat' },
+      { title: 'آپارات ', to: '/sponsors/aparat' },
     ],
   }),
   methods: {
@@ -30,7 +36,30 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+.sponsor-dropdown {
+  padding: 0px;
+  .v-list-item {
+    border-bottom: 1px solid var(--v-primary-base);
+    &:hover {
+      background-color: #0e1224;
+      .v-list-item__title {
+        color: var(--v-primary-base);
+        transition: all 0.5s;
+      }
+      transition: all 0.5s;
+    }
+  }
+  .v-list-item__title {
+    font-family: LTZaridSans;
+    font-weight: bold;
+  }
+  .aparat {
+    span {
+      font-size: 13px;
+    }
+  }
+}
 // .hover_white {
 //   &.v-btn--active,
 //   &:hover {
