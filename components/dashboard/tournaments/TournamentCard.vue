@@ -12,10 +12,10 @@
         <date-time-formatter :date="tournament.end_time" />
       </div> -->
     </div>
-    <v-btn class="py-5" style="border:2px solid" :to="`/dashboard/scoreboard?id=${tournament.id}`">
+    <v-btn class="py-5 card-btn" :to="`/dashboard/scoreboard?id=${tournament.id}`">
       مشاهده جدول امتیازات
     </v-btn>
-    <v-btn class="py-5 mt-3" style="border:2px solid" :to="`/dashboard/games?id=${tournament.id}`">
+    <v-btn class="py-5 mt-3 card-btn" :to="`/dashboard/games?id=${tournament.id}`">
       مشاهده بازی‌ها
     </v-btn>
   </div>
@@ -42,6 +42,13 @@ export default {
   }
   .active {
     background-color: #1a1940;
+  }
+  .card-btn {
+    border: 2px solid white;
+    &:hover {
+      // color: var(--v-primary-base);
+      // border: 2px solid var(--v-primary-base);
+    }
   }
 }
 </style>
