@@ -92,7 +92,8 @@ export default {
     };
   },
 
-  async asyncData({ $axios }) {
+  async asyncData({ $axios, redirect }) {
+    redirect('/dashboard');
     let res = await $axios.$get('team');
     let haveTeam = false;
     let isPayed = res.level_one_payed;
