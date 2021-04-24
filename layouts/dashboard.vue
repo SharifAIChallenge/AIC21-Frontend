@@ -176,7 +176,7 @@ export default {
           this.openDialog();
         } else {
           this.routes.games.disabled = true;
-          this.routes.tournaments.disabled = true;
+          // this.routes.tournaments.disabled = true;
           this.routes.submissions.disabled = true;
         }
       }
