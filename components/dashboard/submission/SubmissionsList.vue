@@ -14,7 +14,7 @@
       @page-count="pageCount = $event"
     >
       <template v-slot:[`item.is_final`]="{ item }">
-        <v-btn icon @click="changeFinal(item)">
+        <v-btn icon disabled @click="changeFinal(item)">
           <v-icon>
             {{ item.is_final ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline' }}
           </v-icon>
