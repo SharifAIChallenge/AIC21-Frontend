@@ -179,6 +179,12 @@ export default {
           // this.routes.tournaments.disabled = true;
           this.routes.submissions.disabled = true;
         }
+        if (this.profile.is_finalist) {
+          this.routes.team.disabled = false;
+        }
+        if (this.$route.path === '/dashboard/team' && !this.profile.is_finalist) {
+          this.$router.push('/dashboard');
+        }
       }
     },
   },

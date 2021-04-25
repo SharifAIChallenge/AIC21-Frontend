@@ -93,10 +93,10 @@ export default {
   },
 
   async asyncData({ $axios, redirect }) {
-    redirect('/dashboard');
+    // redirect('/dashboard');
     let res = await $axios.$get('team');
     let haveTeam = false;
-    let isPayed = res.level_one_payed;
+    let isPayed = res.final_payed;
     if (res.status_code === 403) haveTeam = false;
     else {
       haveTeam = true;
