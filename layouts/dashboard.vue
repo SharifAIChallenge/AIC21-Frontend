@@ -13,7 +13,7 @@
         <template v-for="item in routes">
           <v-list-item
             :key="item.title"
-            class="py-6 pr-9 my-1"
+            class="py-6 pr-9"
             active-class="font-weight-bold"
             @click="activeLink = item.title"
             style="min-height:36px;height:36px;font-weight-bold"
@@ -181,6 +181,7 @@ export default {
         }
         if (this.profile.is_finalist) {
           this.routes.team.disabled = false;
+          this.routes.games.disabled = false;
         }
         if (this.$route.path === '/dashboard/team' && !this.profile.is_finalist) {
           this.$router.push('/dashboard');

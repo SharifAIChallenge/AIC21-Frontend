@@ -14,7 +14,7 @@
       @page-count="pageCount = $event"
     >
       <template v-slot:[`item.is_final`]="{ item }">
-        <v-btn icon disabled @click="changeFinal(item)">
+        <v-btn icon @click="changeFinal(item)">
           <v-icon>
             {{ item.is_final ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline' }}
           </v-icon>
@@ -44,7 +44,8 @@
         </v-btn>
       </template>
     </v-data-table>
-    <v-pagination v-model="page" :length="pageCount" :total-visible="5" class="my-3" />
+            <v-pagination v-model="page" :length="pageCount" :total-visible="5" class="my-3" />
+
     <v-dialog v-model="dialog" hide-overlay transition="dialog-bottom-transition" width="500">
       <div class="pa-4 bg-color-12">
         <p dir="ltr">
@@ -87,11 +88,10 @@ export default {
   },
   data() {
     return {
-      page: 1,
-      pageCount: 0,
-      itemsPerPage: 5,
       dialog: false,
       detail: '',
+      page: 1,
+      pageCount: 0,
     };
   },
   methods: {

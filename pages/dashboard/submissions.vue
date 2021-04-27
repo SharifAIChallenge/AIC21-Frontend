@@ -6,7 +6,7 @@
         <SectionContainer>
           <v-alert class=" px-1" type="info" outlined icon="mdi-information-outline">
             <p v-if="canSubmitAnotherCode">
-              محدودیت زمانی بین هر ارسال:‌ ۱۰ دقیقه
+              محدودیت زمانی بین هر ارسال:‌ ۵ دقیقه
             </p>
             <p v-else>
               <span>
@@ -26,7 +26,12 @@
       <v-card flat class="transparent">
         <SectionHeader :title="`تاریخچه ارسال ها`" :icon="`mdi-history`" />
         <!-- <SectionContainer> -->
+        <v-chip-group style="display: flex" v-model="mode" column active-class="secondary--text secondary">
+          <v-chip filter outlined>اصلی</v-chip>
+          <v-chip filter outlined>مینی‌گیم</v-chip>
+        </v-chip-group>
         <submissions-list class="py-6 py-md-12" :submissions="submissions" />
+
         <!-- </SectionContainer> -->
       </v-card>
     </v-col>
@@ -47,7 +52,7 @@ export default {
   transition: 'fade-transition',
 
   async fetch() {
-    let data = await viewSubmissions(this.$axios);
+    let data = await this.$axios.$get(`/team/submissions?is_mini=0`);
     this.submissions = data.submissions;
     this.calculateTimeInterval();
   },
@@ -57,17 +62,21 @@ export default {
       canSubmitAnotherCode: false,
       interval: null,
       remainTime: 0,
+      mode: 0,
     };
   },
   methods: {
+    async getData() {
+      let data = await this.$axios.$get(`/team/submissions?is_mini=${this.mode}`);
+      this.submissions = data.submissions;
+    },
     calculateTimeInterval() {
       if (!this.submissions.length) this.canSubmitAnotherCode = true;
       else {
         const lastSubmitTime = new Date(this.submissions[this.submissions.length - 1].submit_time);
         const interval = new Date() - lastSubmitTime;
         this.remainTime = interval / (60 * 1000);
-        this.canSubmitAnotherCode = this.remainTime > 10;
-        console.log(this.remainTime);
+        this.canSubmitAnotherCode = this.remainTime > 5;
       }
     },
   },
@@ -76,6 +85,11 @@ export default {
   },
   destroyed() {
     clearInterval(this.interval);
+  },
+  watch: {
+    mode: function() {
+      this.getData();
+    },
   },
 };
 </script>
