@@ -139,6 +139,14 @@ export default {
           disabled: false,
           gard: true,
         },
+        final: {
+          title: 'فینال',
+          icon: 'mdi-trophy-award',
+          hover: 'mdi-trophy-award',
+          link: '/final',
+          disabled: false,
+          gard: false,
+        },
       },
       bottomRoute: {
         settings: {

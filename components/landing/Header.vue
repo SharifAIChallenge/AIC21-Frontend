@@ -10,6 +10,7 @@
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/faq">سوالات متداول</v-btn>
         <v-btn plain :ripple="false" text tile :class="getClass()" to="/blog">اخبار</v-btn>
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">تاریخچه</v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/live">لایو</v-btn>
       </div>
     </v-dialog>
     <v-app-bar flat absolute :color="color">
@@ -38,6 +39,9 @@
         </v-btn>
         <v-btn plain text :ripple="false" tile :class="getClass()" to="/history">
           تاریخچه
+        </v-btn>
+        <v-btn plain text :ripple="false" tile :class="getClass()" to="/live">
+          لایو
         </v-btn>
         <sponsers-dropdown></sponsers-dropdown>
       </div>
