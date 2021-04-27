@@ -5,7 +5,7 @@
       center
       :items="submissions"
       :page.sync="page"
-      :items-per-page="itemsPerPage"
+      :items-per-page="20"
       hide-default-footer
       item-key="id"
       locale="fa"
@@ -16,7 +16,7 @@
       <template v-slot:[`item.is_final`]="{ item }">
         <v-btn icon @click="changeFinal(item)">
           <v-icon>
-            {{ item.is_final ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline' }}
+            {{ item.is_final || item.is_mini_game_final ? 'mdi-checkbox-marked' : 'mdi-checkbox-blank-outline' }}
           </v-icon>
         </v-btn>
       </template>
@@ -44,7 +44,7 @@
         </v-btn>
       </template>
     </v-data-table>
-            <v-pagination v-model="page" :length="pageCount" :total-visible="5" class="my-3" />
+    <v-pagination v-model="page" :length="pageCount" :total-visible="5" class="my-3" />
 
     <v-dialog v-model="dialog" hide-overlay transition="dialog-bottom-transition" width="500">
       <div class="pa-4 bg-color-12">

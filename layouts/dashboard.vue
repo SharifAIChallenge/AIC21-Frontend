@@ -147,6 +147,14 @@ export default {
           disabled: false,
           gard: false,
         },
+        live: {
+          title: 'لایو',
+          icon: 'mdi-presentation-play',
+          hover: 'mdi-presentation-play',
+          link: '/live',
+          disabled: false,
+          gard: false,
+        },
       },
       bottomRoute: {
         settings: {

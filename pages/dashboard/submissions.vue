@@ -30,7 +30,7 @@
           <v-chip filter outlined>اصلی</v-chip>
           <v-chip filter outlined>مینی‌گیم</v-chip>
         </v-chip-group>
-        <submissions-list class="py-6 py-md-12" :submissions="submissions" />
+        <submissions-list class="py-6 py-md-12" :submissions="submissions.filter(s => mode == s.is_mini_game)" />
 
         <!-- </SectionContainer> -->
       </v-card>
@@ -43,8 +43,6 @@ import SectionHeader from '~/components/SectionHeader';
 import SectionContainer from '~/components/SectionContainer';
 import CodeSubmission from '../../components/dashboard/submission/CodeSubmission';
 import SubmissionsList from '../../components/dashboard/submission/SubmissionsList';
-import { viewSubmissions } from '~/api/index';
-import { mapState } from 'vuex';
 
 export default {
   components: { CodeSubmission, SubmissionsList, SectionHeader, SectionContainer },
@@ -52,7 +50,7 @@ export default {
   transition: 'fade-transition',
 
   async fetch() {
-    let data = await this.$axios.$get(`/team/submissions?is_mini=0`);
+    let data = await this.$axios.$get(`/team/submission`);
     this.submissions = data.submissions;
     this.calculateTimeInterval();
   },
@@ -67,7 +65,7 @@ export default {
   },
   methods: {
     async getData() {
-      let data = await this.$axios.$get(`/team/submissions?is_mini=${this.mode}`);
+      let data = await this.$axios.$get(`/team/submission`);
       this.submissions = data.submissions;
     },
     calculateTimeInterval() {
@@ -85,11 +83,6 @@ export default {
   },
   destroyed() {
     clearInterval(this.interval);
-  },
-  watch: {
-    mode: function() {
-      this.getData();
-    },
   },
 };
 </script>

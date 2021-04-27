@@ -51,7 +51,7 @@
       <v-btn
         tile
         block
-        :disabled="!valid || !canSubmitAnotherCode || !profile || !profile.is_finalist"
+        :disabled="!file || !canSubmitAnotherCode || !profile || !profile.is_finalist || !isFinalPayed"
         :loading="loading"
         type="submit"
         v-bind="primaryButtonProps"
@@ -86,7 +86,13 @@ export default {
       fileHint: 'zip',
       fileRules: [v => !!v || ''],
       loading: false,
+      mode: 0,
+      isFinalPayed: false,
     };
+  },
+  async fetch() {
+    let res = await this.$axios.$get('team');
+    this.isFinalPayed = res.final_payed;
   },
   computed: {
     ...mapState({
