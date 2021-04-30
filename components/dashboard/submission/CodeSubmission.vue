@@ -44,11 +44,11 @@
         <nuxt-link to="/dashboard/doc/6-rules">قوانین و شرایط مسابقه</nuxt-link>
         است
       </div>
-      <!-- <v-btn tile block :disabled="true" :loading="loading" type="submit" v-bind="primaryButtonProps">
+      <v-btn tile block :disabled="true" :loading="loading" type="submit" v-bind="primaryButtonProps">
         <v-icon left>mdi-upload</v-icon>
         ارسال
-      </v-btn> -->
-      <v-btn
+      </v-btn>
+      <!-- <v-btn
         tile
         block
         :disabled="!file || !canSubmitAnotherCode || !profile || !profile.is_finalist || !isFinalPayed"
@@ -58,7 +58,7 @@
       >
         <v-icon left>mdi-upload</v-icon>
         ارسال
-      </v-btn>
+      </v-btn> -->
     </v-form>
   </div>
 </template>
