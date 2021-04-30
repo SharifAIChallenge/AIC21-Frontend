@@ -13,7 +13,7 @@
         <template v-for="item in routes">
           <v-list-item
             :key="item.title"
-            class="py-6 pr-9"
+            class="py-md-4 py-lg-5 py-xl-6 pr-9"
             active-class="font-weight-bold"
             @click="activeLink = item.title"
             style="min-height:36px;height:36px;font-weight-bold"

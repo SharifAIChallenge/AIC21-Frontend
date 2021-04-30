@@ -10,7 +10,7 @@
       <v-row>
         <v-chip-group style="display: flex" v-model="mode" column active-class="secondary--text secondary">
           <v-chip filter outlined>اصلی</v-chip>
-          <v-chip filter outlined>مینی‌گیم</v-chip>
+          <v-chip disabled filter outlined>مینی‌گیم</v-chip>
         </v-chip-group>
         <v-col cols="12">
           <v-file-input
